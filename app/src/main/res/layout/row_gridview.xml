@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:gravity="center"
+    android:padding="10dp"
+    android:orientation="vertical"
+    android:layout_height="100dp">
+
+    <LinearLayout
+        android:background="@drawable/button_theme"
+        android:layout_width="100dp"
+        android:padding="25dp"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/img_grid_img"
+            android:src="@drawable/add_user"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_gridtext"
+        android:text="@string/add_animal_owner"
+        android:autoSizeTextType="uniform"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -1,0 +1,898 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        tools:context=".ui.Form.feed_suppliment.FeedSuppliment">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/record2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+                <TextView
+                    android:id="@+id/txtno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/txt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+                <TextView
+                    android:text="@string/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toLeftOf="@+id/tv_date"
+                    android:layout_alignParentTop="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/txt"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/edit_theme"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/date_receipt"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <LinearLayout
+                        android:id="@+id/receipt_layout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/day"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/month"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="0dp"
+
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/year"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/receipt_layout2"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <EditText
+                            android:id="@+id/day"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black">
+
+                            <Spinner
+                                android:id="@+id/sp_month"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/date_receipt"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab" />
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black">
+
+                            <Spinner
+                                android:id="@+id/sp_year"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/date_receipt"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/animal_type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp">
+
+                        <Spinner
+                            android:id="@+id/sp_animal_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="@color/colorPrimary"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/tag_no"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_tagNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/age"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_age"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/start_weight"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_startweight"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:inputType="numberDecimal"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/milk_produciton"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_startmilkproduction"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:inputType="numberDecimal"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/feed_suppliment_amount"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_supplimetn_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:inputType="numberDecimal"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/feed_suppliment_start_date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <TextView
+                        android:id="@+id/edt_start_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:drawableRight="@drawable/calendar"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/after_90day"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <TextView
+                        android:id="@+id/edt_afterStart_90"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:drawableRight="@drawable/calendar"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_horizontal"
+                        android:text="@string/effect_present"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="22dp"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_mah1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/month1"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/weight"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_weight1"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:inputType="numberDecimal"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:paddingHorizontal="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_coatshining1"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_coatshining1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/coat_shining"
+                                android:layout_marginRight="10dp"
+                                android:paddingHorizontal="10dp"
+                                android:background = "@drawable/edit_theme_black"/>
+
+                            <LinearLayout
+                                android:layout_marginLeft="10dp"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_coatshining1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_milkproducion1"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_milkProduciton1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/milk_produciton"
+                                android:paddingHorizontal="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_milkproduciton1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_heatfreauency1"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_heatfrequency1"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/heat_friquency"
+                                android:paddingHorizontal="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_heatfrequency1"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_mah2"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/month2"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/weight"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_weight2"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                           android:inputType="numberDecimal"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:paddingHorizontal="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_coatshining2"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_coatshining2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/coat_shining"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp"/>
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:layout_weight="1">
+
+                                <Spinner
+                                    android:id="@+id/sp_coatshining2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp"
+                                   />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_milkproducion2"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_milkProduciton2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/milk_produciton"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_milkproduciton2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_heatfreauency2"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_heatfrequency2"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/heat_friquency"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_heatfrequency2"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_mah3"
+                        android:visibility="visible"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="@string/month3"
+                            android:gravity="center"
+                            android:textColor="@color/black"
+                            android:layout_marginTop="15dp"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/weight"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_weight3"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+
+                          android:inputType="numberDecimal"  android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:paddingHorizontal="10dp" />
+
+                        <LinearLayout
+                            android:id="@+id/layout_coatshining"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_coatshining3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:gravity="center_vertical"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/coat_shining"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_coatshining3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_milkproducion3"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_milkProduciton3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:gravity="center_vertical"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:text="@string/milk_produciton"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_milkproduciton3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/layout_heatfreauency"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
+
+                            <TextView
+                                android:id="@+id/tv_heatfrequency3"
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:textSize="@dimen/tv_size_medium_tab"
+                                android:textColor="@color/black"
+                                android:text="@string/heat_friquency"
+                                android:layout_marginRight="10dp"
+                                android:background="@drawable/edit_theme_black"
+                                android:paddingHorizontal="10dp" />
+
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/edit_theme_black">
+
+                                <Spinner
+                                    android:id="@+id/sp_heatfrequency3"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:backgroundTint="@color/colorPrimary"
+                                    android:paddingHorizontal="10dp" />
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                   <!-- <TextView
+                        android:id="@+id/addmore"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@string/addmore"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        />
+
+-->
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/next"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    android:drawableRight="@drawable/_next"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/privious"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:layout_marginBottom="15dp"
+                    android:text="@string/previous"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    android:drawableLeft="@drawable/_privious"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:id="@+id/tv_addRecord"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_toLeftOf="@+id/view1"
+                    android:background="@drawable/button_theme"
+                    android:backgroundTint="@android:color/black"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/addmore" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="20dp"
+                        android:text="@string/add_record"
+                        android:textColor="@android:color/white" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/tv_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_toRightOf="@+id/view1"
+                    android:background="@drawable/button_theme"
+                    android:gravity="center"
+                    android:text="@string/save"
+                    android:textColor="@android:color/white" />
+
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "17284471340",
+    "firebase_url": "https://racp-89e2c.firebaseio.com",
+    "project_id": "racp-89e2c",
+    "storage_bucket": "racp-89e2c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:17284471340:android:3906a13ec4aa297f",
+        "android_client_info": {
+          "package_name": "com.tekzee.racp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "17284471340-e4e4lgidrc8npcktdi1dk4oi731eimlf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tekzee.racp",
+            "certificate_hash": "8880b52f83b585b76773ee5b990fe1600f6b4bcd"
+          }
+        },
+        {
+          "client_id": "17284471340-5ajq4i951s96eot6ro2n0gsv2uc3rh2m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDtqfiktxFH9ouEY8KYviQz1H2lzXffRdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "17284471340-5ajq4i951s96eot6ro2n0gsv2uc3rh2m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

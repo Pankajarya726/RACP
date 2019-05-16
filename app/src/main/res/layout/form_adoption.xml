@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        tools:context=".ui.Form.adoption.Adoption">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/record2"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                   android:layout_toLeftOf="@+id/tv_date"
+                    android:layout_alignParentTop="true"
+                    android:text="@string/date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+
+
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+
+
+                <TextView
+                    android:id="@+id/txtno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/txt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+
+
+                <LinearLayout
+                    android:id="@+id/linear_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/txt"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/edit_theme"
+                    android:orientation="vertical"
+                    android:padding="20dp">
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="@string/activity"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_activity"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center"
+                        android:text="@string/detail_pashupakal"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="22dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/father_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_name_father"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/address"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/district"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edt_district"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:hint="@string/district"
+                        android:drawableRight="@drawable/spinner"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/vidhansabha"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/edt_vidhansabha"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:hint="@string/vidhansabha"
+                        android:drawableRight="@drawable/spinner"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/tehsil"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edt_tehsil"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:hint="@string/tehsil"
+                        android:drawableRight="@drawable/spinner"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/gram_panchayat"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edt_gramPanchayat"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:hint="@string/gram_panchayat"
+                        android:drawableRight="@drawable/spinner"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/village"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/edt_village"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/black"
+                        android:hint="@string/village"
+                        android:drawableRight="@drawable/spinner"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/mobile_number"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/edt_mobile"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:inputType="phone"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:paddingHorizontal="10dp" />
+
+
+
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/note"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:gravity="start"
+                        android:padding="10dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="20dp"
+                        android:text="@string/vidhansabha"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/next"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_alignParentRight="true"
+                    android:padding="10dp"
+                    android:text="@string/next"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/privious"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_alignParentLeft="true"
+                    android:padding="10dp"
+                    android:text="@string/previous"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="20dp"
+                    android:visibility="gone" />
+
+
+                <LinearLayout
+                    android:id="@+id/tv_addRecord"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_toLeftOf="@+id/view1"
+                    android:background="@drawable/button_theme"
+                    android:backgroundTint="@android:color/black"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/addmore" />
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:paddingLeft="20dp"
+                        android:text="@string/add_record"
+                        android:textColor="@android:color/white" />
+
+
+                </LinearLayout>
+
+
+                <View
+                    android:id="@+id/view1"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_centerHorizontal="true" />
+
+                <TextView
+                    android:id="@+id/tv_save"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/linear_layout"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:layout_toRightOf="@+id/view1"
+                    android:background="@drawable/button_theme"
+                    android:gravity="center"
+                    android:text="@string/save"
+                    android:textColor="@android:color/white" />
+
+
+            </RelativeLayout>
+
+
+        </ScrollView>
+    </RelativeLayout>
+</layout>

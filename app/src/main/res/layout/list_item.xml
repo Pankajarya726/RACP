@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="35dp">
+    <TextView
+        android:id="@+id/teekaname"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:gravity="left"
+        android:textSize="@dimen/tv_size_medium_tab"
+        android:textColor="@color/black"
+        android:layout_marginRight="25dp"
+        android:layout_height="match_parent" />
+    <TextView
+
+        android:id="@+id/teekadate"
+        android:layout_width="0dp"
+        android:paddingHorizontal="10dp"
+        android:textSize="@dimen/tv_size_medium_tab"
+        android:textColor="@color/black"
+        android:gravity="left"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableRight="@drawable/calendar"/>
+
+
+
+</LinearLayout>
