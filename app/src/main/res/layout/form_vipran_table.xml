@@ -22,8 +22,8 @@
 
                 <TextView
                     android:id="@+id/txt"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:text="@string/record2"
@@ -32,11 +32,30 @@
 
                 <TextView
                     android:id="@+id/txtno"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/txt"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toLeftOf="@+id/tv_date"
+                    android:text="@string/date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/login_title_size" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
 
@@ -49,176 +68,420 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
+                    android:layout_marginBottom="20dp"
                     android:padding="20dp">
-                    <RelativeLayout
-                        xmlns:android="http://schemas.android.com/apk/res/android"
+
+                    <LinearLayout
+                        android:id="@+id/layout_mtgselection"
                         android:layout_width="match_parent"
-                        android:padding="15dp"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:text="@string/animal_type"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
-                            android:layout_toLeftOf="@+id/mview"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="@string/mtg_group"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/sp_mtg_group"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:hint="@string/selcet_mtg_group"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/mtg_group"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/sp_mtg_person"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:hint="@string/selcet_mtg_person"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+
+                    </LinearLayout>
+
+
+                    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/animal_owner_name"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_name"
+                            android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/gram_panchayat"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:id="@+id/edt_gramPanchayat"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_name"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:hint="@string/gram_panchayat"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_gramPanchayat"
+                            android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/village"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:id="@+id/edt_village"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_gramPanchayat"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:hint="@string/village"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_village"
+                            android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/mobile_number"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_mobile"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_village"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:inputType="phone"
+                            android:maxLength="10"
+                            android:maxEms="10"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_mobile"
+                            android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@+id/mview"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/address"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_mobile"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_address"
+                            android:layout_marginTop="20dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/animal_type"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
                             android:id="@+id/animel_type"
-                            android:text="@string/animal_type"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_address"
+                            android:layout_marginTop="20dp"
                             android:layout_toRightOf="@+id/mview"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
-
-                        <TextView
-                            android:text="@string/tag_no"
-                            android:layout_marginTop="15dp"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
                             android:background="@drawable/edit_theme_black"
-                            android:layout_toLeftOf="@+id/mview"
-                            android:layout_below="@+id/animel_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
-                            android:id="@+id/tagno"
+                            android:id="@+id/tv_tag_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
                             android:layout_below="@+id/animel_type"
                             android:layout_marginTop="15dp"
+                            android:layout_toLeftOf="@+id/mview"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
                             android:text="@string/tag_no"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
-                            android:layout_toRightOf="@+id/mview"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_tagNo"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_below="@+id/animel_type"
+                            android:layout_marginTop="15dp"
+                            android:inputType="number"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
-                            android:text="@string/age"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_tagNo"
                             android:layout_marginTop="15dp"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
                             android:layout_toLeftOf="@+id/mview"
-                            android:layout_below="@+id/tagno"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
 
-                        <TextView
-                            android:id="@+id/age"
-                            android:layout_below="@+id/tagno"
-                            android:layout_marginTop="15dp"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
                             android:text="@string/age"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
-                            android:layout_toRightOf="@+id/mview"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_age"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_below="@+id/edt_tagNo"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
 
                         <TextView
-                            android:text="@string/weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_age"
                             android:layout_marginTop="15dp"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
                             android:layout_toLeftOf="@+id/mview"
-                            android:layout_below="@+id/age"
+
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/weight"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <EditText
+                            android:id="@+id/edt_weight"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_below="@+id/edt_age"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:inputType="numberDecimal"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
 
                         <TextView
-                            android:id="@+id/weight"
-                            android:layout_below="@+id/age"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/weight"
-                            android:gravity="center_vertical"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
-                            android:layout_toRightOf="@+id/mview"
+                            android:id="@+id/bechan_yogya"
                             android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/edt_weight"
+                            android:layout_marginTop="15dp"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/avail_for_sale"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <CheckBox
+                            android:id="@+id/check_yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/bechan_yogya"
+                            android:layout_toLeftOf="@+id/mview"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/yes" />
+
+                        <CheckBox
+                            android:id="@+id/check_no"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/bechan_yogya"
+                            android:layout_toRightOf="@+id/mview"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/no" />
 
                         <TextView
                             android:id="@+id/immunization"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/check_yes"
+                            android:layout_marginTop="15dp"
+                            android:gravity="center"
                             android:text="@string/immunization"
-                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/colorPrimary"
-                            android:layout_marginTop="15dp"
-                            android:layout_below="@+id/weight"
-                            android:gravity="center"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content" />
-
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
-                            android:text="@string/weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/immunization"
                             android:layout_marginTop="15dp"
-                            android:gravity="center"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:background="@drawable/edit_theme_black"
                             android:layout_toLeftOf="@+id/mview"
-                            android:layout_below="@+id/immunization"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:gravity="center"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/name_teeka"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
-                            android:id="@+id/teeka_date"
-                            android:layout_below="@+id/immunization"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/weight"
-                            android:gravity="center"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:layout_toRightOf="@+id/mview"
+                            android:id="@+id/tv_teeka_date"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:paddingHorizontal="10dp"/>
+                            android:layout_below="@+id/immunization"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:gravity="center"
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/immunization_date"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <android.support.v7.widget.RecyclerView
-                            android:layout_marginTop="10dp"
-                            android:layout_below="@+id/teeka_date"
                             android:id="@+id/rv_immunization"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_teeka_date"
+                            android:layout_marginTop="10dp">
 
                         </android.support.v7.widget.RecyclerView>
 
 
                         <View
                             android:id="@+id/mview"
-                            android:layout_centerHorizontal="true"
                             android:layout_width="20dp"
-                            android:layout_height="0dp"/>
+                            android:layout_height="0dp"
+                            android:layout_centerHorizontal="true" />
+
+
+                        <LinearLayout
+                            android:id="@+id/layout_teeka"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/rv_immunization"
+                            android:layout_toLeftOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black">
+
+                            <Spinner
+                                android:id="@+id/sp_teeka"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:backgroundTint="@color/colorPrimary"
+                                android:paddingHorizontal="10dp">
+
+                            </Spinner>
+
+
+                        </LinearLayout>
+
+
+                        <TextView
+                            android:id="@+id/teeka_date"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@id/rv_immunization"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/calendar"
+                            android:paddingHorizontal="10dp" />
                     </RelativeLayout>
-
-
-
-
-
 
 
                 </LinearLayout>
@@ -230,6 +493,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableRight="@drawable/_next"
                     android:padding="10dp"
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
@@ -242,6 +507,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"
                     android:padding="10dp"
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
@@ -249,13 +516,13 @@
                     android:visibility="gone" />
 
 
-                <LinearLayout
+               <!-- <LinearLayout
                     android:id="@+id/tv_addRecord"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_below="@+id/linear_layout"
                     android:layout_marginLeft="20dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="50dp"
                     android:layout_toLeftOf="@+id/view1"
@@ -281,7 +548,7 @@
 
 
                 </LinearLayout>
-
+-->
 
                 <View
                     android:id="@+id/view1"
@@ -295,7 +562,7 @@
                     android:layout_height="40dp"
                     android:layout_below="@+id/linear_layout"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginTop="50dp"
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="50dp"
                     android:layout_toRightOf="@+id/view1"

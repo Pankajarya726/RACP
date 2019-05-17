@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
 import com.tekzee.racp.ui.Form.mtg_meeting.MtgMeeting;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.MtgTraining;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.PahsuChikitsha;
+import com.tekzee.racp.ui.Form.vipran_talika.VipranTableActivity;
 import com.tekzee.racp.ui.addMGTgroup.AddMtgActivity;
 import com.tekzee.racp.ui.add_animal_owner.AddOwnerActivity;
 import com.tekzee.racp.ui.base.MvpFragment;
@@ -43,7 +45,7 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
     GridAdapter gridAdapter;
     SqliteDB sqliteDB = new SqliteDB(getContext());
     private FragmentDashboardBinding binding;
-    private List <Homemenu> homemenuList;
+    private List <Homemenu> homemenuList ;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -174,6 +176,12 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
                 Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
+            case 10:
+                Intent intent10 = new Intent(getActivity(), VipranTableActivity.class);
+                intent10.putExtra("form_id", m.getMenuId());
+                startActivity(intent10);
+                break;
+
         }
 
     }
@@ -230,7 +238,7 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
         List <Homemenu> mlist = new ArrayList <>();
         mlist = homemenus;
 
-        gridAdapter = new GridAdapter(getContext(), mlist);
+        gridAdapter = new GridAdapter(getContext(), homemenuList);
         binding.gridview.setAdapter(gridAdapter);
 
     }

@@ -134,6 +134,9 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+Log.e(tag,commonResult.getMessage());
+
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
         Cursor cursor = sqliteDB.getMtgMember(group_id);
         if (cursor.getCount() == 0) {

@@ -29,49 +29,49 @@ private Integer bakraBhar;
 private Integer bakraAge;
 @SerializedName("bakri_tag_no")
 @Expose
-private Object bakriTagNo;
+private Integer bakriTagNo;
 @SerializedName("bakri_bhar")
 @Expose
 private Object bakriBhar;
 @SerializedName("bakri_age")
 @Expose
-private Object bakriAge;
+private Integer bakriAge;
 @SerializedName("nar_tag_no")
 @Expose
-private Object narTagNo;
+private Integer narTagNo;
 @SerializedName("nar_bhar")
 @Expose
 private Object narBhar;
 @SerializedName("nar_age")
 @Expose
-private Object narAge;
+private Integer narAge;
 @SerializedName("mada_tag_no")
 @Expose
-private Object madaTagNo;
+private Integer madaTagNo;
 @SerializedName("mada_bhar")
 @Expose
 private Object madaBhar;
 @SerializedName("mada_age")
 @Expose
-private Object madaAge;
+private Integer madaAge;
 @SerializedName("parent_bakre_ka_tag_no")
 @Expose
-private Object parentBakreKaTagNo;
+private Integer parentBakreKaTagNo;
 @SerializedName("parent_bakre_ka_bhar")
 @Expose
-private Object parentBakreKaBhar;
+private Integer parentBakreKaBhar;
 @SerializedName("parent_bakre_ki_age")
 @Expose
-private Object parentBakreKiAge;
+private Integer parentBakreKiAge;
 @SerializedName("parent_bakri_ka_tag_no")
 @Expose
-private Object parentBakriKaTagNo;
+private Integer parentBakriKaTagNo;
 @SerializedName("parent_bakri_ka_bhar")
 @Expose
 private Object parentBakriKaBhar;
 @SerializedName("parent_bakri_ki_age")
 @Expose
-private Object parentBakriKiAge;
+private Integer parentBakriKiAge;
 @SerializedName("date_receipt")
 @Expose
 private String dateReceipt;
@@ -83,254 +83,159 @@ private Integer formId;
 * No args constructor for use in serialization
 *
 */
+
+
 public Data() {
 }
+    /**
+     *
+     * @param parentBakreKaBhar
+     * @param madaAge
+     * @param narAge
+     * @param parentBakreKaTagNo
+     * @param bakriBhar
+     * @param parentBakreKiAge
+     * @param dateReceipt
+     * @param narBhar
+     * @param parentBakriKaTagNo
+     * @param parentBakriKiAge
+     * @param madaTagNo
+     * @param usability
+     * @param parentBakriKaBhar
+     * @param tableId
+     * @param formId
+     * @param bakraBhar
+     * @param bakriTagNo
+     * @param bakriAge
+     * @param bakraTagNo
+     * @param bakraAge
+     * @param narTagNo
+     * @param animaltypeId
+     * @param madaBhar
+     * @param physicalProof
+     */
 
-/**
-*
-* @param parentBakreKaBhar
-* @param madaAge
-* @param narAge
-* @param parentBakreKaTagNo
-* @param bakriBhar
-* @param parentBakreKiAge
-* @param dateReceipt
-* @param narBhar
-* @param parentBakriKaTagNo
-* @param parentBakriKiAge
-* @param madaTagNo
-* @param usability
-* @param parentBakriKaBhar
-* @param tableId
-* @param formId
-* @param bakraBhar
-* @param bakriTagNo
-* @param bakriAge
-* @param bakraTagNo
-* @param bakraAge
-* @param narTagNo
-* @param animaltypeId
-* @param madaBhar
-* @param physicalProof
-*/
-public Data(Integer tableId, Integer animaltypeId, String physicalProof, String usability, Integer bakraTagNo, Integer bakraBhar, Integer bakraAge, Object bakriTagNo, Object bakriBhar, Object bakriAge, Object narTagNo, Object narBhar, Object narAge, Object madaTagNo, Object madaBhar, Object madaAge, Object parentBakreKaTagNo, Object parentBakreKaBhar, Object parentBakreKiAge, Object parentBakriKaTagNo, Object parentBakriKaBhar, Object parentBakriKiAge, String dateReceipt, Integer formId) {
-super();
-this.tableId = tableId;
-this.animaltypeId = animaltypeId;
-this.physicalProof = physicalProof;
-this.usability = usability;
-this.bakraTagNo = bakraTagNo;
-this.bakraBhar = bakraBhar;
-this.bakraAge = bakraAge;
-this.bakriTagNo = bakriTagNo;
-this.bakriBhar = bakriBhar;
-this.bakriAge = bakriAge;
-this.narTagNo = narTagNo;
-this.narBhar = narBhar;
-this.narAge = narAge;
-this.madaTagNo = madaTagNo;
-this.madaBhar = madaBhar;
-this.madaAge = madaAge;
-this.parentBakreKaTagNo = parentBakreKaTagNo;
-this.parentBakreKaBhar = parentBakreKaBhar;
-this.parentBakreKiAge = parentBakreKiAge;
-this.parentBakriKaTagNo = parentBakriKaTagNo;
-this.parentBakriKaBhar = parentBakriKaBhar;
-this.parentBakriKiAge = parentBakriKiAge;
-this.dateReceipt = dateReceipt;
-this.formId = formId;
-}
+    public Data(Integer tableId, Integer animaltypeId, String physicalProof, String usability, Integer bakraTagNo, Integer bakraBhar, Integer bakraAge, Integer bakriTagNo, Object bakriBhar, Integer bakriAge, Integer narTagNo, Object narBhar, Integer narAge, Integer madaTagNo, Object madaBhar, Integer madaAge, Integer parentBakreKaTagNo, Integer parentBakreKaBhar, Integer parentBakreKiAge, Integer parentBakriKaTagNo, Object parentBakriKaBhar, Integer parentBakriKiAge, String dateReceipt, Integer formId) {
+        this.tableId = tableId;
+        this.animaltypeId = animaltypeId;
+        this.physicalProof = physicalProof;
+        this.usability = usability;
+        this.bakraTagNo = bakraTagNo;
+        this.bakraBhar = bakraBhar;
+        this.bakraAge = bakraAge;
+        this.bakriTagNo = bakriTagNo;
+        this.bakriBhar = bakriBhar;
+        this.bakriAge = bakriAge;
+        this.narTagNo = narTagNo;
+        this.narBhar = narBhar;
+        this.narAge = narAge;
+        this.madaTagNo = madaTagNo;
+        this.madaBhar = madaBhar;
+        this.madaAge = madaAge;
+        this.parentBakreKaTagNo = parentBakreKaTagNo;
+        this.parentBakreKaBhar = parentBakreKaBhar;
+        this.parentBakreKiAge = parentBakreKiAge;
+        this.parentBakriKaTagNo = parentBakriKaTagNo;
+        this.parentBakriKaBhar = parentBakriKaBhar;
+        this.parentBakriKiAge = parentBakriKiAge;
+        this.dateReceipt = dateReceipt;
+        this.formId = formId;
+    }
 
-public Integer getTableId() {
-return tableId;
-}
 
-public void setTableId(Integer tableId) {
-this.tableId = tableId;
-}
+    public Integer getTableId() {
+        return tableId;
+    }
 
-public Integer getAnimaltypeId() {
-return animaltypeId;
-}
+    public Integer getAnimaltypeId() {
+        return animaltypeId;
+    }
 
-public void setAnimaltypeId(Integer animaltypeId) {
-this.animaltypeId = animaltypeId;
-}
+    public String getPhysicalProof() {
+        return physicalProof;
+    }
 
-public String getPhysicalProof() {
-return physicalProof;
-}
+    public String getUsability() {
+        return usability;
+    }
 
-public void setPhysicalProof(String physicalProof) {
-this.physicalProof = physicalProof;
-}
+    public Integer getBakraTagNo() {
+        return bakraTagNo;
+    }
 
-public String getUsability() {
-return usability;
-}
+    public Integer getBakraBhar() {
+        return bakraBhar;
+    }
 
-public void setUsability(String usability) {
-this.usability = usability;
-}
+    public Integer getBakraAge() {
+        return bakraAge;
+    }
 
-public Integer getBakraTagNo() {
-return bakraTagNo;
-}
+    public Integer getBakriTagNo() {
+        return bakriTagNo;
+    }
 
-public void setBakraTagNo(Integer bakraTagNo) {
-this.bakraTagNo = bakraTagNo;
-}
+    public Object getBakriBhar() {
+        return bakriBhar;
+    }
 
-public Integer getBakraBhar() {
-return bakraBhar;
-}
+    public Integer getBakriAge() {
+        return bakriAge;
+    }
 
-public void setBakraBhar(Integer bakraBhar) {
-this.bakraBhar = bakraBhar;
-}
+    public Integer getNarTagNo() {
+        return narTagNo;
+    }
 
-public Integer getBakraAge() {
-return bakraAge;
-}
+    public Object getNarBhar() {
+        return narBhar;
+    }
 
-public void setBakraAge(Integer bakraAge) {
-this.bakraAge = bakraAge;
-}
+    public Integer getNarAge() {
+        return narAge;
+    }
 
-public Object getBakriTagNo() {
-return bakriTagNo;
-}
+    public Integer getMadaTagNo() {
+        return madaTagNo;
+    }
 
-public void setBakriTagNo(Object bakriTagNo) {
-this.bakriTagNo = bakriTagNo;
-}
+    public Object getMadaBhar() {
+        return madaBhar;
+    }
 
-public Object getBakriBhar() {
-return bakriBhar;
-}
+    public Integer getMadaAge() {
+        return madaAge;
+    }
 
-public void setBakriBhar(Object bakriBhar) {
-this.bakriBhar = bakriBhar;
-}
+    public Integer getParentBakreKaTagNo() {
+        return parentBakreKaTagNo;
+    }
 
-public Object getBakriAge() {
-return bakriAge;
-}
+    public Integer getParentBakreKaBhar() {
+        return parentBakreKaBhar;
+    }
 
-public void setBakriAge(Object bakriAge) {
-this.bakriAge = bakriAge;
-}
+    public Integer getParentBakreKiAge() {
+        return parentBakreKiAge;
+    }
 
-public Object getNarTagNo() {
-return narTagNo;
-}
+    public Integer getParentBakriKaTagNo() {
+        return parentBakriKaTagNo;
+    }
 
-public void setNarTagNo(Object narTagNo) {
-this.narTagNo = narTagNo;
-}
+    public Object getParentBakriKaBhar() {
+        return parentBakriKaBhar;
+    }
 
-public Object getNarBhar() {
-return narBhar;
-}
+    public Integer getParentBakriKiAge() {
+        return parentBakriKiAge;
+    }
 
-public void setNarBhar(Object narBhar) {
-this.narBhar = narBhar;
-}
+    public String getDateReceipt() {
+        return dateReceipt;
+    }
 
-public Object getNarAge() {
-return narAge;
-}
-
-public void setNarAge(Object narAge) {
-this.narAge = narAge;
-}
-
-public Object getMadaTagNo() {
-return madaTagNo;
-}
-
-public void setMadaTagNo(Object madaTagNo) {
-this.madaTagNo = madaTagNo;
-}
-
-public Object getMadaBhar() {
-return madaBhar;
-}
-
-public void setMadaBhar(Object madaBhar) {
-this.madaBhar = madaBhar;
-}
-
-public Object getMadaAge() {
-return madaAge;
-}
-
-public void setMadaAge(Object madaAge) {
-this.madaAge = madaAge;
-}
-
-public Object getParentBakreKaTagNo() {
-return parentBakreKaTagNo;
-}
-
-public void setParentBakreKaTagNo(Object parentBakreKaTagNo) {
-this.parentBakreKaTagNo = parentBakreKaTagNo;
-}
-
-public Object getParentBakreKaBhar() {
-return parentBakreKaBhar;
-}
-
-public void setParentBakreKaBhar(Object parentBakreKaBhar) {
-this.parentBakreKaBhar = parentBakreKaBhar;
-}
-
-public Object getParentBakreKiAge() {
-return parentBakreKiAge;
-}
-
-public void setParentBakreKiAge(Object parentBakreKiAge) {
-this.parentBakreKiAge = parentBakreKiAge;
-}
-
-public Object getParentBakriKaTagNo() {
-return parentBakriKaTagNo;
-}
-
-public void setParentBakriKaTagNo(Object parentBakriKaTagNo) {
-this.parentBakriKaTagNo = parentBakriKaTagNo;
-}
-
-public Object getParentBakriKaBhar() {
-return parentBakriKaBhar;
-}
-
-public void setParentBakriKaBhar(Object parentBakriKaBhar) {
-this.parentBakriKaBhar = parentBakriKaBhar;
-}
-
-public Object getParentBakriKiAge() {
-return parentBakriKiAge;
-}
-
-public void setParentBakriKiAge(Object parentBakriKiAge) {
-this.parentBakriKiAge = parentBakriKiAge;
-}
-
-public String getDateReceipt() {
-return dateReceipt;
-}
-
-public void setDateReceipt(String dateReceipt) {
-this.dateReceipt = dateReceipt;
-}
-
-public Integer getFormId() {
-return formId;
-}
-
-public void setFormId(Integer formId) {
-this.formId = formId;
-}
-
+    public Integer getFormId() {
+        return formId;
+    }
 }

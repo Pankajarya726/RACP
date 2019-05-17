@@ -87,7 +87,7 @@
     <string name="something_went_wrong">Somthing went wrong</string>
     <string name="selcet_mtg_group">MTG ग्रुप चुने  </string>
 
-    <string name="search_mtg_group">MTG ग्रुप खोजे ( पशु पालक )</string>
+    <string name="search_mtg_group">MTG ग्रुप खोजे </string>
     <string name="selcet_mtg_person">MTG सदस्य चुने ( पशु पालक )</string>
     <string name="search_mtg_person">MTG सदस्य खोजे ( पशु पालक )</string>
     <string name="bakra">बकरा</string>
@@ -268,6 +268,22 @@
     <string name="select_form_type">कृपया फॉर्म प्रकार चुने</string>
     <string name="show_fille_fom">भरा हुआ फॉर्म देखे</string>
     <string name="fill_new_form">नया फॉर्म भरे</string>
+    <string name="is_mtg_member_or_not">MTG सदस्य है या नहीं</string>
+    <string name="avail_for_sale">बेचान योग्य है या नहीं</string>
+    <string name="enter_gram_panchayat">ग्राम पंचायत का नाम भरे</string>
+    <string name="enter_village">ग्राम का नाम भरे</string>
+    <string name="enter_shivir_place">शिविर स्थान भरे</string>
+    <string name="enter_shivir_orginization_date">शिविर आयोजक दिनांक भरे</string>
+    <string name="enter_tehsil">तहसील का नाम भरे</string>
+    <string name="enter_vidhansavha">विधानसभा का नाम भरे</string>
+    <string name="view_detail">पूरा विवरण देखे</string>
+    <string name="enter_animal_owner_name">पशुपालक का नाम दर्ज करे</string>
+    <string name="select_identification_type">पहचान प्रकार चुने</string>
+    <string name="enter_identification_number">पहचान संख्या भरे</string>
+    <string name="select_farmer_type">किसान प्रकार चुने</string>
+    <string name="select_farmer_unit">पशुपालक श्रेणी चुने</string>
+    <string name="select_farmer_category">पशुपालक केटेगरी चुने</string>
+    <string name="not_found">पशुपालक नहीं मिला</string>
 
 
 </resources>

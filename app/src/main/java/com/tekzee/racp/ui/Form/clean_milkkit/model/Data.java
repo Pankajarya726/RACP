@@ -16,7 +16,7 @@ private String physicalProof;
 private String usability;
 @SerializedName("note")
 @Expose
-private Object note;
+private String note;
 @SerializedName("reagent_availability")
 @Expose
 private String reagentAvailability;
@@ -64,7 +64,7 @@ public Data() {
 * @param afterUseCleanMilkKeet
 * @param note
 */
-public Data(Integer tableId, String physicalProof, String usability, Object note, String reagentAvailability, String testDate, String llwVisitingDate, String thanelaRogResult, String beforeUseCleanMilkKeet, String afterUseCleanMilkKeet, String dateReceipt, Integer formId) {
+public Data(Integer tableId, String physicalProof, String usability, String  note, String reagentAvailability, String testDate, String llwVisitingDate, String thanelaRogResult, String beforeUseCleanMilkKeet, String afterUseCleanMilkKeet, String dateReceipt, Integer formId) {
 super();
 this.tableId = tableId;
 this.physicalProof = physicalProof;
@@ -104,11 +104,11 @@ public void setUsability(String usability) {
 this.usability = usability;
 }
 
-public Object getNote() {
+public String getNote() {
 return note;
 }
 
-public void setNote(Object note) {
+public void setNote(String note) {
 this.note = note;
 }
 

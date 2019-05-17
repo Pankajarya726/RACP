@@ -5,123 +5,136 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-@SerializedName("table_id")
-@Expose
-private Integer tableId;
-@SerializedName("date_receipt")
-@Expose
-private Object dateReceipt;
-@SerializedName("form_id")
-@Expose
-private Integer formId;
-@SerializedName("created_at")
-@Expose
-private String createdAt;
-@SerializedName("training_date")
-@Expose
-private String trainingDate;
-@SerializedName("trainee_number")
-@Expose
-private Integer traineeNumber;
-@SerializedName("training_place")
-@Expose
-private String trainingPlace;
-@SerializedName("note")
-@Expose
-private String note;
+    @SerializedName("table_id")
+    @Expose
+    private Integer tableId;
+    @SerializedName("mtggroup_name")
+    @Expose
+    private String mtggroupName;
+    @SerializedName("date_receipt")
+    @Expose
+    private String dateReceipt;
+    @SerializedName("form_id")
+    @Expose
+    private Integer formId;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("training_date")
+    @Expose
+    private String trainingDate;
+    @SerializedName("trainee_number")
+    @Expose
+    private Integer traineeNumber;
+    @SerializedName("training_place")
+    @Expose
+    private String trainingPlace;
+    @SerializedName("note")
+    @Expose
+    private String note;
 
-/**
-* No args constructor for use in serialization
-*
-*/
-public Data() {
-}
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Data() {
+    }
 
-/**
-*
-* @param tableId
-* @param formId
-* @param traineeNumber
-* @param createdAt
-* @param trainingPlace
-* @param dateReceipt
-* @param trainingDate
-* @param note
-*/
-public Data(Integer tableId, Object dateReceipt, Integer formId, String createdAt, String trainingDate, Integer traineeNumber, String trainingPlace, String note) {
-super();
-this.tableId = tableId;
-this.dateReceipt = dateReceipt;
-this.formId = formId;
-this.createdAt = createdAt;
-this.trainingDate = trainingDate;
-this.traineeNumber = traineeNumber;
-this.trainingPlace = trainingPlace;
-this.note = note;
-}
+    /**
+     *
+     * @param mtggroupName
+     * @param tableId
+     * @param formId
+     * @param traineeNumber
+     * @param createdAt
+     * @param trainingPlace
+     * @param dateReceipt
+     * @param trainingDate
+     * @param note
+     */
+    public Data(Integer tableId, String mtggroupName, String dateReceipt, Integer formId, String createdAt, String trainingDate, Integer traineeNumber, String trainingPlace, String note) {
+        super();
+        this.tableId = tableId;
+        this.mtggroupName = mtggroupName;
+        this.dateReceipt = dateReceipt;
+        this.formId = formId;
+        this.createdAt = createdAt;
+        this.trainingDate = trainingDate;
+        this.traineeNumber = traineeNumber;
+        this.trainingPlace = trainingPlace;
+        this.note = note;
+    }
 
-public Integer getTableId() {
-return tableId;
-}
+    public Integer getTableId() {
+        return tableId;
+    }
 
-public void setTableId(Integer tableId) {
-this.tableId = tableId;
-}
+    public void setTableId(Integer tableId) {
+        this.tableId = tableId;
+    }
 
-public Object getDateReceipt() {
-return dateReceipt;
-}
+    public String getMtggroupName() {
+        return mtggroupName;
+    }
 
-public void setDateReceipt(Object dateReceipt) {
-this.dateReceipt = dateReceipt;
-}
+    public void setMtggroupName(String mtggroupName) {
+        this.mtggroupName = mtggroupName;
+    }
 
-public Integer getFormId() {
-return formId;
-}
+    public String getDateReceipt() {
+        return dateReceipt;
+    }
 
-public void setFormId(Integer formId) {
-this.formId = formId;
-}
+    public void setDateReceipt(String  dateReceipt) {
+        this.dateReceipt = dateReceipt;
+    }
 
-public String getCreatedAt() {
-return createdAt;
-}
+    public Integer getFormId() {
+        return formId;
+    }
 
-public void setCreatedAt(String createdAt) {
-this.createdAt = createdAt;
-}
+    public void setFormId(Integer formId) {
+        this.formId = formId;
+    }
 
-public String getTrainingDate() {
-return trainingDate;
-}
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-public void setTrainingDate(String trainingDate) {
-this.trainingDate = trainingDate;
-}
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-public Integer getTraineeNumber() {
-return traineeNumber;
-}
+    public String getTrainingDate() {
+        return trainingDate;
+    }
 
-public void setTraineeNumber(Integer traineeNumber) {
-this.traineeNumber = traineeNumber;
-}
+    public void setTrainingDate(String trainingDate) {
+        this.trainingDate = trainingDate;
+    }
 
-public String getTrainingPlace() {
-return trainingPlace;
-}
+    public Integer getTraineeNumber() {
+        return traineeNumber;
+    }
 
-public void setTrainingPlace(String trainingPlace) {
-this.trainingPlace = trainingPlace;
-}
+    public void setTraineeNumber(Integer traineeNumber) {
+        this.traineeNumber = traineeNumber;
+    }
 
-public String getNote() {
-return note;
-}
+    public String getTrainingPlace() {
+        return trainingPlace;
+    }
 
-public void setNote(String note) {
-this.note = note;
-}
+    public void setTrainingPlace(String trainingPlace) {
+        this.trainingPlace = trainingPlace;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
 
 }

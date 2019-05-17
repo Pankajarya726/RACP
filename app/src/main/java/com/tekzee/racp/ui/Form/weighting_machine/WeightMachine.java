@@ -43,8 +43,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     private String subAnimal_type = "";
     private int record_count = 1;
     private int recordNo = 1;
-    private int category_id;
-    private int type_id;
+    private int category_id =0;
+    private int type_id =0;
     private String bakriWeight = "";
     private int table_id;
 
@@ -68,6 +68,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
         DataWeighitngMachine.deleteAll(DataWeighitngMachine.class);
 
+
+        binding.txtno.setText(String.valueOf(record_count));
         binding.tvDate.setText(mDatePickerDialog.showDate());
         binding.checkProofNo.setOnClickListener(this);
         binding.checkProofYes.setOnClickListener(this);
@@ -101,7 +103,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             case R.id.sp_subanimal_type:
                 mvpPresenter.getAnimalTypeByCategory(category_id);
                 break;
-
 
             case R.id.check_proof_yes:
                 if (binding.checkProofYes.isChecked()) {
@@ -162,7 +163,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
             case R.id.tv_addRecord:
                 addRecordinSqlite();
-                if (addRecordinSqlite()) {
+                /*if (addRecordinSqlite()) {
 
                     binding.day.setText("");
                     binding.spMonth.setSelection(0);
@@ -189,7 +190,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                     binding.privious.setVisibility(View.VISIBLE);
                     record_count++;
                 }
-
+*/
                 break;
 
             case R.id.next:
@@ -213,19 +214,33 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         Log.e(tag, "size is" + detailList.size());
 
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
-
             Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
             return false;
         } else if (!binding.checkUseNo.isChecked() && !binding.checkUseYes.isChecked()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.in_use_or_not));
             return false;
         } else if (binding.spAnimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_category))) {
+
+            Log.e(binding.spAnimalType.getText().toString(),getString(R.string.animal_category));
+            Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
+            return false;
+        } else if (category_id ==0) {
+
+            Log.e(binding.spAnimalType.getText().toString(),getString(R.string.animal_category));
             Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
             return false;
         } else if (binding.spSubanimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_type))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return false;
-        } else {
+        }else if (type_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
+            return false;
+        }
+
+
+        else {
+
+            Log.e("adsjbajdksgh","adjhgkjasdhgkjahsg");
 
             String day;
             if (binding.day.getText().toString().isEmpty()) {
@@ -347,8 +362,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                     return true;
 
                 }
-            }
-            if (category_id == 2) {
+            } else if (category_id == 2) {
 
                 Log.e(tag, "" + category_id);
 
@@ -370,6 +384,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                     Dialogs.showColorDialog(getContext(), getString(R.string.enter_weight));
                     return false;
                 }
+
+
                 if (type_id == 3) {
                     Log.e(tag, "type_id" + type_id);
 
@@ -448,6 +464,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                             ""
                     );
                     dataWeighitngMachine.save();
+
+
                     return true;
 
                 }
@@ -461,6 +479,30 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             binding.txtno.setText(String.valueOf(recordNo));
 
             binding.day.setText("");
+            binding.day.setText("");
+            binding.spMonth.setSelection(0);
+            binding.spYear.setSelection(1);
+            binding.checkUseYes.setChecked(false);
+            binding.checkUseNo.setChecked(false);
+            binding.checkProofYes.setChecked(false);
+            binding.checkProofNo.setChecked(false);
+            binding.spAnimalType.setHint(R.string.animal_category);
+            binding.spSubanimalType.setHint(R.string.animal_type);
+            binding.edtTagNoAdult.setText("");
+            binding.edtAgeAdult.setText("");
+            binding.edtWeightAdult.setText("");
+            binding.edtTagnoBakra.setText("");
+            binding.edtTagnoBakri.setText("");
+            binding.edtTagnoProgeni.setText("");
+            binding.edtWeightProgeni.setText("");
+            binding.edtAgeProgeni.setText("");
+            binding.layoutProgeni.setVisibility(View.GONE);
+            binding.layoutAdult.setVisibility(View.GONE);
+
+            recordNo = recordNo + 1;
+            binding.txtno.setText(String.valueOf(recordNo));
+            binding.privious.setVisibility(View.VISIBLE);
+            record_count++;
             binding.spMonth.setSelection(0);
             binding.spYear.setSelection(0);
 
@@ -831,7 +873,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
 
-        dialog.setTitle(getResources().getString(R.string.form_10));
+        dialog.setTitle(getResources().getString(R.string.form_6));
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override
@@ -916,15 +958,14 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             binding.layoutProgeni.setVisibility(View.GONE);
             binding.layoutAdult.setVisibility(View.VISIBLE);
 
-            if (String.valueOf(successResult.getData().getBakraTagNo()).isEmpty()  || String.valueOf(successResult.getData().getBakraTagNo()).equalsIgnoreCase("null")) {
+            if (String.valueOf(successResult.getData().getBakraTagNo()).isEmpty() || String.valueOf(successResult.getData().getBakraTagNo()).equalsIgnoreCase("null")) {
                 binding.spSubanimalType.setText(getString(R.string.bakari));
                 binding.spSubanimalType.setClickable(false);
 
                 binding.edtTagNoAdult.setText(String.valueOf(successResult.getData().getBakriTagNo()));
                 binding.edtAgeAdult.setText(String.valueOf(successResult.getData().getBakriAge()));
                 binding.edtWeightAdult.setText(String.valueOf(successResult.getData().getBakriBhar()));
-            }
-            else {
+            } else {
                 binding.spSubanimalType.setText(getString(R.string.bakra));
                 binding.spSubanimalType.setClickable(false);
 
@@ -934,13 +975,13 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
             }
 
-        }else {
+        } else {
             binding.spAnimalType.setText(getString(R.string.projeny));
             binding.spAnimalType.setClickable(false);
 
             binding.layoutAdult.setVisibility(View.GONE);
             binding.layoutProgeni.setVisibility(View.VISIBLE);
-            if (String.valueOf(successResult.getData().getNarBhar()).isEmpty() || String.valueOf(successResult.getData().getNarBhar()).equalsIgnoreCase("null")){
+            if (String.valueOf(successResult.getData().getNarBhar()).isEmpty() || String.valueOf(successResult.getData().getNarBhar()).equalsIgnoreCase("null")) {
 
                 binding.spSubanimalType.setText(getString(R.string.memni));
                 binding.spSubanimalType.setClickable(false);
@@ -950,7 +991,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                 binding.edtAgeProgeni.setText(String.valueOf(successResult.getData().getMadaAge()));
                 binding.edtTagnoProgeni.setText(String.valueOf(successResult.getData().getMadaTagNo()));
                 binding.edtWeightProgeni.setText(String.valueOf(successResult.getData().getMadaBhar()));
-            }else {
+            } else {
 
                 binding.spSubanimalType.setText(getString(R.string.memna));
                 binding.spSubanimalType.setClickable(false);

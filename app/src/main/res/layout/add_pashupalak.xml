@@ -68,7 +68,7 @@
 
             </LinearLayout>
 
-           <!-- <LinearLayout
+           <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -79,12 +79,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/gender"
+                    android:text="@string/address"
                     android:textColor="@color/black"
                     android:textSize="@dimen/tv_size" />
 
                 <EditText
-                    android:id="@+id/edt_gender"
+                    android:id="@+id/edt_address"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
@@ -92,7 +92,7 @@
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
 
-            </LinearLayout>-->
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -112,6 +112,8 @@
                 <EditText
 
                     android:id="@+id/edt_moNumber"
+                    android:inputType="phone"
+                    android:maxLength="10"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
@@ -287,12 +289,12 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="@string/gram_panchayat"
+                    android:text="@string/district"
                     android:textColor="@color/black"
                     android:textSize="@dimen/tv_size" />
 
                 <TextView
-                    android:id="@+id/gramPanchayat"
+                    android:id="@+id/district"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="20dp"
@@ -306,36 +308,6 @@
                     android:textSize="18dp"></TextView>
             </LinearLayout>
 
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:layout_marginTop="20dp"
-                android:weightSum="2">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:text="@string/village"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/tv_size" />
-
-                <TextView
-                    android:id="@+id/gram"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/edit_theme"
-                    android:drawableRight="@drawable/spinner"
-                    android:gravity="center_vertical"
-                    android:hint="@string/village"
-                    android:paddingHorizontal="10dp"
-                    android:textColor="@color/black"
-                    android:textSize="18dp"></TextView>
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -396,6 +368,70 @@
                     android:textColor="@color/black"
                     android:textSize="18dp"></TextView>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/gram_panchayat"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/tv_size" />
+
+                <TextView
+                    android:id="@+id/gramPanchayat"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_theme"
+                    android:drawableRight="@drawable/spinner"
+                    android:gravity="center_vertical"
+                    android:hint="@string/gram_panchayat"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"></TextView>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:weightSum="2">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text="@string/village"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/tv_size" />
+
+                <TextView
+                    android:id="@+id/gram"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="20dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/edit_theme"
+                    android:drawableRight="@drawable/spinner"
+                    android:gravity="center_vertical"
+                    android:hint="@string/village"
+                    android:paddingHorizontal="10dp"
+                    android:textColor="@color/black"
+                    android:textSize="18dp"></TextView>
+            </LinearLayout>
+
+
 
 
             <LinearLayout

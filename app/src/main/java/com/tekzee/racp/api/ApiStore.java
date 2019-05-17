@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.tekzee.racp.ui.Form.adoption.model.RetrivedAdoptionResponse;
 import com.tekzee.racp.ui.Form.ajola.model.GetAnimalTypeResponse;
 import com.tekzee.racp.ui.Form.ajola.model.RetrivedAjolaResponse;
+import com.tekzee.racp.ui.Form.bakara_rotation.model.RetrivedBakraRotationResponse;
 import com.tekzee.racp.ui.Form.beema_detail.model.RetrivedBeemaDataResponse;
 import com.tekzee.racp.ui.Form.clean_milkkit.model.RetrivedMilkKitResponse;
 import com.tekzee.racp.ui.Form.dana_pani_bartan.model.RetrivedDanaPaniResponse;
@@ -14,6 +15,7 @@ import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMemberResponse;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.RetrivedMtgMeetingResponse;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.model.RetrivedMtgTrainingResponse;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.model.RetrivedPashuChikithsResponse;
+import com.tekzee.racp.ui.Form.vipran_talika.model.RetrivedVipranTalikaResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormRecordDataResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.Form.weighting_machine.model.RetrivedWeightingMachineResponse;
@@ -202,6 +204,10 @@ public interface ApiStore {
     Observable <MtgMemberResponse> getMTGMemberDetailByMtgMemberId(@Path("userId") Integer id);
 
 
+    @GET("getMTGMemberByMtgGroupId/{userId}")
+    Observable <JsonObject> getMTGMemberDetail(@Path("userId") Integer id);
+
+
     @POST("mtg_meetings")
     Observable <FormSubmitResponse> mtg_meetings(@Body JsonObject jsonObject);
 
@@ -247,9 +253,21 @@ public interface ApiStore {
     @POST("getFormRecordData")
     Observable <RetrivedAdoptionResponse> getAdopitonData(@Body JsonObject jsonObject);
 
-//
-//     @POST("getFormRecordData")
-//    Observable <RetrivedBakraRotationResponse> getBakraRotationData(@Body JsonObject jsonObject);
+
+     @POST("getFormRecordData")
+    Observable <RetrivedBakraRotationResponse> getBakraRotationData(@Body JsonObject jsonObject);
+
+
+    @GET("getMTGMemberDetailByMtgMemberId/{userId}")
+    Observable <com.tekzee.racp.ui.Form.vipran_talika.model.MtgMemberResponse> getMTGMemberdetail(@Path("userId") Integer id);
+
+
+    @POST("addVipananTalika")
+    Observable <FormSubmitResponse> addVipananTalika(@Body JsonObject jsonObject);
+
+
+    @POST("getFormRecordData")
+    Observable <RetrivedVipranTalikaResponse> getVipranTalikaData(@Body JsonObject jsonObject);
 
 
 }

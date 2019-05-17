@@ -3,6 +3,7 @@ package com.tekzee.racp.ui.Form.bakara_rotation;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
+import com.tekzee.racp.ui.Form.bakara_rotation.model.RetrivedBakraRotationResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
@@ -53,40 +54,40 @@ public class RotationPresenter extends BasePresenter<RotationView> {
 
     }
 
-//    public void getFormRecordData(JsonObject jsonObject) {
-//
-//        mvpView.hideSoftKeyboard();
-//        mvpView.showProgressDialog("Please wait...", false);
-//        // mvpView.hideSoftKeyboard();
-//        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
-//            mvpView.hideProgressDialog();
-//            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
-//        } else {
-//            addSubscription(apiStores.getBakraRotationData(jsonObject), new ApiCallback <RetrivedBakraRotationResponse>() {
-//                @Override
-//                public void onSuccess(RetrivedBakraRotationResponse successResult) {
-//
-//
-//                    if (successResult.getSuccess()) {
-//                        mvpView.onSuccessfullyRetrived(successResult);
-//
-//
-//                    } else {
-//                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
-//                    }
-//
-//                }
-//
-//                @Override
-//                public void onFailure(CommonResult commonResult) {
-//                    mvpView.onNoInternetConnectivity(commonResult);
-//                }
-//
-//                @Override
-//                public void onFinish() {
-//                    mvpView.hideProgressDialog();
-//                }
-//            });
-//        }
-//    }
+    public void getFormRecordData(JsonObject jsonObject) {
+
+        mvpView.hideSoftKeyboard();
+        mvpView.showProgressDialog("Please wait...", false);
+        // mvpView.hideSoftKeyboard();
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
+            mvpView.hideProgressDialog();
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
+        } else {
+            addSubscription(apiStores.getBakraRotationData(jsonObject), new ApiCallback <RetrivedBakraRotationResponse>() {
+                @Override
+                public void onSuccess(RetrivedBakraRotationResponse successResult) {
+
+
+                    if (successResult.getSuccess()) {
+                        mvpView.onSuccessfullyRetrived(successResult);
+
+
+                    } else {
+                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
+                    }
+
+                }
+
+                @Override
+                public void onFailure(CommonResult commonResult) {
+                    mvpView.onNoInternetConnectivity(commonResult);
+                }
+
+                @Override
+                public void onFinish() {
+                    mvpView.hideProgressDialog();
+                }
+            });
+        }
+    }
 }

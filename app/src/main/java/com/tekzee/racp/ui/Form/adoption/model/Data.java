@@ -5,214 +5,225 @@ import com.google.gson.annotations.SerializedName;
 
 public class Data {
 
-@SerializedName("table_id")
-@Expose
-private Integer tableId;
-@SerializedName("date_receipt")
-@Expose
-private Object dateReceipt;
-@SerializedName("form_id")
-@Expose
-private Integer formId;
-@SerializedName("created_at")
-@Expose
-private String createdAt;
-@SerializedName("activity")
-@Expose
-private String activity;
-@SerializedName("pashupalak_name")
-@Expose
-private String pashupalakName;
-@SerializedName("pashupalak_address")
-@Expose
-private String pashupalakAddress;
-@SerializedName("pashupalak_mobile")
-@Expose
-private String pashupalakMobile;
-@SerializedName("note")
-@Expose
-private String note;
-@SerializedName("cluster_id")
-@Expose
-private Integer clusterId;
-@SerializedName("district_id")
-@Expose
-private Integer districtId;
-@SerializedName("vidhanasabha_id")
-@Expose
-private Integer vidhanasabhaId;
-@SerializedName("tahsil_id")
-@Expose
-private Integer tahsilId;
-@SerializedName("grampanchayat_id")
-@Expose
-private Integer grampanchayatId;
-@SerializedName("gram_id")
-@Expose
-private Integer gramId;
+    @SerializedName("table_id")
+    @Expose
+    private Integer tableId;
+    @SerializedName("date_receipt")
+    @Expose
+    private String dateReceipt;
+    @SerializedName("form_id")
+    @Expose
+    private Integer formId;
+    @SerializedName("created_at")
+    @Expose
+    private String createdAt;
+    @SerializedName("activity")
+    @Expose
+    private String activity;
+    @SerializedName("pashupalak_name")
+    @Expose
+    private String pashupalakName;
+    @SerializedName("pashupalak_father_husband_name")
+    @Expose
+    private String pashupalakFatherHusbandName;
+    @SerializedName("pashupalak_address")
+    @Expose
+    private String pashupalakAddress;
+    @SerializedName("pashupalak_mobile")
+    @Expose
+    private String pashupalakMobile;
+    @SerializedName("note")
+    @Expose
+    private String note;
+    @SerializedName("cluster_name")
+    @Expose
+    private String clusterName;
+    @SerializedName("district_name")
+    @Expose
+    private String districtName;
+    @SerializedName("vidhanasabha_name")
+    @Expose
+    private String vidhanasabhaName;
+    @SerializedName("tahsil_name")
+    @Expose
+    private String tahsilName;
+    @SerializedName("grampanchayat_name")
+    @Expose
+    private String grampanchayatName;
+    @SerializedName("gram_name")
+    @Expose
+    private String gramName;
 
-/**
-* No args constructor for use in serialization
-*
-*/
-public Data() {
-}
+    /**
+     * No args constructor for use in serialization
+     */
+    public Data() {
+    }
 
-/**
-*
-* @param pashupalakAddress
-* @param dateReceipt
-* @param grampanchayatId
-* @param tahsilId
-* @param districtId
-* @param tableId
-* @param formId
-* @param createdAt
-* @param gramId
-* @param pashupalakName
-* @param pashupalakMobile
-* @param clusterId
-* @param activity
-* @param note
-* @param vidhanasabhaId
-*/
-public Data(Integer tableId, Object dateReceipt, Integer formId, String createdAt, String activity, String pashupalakName, String pashupalakAddress, String pashupalakMobile, String note, Integer clusterId, Integer districtId, Integer vidhanasabhaId, Integer tahsilId, Integer grampanchayatId, Integer gramId) {
-super();
-this.tableId = tableId;
-this.dateReceipt = dateReceipt;
-this.formId = formId;
-this.createdAt = createdAt;
-this.activity = activity;
-this.pashupalakName = pashupalakName;
-this.pashupalakAddress = pashupalakAddress;
-this.pashupalakMobile = pashupalakMobile;
-this.note = note;
-this.clusterId = clusterId;
-this.districtId = districtId;
-this.vidhanasabhaId = vidhanasabhaId;
-this.tahsilId = tahsilId;
-this.grampanchayatId = grampanchayatId;
-this.gramId = gramId;
-}
+    /**
+     * @param clusterName
+     * @param pashupalakAddress
+     * @param vidhanasabhaName
+     * @param dateReceipt
+     * @param grampanchayatName
+     * @param pashupalakFatherHusbandName
+     * @param districtName
+     * @param tableId
+     * @param tahsilName
+     * @param formId
+     * @param createdAt
+     * @param pashupalakName
+     * @param gramName
+     * @param pashupalakMobile
+     * @param activity
+     * @param note
+     */
+    public Data(Integer tableId, String dateReceipt, Integer formId, String createdAt, String activity, String pashupalakName, String pashupalakFatherHusbandName, String pashupalakAddress, String pashupalakMobile, String note, String clusterName, String districtName, String vidhanasabhaName, String tahsilName, String grampanchayatName, String gramName) {
+        super();
+        this.tableId = tableId;
+        this.dateReceipt = dateReceipt;
+        this.formId = formId;
+        this.createdAt = createdAt;
+        this.activity = activity;
+        this.pashupalakName = pashupalakName;
+        this.pashupalakFatherHusbandName = pashupalakFatherHusbandName;
+        this.pashupalakAddress = pashupalakAddress;
+        this.pashupalakMobile = pashupalakMobile;
+        this.note = note;
+        this.clusterName = clusterName;
+        this.districtName = districtName;
+        this.vidhanasabhaName = vidhanasabhaName;
+        this.tahsilName = tahsilName;
+        this.grampanchayatName = grampanchayatName;
+        this.gramName = gramName;
+    }
 
-public Integer getTableId() {
-return tableId;
-}
+    public Integer getTableId() {
+        return tableId;
+    }
 
-public void setTableId(Integer tableId) {
-this.tableId = tableId;
-}
+    public void setTableId(Integer tableId) {
+        this.tableId = tableId;
+    }
 
-public Object getDateReceipt() {
-return dateReceipt;
-}
+    public String getDateReceipt() {
+        return dateReceipt;
+    }
 
-public void setDateReceipt(Object dateReceipt) {
-this.dateReceipt = dateReceipt;
-}
+    public void setDateReceipt(String dateReceipt) {
+        this.dateReceipt = dateReceipt;
+    }
 
-public Integer getFormId() {
-return formId;
-}
+    public Integer getFormId() {
+        return formId;
+    }
 
-public void setFormId(Integer formId) {
-this.formId = formId;
-}
+    public void setFormId(Integer formId) {
+        this.formId = formId;
+    }
 
-public String getCreatedAt() {
-return createdAt;
-}
+    public String getCreatedAt() {
+        return createdAt;
+    }
 
-public void setCreatedAt(String createdAt) {
-this.createdAt = createdAt;
-}
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
 
-public String getActivity() {
-return activity;
-}
+    public String getActivity() {
+        return activity;
+    }
 
-public void setActivity(String activity) {
-this.activity = activity;
-}
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
 
-public String getPashupalakName() {
-return pashupalakName;
-}
+    public String getPashupalakName() {
+        return pashupalakName;
+    }
 
-public void setPashupalakName(String pashupalakName) {
-this.pashupalakName = pashupalakName;
-}
+    public void setPashupalakName(String pashupalakName) {
+        this.pashupalakName = pashupalakName;
+    }
 
-public String getPashupalakAddress() {
-return pashupalakAddress;
-}
+    public String getPashupalakFatherHusbandName() {
+        return pashupalakFatherHusbandName;
+    }
 
-public void setPashupalakAddress(String pashupalakAddress) {
-this.pashupalakAddress = pashupalakAddress;
-}
+    public void setPashupalakFatherHusbandName(String pashupalakFatherHusbandName) {
+        this.pashupalakFatherHusbandName = pashupalakFatherHusbandName;
+    }
 
-public String getPashupalakMobile() {
-return pashupalakMobile;
-}
+    public String getPashupalakAddress() {
+        return pashupalakAddress;
+    }
 
-public void setPashupalakMobile(String pashupalakMobile) {
-this.pashupalakMobile = pashupalakMobile;
-}
+    public void setPashupalakAddress(String pashupalakAddress) {
+        this.pashupalakAddress = pashupalakAddress;
+    }
 
-public String getNote() {
-return note;
-}
+    public String getPashupalakMobile() {
+        return pashupalakMobile;
+    }
 
-public void setNote(String note) {
-this.note = note;
-}
+    public void setPashupalakMobile(String pashupalakMobile) {
+        this.pashupalakMobile = pashupalakMobile;
+    }
 
-public Integer getClusterId() {
-return clusterId;
-}
+    public String getNote() {
+        return note;
+    }
 
-public void setClusterId(Integer clusterId) {
-this.clusterId = clusterId;
-}
+    public void setNote(String note) {
+        this.note = note;
+    }
 
-public Integer getDistrictId() {
-return districtId;
-}
+    public String getClusterName() {
+        return clusterName;
+    }
 
-public void setDistrictId(Integer districtId) {
-this.districtId = districtId;
-}
+    public void setClusterName(String clusterName) {
+        this.clusterName = clusterName;
+    }
 
-public Integer getVidhanasabhaId() {
-return vidhanasabhaId;
-}
+    public String getDistrictName() {
+        return districtName;
+    }
 
-public void setVidhanasabhaId(Integer vidhanasabhaId) {
-this.vidhanasabhaId = vidhanasabhaId;
-}
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
+    }
 
-public Integer getTahsilId() {
-return tahsilId;
-}
+    public String getVidhanasabhaName() {
+        return vidhanasabhaName;
+    }
 
-public void setTahsilId(Integer tahsilId) {
-this.tahsilId = tahsilId;
-}
+    public void setVidhanasabhaName(String vidhanasabhaName) {
+        this.vidhanasabhaName = vidhanasabhaName;
+    }
 
-public Integer getGrampanchayatId() {
-return grampanchayatId;
-}
+    public String getTahsilName() {
+        return tahsilName;
+    }
 
-public void setGrampanchayatId(Integer grampanchayatId) {
-this.grampanchayatId = grampanchayatId;
-}
+    public void setTahsilName(String tahsilName) {
+        this.tahsilName = tahsilName;
+    }
 
-public Integer getGramId() {
-return gramId;
-}
+    public String getGrampanchayatName() {
+        return grampanchayatName;
+    }
 
-public void setGramId(Integer gramId) {
-this.gramId = gramId;
-}
+    public void setGrampanchayatName(String grampanchayatName) {
+        this.grampanchayatName = grampanchayatName;
+    }
+
+    public String getGramName() {
+        return gramName;
+    }
+
+    public void setGramName(String gramName) {
+        this.gramName = gramName;
+    }
 
 }

@@ -76,11 +76,10 @@
                         android:orientation="horizontal"
                         android:weightSum="3"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp">
+                        android:layout_height="wrap_content">
 
                         <TextView
                             android:text="@string/day"
-
                             android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black"
                             android:layout_weight="1"
@@ -118,6 +117,7 @@
                             android:id="@+id/day"
                             android:inputType="number"
                             android:textSize="@dimen/tv_size_medium_tab"
+                            android:maxLength="2"
                             android:paddingHorizontal="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="1"

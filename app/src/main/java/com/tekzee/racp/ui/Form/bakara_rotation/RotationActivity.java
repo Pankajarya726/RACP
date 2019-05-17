@@ -18,10 +18,13 @@ import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.FormBakaraRotationBinding;
+import com.tekzee.racp.ui.Form.bakara_rotation.model.DataBakaraRotation;
+import com.tekzee.racp.ui.Form.bakara_rotation.model.RetrivedBakraRotationResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -37,7 +40,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     private int form_id;
     private int recordNo = 1;
-    private int record_count = 1    ;
+    private int record_count = 1;
     private int table_id;
 
     private List <DataBakaraRotation> detailList = new ArrayList <>();
@@ -51,13 +54,14 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         form_id = getIntent().getIntExtra("form_id", 0);
-        table_id = getIntent().getIntExtra("table_id",0);
+        Log.e(tag,"form_id bakra rotation"+form_id);
+        table_id = getIntent().getIntExtra("table_id", 0);
+
         if (table_id != 0) {
             getFormRecordData();
         } else {
             ShowSelectionDialog();
         }
-
 
 
         DataBakaraRotation.deleteAll(DataBakaraRotation.class);
@@ -119,61 +123,77 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
 
         if (binding.edtTagNo.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_tagno), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tagno));
             return false;
         } else if (binding.edtName.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.animal_owner_name));
+
             return false;
         } else if (binding.edtMtgname.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_mtg_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mtg_name));
+
             return false;
         } else if (binding.edtAddress.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_address), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_address));
+
             return false;
         } else if (binding.edtMobileNumber.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_mobile), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mobile));
+
             return false;
         } else if (binding.edtMobileNumber.getText().toString().length() != 10) {
-            Toast.makeText(this, getString(R.string.invalid_no), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.invalid_no));
+
             return false;
         } else if (binding.edtVidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
-            Toast.makeText(this, getString(R.string.select_vidhansabha), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_vidhansavha));
+
             return false;
         } else if (binding.edtTehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
-            Toast.makeText(this, getString(R.string.select_tehsil), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tehsil));
+
             return false;
         } else if (binding.edtGramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            Toast.makeText(this, getString(R.string.select_gramPanchayat), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_gram_panchayat));
+
             return false;
         } else if (binding.edtVillage.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            Toast.makeText(this, getString(R.string.select_village), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_village));
+
             return false;
         } else if (binding.edtName1.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_name));
             return false;
         } else if (binding.edtMtgname1.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_mtg_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mtg_name));
+
             return false;
         } else if (binding.edtAddress1.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_address), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_address));
+
             return false;
         } else if (binding.edtMobileNumber1.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_mobile), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mobile));
+
             return false;
         } else if (binding.edtMobileNumber1.getText().toString().length() != 10) {
-            Toast.makeText(this, getString(R.string.invalid_no), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.invalid_no));
+
             return false;
         } else if (binding.edtVidhansabha1.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
-            Toast.makeText(this, getString(R.string.select_vidhansabha), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_vidhansavha));
+
             return false;
         } else if (binding.edtTehsil1.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
-            Toast.makeText(this, getString(R.string.select_tehsil), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tehsil));
+
             return false;
         } else if (binding.edtGramPanchayat1.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            Toast.makeText(this, getString(R.string.select_gramPanchayat), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_gram_panchayat));
+
             return false;
         } else if (binding.edtVillage1.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            Toast.makeText(this, getString(R.string.select_village), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_village));
             return false;
         } else {
 
@@ -211,7 +231,8 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             binding.edtVidhansabha.setText("");
             binding.edtGramPanchayat.setText("");
             binding.edtTehsil.setText("");
-            binding.edtVillage.setText("");binding.edtName.setText("");
+            binding.edtVillage.setText("");
+            binding.edtName.setText("");
             binding.edtMtgname1.setText("");
             binding.edtAddress1.setText("");
             binding.edtMobileNumber1.setText("");
@@ -321,7 +342,8 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             binding.edtVidhansabha.setText("");
             binding.edtGramPanchayat.setText("");
             binding.edtTehsil.setText("");
-            binding.edtVillage.setText("");binding.edtName.setText("");
+            binding.edtVillage.setText("");
+            binding.edtName.setText("");
             binding.edtMtgname1.setText("");
             binding.edtAddress1.setText("");
             binding.edtMobileNumber1.setText("");
@@ -394,11 +416,12 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-            Toast.makeText(getContext(),successResult.getMessage(),Toast.LENGTH_SHORT).show();
 
-            DataBakaraRotation.deleteAll(DataBakaraRotation.class);
-        record_count =1;
-        recordNo =1;
+        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+
+        DataBakaraRotation.deleteAll(DataBakaraRotation.class);
+        record_count = 1;
+        recordNo = 1;
         binding.txtno.setText(String.valueOf(record_count));
         binding.edtTagNo.setText("");
         binding.edtName.setText("");
@@ -409,7 +432,8 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         binding.edtVidhansabha.setText("");
         binding.edtGramPanchayat.setText("");
         binding.edtTehsil.setText("");
-        binding.edtVillage.setText("");binding.edtName.setText("");
+        binding.edtVillage.setText("");
+        binding.edtName.setText("");
         binding.edtMtgname1.setText("");
         binding.edtAddress1.setText("");
         binding.edtMobileNumber1.setText("");
@@ -423,16 +447,63 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(),commonResult.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
     }
+
+    @Override
+    public void onSuccessfullyRetrived(RetrivedBakraRotationResponse successResult) {
+
+        binding.tvAddRecord.setVisibility(View.GONE);
+        binding.tvSave.setVisibility(View.GONE);
+
+        binding.edtTagNo.setFocusable(false);
+        binding.edtAddress.setFocusable(false);
+        binding.edtAddress1.setFocusable(false);
+        binding.edtName.setFocusable(false);
+        binding.edtName1.setFocusable(false);
+        binding.edtMtgname.setFocusable(false);
+        binding.edtMtgname1.setFocusable(false);
+        binding.edtMobileNumber.setFocusable(false);
+        binding.edtMobileNumber1.setFocusable(false);
+        binding.edtVidhansabha.setFocusable(false);
+        binding.edtVidhansabha1.setFocusable(false);
+        binding.edtGramPanchayat.setFocusable(false);
+        binding.edtGramPanchayat1.setFocusable(false);
+        binding.edtTehsil.setFocusable(false);
+        binding.edtTehsil1.setFocusable(false);
+        binding.edtVillage.setFocusable(false);
+        binding.edtVillage1.setFocusable(false);
+
+        binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
+        binding.edtName.setText(String.valueOf(successResult.getData().getBeforePashupalakName()));
+        binding.edtName1.setText(String.valueOf(successResult.getData().getAfterPashupalakName()));
+        binding.edtMtgname.setText(String.valueOf(successResult.getData().getBeforeMtgGroupName()));
+        binding.edtMtgname1.setText(String.valueOf(successResult.getData().getAfterMtgGroupName()));
+        binding.edtAddress.setText(String.valueOf(successResult.getData().getBeforePashupalakPata()));
+        binding.edtAddress1.setText(String.valueOf(successResult.getData().getAfterPashupalakPata()));
+        binding.edtMobileNumber.setText(String.valueOf(successResult.getData().getBeforeMobileNo()));
+        binding.edtTehsil.setText(String.valueOf(successResult.getData().getBeforeTehsil()));
+        binding.edtTehsil1.setText(String.valueOf(successResult.getData().getAfterTehsil()));
+        binding.edtMobileNumber1.setText(String.valueOf(successResult.getData().getAfterMobileNo()));
+        binding.edtVidhansabha.setText(String.valueOf(successResult.getData().getBeforeVidhansabha()));
+        binding.edtVidhansabha1.setText(String.valueOf(successResult.getData().getAfterVidhansabha()));
+        binding.edtGramPanchayat.setText(String.valueOf(successResult.getData().getBeforeGramPanchayat()));
+        binding.edtGramPanchayat1.setText(String.valueOf(successResult.getData().getAfterGramPanchayat()));
+        binding.edtVillage.setText(String.valueOf(successResult.getData().getBeforeGram()));
+        binding.edtVillage1.setText(String.valueOf(successResult.getData().getAfterGram()));
+
+
+    }
+
     private void getFormRecordData() {
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("table_id", table_id);
         jsonObject.addProperty("form_id", 18);
 
-       // mvpPresenter.getFormRecordData(jsonObject);
+        mvpPresenter.getFormRecordData(jsonObject);
     }
+
     private void ShowSelectionDialog() {
         final Dialog dialog = new Dialog(getContext());
         try {

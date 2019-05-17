@@ -27,6 +27,7 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.dashboardform.DashformActivity;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
 import com.tekzee.racp.ui.formselection.model.FormData;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -158,22 +159,22 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
 
         if (binding.edtPlace.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_place), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_shivir_place));
             return false;
         } else if (binding.edtDate.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_ayojak_date), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_shivir_orginization_date));
             return false;
         } else if (binding.edtCount.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_count), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_count));
             return false;
         } else if (binding.edtBig.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_count_big), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_count_big));
             return false;
         } else if (binding.edtSmall.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_count_small), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_count_big));
             return false;
         } else if (!binding.checkAvailableYes.isChecked() && !binding.checkAvailableNo.isChecked()) {
-            Toast.makeText(this, getString(R.string.availebilityornot), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.availebilityornot));
             return false;
         } else {
 
@@ -227,6 +228,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         }
         Log.e(tag, String.valueOf(DataChikitsha.count(DataChikitsha.class)));
 
+        binding.txtno.setText(String.valueOf(record_count));
         // BeemaDetail beemaDetail =   BeemaDetail.findById(BeemaDetail.class,record_count);
 
         detailList.clear();
@@ -353,10 +355,11 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Toast.makeText(getContext(),successResult.getMessage(),Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(),successResult.getMessage());
 
         record_count =1;
         recordNo =1;
+        binding.txtno.setText(String.valueOf(record_count));
         DataChikitsha.deleteAll(DataChikitsha.class);
 
         binding.edtNote.setText("");
@@ -375,6 +378,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
         Toast.makeText(getContext(),commonResult.getMessage(),Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
     }
 
     @Override
@@ -436,8 +440,6 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
             dialog.getWindow().setLayout(-1, -2);
             dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             dialog.setCancelable(false);
-
-
 
             TextView msg = dialog.findViewById(R.id.dialog_msg);
 

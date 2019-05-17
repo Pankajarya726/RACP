@@ -37,7 +37,7 @@ public class FormDataAdapter extends  RecyclerView.Adapter <FormDataAdapter.MyVi
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycer_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.recycler_item2, viewGroup, false);
         final MyViewHolder viewHolder = new MyViewHolder(v);
         viewHolder.itemView.setClickable(true);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -75,10 +75,10 @@ public class FormDataAdapter extends  RecyclerView.Adapter <FormDataAdapter.MyVi
 
         if (String.valueOf(data.getTagNo()).isEmpty() || String.valueOf(data.getTagNo()).equalsIgnoreCase("null")){
             holder.tagno.setText(String.valueOf(data.getCreatedAt()));
-            holder.date.setText(data.getDateReceipt());
+
         }else {
             holder.tagno.setText(String.valueOf(data.getCreatedAt()));
-            holder.date.setText(data.getDateReceipt());
+
         }
     }
 

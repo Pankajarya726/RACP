@@ -2,6 +2,7 @@ package com.tekzee.racp.ui.Form.bakara_rotation;
 
 import android.content.Context;
 
+import com.tekzee.racp.ui.Form.bakara_rotation.model.RetrivedBakraRotationResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
@@ -13,5 +14,6 @@ public interface RotationView extends BaseView {
 
     void onNoInternetConnectivity(CommonResult commonResult);
 
-    //void onSuccessfullyRetrived(RetrivedBakraRotationResponse );
-}
+    void onSuccessfullyRetrived(RetrivedBakraRotationResponse successResult);
+
+ }

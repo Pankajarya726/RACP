@@ -147,6 +147,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
             if (!binding.day.getText().toString().isEmpty()) {
                 if (Integer.valueOf(binding.day.getText().toString()) > 31) {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_LONG).show();
                 }
             }
@@ -166,12 +167,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
             recordNo = recordNo + 1;
             binding.tvNo.setText(String.valueOf(recordNo));
-            binding.edtTagNo.setText("");
-            binding.spNasl.setText("");
-            binding.spNasl.setHint(getString(R.string.nasl));
-            binding.edtAge.setText("");
-            binding.edtAvarage.setText("");
-            binding.edtNote.setText("");
+           clearAllField();
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
             return true;
@@ -231,12 +227,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
         } else {
 
-            binding.edtTagNo.setText("");
-            binding.edtNote.setText("");
-            binding.edtAvarage.setText("");
-            binding.edtAge.setText("");
-            binding.spNasl.setText("");
-            binding.spNasl.setHint(getString(R.string.nasl));
+            clearAllField();
         }
 
     }
@@ -344,19 +335,14 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowDialog(getContext(), successResult.getMessage());
+        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+
         mData.deleteAll(mData.class);
         recordNo = 1;
         record_count = 1;
         binding.tvNo.setText(String.valueOf(record_count));
 
-        binding.edtTagNo.setText("");
-        binding.edtNote.setText("");
-        binding.edtAvarage.setText("");
-        binding.edtAge.setText("");
-        binding.spNasl.setText("");
-        binding.spNasl.setHint(getString(R.string.nasl));
-
+       clearAllField();
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
     }
@@ -397,6 +383,17 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
 
+
+    }
+
+    public void clearAllField(){
+        binding.day.setText("");
+        binding.edtTagNo.setText("");
+        binding.edtNote.setText("");
+        binding.edtAvarage.setText("");
+        binding.edtAge.setText("");
+        binding.spNasl.setText("");
+        binding.spNasl.setHint(getString(R.string.nasl));
 
     }
 }

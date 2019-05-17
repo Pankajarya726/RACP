@@ -130,6 +130,8 @@
                             android:id="@+id/day"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
+                            android:maxLength="2"
+                            android:maxEms="31"
                             android:layout_weight="1"
                             android:background="@drawable/edit_theme_black"
                             android:inputType="number"

@@ -40,7 +40,7 @@ public class Dialogs {
         dialog.setCancelable(false);
         dialog.setColor("#FF6500");
         dialog.setContentText(msg);
-        dialog.setPositiveListener("ok", new ColorDialog.OnPositiveListener() {
+        dialog.setPositiveListener(R.string.ok, new ColorDialog.OnPositiveListener() {
             @Override
             public void onClick(ColorDialog dialog) {
 

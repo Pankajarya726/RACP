@@ -129,7 +129,7 @@ public class AddMtgActivity extends MvpActivity<AddMtgPresenter> implements AddM
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("mtgName",binding.edtMtgname.getText().toString().trim());
-            jsonObject.addProperty("gramPanchyatId",gram_panchayat_id);
+            jsonObject.addProperty("gramPanchayatId",gram_panchayat_id);
             jsonObject.addProperty("gramId",gram_id);
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
             mvpPresenter.addMtgGroup(jsonObject);

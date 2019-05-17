@@ -284,12 +284,19 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtMtgname.setClickable(false);
         binding.edtNameMembers.setClickable(false);
         binding.edtNote.setClickable(false);
+        binding.edtNote.setEnabled(false);
 
+        if (successResult.getData().getNote().equalsIgnoreCase("null")){
+            binding.edtNote.setText("");
+        }
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-        binding.edtMeetingdate.setText(String.valueOf(successResult.getData().getMeetingDate()));
-        binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupId()));
 
-        String data  = String.valueOf(successResult.getData().getPashupalakId());
+        binding.edtMtgname.setTextColor(getResources().getColor(R.color.black));
+        binding.edtNameMembers.setTextColor(getResources().getColor(R.color.black));
+        binding.edtMeetingdate.setText(String.valueOf(successResult.getData().getMeetingDate()));
+        binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
+
+        String data  = String.valueOf(successResult.getData().getPashupalakName());
 
         String data1[] = data.split(",");
         for(int i= 0 ;i<data1.length;i++){

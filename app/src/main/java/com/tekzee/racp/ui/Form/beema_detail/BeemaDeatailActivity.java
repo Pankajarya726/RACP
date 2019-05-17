@@ -43,6 +43,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     private int record_count = 1;
     private List <BeemaDetail> detailList = new ArrayList <>();
     private int table_id;
+    private int animaltype_id= 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -209,8 +210,17 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             binding.edtTagNo.setText(String.valueOf(detail.getTagNo()));
             binding.edtDatefrom.setText(detail.getDateFrom());
             binding.edtDateto.setText(detail.getDateTo());
-            binding.edtDateDeath.setVisibility(View.VISIBLE);
-            binding.edtDateDeath.setText(detail.getDeath_date());
+
+            if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))){
+                binding.tvDeath.setVisibility(View.VISIBLE);
+                binding.edtDateDeath.setVisibility(View.VISIBLE);
+                binding.edtDateDeath.setText(detail.getDeath_date());
+                binding.checkYes.setChecked(true);
+            }else {
+                binding.edtDateDeath.setVisibility(View.GONE);
+                binding.tvDeath.setVisibility(View.GONE);
+                binding.checkNo.setChecked(true);
+            }
 
         } else {
 
@@ -222,6 +232,8 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             binding.edtDatefrom.setText("");
             binding.checkYes.setChecked(false);
             binding.checkNo.setChecked(false);
+            binding.edtDateDeath.setText("");
+            binding.tvDeath.setVisibility(View.GONE);
             binding.edtDateDeath.setVisibility(View.GONE);
             binding.privious.setVisibility(View.VISIBLE);
 
@@ -254,8 +266,18 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         binding.spAnimalType.setSelection(detail.getAnimal_id());
         binding.day.setText(detail.getDd());
         binding.edtPolicyNo.setText(detail.getPolicy_no());
-        binding.edtDateDeath.setVisibility(View.VISIBLE);
-        binding.edtDateDeath.setText(detail.getDeath_date());
+
+        if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))){
+            binding.tvDeath.setVisibility(View.VISIBLE);
+            binding.edtDateDeath.setVisibility(View.VISIBLE);
+            binding.edtDateDeath.setText(detail.getDeath_date());
+            binding.checkYes.setChecked(true);
+        }else {
+            binding.edtDateDeath.setVisibility(View.GONE);
+            binding.tvDeath.setVisibility(View.GONE);
+            binding.checkNo.setChecked(true);
+        }
+
 
 
         binding.tvAddRecord.setVisibility(View.GONE);
@@ -347,6 +369,8 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             binding.edtDatefrom.setText("");
             binding.checkYes.setChecked(false);
             binding.checkNo.setChecked(false);
+            binding.edtDateDeath.setText("");
+            binding.tvDeath.setVisibility(View.GONE);
             binding.edtDateDeath.setVisibility(View.GONE);
             binding.privious.setVisibility(View.VISIBLE);
             record_count++;

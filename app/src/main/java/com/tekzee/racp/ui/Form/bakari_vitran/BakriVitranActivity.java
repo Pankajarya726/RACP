@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -50,6 +51,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     List <Immunization> immunizations = new ArrayList <>();
     List <BakriData> bakriDataList = new ArrayList <>();
     boolean isOkayClicked = true;
+
     com.tekzee.racp.ui.Form.bakari_vitran.TeekaAdapter teekaAdapter;
     private FormBakriVitranBinding binding;
     private SqliteDB sqliteDB = new SqliteDB(this);
@@ -75,7 +77,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             ShowDialog();
         }
 
-        ShowDialog();
+
         SpinnerData();
         recordNo = sqliteDB.countBakriDetail() + 1;
         record_count = recordNo;
@@ -102,7 +104,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("table_id", table_id);
-        jsonObject.addProperty("form_id", 2);
+        jsonObject.addProperty("form_id", 3);
 
         mvpPresenter.getFormRecordData(jsonObject);
     }
@@ -250,15 +252,8 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
-            binding.edtTagNo.setText("");
-            binding.day.setText("");
-            binding.edtBeemaVivran.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.edtProofdate.setText("");
-            binding.edtAveragProduction.setText("");
-            binding.edtNote.setText("");
+            clearallField();
             binding.privious.setVisibility(View.VISIBLE);
-            binding.teekaDate.setText("");
             immunizations.clear();
             setupRecyclerView();
             record_count = record_count + 1;
@@ -307,15 +302,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             setupRecyclerView();
 
         } else {
-            binding.edtTagNo.setText("");
-            binding.day.setText("");
-            binding.edtBeemaVivran.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.edtProofdate.setText("");
-            binding.edtAveragProduction.setText("");
-            binding.edtNote.setText("");
-            binding.privious.setVisibility(View.VISIBLE);
-            binding.teekaDate.setText("");
+           clearallField();
             setupRecyclerView();
 
             binding.immunization.setVisibility(View.VISIBLE);
@@ -453,8 +440,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         String currentDateString = dateFormatter.format(c.getTime());
 
         loadList(currentDateString, binding.spTeeka.getSelectedItem().toString());
-
-        binding.teekaDate.setText(currentDateString);
+        binding.teekaDate.setText("");
     }
 
     @Override
@@ -479,15 +465,12 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         record_count = 1;
         recordNo = 1;
         binding.txtno.setText(String.valueOf(recordNo));
-        binding.edtTagNo.setText("");
-        binding.day.setText("");
-        binding.edtBeemaVivran.setText("");
-        binding.edtPolicyNo.setText("");
-        binding.edtProofdate.setText("");
-        binding.edtAveragProduction.setText("");
-        binding.edtNote.setText("");
+
+
+        clearallField();
         binding.privious.setVisibility(View.VISIBLE);
-        binding.teekaDate.setText("");
+
+
         immunizations.clear();
 
         binding.privious.setVisibility(View.GONE);
@@ -498,12 +481,22 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     @Override
     public void onDateSelected(int adapterPosition, List <Immunization> immunizations, TextView tv_date) {
 
+        Immunization im = immunizations.get(adapterPosition);
+
+        mDatePickerDialog.getdate(getContext(),tv_date);
+
+        im.setTeekadate(tv_date.getText().toString());
+
     }
 
     @Override
     public void onSuccessfullyRetrived(RetrivedDataResponse successResult) {
         binding.receiptDate.setVisibility(View.VISIBLE);
         binding.edtTagNo.setFocusable(false);
+
+//        /*binding.edtNote.setEnabled(false);
+//        */binding.edtNote.setText(String.valueOf(successResult.getData().getNote));
+
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
 
@@ -520,14 +513,13 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         binding.edtAveragProduction.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
         binding.edtAveragProduction.setFocusable(false);
 
-        /*binding.edtNote.setText(String.valueOf(successResult.getData().getn()));
-        binding.edtNote.setFocusable(false);*/
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
         binding.immunization.setVisibility(View.GONE);
+
 
 
         String ppr = successResult.getData().getDatePpr();
@@ -594,4 +586,18 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spYear.setAdapter(adapter2);
     }
+
+   private void clearallField(){
+       binding.edtTagNo.setText("");
+       binding.day.setText("");
+       binding.edtBeemaVivran.setText("");
+       binding.edtPolicyNo.setText("");
+       binding.edtProofdate.setText("");
+       binding.edtAveragProduction.setText("");
+       binding.edtNote.setText("");
+       binding.spMonth.setSelection(0);
+       binding.spYear.setSelection(0);
+       binding.teekaDate.setText("");
+
+   }
 }

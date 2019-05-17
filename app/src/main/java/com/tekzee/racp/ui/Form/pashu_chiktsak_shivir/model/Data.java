@@ -10,7 +10,7 @@ public class Data {
 private Integer tableId;
 @SerializedName("date_receipt")
 @Expose
-private Object dateReceipt;
+private String dateReceipt;
 @SerializedName("form_id")
 @Expose
 private Integer formId;
@@ -56,7 +56,7 @@ public Data() {
 * @param note
 * @param chotePashu
 */
-public Data(Integer tableId, Object dateReceipt, Integer formId, String shivirSthal, String pashuShivirAayojanDate, Integer presentMtgmemberNumber, Integer badePashu, Integer chotePashu, String biomedicalWasteDisposal, String note) {
+public Data(Integer tableId, String  dateReceipt, Integer formId, String shivirSthal, String pashuShivirAayojanDate, Integer presentMtgmemberNumber, Integer badePashu, Integer chotePashu, String biomedicalWasteDisposal, String note) {
 super();
 this.tableId = tableId;
 this.dateReceipt = dateReceipt;
@@ -78,11 +78,11 @@ public void setTableId(Integer tableId) {
 this.tableId = tableId;
 }
 
-public Object getDateReceipt() {
+public String getDateReceipt() {
 return dateReceipt;
 }
 
-public void setDateReceipt(Object dateReceipt) {
+public void setDateReceipt(String  dateReceipt) {
 this.dateReceipt = dateReceipt;
 }
 

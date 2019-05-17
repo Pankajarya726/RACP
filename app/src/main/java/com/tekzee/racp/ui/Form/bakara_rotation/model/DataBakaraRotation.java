@@ -1,4 +1,4 @@
-package com.tekzee.racp.ui.Form.bakara_rotation;
+package com.tekzee.racp.ui.Form.bakara_rotation.model;
 
 import com.orm.SugarRecord;
 

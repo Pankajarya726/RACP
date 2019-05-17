@@ -120,6 +120,7 @@
                             android:id="@+id/day"
                             android:inputType="number"
                             android:textSize="@dimen/tv_size_medium_tab"
+                            android:maxLength="2"
                             android:paddingHorizontal="10dp"
                             android:textColor="@color/black"
                             android:layout_weight="1"

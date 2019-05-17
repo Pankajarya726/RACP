@@ -1,9 +1,9 @@
-package com.tekzee.racp.ui.Form.form_2.Model;
+package com.tekzee.racp.ui.Form.vipran_talika.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RetrivedDataResponse {
+public class RetrivedVipranTalikaResponse {
 
     @SerializedName("success")
     @Expose
@@ -18,7 +18,7 @@ public class RetrivedDataResponse {
     /**
      * No args constructor for use in serialization
      */
-    public RetrivedDataResponse() {
+    public RetrivedVipranTalikaResponse() {
     }
 
     /**
@@ -26,7 +26,7 @@ public class RetrivedDataResponse {
      * @param data
      * @param success
      */
-    public RetrivedDataResponse(Boolean success, String message, Data data) {
+    public RetrivedVipranTalikaResponse(Boolean success, String message, Data data) {
         super();
         this.success = success;
         this.message = message;

@@ -26,6 +26,7 @@ import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -47,7 +48,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     private int gram_id;
     private int form_id;
     private int table_id;
-    private List<DataAdoption> detailList = new ArrayList <>();
+    private List <DataAdoption> detailList = new ArrayList <>();
 
 
     @Override
@@ -59,8 +60,8 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        form_id = getIntent().getIntExtra("form_id",0);
-        table_id = getIntent().getIntExtra("table_id",0);
+        form_id = getIntent().getIntExtra("form_id", 0);
+        table_id = getIntent().getIntExtra("table_id", 0);
         if (table_id != 0) {
             getFormRecordData();
         } else {
@@ -160,43 +161,44 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     }
 
 
-
     private Boolean saveRecord() {
 
 
         if (binding.edtActivity.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_activity), Toast.LENGTH_SHORT).show();
+
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_activity));
             return false;
         } else if (binding.edtName.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_name));
             return false;
         } else if (binding.edtNameFather.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_father_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_father_name));
             return false;
         } else if (binding.edtAddress.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_address), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
             return false;
         } else if (binding.edtDistrict.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
-            Toast.makeText(this, getString(R.string.select_district), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
             return false;
         } else if (binding.edtVidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
-            Toast.makeText(this, getString(R.string.select_vidhansabha), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
             return false;
         } else if (binding.edtTehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
-            Toast.makeText(this, getString(R.string.select_tehsil), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
             return false;
         } else if (binding.edtGramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            Toast.makeText(this, getString(R.string.select_gramPanchayat), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
             return false;
         } else if (binding.edtVillage.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            Toast.makeText(this, getString(R.string.select_village), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
             return false;
-        }else if (binding.edtMobile.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.enter_mobile), Toast.LENGTH_SHORT).show();
+        } else if (binding.edtMobile.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
             return false;
-        }  else {
-
-
+        } else if (binding.edtMobile.getText().toString().length() != 10) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
+            return false;
+        } else {
 
 
             DataAdoption details = new DataAdoption(
@@ -305,8 +307,6 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
             DataAdoption detail = detailList.get(record_count - 1);
 
 
-
-
             binding.edtActivity.setText(detail.getActivity());
             binding.edtNameFather.setText(detail.getFahter_name());
             binding.edtName.setText(detail.getName());
@@ -375,10 +375,8 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
             json.addProperty("form_id", form_id);
 
 
-
             json.add("data", jsonArray);
             Log.e(tag, "data is" + json.toString());
-
 
 
             mvpPresenter.saveForm(json);
@@ -393,7 +391,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(),commonResult.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -401,19 +399,23 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     public void onGramPanchayatSelected(GramPanchayat model, String type) {
 
 
-        if (type.equalsIgnoreCase("district")){
+        if (type.equalsIgnoreCase("district")) {
             district_id = model.getGrampanchayatId();
             binding.edtDistrict.setText(model.getGrampanchayatName());
-        } if (type.equalsIgnoreCase("vidhanasabha")){
+        }
+        if (type.equalsIgnoreCase("vidhanasabha")) {
             vidhansabhi_id = model.getGrampanchayatId();
             binding.edtVidhansabha.setText(model.getGrampanchayatName());
-        } if (type.equalsIgnoreCase("tahsil")){
+        }
+        if (type.equalsIgnoreCase("tahsil")) {
             tehsil_id = model.getGrampanchayatId();
             binding.edtTehsil.setText(model.getGrampanchayatName());
-        } if (type.equalsIgnoreCase("grampanchayat")){
+        }
+        if (type.equalsIgnoreCase("grampanchayat")) {
             gram_panchayat_id = model.getGrampanchayatId();
             binding.edtGramPanchayat.setText(model.getGrampanchayatName());
-        } if (type.equalsIgnoreCase("Gram")){
+        }
+        if (type.equalsIgnoreCase("Gram")) {
             gram_id = model.getGrampanchayatId();
             binding.edtVillage.setText(model.getGrampanchayatName());
         }
@@ -423,12 +425,12 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Toast.makeText(getContext(),successResult.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
         DataAdoption.deleteAll(DataAdoption.class);
 
-        record_count =1;
-        recordNo =1;
+        record_count = 1;
+        recordNo = 1;
         binding.txtno.setText(String.valueOf(record_count));
 
         binding.edtActivity.setText("");
@@ -449,29 +451,33 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     @Override
     public void onSuccessfullyRetrived(RetrivedAdoptionResponse successResult) {
 
-        binding.edtActivity.setFocusable(false);
-        binding.edtName.setFocusable(false);
-        binding.edtNameFather.setFocusable(false);
-        binding.edtAddress.setFocusable(false);
-        binding.edtMobile.setFocusable(false);
-        binding.edtNote.setFocusable(false);
-        binding.edtDistrict.setClickable(false);
-        binding.edtVidhansabha.setClickable(false);
-        binding.edtTehsil.setClickable(false);
-        binding.edtGramPanchayat.setClickable(false);
-        binding.edtVillage.setClickable(false);
+        binding.edtActivity.setEnabled(false);
+        binding.edtName.setEnabled(false);
+        binding.edtNameFather.setEnabled(false);
+        binding.edtAddress.setEnabled(false);
+        binding.edtMobile.setEnabled(false);
+        binding.edtNote.setEnabled(false);
+        binding.edtDistrict.setEnabled(false);
+        binding.edtVidhansabha.setEnabled(false);
+        binding.edtTehsil.setEnabled(false);
+        binding.edtGramPanchayat.setEnabled(false);
+        binding.edtVillage.setEnabled(false);
+        binding.tvAddRecord.setVisibility(View.GONE);
+        binding.tvSave.setVisibility(View.GONE);
 
         binding.edtActivity.setText(String.valueOf(successResult.getData().getActivity()));
         binding.edtName.setText(String.valueOf(successResult.getData().getPashupalakName()));
-       // binding.edtNameFather.setText(String.valueOf(successResult.getData().get()));
+        // binding.edtNameFather.setText(String.valueOf(successResult.getData().get()));
+
+        binding.edtNameFather.setText(String.valueOf(successResult.getData().getPashupalakFatherHusbandName()));
+        binding.edtDistrict.setText(String.valueOf(successResult.getData().getDistrictName()));
         binding.edtAddress.setText(String.valueOf(successResult.getData().getPashupalakAddress()));
         binding.edtMobile.setText(String.valueOf(successResult.getData().getPashupalakMobile()));
-        binding.edtVidhansabha.setText(String.valueOf(successResult.getData().getVidhanasabhaId()));
-        binding.edtTehsil.setText(String.valueOf(successResult.getData().getTahsilId()));
-        binding.edtGramPanchayat.setText(String.valueOf(successResult.getData().getGrampanchayatId()));
-        binding.edtVillage.setText(String.valueOf(successResult.getData().getGramId()));
+        binding.edtVidhansabha.setText(String.valueOf(successResult.getData().getVidhanasabhaName()));
+        binding.edtTehsil.setText(String.valueOf(successResult.getData().getTahsilName()));
+        binding.edtGramPanchayat.setText(String.valueOf(successResult.getData().getGrampanchayatName()));
+        binding.edtVillage.setText(String.valueOf(successResult.getData().getGramName()));
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-
 
 
     }

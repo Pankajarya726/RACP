@@ -3,7 +3,6 @@ package com.tekzee.racp.ui.add_animal_owner;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.UiThread;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -15,7 +14,6 @@ import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.SnackbarUtils;
 import com.tekzee.racp.utils.Utility;
 
 public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements AddOwnerView, View.OnClickListener {
@@ -24,7 +22,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
     private int gram_panchayat_id;
     private int gram_id;
-    private int category_id,vidhansabha_id,tehsil_id;
+    private int category_id, vidhansabha_id, tehsil_id,district_id;
     private int mtgGroup_id, identification_type_id, cast_category_id, former_type_id;
 
 
@@ -47,6 +45,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
         binding.edtPashupalakCtg.setOnClickListener(this);
         binding.vidhansabha.setOnClickListener(this);
         binding.tehsil.setOnClickListener(this);
+        binding.district.setOnClickListener(this);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -73,8 +72,20 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
                 mvpPresenter.getPashuPalakCategory();
                 break;
 
+            case R.id.district:
+                mvpPresenter.getDistrict();
+                break;
+
+            case R.id.vidhansabha:
+                mvpPresenter.getVidhanSabhaKshetra(district_id);
+                break;
+
+            case R.id.tehsil:
+                mvpPresenter.getTehsil(vidhansabha_id);
+                break;
+
             case R.id.gramPanchayat:
-                mvpPresenter.getGramPanchayat();
+                mvpPresenter.getGramPanchayat(tehsil_id);
                 break;
 
             case R.id.gram:
@@ -96,16 +107,8 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
                 mvpPresenter.getFarmerType();
                 break;
 
-            case R.id.vidhansabha:
-                mvpPresenter.getVidhanSabhaKshetra(105/*Utility.getIngerSharedPreferences(getContext(),Constant.USER_ID)*/);
-                break;
-
-            case R.id.tehsil:
-                mvpPresenter.getTehsil(105/*Utility.getIngerSharedPreferences(getContext(),Constant.USER_ID)*/);
-                break;
-
             case R.id.btn_save:
-                // addPashuPalak();
+                 addPashuPalak();
                 break;
 
         }
@@ -113,42 +116,72 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
     private void addPashuPalak() {
 
-        if (binding.edtFormerName.getText().toString().trim().isEmpty()) {
-            SnackbarUtils.snackBarTop(binding.edtFatherName, getString(R.string.formar_name));
-        } else if (binding.edtFatherName.getText().toString().trim().isEmpty()) {
-            SnackbarUtils.snackBarTop(binding.edtFatherName, getString(R.string.father_name));
-        } else if (binding.edtMoNumber.getText().toString().trim().isEmpty()) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.mobile_number));
+        if (binding.edtFormerName.getText().toString().isEmpty()) {
+
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
+        } else if (binding.edtFatherName.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_father_name));
+
+        } else if (binding.edtAddress.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
+
+        } else if (binding.edtMoNumber.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
+
         } else if (binding.edtMoNumber.getText().toString().length() != 10) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.invalid_no));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
+
         } else if (binding.edtIdentificationtype.getText().toString().equalsIgnoreCase(getString(R.string.identification_type))) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.identification_type));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_identification_type));
+
         } else if (binding.edtIdentificationNo.getText().toString().equalsIgnoreCase(getString(R.string.identification_no))) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.identification_no));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_identification_number));
+
         } else if (binding.edtFarmertype.getText().toString().equalsIgnoreCase(getString(R.string.former_type))) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.former_type));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_type));
+
         } else if (binding.pashupalakUnit.getText().toString().equalsIgnoreCase(getString(R.string.pashu_palak_unit))) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.pashu_palak_unit));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_unit));
+
         } else if (binding.edtPashupalakCtg.getText().toString().equalsIgnoreCase(getString(R.string.pashu_palak_ctg))) {
-            SnackbarUtils.snackBarTop(binding.edtMoNumber, getString(R.string.pashu_palak_ctg));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_category));
+
+        }else if (binding.district.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
+
         } else if (binding.gramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            SnackbarUtils.snackBarTop(binding.gramPanchayat, getString(R.string.gram_panchayat));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
+
         } else if (binding.gram.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            SnackbarUtils.snackBarTop(binding.gram, getString(R.string.village));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
+
         } else if (binding.mtggroup.getText().toString().equalsIgnoreCase(getString(R.string.mtg_group))) {
-            SnackbarUtils.snackBarTop(binding.mtggroup, getString(R.string.mtg_group));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_mtg_name));
+
+        } else if (binding.vidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
+
+        } else if (binding.tehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
+
         } else {
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("pashuPalakName", binding.edtFormerName.getText().toString().trim());
             jsonObject.addProperty("fatherHusbandName", binding.edtFatherName.getText().toString().trim());
+            jsonObject.addProperty("pashuPalakAddress", binding.edtAddress.getText().toString().trim());
             jsonObject.addProperty("mobile", binding.edtMoNumber.getText().toString().trim());
-            jsonObject.addProperty("identification_type_id",identification_type_id);
+            jsonObject.addProperty("pashuPalakCategoryID", category_id);
+            jsonObject.addProperty("identification_type_id", identification_type_id);
             jsonObject.addProperty("identification_no", binding.edtIdentificationNo.getText().toString().trim());
-            jsonObject.addProperty("former_type_id", former_type_id);
-            jsonObject.addProperty("pashupalak_unit_id",category_id);
-            jsonObject.addProperty("pashupalak_category_id",cast_category_id);
-            jsonObject.addProperty("gramPanchyatId", gram_panchayat_id);
+            jsonObject.addProperty("cast_category_id", cast_category_id);
+            jsonObject.addProperty("farmer_type_id", former_type_id);
+            jsonObject.addProperty("districtId", district_id);
+            jsonObject.addProperty("vidhanasabhaId", vidhansabha_id);
+            jsonObject.addProperty("tahsilId", tehsil_id);
+
+
+            jsonObject.addProperty("gramPanchayatId", gram_panchayat_id);
             jsonObject.addProperty("gramId", gram_id);
             jsonObject.addProperty("mtgGroup", mtgGroup_id);
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(AddOwnerActivity.this, Constant.USER_ID));
@@ -206,6 +239,9 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
         if (type.equalsIgnoreCase("tahsil")) {
             binding.tehsil.setText(model.getGrampanchayatName());
             tehsil_id = model.getGrampanchayatId();
+        }  if (type.equalsIgnoreCase("district")) {
+            binding.district.setText(model.getGrampanchayatName());
+            district_id = model.getGrampanchayatId();
         }
 
 
@@ -220,5 +256,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
     @Override
     public void onAddPashuPalakSuccess(AddPashuPalakResponse successResult) {
         Dialogs.showcolorDialog(this, successResult.getMessage());
+
+
     }
 }

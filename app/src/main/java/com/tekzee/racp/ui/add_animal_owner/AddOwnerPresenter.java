@@ -34,7 +34,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
     }
 
 
-    public void getGramPanchayat() {
+    public void getGramPanchayat(int tehsil_id) {
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
@@ -42,7 +42,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
-            addSubscription(apiStores.getGramPanchayat(Utility.getIngerSharedPreferences(mvpView.getContext(), Constant.USER_ID)), new ApiCallback <JsonObject>() {
+            addSubscription(apiStores.getGrampanchayatByTahsilId(tehsil_id), new ApiCallback <JsonObject>() {
                 @Override
                 public void onSuccess(JsonObject successResult) {
 
@@ -423,7 +423,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
-            addSubscription(apiStores.getVidhanSabhaKshetra(104), new ApiCallback <JsonObject>() {
+            addSubscription(apiStores.getVidhanasabhaByDistrict(id), new ApiCallback <JsonObject>() {
                 @Override
                 public void onSuccess(JsonObject successResult) {
 
@@ -441,7 +441,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
 
                                 arrayList.add(new GramPanchayat(
                                         object.getInt("vidhanasabha_id"),
-                                        object.getString("vidhanasabha_name")
+                                        object.getString("vidhanasabha_Name")
                                 ));
                             }
                             openSelector(arrayList, "vidhanasabha");
@@ -476,7 +476,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
-            addSubscription(apiStores.getTehsil(104), new ApiCallback <JsonObject>() {
+            addSubscription(apiStores.getTahsilByVidhanasabhaId(id), new ApiCallback <JsonObject>() {
                 @Override
                 public void onSuccess(JsonObject successResult) {
 
@@ -494,7 +494,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
 
                                 arrayList.add(new GramPanchayat(
                                         object.getInt("tahsil_id"),
-                                        object.getString("tahsil_name")
+                                        object.getString("tahsil_Name")
                                 ));
                             }
                             openSelector(arrayList, "tahsil");
@@ -505,7 +505,6 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                 }
 
                 @Override
@@ -633,5 +632,56 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
     }
 
 
+    public void getDistrict() {
+        mvpView.hideSoftKeyboard();
+        mvpView.showProgressDialog("Please wait...", false);
+        // mvpView.hideSoftKeyboard();
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
+            mvpView.hideProgressDialog();
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
+        } else {
+            addSubscription(apiStores.getDistrictList(), new ApiCallback <JsonObject>() {
+                @Override
+                public void onSuccess(JsonObject successResult) {
 
+                    Log.e("", String.valueOf(successResult));
+                    try {
+                        JSONObject jsonObject = new JSONObject(String.valueOf(successResult));
+                        jsonObject.getBoolean("success");
+                        Log.e("success msg", "" + jsonObject.getBoolean("success"));
+
+                        if (jsonObject.getBoolean("success")) {
+                            ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+                            JSONArray countryJsonArray = jsonObject.getJSONArray("data");
+                            for (int index = 0; index < countryJsonArray.length(); index++) {
+                                JSONObject object = countryJsonArray.getJSONObject(index);
+
+                                arrayList.add(new GramPanchayat(
+                                        object.getInt("district_id"),
+                                        object.getString("district_Name")
+                                ));
+                            }
+                            openSelector(arrayList, "district");
+
+                        } else {
+                            mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+
+                @Override
+                public void onFailure(CommonResult commonResult) {
+                    mvpView.onNoInternetConnectivity(commonResult);
+                }
+
+                @Override
+                public void onFinish() {
+                    mvpView.hideProgressDialog();
+                }
+            });
+        }
+    }
 }

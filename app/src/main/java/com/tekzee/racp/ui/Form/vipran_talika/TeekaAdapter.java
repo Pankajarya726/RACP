@@ -1,5 +1,4 @@
-package com.tekzee.racp.ui.Form.bakari_vitran;
-
+package com.tekzee.racp.ui.Form.vipran_talika;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tekzee.racp.R;
+import com.tekzee.racp.ui.Form.bakari_vitran.BakariVitranView;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 
 import java.util.List;
@@ -17,18 +17,17 @@ import java.util.List;
 public class TeekaAdapter extends RecyclerView.Adapter <TeekaAdapter.MyViewHolder> {
 
 
-    private BakariVitranView mCallBack;
+    private VipranView mCallBack;
     private Context context;
     private List <Immunization> immunizations;
     private View mSelectedView;
     private int mSelectedPosition;
 
-
-
-    public TeekaAdapter(Context context, List <Immunization> immunizations, BakariVitranView mCallBack) {
+    public TeekaAdapter(Context context, List <Immunization> immunizations, VipranView mCallBack) {
         this.context = context;
         this.immunizations = immunizations;
         this.mCallBack = mCallBack;
+
     }
 
     @NonNull
@@ -49,11 +48,11 @@ public class TeekaAdapter extends RecyclerView.Adapter <TeekaAdapter.MyViewHolde
         final Immunization data = immunizations.get(i);
         myViewHolder.tv_name.setText(data.getTeekaname());
         myViewHolder.tv_date.setText(data.getTeekadate());
-
         myViewHolder.tv_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mCallBack.onDateSelected(myViewHolder.getAdapterPosition(),immunizations,myViewHolder.tv_date);
+
             }
         });
 

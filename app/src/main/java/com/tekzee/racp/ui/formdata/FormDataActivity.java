@@ -14,6 +14,7 @@ import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.ActivityFormDataBinding;
 import com.tekzee.racp.ui.Form.adoption.Adoption;
 import com.tekzee.racp.ui.Form.ajola.AjolaActivity;
+import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
 import com.tekzee.racp.ui.Form.bakari_vitran.BakriVitranActivity;
 import com.tekzee.racp.ui.Form.beema_detail.BeemaDeatailActivity;
 import com.tekzee.racp.ui.Form.clean_milkkit.MilkKitActivity;
@@ -24,12 +25,15 @@ import com.tekzee.racp.ui.Form.kutti_machine.KuttiMachine;
 import com.tekzee.racp.ui.Form.mtg_meeting.MtgMeeting;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.MtgTraining;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.PahsuChikitsha;
+import com.tekzee.racp.ui.Form.vipran_talika.VipranTableActivity;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.FormActivity;
 import com.tekzee.racp.ui.Form.weighting_machine.WeightMachine;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.model.Datum;
 import com.tekzee.racp.ui.formdata.model.FormDataResponse;
+import com.tekzee.racp.ui.home.HomeActivity;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 
 import java.util.ArrayList;
@@ -62,7 +66,7 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            //startActivity(new Intent(ForSale.this, HomeActivity.class));
+            startActivity(new Intent(getContext(), HomeActivity.class));
             finish();
         }
 
@@ -95,6 +99,8 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 
@@ -219,9 +225,14 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
                 startActivity(i17);
 
             case 18:
-                Intent i18 = new Intent(getContext(), Adoption.class);
+                Intent i18 = new Intent(getContext(), RotationActivity.class);
                 i18.putExtra("table_id", datum.getTableId());
                 startActivity(i18);
+
+            case 19:
+                Intent i19 = new Intent(getContext(), VipranTableActivity.class);
+                i19.putExtra("table_id", datum.getTableId());
+                startActivity(i19);
 
                 break;
 

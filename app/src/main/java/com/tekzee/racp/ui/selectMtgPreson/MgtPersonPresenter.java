@@ -31,8 +31,9 @@ public class MgtPersonPresenter extends BasePresenter <MgtPersonView> {
 
                         mvpView.onSuccess(successResult);
 
-                    } else {
-                        //  Log.e("", String.valueOf(successResult.getMessage()));
+                    }
+                    else {
+                        Log.e("", String.valueOf(successResult.getMessage()));
                         mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
                     }
                 }
@@ -41,7 +42,7 @@ public class MgtPersonPresenter extends BasePresenter <MgtPersonView> {
                 @Override
                 public void onFailure(CommonResult commonResult) {
                     Log.e("", String.valueOf(commonResult.getMessage()));
-                    mvpView.onNoInternetConnectivity(commonResult);
+                    mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.not_found)));
                 }
 
                 @Override

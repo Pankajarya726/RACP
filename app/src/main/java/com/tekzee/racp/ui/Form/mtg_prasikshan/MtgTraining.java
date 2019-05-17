@@ -112,6 +112,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
             case R.id.edt_mtgname:
                 mvpPresenter.getMtgGroup(Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                break;
 
             case R.id.tv_addRecord:
                 saveRecord();
@@ -142,7 +143,6 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
         if (binding.edtPlace.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_training_place));
-
             return false;
         } else if (binding.edtTrainingdate.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_ayojak_date));
@@ -317,14 +317,15 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
+        Dialogs.showColorDialog(getContext(),successResult.getMessage());
 
-        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
         DataMtgTraingin.deleteAll(DataMtgTraingin.class);
         record_count = 1;
         recordNo = 1;
 
-        binding.txtno.setText(record_count);
+        binding.txtno.setText(String.valueOf(recordNo));
         binding.edtNote.setText("");
         binding.edtNote.setText("");
 
@@ -354,6 +355,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         binding.edtCount.setText(String.valueOf(successResult.getData().getTraineeNumber()));
         binding.edtPlace.setText(String.valueOf(successResult.getData().getTrainingPlace()));
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
 
     }
 
