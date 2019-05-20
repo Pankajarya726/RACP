@@ -170,9 +170,6 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
             SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.physical_proof));
             return false;
-        } else if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
-            return false;
         } else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()) {
             SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.in_use_or_not));
             return false;
@@ -181,6 +178,17 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
             return false;
         } else {
 
+            if (!binding.day.getText().toString().isEmpty()){
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
             String proof, use;
             if (binding.checkUseYes.isChecked()) {
                 use = binding.checkUseYes.getText().toString();
@@ -431,9 +439,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spMonth.setAdapter(adapter1);
 
-
+        int year1  = mDatePickerDialog.getYear();
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2030; i++) {
+        for (int i = 2015; i <= year1; i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -488,7 +496,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
         binding.spMachine.setClickable(false);
 
+        binding.receiptDate.setVisibility(View.VISIBLE);
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
         } else {

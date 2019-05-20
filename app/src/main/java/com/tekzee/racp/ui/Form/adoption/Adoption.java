@@ -41,11 +41,11 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     private FormAdoptionBinding binding;
     private int recordNo = 1;
     private int record_count = 1;
-    private int district_id;
-    private int vidhansabhi_id;
-    private int tehsil_id;
-    private int gram_panchayat_id;
-    private int gram_id;
+    private int district_id =0 ;
+    private int vidhansabhi_id =0;
+    private int tehsil_id = 0;
+    private int gram_panchayat_id = 0;
+    private int gram_id = 0;
     private int form_id;
     private int table_id;
     private List <DataAdoption> detailList = new ArrayList <>();
@@ -91,6 +91,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("table_id", table_id);
         jsonObject.addProperty("form_id", 17);
+
 
         mvpPresenter.getFormRecordData(jsonObject);
     }
@@ -180,16 +181,31 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         } else if (binding.edtDistrict.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
             return false;
+        } else if (district_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
+            return false;
         } else if (binding.edtVidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
+            return false;
+        }else if (vidhansabhi_id==0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
             return false;
         } else if (binding.edtTehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
             return false;
+        } else if (tehsil_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
+            return false;
         } else if (binding.edtGramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
             return false;
+        }else if (gram_panchayat_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
+            return false;
         } else if (binding.edtVillage.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
+            return false;
+        }else if (gram_id==0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
             return false;
         } else if (binding.edtMobile.getText().toString().isEmpty()) {
@@ -225,18 +241,8 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
 
-            binding.edtActivity.setText("");
-            binding.edtNameFather.setText("");
-            binding.edtName.setText("");
-            binding.edtAddress.setText("");
-            binding.edtDistrict.setHint(getString(R.string.district));
-            binding.edtVidhansabha.setHint(getString(R.string.vidhansabha));
-            binding.edtTehsil.setHint(getString(R.string.tehsil));
-            binding.edtGramPanchayat.setHint(getString(R.string.gram_panchayat));
-            binding.edtVillage.setHint(getString(R.string.village));
-            binding.edtMobile.setText("");
 
-            binding.edtNote.setText("");
+            ClearFeild();
 
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
@@ -277,8 +283,8 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         binding.edtGramPanchayat.setText(detail.getGrampanchayat());
         binding.edtVillage.setText(detail.getGram());
         binding.edtMobile.setText(detail.getMobile());
-
         binding.edtNote.setText(detail.getNote());
+        DisableView();
 
 
         binding.tvAddRecord.setVisibility(View.GONE);
@@ -301,11 +307,12 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
 
         detailList.clear();
         detailList = DataAdoption.listAll(DataAdoption.class);
+        com.tekzee.racp.utils.Log.view(tag,"+"+record_count);
+        com.tekzee.racp.utils.Log.view(tag,"+"+DataMtgTraingin.count(DataMtgTraingin.class));
 
         if (record_count <= DataMtgTraingin.count(DataMtgTraingin.class)) {
 
             DataAdoption detail = detailList.get(record_count - 1);
-
 
             binding.edtActivity.setText(detail.getActivity());
             binding.edtNameFather.setText(detail.getFahter_name());
@@ -317,22 +324,11 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
             binding.edtGramPanchayat.setText(detail.getGrampanchayat());
             binding.edtVillage.setText(detail.getGram());
             binding.edtMobile.setText(detail.getMobile());
-
             binding.edtNote.setText(detail.getNote());
+            DisableView();
         } else {
 
-            binding.edtActivity.setText("");
-            binding.edtNameFather.setText("");
-            binding.edtName.setText("");
-            binding.edtAddress.setText("");
-            binding.edtDistrict.setText(getString(R.string.district));
-            binding.edtVidhansabha.setText(getString(R.string.vidhansabha));
-            binding.edtTehsil.setText(getString(R.string.tehsil));
-            binding.edtGramPanchayat.setText(getString(R.string.gram_panchayat));
-            binding.edtVillage.setText(getString(R.string.village));
-            binding.edtMobile.setText("");
-
-            binding.edtNote.setText("");
+            ClearFeild();
 
 
         }
@@ -384,6 +380,48 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
 
     }
 
+    public  void ClearFeild(){
+        binding.edtActivity.setText("");
+        binding.edtNameFather.setText("");
+        binding.edtName.setText("");
+        binding.edtAddress.setText("");
+        binding.edtDistrict.setText("");
+        binding.edtVidhansabha.setText("");
+        binding.edtTehsil.setText("");
+        binding.edtGramPanchayat.setText("");
+        binding.edtVillage.setText("");
+        binding.edtMobile.setText("");
+        binding.edtNote.setText("");
+        EnableView();
+    }
+
+    public void DisableView(){
+        binding.edtActivity.setEnabled(false);
+        binding.edtName.setEnabled(false);
+        binding.edtNameFather.setEnabled(false);
+        binding.edtAddress.setEnabled(false);
+        binding.edtMobile.setEnabled(false);
+        binding.edtNote.setEnabled(false);
+        binding.edtDistrict.setEnabled(false);
+        binding.edtVidhansabha.setEnabled(false);
+        binding.edtTehsil.setEnabled(false);
+        binding.edtGramPanchayat.setEnabled(false);
+        binding.edtVillage.setEnabled(false);
+    }
+    public void EnableView(){
+        binding.edtActivity.setEnabled(true);
+        binding.edtName.setEnabled(true);
+        binding.edtNameFather.setEnabled(true);
+        binding.edtAddress.setEnabled(true);
+        binding.edtMobile.setEnabled(true);
+        binding.edtNote.setEnabled(true);
+        binding.edtDistrict.setEnabled(true);
+        binding.edtVidhansabha.setEnabled(true);
+        binding.edtTehsil.setEnabled(true);
+        binding.edtGramPanchayat.setEnabled(true);
+        binding.edtVillage.setEnabled(true);
+    }
+
     @Override
     public Context getContext() {
         return this;
@@ -391,7 +429,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+       Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 
@@ -402,18 +440,26 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         if (type.equalsIgnoreCase("district")) {
             district_id = model.getGrampanchayatId();
             binding.edtDistrict.setText(model.getGrampanchayatName());
+            vidhansabhi_id=0;
+            binding.edtVidhansabha.setText("");
         }
         if (type.equalsIgnoreCase("vidhanasabha")) {
             vidhansabhi_id = model.getGrampanchayatId();
             binding.edtVidhansabha.setText(model.getGrampanchayatName());
+            tehsil_id=0;
+            binding.edtTehsil.setText("");
         }
         if (type.equalsIgnoreCase("tahsil")) {
             tehsil_id = model.getGrampanchayatId();
             binding.edtTehsil.setText(model.getGrampanchayatName());
+            gram_panchayat_id=0;
+            binding.edtGramPanchayat.setText("");
         }
         if (type.equalsIgnoreCase("grampanchayat")) {
             gram_panchayat_id = model.getGrampanchayatId();
             binding.edtGramPanchayat.setText(model.getGrampanchayatName());
+            binding.edtVillage.setText("");
+            gram_id=0;
         }
         if (type.equalsIgnoreCase("Gram")) {
             gram_id = model.getGrampanchayatId();
@@ -433,17 +479,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         recordNo = 1;
         binding.txtno.setText(String.valueOf(record_count));
 
-        binding.edtActivity.setText("");
-        binding.edtNameFather.setText("");
-        binding.edtName.setText("");
-        binding.edtAddress.setText("");
-        binding.edtDistrict.setHint(getString(R.string.district));
-        binding.edtVidhansabha.setHint(getString(R.string.vidhansabha));
-        binding.edtTehsil.setHint(getString(R.string.tehsil));
-        binding.edtGramPanchayat.setHint(getString(R.string.gram_panchayat));
-        binding.edtVillage.setHint(getString(R.string.village));
-        binding.edtMobile.setText("");
-        binding.edtNote.setText("");
+        ClearFeild();
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
     }
@@ -451,17 +487,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     @Override
     public void onSuccessfullyRetrived(RetrivedAdoptionResponse successResult) {
 
-        binding.edtActivity.setEnabled(false);
-        binding.edtName.setEnabled(false);
-        binding.edtNameFather.setEnabled(false);
-        binding.edtAddress.setEnabled(false);
-        binding.edtMobile.setEnabled(false);
-        binding.edtNote.setEnabled(false);
-        binding.edtDistrict.setEnabled(false);
-        binding.edtVidhansabha.setEnabled(false);
-        binding.edtTehsil.setEnabled(false);
-        binding.edtGramPanchayat.setEnabled(false);
-        binding.edtVillage.setEnabled(false);
+
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
 

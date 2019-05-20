@@ -194,8 +194,13 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             if (binding.day.getText().toString().isEmpty()) {
 
             } else {
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_avail_date));
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -299,7 +304,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
         Log.e(tag, "record count" + record_count);
 
-        if (record_count < Record.count(Record.class)) {
+        if (record_count <= Record.count(Record.class)) {
             Record record = mRecord.get(record_count - 1);
 
             Log.e(tag, "record" + record.getData());
@@ -365,6 +370,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         try {
             JSONObject jsonObject = new JSONObject(record.getData());
 
+            binding.day.setText(jsonObject.getString("dd"));
             binding.edtTagNo.setText(jsonObject.getString("tag_no"));
             binding.edtBeemaVivran.setText(jsonObject.getString("beema_detail"));
             binding.edtPolicyNo.setText(jsonObject.getString("policy_no"));
@@ -439,7 +445,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2019; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -545,6 +551,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         binding.teekaDate.setVisibility(View.GONE);
         binding.addmore.setVisibility(View.GONE);
 
+        binding.recyclerImmunization.setEnabled(false);
 
         String ppr = successResult.getData().getDatePpr();
         String et = successResult.getData().getDateEt();
@@ -554,21 +561,30 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
         String date[] = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
+            if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
+            }
+
         }
         String date1[] = et.split(",");
         for (int i = 0; i < date1.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            }
         }
 
         String date2[] = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            }
         }
 
         String date3[] = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            }
         }
         setupRecyclerView();
 

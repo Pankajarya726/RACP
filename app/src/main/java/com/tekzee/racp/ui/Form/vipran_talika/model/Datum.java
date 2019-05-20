@@ -3,17 +3,18 @@ package com.tekzee.racp.ui.Form.vipran_talika.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Datum {
-
-    @SerializedName("pashupalak_id")
-    @Expose
-    private Integer pashupalakId;
+public class Datum {@SerializedName("pashupalak_id")
+@Expose
+private Integer pashupalakId;
     @SerializedName("pashupalak_name")
     @Expose
     private String pashupalakName;
     @SerializedName("pashupalak_mobile")
     @Expose
     private String pashupalakMobile;
+    @SerializedName("pashupalak_address")
+    @Expose
+    private String pashupalakAddress;
     @SerializedName("grampanchayat_id")
     @Expose
     private Integer grampanchayatId;
@@ -36,6 +37,7 @@ public class Datum {
 
     /**
      *
+     * @param pashupalakAddress
      * @param pashupalakId
      * @param grampanchayatName
      * @param grampanchayatId
@@ -44,11 +46,12 @@ public class Datum {
      * @param gramName
      * @param pashupalakMobile
      */
-    public Datum(Integer pashupalakId, String pashupalakName, String pashupalakMobile, Integer grampanchayatId, Integer gramId, String grampanchayatName, String gramName) {
+    public Datum(Integer pashupalakId, String pashupalakName, String pashupalakMobile, String pashupalakAddress, Integer grampanchayatId, Integer gramId, String grampanchayatName, String gramName) {
         super();
         this.pashupalakId = pashupalakId;
         this.pashupalakName = pashupalakName;
         this.pashupalakMobile = pashupalakMobile;
+        this.pashupalakAddress = pashupalakAddress;
         this.grampanchayatId = grampanchayatId;
         this.gramId = gramId;
         this.grampanchayatName = grampanchayatName;
@@ -77,6 +80,14 @@ public class Datum {
 
     public void setPashupalakMobile(String pashupalakMobile) {
         this.pashupalakMobile = pashupalakMobile;
+    }
+
+    public String getPashupalakAddress() {
+        return pashupalakAddress;
+    }
+
+    public void setPashupalakAddress(String pashupalakAddress) {
+        this.pashupalakAddress = pashupalakAddress;
     }
 
     public Integer getGrampanchayatId() {

@@ -13,12 +13,20 @@ import com.tekzee.racp.utils.GlideCircleTransformation;
 public class GlideModuleConstant extends AppGlideModule {
 
 
-    public static void setImage(ImageView view, Context context, String url) {
+    public static void setCircleImage(ImageView view, Context context, String url) {
         GlideApp.with(context)
                 .load(url)
                 .centerCrop()
                 .circleCrop()
                 .transform(new GlideCircleTransformation(context))
+                .placeholder(R.drawable.user)
+                .error(R.drawable.user)
+                .into(view);
+    }
+
+    public static void setImage(ImageView view, Context context, String url) {
+        GlideApp.with(context)
+                .load(url)
                 .placeholder(R.drawable.user)
                 .error(R.drawable.user)
                 .into(view);

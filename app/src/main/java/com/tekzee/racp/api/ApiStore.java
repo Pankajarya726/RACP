@@ -5,12 +5,14 @@ import com.tekzee.racp.ui.Form.adoption.model.RetrivedAdoptionResponse;
 import com.tekzee.racp.ui.Form.ajola.model.GetAnimalTypeResponse;
 import com.tekzee.racp.ui.Form.ajola.model.RetrivedAjolaResponse;
 import com.tekzee.racp.ui.Form.bakara_rotation.model.RetrivedBakraRotationResponse;
+import com.tekzee.racp.ui.Form.bakari_awas.model.RetrivedBakariAwasResponse;
 import com.tekzee.racp.ui.Form.beema_detail.model.RetrivedBeemaDataResponse;
 import com.tekzee.racp.ui.Form.clean_milkkit.model.RetrivedMilkKitResponse;
 import com.tekzee.racp.ui.Form.dana_pani_bartan.model.RetrivedDanaPaniResponse;
 import com.tekzee.racp.ui.Form.feed_suppliment.model.RetrivedFeedSupplimentResponse;
 import com.tekzee.racp.ui.Form.form_2.Model.RetrivedDataResponse;
 import com.tekzee.racp.ui.Form.kutti_machine.mode.RetrivedKuttiMachineResponse;
+import com.tekzee.racp.ui.Form.milk_info_bakari.model.RetrivedMilkInfoResponse;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMemberResponse;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.RetrivedMtgMeetingResponse;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.model.RetrivedMtgTrainingResponse;
@@ -31,9 +33,13 @@ import com.tekzee.racp.ui.selectMtgGroup.model.GetMtgResponse;
 import com.tekzee.racp.ui.selectMtgPreson.model.GetMtgMemberResponse;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Path;
 
 public interface ApiStore {
@@ -78,6 +84,9 @@ public interface ApiStore {
 
     @GET("getMTGGroupByUserId/{userId}")
     Observable <GetMtgResponse> getMTGGroupByUserId(@Path("userId") Integer id);
+
+    @GET("getMTGGroupByUserId/{userId}")
+    Observable <JsonObject> getMTGGroupByuserId(@Path("userId") Integer id);
 
     @GET("getMTGMemberByMtgGroupId/{userId}")
     Observable <GetMtgMemberResponse> getMTGMemberByMtgGroupId(@Path("userId") Integer id);
@@ -268,6 +277,39 @@ public interface ApiStore {
 
     @POST("getFormRecordData")
     Observable <RetrivedVipranTalikaResponse> getVipranTalikaData(@Body JsonObject jsonObject);
+
+
+    @POST("getFormRecordData")
+    Observable <RetrivedBakariAwasResponse> getBakariAwasData(@Body JsonObject jsonObject);
+
+
+    @Multipart
+    @POST("addGoatHouse")
+    Observable<FormSubmitResponse> uploadImage(@Part MultipartBody.Part formData,
+                                       @Part("user_id") RequestBody user_id,
+                                       @Part("form_id") RequestBody form_id,
+                                       @Part("mtg_member_id") RequestBody mtg_member_id,
+                                       @Part("mtg_group_id") RequestBody mtg_group_id,
+                                       @Part("status_receipt") RequestBody status_receipt,
+                                       @Part("physical_proof") RequestBody physical_proof,
+                                       @Part("usability") RequestBody usability,
+                                       @Part("note") RequestBody note,
+                                       @Part("date_creation_goat_house") RequestBody date_creation_goat_house,
+                                       @Part("dd") RequestBody dd,
+                                       @Part("mm") RequestBody mm,
+                                       @Part("yy") RequestBody yy,
+                                       @Part("img_lat") RequestBody img_lat,
+                                       @Part("img_long") RequestBody img_long);
+
+
+
+
+    @POST("addGoatMilkInformation")
+    Observable <FormSubmitResponse> addMilkInfo(@Body JsonObject jsonObject);
+
+    @POST("getFormRecordData")
+    Observable <RetrivedMilkInfoResponse> getMilkInfoData(@Body JsonObject jsonObject);
+
 
 
 }

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -47,9 +46,20 @@ public class mDatePickerDialog extends DialogFragment {
     public static String showDate(){
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-YYYY");
+        SimpleDateFormat mdformat = new SimpleDateFormat("YYYY-MM-dd");
         String strDate =mdformat.format(calendar.getTime());
         return strDate;
+
+    }
+
+    public static Integer getYear(){
+
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-YYYY");
+        String strDate =mdformat.format(calendar.getTime());
+        int year  = calendar.get(Calendar.YEAR);
+
+        return year;
 
     }
 
@@ -60,6 +70,30 @@ public class mDatePickerDialog extends DialogFragment {
         String strDate =mdformat.format(calendar.getTime());
 
         return strDate;
+
+    }
+
+    public static Boolean validateDate(Integer day, Integer month,Integer year) {
+
+
+        if ((month==1 || month==3 || month==5 || month==7 || month==8 || month==10 || month==12) && day>31){
+            Log.view("month"+month , "day"+day);
+            return false;
+        }
+        if ((month==4 || month==6 || month==9 || month==11) && day>30){
+            Log.view("month"+month , "day"+day);
+            return false;
+        }
+        if (month==2 && year%4==0 && day>29){
+            Log.view("month"+month , "day"+day);
+            return false;
+        }
+        if (month==2 && year%4!=0 && day>28){
+            Log.view("month"+month , "day"+day);
+            return false;
+        }
+
+        return true;
 
     }
 

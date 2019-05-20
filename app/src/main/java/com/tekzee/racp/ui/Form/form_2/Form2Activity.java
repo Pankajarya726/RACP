@@ -146,9 +146,14 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         } else {
 
             if (!binding.day.getText().toString().isEmpty()) {
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
-                    Toast.makeText(this, R.string.invalid_Date, Toast.LENGTH_LONG).show();
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                    return false;
                 }
             }
             mData data = new mData(binding.edtTagNo.getText().toString(),
@@ -285,7 +290,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2019; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -372,7 +377,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         binding.edtAvarage.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
         binding.edtAvarage.setFocusable(false);
 
-        binding.spNasl.setText(String.valueOf(successResult.getData().getNasl()));
+        binding.spNasl.setText(String.valueOf(successResult.getData().getNaslaName()));
         binding.spNasl.setClickable(false);
 
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));

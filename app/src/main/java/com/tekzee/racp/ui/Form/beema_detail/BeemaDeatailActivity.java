@@ -316,8 +316,13 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             }
             else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-                    Dialogs.showColorDialog(getContext(),getString(R.string.invalid_Date));
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -444,7 +449,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2030; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -525,6 +530,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
 
 
+        binding.spAnimalType.setEnabled(false);
 
         binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
         binding.edtPolicyNo.setFocusable(false);
@@ -553,7 +559,9 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
         binding.claincondition.setText(String.valueOf(successResult.getData().getClaimReceiptStage()));
         binding.claincondition.setVisibility(View.VISIBLE);
-       binding.layoutRadioGroup.setVisibility(View.GONE);
+
+
+        binding.layoutRadioGroup.setVisibility(View.GONE);
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);

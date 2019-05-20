@@ -4,7 +4,7 @@
     >
 
     <ScrollView
-
+        android:scrollbarThumbVertical="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -25,6 +25,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+
                     android:gravity="center_vertical"
                     android:text="@string/animal_owner_name"
                     android:textColor="@color/black"
@@ -36,6 +37,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp"
                     android:textColor="@color/black" />
@@ -63,6 +65,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
 
@@ -89,6 +92,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:inputType="textPostalAddress"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
 
@@ -113,6 +117,7 @@
 
                     android:id="@+id/edt_moNumber"
                     android:inputType="phone"
+                    android:digits="0123456789"
                     android:maxLength="10"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
@@ -174,6 +179,7 @@
                     android:id="@+id/edt_identificationNo"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
+                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_theme"
@@ -279,6 +285,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -310,6 +317,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -340,6 +348,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -371,6 +380,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"
@@ -402,6 +412,7 @@
 
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="20dp"

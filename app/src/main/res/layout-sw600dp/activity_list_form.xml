@@ -30,6 +30,7 @@
             android:layout_below="@+id/edt_search"
             app:layoutManager="android.support.v7.widget.GridLayoutManager"
             app:spanCount="2"
+            android:scrollbarThumbVertical="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 

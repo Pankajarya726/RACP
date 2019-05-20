@@ -1,6 +1,7 @@
 package com.tekzee.racp.ui.dashboard;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,17 +18,16 @@ import java.util.List;
 
 public class GridAdapter extends BaseAdapter {
 
+    private static final String tag = GridAdapter.class.getSimpleName();
+
     Context context;
-    String[] gridtext;
-    int[] gridimage;
-    List<Homemenu> homemenus;
+    List <Homemenu> homemenus;
 
 
-
-    public GridAdapter(Context context, List<Homemenu> homemenus) {
-    this.context = context;
-    this.homemenus = homemenus;
-   // this.gridtext = gridViewString;
+    public GridAdapter(Context context, List <Homemenu> homemenus) {
+        this.context = context;
+        this.homemenus = homemenus;
+        // this.gridtext = gridViewString;
     }
 
     @Override
@@ -66,8 +66,9 @@ public class GridAdapter extends BaseAdapter {
             /*textViewAndroid.setText(gridtext[position]);
             imageViewAndroid.setImageResource(gridimage[position]);*/
 
-            GlideModuleConstant.setImage(imageViewAndroid,context,homemenu.getMenuImage());
-            textViewAndroid.setText(homemenu.getMenuName());
+            GlideModuleConstant.setImage(imageViewAndroid, context, homemenu.getMenuImage());
+            Log.e(tag, "" + homemenu.getMenuName());
+            textViewAndroid.setText(String.valueOf(homemenu.getMenuName()));
 
 
         } else {

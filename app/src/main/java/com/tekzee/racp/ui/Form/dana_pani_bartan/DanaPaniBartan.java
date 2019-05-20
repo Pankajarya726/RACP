@@ -11,7 +11,6 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.orm.SugarRecord;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.ActivityDanaPaniBartanBinding;
@@ -52,11 +51,11 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        table_id = getIntent().getIntExtra("table_id",0);
+        table_id = getIntent().getIntExtra("table_id", 0);
 
-        if (table_id != 0){
+        if (table_id != 0) {
             getFormRecordData();
-        }else {
+        } else {
 
             ShowDialog();
         }
@@ -178,9 +177,6 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
             SnackbarUtils.snackBarBottom(binding.edtNote, getString(R.string.physical_proof));
             return false;
-        } else if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-            Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
-            return false;
         } else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()) {
             SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.in_use_or_not));
             return false;
@@ -189,6 +185,17 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
             return false;
         } else {
 
+            if (binding.day.getText().toString().isEmpty()){
+
+            }else  if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                    binding.spMonth.getSelectedItemPosition() + 1,
+                    Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                return false;
+            }
             String proof, use;
             if (binding.checkUseYes.isChecked()) {
                 use = binding.checkUseYes.getText().toString();
@@ -428,8 +435,9 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         binding.spMonth.setAdapter(adapter1);
 
 
+        int yearlimit = mDatePickerDialog.getYear();
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2030; i++) {
+        for (int i = 2015; i <= yearlimit; i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -461,7 +469,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
     }
 
     @Override
@@ -486,6 +494,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
 
+        binding.receiptDate.setVisibility(View.VISIBLE);
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
@@ -499,7 +508,6 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         } else {
             binding.checkUseNo.setChecked(true);
         }
-
 
 
     }

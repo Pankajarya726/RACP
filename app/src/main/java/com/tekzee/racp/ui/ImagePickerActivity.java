@@ -77,7 +77,8 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         int requestCode = intent.getIntExtra(INTENT_IMAGE_PICKER_OPTION, -1);
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            takeCameraImage();
+            chooseImageFromGallery();
+            //takeCameraImage();
         } else {
             chooseImageFromGallery();
         }
@@ -121,7 +122,9 @@ public class ImagePickerActivity extends AppCompatActivity {
                             fileName = System.currentTimeMillis() + ".jpg";
                             Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, getCacheImagePath(fileName));
+
                             if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+                                com.tekzee.racp.utils.Log.view(TAG,"getingimage"+fileName);
                                 startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                             }
                         }
@@ -156,9 +159,14 @@ public class ImagePickerActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         switch (requestCode) {
             case REQUEST_IMAGE_CAPTURE:
+                com.tekzee.racp.utils.Log.view(TAG,"imagePAth"+fileName);
                 if (resultCode == RESULT_OK) {
+
+                    com.tekzee.racp.utils.Log.view(TAG,"imagePAth"+fileName);
                     cropImage(getCacheImagePath(fileName));
                 } else {
                     setResultCancelled();
@@ -166,6 +174,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 break;
             case REQUEST_GALLERY_IMAGE:
                 if (resultCode == RESULT_OK) {
+                    com.tekzee.racp.utils.Log.view(TAG,"imagePAth"+fileName);
                     Uri imageUri = data.getData();
                     cropImage(imageUri);
                 } else {
@@ -174,6 +183,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 break;
             case UCrop.REQUEST_CROP:
                 if (resultCode == RESULT_OK) {
+                    com.tekzee.racp.utils.Log.view(TAG,"imagePAth"+fileName);
                     handleUCropResult(data);
                 } else {
                     setResultCancelled();
@@ -185,6 +195,7 @@ public class ImagePickerActivity extends AppCompatActivity {
                 setResultCancelled();
                 break;
             default:
+                com.tekzee.racp.utils.Log.view(TAG,"canceled"+fileName);
                 setResultCancelled();
         }
     }

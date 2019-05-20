@@ -6,6 +6,7 @@
             android:scrollbars="none"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
+          android:scrollbarThumbVertical="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
@@ -56,7 +57,7 @@
                     android:layout_below="@+id/txt"
                     android:layout_marginTop="10dp"
                     android:padding="20dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
                     android:layout_width="match_parent"
@@ -107,7 +108,7 @@
 
                     <LinearLayout
                         android:id="@+id/receipt_layout2"
-                        android:layout_marginTop="15dp"
+
                         android:orientation="horizontal"
                         android:weightSum="3"
                         android:layout_width="match_parent"
@@ -206,6 +207,7 @@
                     <EditText
                         android:id="@+id/edt_beema_vivran"
                         android:layout_marginTop="10dp"
+                        android:inputType="text"
                         android:paddingHorizontal="10dp"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
@@ -225,6 +227,8 @@
                         android:id="@+id/edt_policy_no"
                         android:layout_marginTop="10dp"
                         android:paddingHorizontal="10dp"
+                        android:inputType="text"
+                        android:digits="@string/digits"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:background="@drawable/edit_theme_black"
@@ -405,6 +409,7 @@
                         android:layout_marginTop="10dp"
                         android:id="@+id/recycler_immunization"
                         android:layout_width="match_parent"
+                        android:scrollbarThumbVertical="@null"
                         android:layout_height="wrap_content">
                     </android.support.v7.widget.RecyclerView>
 

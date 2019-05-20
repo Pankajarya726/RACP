@@ -12,7 +12,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbarThumbVertical="@null">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -116,7 +116,6 @@
                         android:id="@+id/receipt_layout2"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:layout_marginTop="15dp"
                         android:orientation="horizontal"
                         android:weightSum="3">
 
@@ -125,6 +124,7 @@
                             android:layout_width="0dp"
                             android:layout_height="35dp"
                             android:layout_weight="1"
+                            android:maxLength="2"
                             android:background="@drawable/edit_theme_black"
                             android:inputType="number"
                             android:paddingHorizontal="10dp"
@@ -225,6 +225,7 @@
                         android:id="@+id/edt_age"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:maxLength="3"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:inputType="number"

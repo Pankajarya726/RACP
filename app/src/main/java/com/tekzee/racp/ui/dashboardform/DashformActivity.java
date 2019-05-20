@@ -143,10 +143,9 @@ public class DashformActivity extends MvpActivity<DashboardFromPresenter> implem
 
     }
     private void setUpGridView(List <Homemenu> homemenus) {
-        List <Homemenu> mlist = new ArrayList <>();
-        mlist = homemenus;
+
         GridAdapter gridAdapter;
-        gridAdapter = new GridAdapter(getContext(), mlist);
+        gridAdapter = new GridAdapter(getContext(), homemenus);
         binding.gridview.setAdapter(gridAdapter);
 
     }

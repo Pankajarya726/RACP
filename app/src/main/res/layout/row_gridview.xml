@@ -3,29 +3,32 @@
 <LinearLayout
 
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="100dp"
+    android:layout_width="match_parent"
     android:gravity="center"
+    android:layout_centerHorizontal="true"
     android:padding="10dp"
     android:orientation="vertical"
-    android:layout_height="100dp">
+    android:layout_height="wrap_content">
 
     <LinearLayout
-        android:background="@drawable/button_theme"
+        android:background="@color/white"
+        android:padding="15dp"
+        android:gravity="center"
         android:layout_width="100dp"
-        android:padding="25dp"
         android:layout_height="100dp">
-
         <ImageView
             android:id="@+id/img_grid_img"
             android:src="@drawable/add_user"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
+
     <TextView
         android:id="@+id/tv_gridtext"
         android:text="@string/add_animal_owner"
         android:autoSizeTextType="uniform"
         android:gravity="center"
+        android:inputType="text"
         android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

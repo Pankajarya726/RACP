@@ -421,9 +421,13 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
 
             }else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString())>31){
-                    Dialogs.showColorDialog(getContext(),getString(R.string.invalid_Date));
-                    //Toast.makeText(this,getString(R.string.invalid_Date),Toast.LENGTH_SHORT).show();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -698,8 +702,9 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.spMonth.setAdapter(adapter1);
 
 
+        int year1  = mDatePickerDialog.getYear();
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2030; i++) {
+        for (int i = 2015; i <= year1; i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,

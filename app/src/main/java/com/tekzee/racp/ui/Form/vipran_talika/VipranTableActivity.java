@@ -348,6 +348,8 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
             binding.edtVillage.setText(successResult.getData().get(0).getGramName());
             binding.edtVillage.setEnabled(false);
 
+            binding.edtAddress.setEnabled(false);
+            binding.edtAddress.setText(successResult.getData().get(0).getPashupalakAddress());
             gram_panchayat_id = successResult.getData().get(0).getGrampanchayatId();
             gram_id = successResult.getData().get(0).getGramId();
 
@@ -382,7 +384,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         binding.edtGramPanchayat.setEnabled(false);
         binding.edtVillage.setEnabled(false);
         binding.edtMobile.setEnabled(false);
-        binding.edtAddress.setEnabled(false);
+
         binding.animelType.setEnabled(false);
         binding.edtTagNo.setEnabled(false);
         binding.edtAge.setEnabled(false);
@@ -417,7 +419,8 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         binding.edtVillage.setText(String.valueOf(successResult.getData().getGramName()));
 
         binding.edtMobile.setText(String.valueOf(successResult.getData().getPashupalakMobile()));
-        binding.edtAddress.setText(String.valueOf(successResult.getData().getPashupalakMobile()));
+        binding.edtAddress.append(String.valueOf(successResult.getData().getPashupalakMobile()));
+        binding.edtAddress.setEnabled(false);
         binding.animelType.setText(String.valueOf(successResult.getData().getAnimalType()));
         binding.edtAge.setText(String.valueOf(successResult.getData().getAge()));
         binding.edtWeight.setText(String.valueOf(successResult.getData().getWeight()));
@@ -513,7 +516,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         loadList(currentDateString, binding.spTeeka.getSelectedItem().toString());
 
-        binding.teekaDate.setText(currentDateString);
+        binding.teekaDate.setText("");
     }
 
     private void loadList(String format, String name) {
@@ -590,7 +593,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
                 public void onClick(View v) {
                     hideSoftKeyboard();
                     Intent intent = new Intent(getContext(), FormDataActivity.class);
-                    intent.putExtra("form_id", form_id);
+                    intent.putExtra("form_id", 19);
                     startActivity(intent);
 
                     dialog.dismiss();

@@ -54,7 +54,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         form_id = getIntent().getIntExtra("form_id", 0);
-        Log.e(tag,"form_id bakra rotation"+form_id);
+        Log.e(tag, "form_id bakra rotation" + form_id);
         table_id = getIntent().getIntExtra("table_id", 0);
 
         if (table_id != 0) {
@@ -123,123 +123,106 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
 
         if (binding.edtTagNo.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tagno));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
         } else if (binding.edtName.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.animal_owner_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.animal_owner_name));
 
             return false;
         } else if (binding.edtMtgname.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mtg_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
             return false;
         } else if (binding.edtAddress.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_address));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
 
             return false;
         } else if (binding.edtMobileNumber.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mobile));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
 
             return false;
         } else if (binding.edtMobileNumber.getText().toString().length() != 10) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.invalid_no));
+            Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
 
             return false;
-        } else if (binding.edtVidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_vidhansavha));
+        } else if (binding.edtVidhansabha.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_vidhansavha));
 
             return false;
-        } else if (binding.edtTehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tehsil));
+        } else if (binding.edtTehsil.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_tehsil));
 
             return false;
-        } else if (binding.edtGramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_gram_panchayat));
+        } else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
 
             return false;
-        } else if (binding.edtVillage.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_village));
+        } else if (binding.edtVillage.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
 
             return false;
         } else if (binding.edtName1.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_name));
             return false;
         } else if (binding.edtMtgname1.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mtg_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
             return false;
         } else if (binding.edtAddress1.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_address));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
 
             return false;
         } else if (binding.edtMobileNumber1.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mobile));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
 
             return false;
         } else if (binding.edtMobileNumber1.getText().toString().length() != 10) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.invalid_no));
+            Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
 
             return false;
-        } else if (binding.edtVidhansabha1.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_vidhansavha));
+        } else if (binding.edtVidhansabha1.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_vidhansavha));
 
             return false;
-        } else if (binding.edtTehsil1.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tehsil));
+        } else if (binding.edtTehsil1.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_tehsil));
 
             return false;
-        } else if (binding.edtGramPanchayat1.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_gram_panchayat));
+        } else if (binding.edtGramPanchayat1.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
 
             return false;
-        } else if (binding.edtVillage1.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_village));
+        } else if (binding.edtVillage1.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
             return false;
         } else {
 
 
             DataBakaraRotation details = new DataBakaraRotation(
-                    binding.edtTagNo.getText().toString(),
-                    binding.edtName.getText().toString(),
-                    binding.edtMtgname.getText().toString(),
-                    binding.edtAddress.getText().toString(),
-                    binding.edtMobileNumber.getText().toString(),
-                    binding.edtVidhansabha.getText().toString(),
-                    binding.edtGramPanchayat.getText().toString(),
-                    binding.edtVillage.getText().toString(),
-                    binding.edtTehsil.getText().toString(),
-                    binding.edtName1.getText().toString(),
-                    binding.edtMtgname1.getText().toString(),
-                    binding.edtAddress1.getText().toString(),
-                    binding.edtMobileNumber1.getText().toString(),
-                    binding.edtVidhansabha1.getText().toString(),
-                    binding.edtGramPanchayat1.getText().toString(),
-                    binding.edtVillage1.getText().toString(),
-                    binding.edtTehsil1.getText().toString());
+                    String.valueOf(getTagNo()),
+                    getPashupalakNameBefore(),
+                    getMtgNameBefore(),
+                    getAddressBefore(),
+                    getMobileBefore(),
+                    getVidhanSabhaBefore(),
+                    getGramPanchayatBefore(),
+                    getGramBefore(),
+                    getTehsilBefore(),
+                    getMtgNameAfter(),
+                    getMtgNameAfter(),
+                    getAddressAfter(),
+                    getMobileAfter(),
+                    getVidhanSabhaAfter(),
+                    getGramPanchayatAfter(),
+                    getGramAfter(),
+                    getTehsilAfter());
             details.save();
 
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
 
-            binding.edtTagNo.setText("");
-            binding.edtName.setText("");
-            binding.edtName1.setText("");
-            binding.edtMtgname.setText("");
-            binding.edtAddress.setText("");
-            binding.edtMobileNumber.setText("");
-            binding.edtVidhansabha.setText("");
-            binding.edtGramPanchayat.setText("");
-            binding.edtTehsil.setText("");
-            binding.edtVillage.setText("");
-            binding.edtName.setText("");
-            binding.edtMtgname1.setText("");
-            binding.edtAddress1.setText("");
-            binding.edtMobileNumber1.setText("");
-            binding.edtVidhansabha1.setText("");
-            binding.edtGramPanchayat1.setText("");
-            binding.edtTehsil1.setText("");
-            binding.edtVillage1.setText("");
+           ClearField();
 
 
             binding.privious.setVisibility(View.VISIBLE);
@@ -287,6 +270,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         binding.edtGramPanchayat1.setText(detail.getGrampanchayat_after());
         binding.edtTehsil1.setText(detail.getTehsil_after());
         binding.edtVillage1.setText(detail.getGram_after());
+        DisableField();
 
 
         binding.tvAddRecord.setVisibility(View.GONE);
@@ -331,26 +315,10 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             binding.edtGramPanchayat1.setText(detail.getGrampanchayat_after());
             binding.edtTehsil1.setText(detail.getTehsil_after());
             binding.edtVillage1.setText(detail.getGram_after());
+            DisableField();
         } else {
 
-            binding.edtTagNo.setText("");
-            binding.edtName.setText("");
-            binding.edtName1.setText("");
-            binding.edtMtgname.setText("");
-            binding.edtAddress.setText("");
-            binding.edtMobileNumber.setText("");
-            binding.edtVidhansabha.setText("");
-            binding.edtGramPanchayat.setText("");
-            binding.edtTehsil.setText("");
-            binding.edtVillage.setText("");
-            binding.edtName.setText("");
-            binding.edtMtgname1.setText("");
-            binding.edtAddress1.setText("");
-            binding.edtMobileNumber1.setText("");
-            binding.edtVidhansabha1.setText("");
-            binding.edtGramPanchayat1.setText("");
-            binding.edtTehsil1.setText("");
-            binding.edtVillage1.setText("");
+            ClearField();
 
 
         }
@@ -417,12 +385,19 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.showColorDialog(getContext(), successResult.getMessage());
 
         DataBakaraRotation.deleteAll(DataBakaraRotation.class);
+        ClearField();
         record_count = 1;
         recordNo = 1;
         binding.txtno.setText(String.valueOf(record_count));
+        binding.privious.setVisibility(View.GONE);
+        binding.next.setVisibility(View.GONE);
+    }
+
+
+    public void ClearField(){
         binding.edtTagNo.setText("");
         binding.edtName.setText("");
         binding.edtName1.setText("");
@@ -441,8 +416,6 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         binding.edtGramPanchayat1.setText("");
         binding.edtTehsil1.setText("");
         binding.edtVillage1.setText("");
-        binding.privious.setVisibility(View.GONE);
-        binding.next.setVisibility(View.GONE);
     }
 
     @Override
@@ -455,24 +428,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
-
-        binding.edtTagNo.setFocusable(false);
-        binding.edtAddress.setFocusable(false);
-        binding.edtAddress1.setFocusable(false);
-        binding.edtName.setFocusable(false);
-        binding.edtName1.setFocusable(false);
-        binding.edtMtgname.setFocusable(false);
-        binding.edtMtgname1.setFocusable(false);
-        binding.edtMobileNumber.setFocusable(false);
-        binding.edtMobileNumber1.setFocusable(false);
-        binding.edtVidhansabha.setFocusable(false);
-        binding.edtVidhansabha1.setFocusable(false);
-        binding.edtGramPanchayat.setFocusable(false);
-        binding.edtGramPanchayat1.setFocusable(false);
-        binding.edtTehsil.setFocusable(false);
-        binding.edtTehsil1.setFocusable(false);
-        binding.edtVillage.setFocusable(false);
-        binding.edtVillage1.setFocusable(false);
+        DisableField();
 
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.edtName.setText(String.valueOf(successResult.getData().getBeforePashupalakName()));
@@ -493,6 +449,111 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         binding.edtVillage1.setText(String.valueOf(successResult.getData().getAfterGram()));
 
 
+    }
+
+    public void DisableField(){
+        binding.edtTagNo.setFocusable(false);
+        binding.edtAddress.setFocusable(false);
+        binding.edtAddress1.setFocusable(false);
+        binding.edtName.setFocusable(false);
+        binding.edtName1.setFocusable(false);
+        binding.edtMtgname.setFocusable(false);
+        binding.edtMtgname1.setFocusable(false);
+        binding.edtMobileNumber.setFocusable(false);
+        binding.edtMobileNumber1.setFocusable(false);
+        binding.edtVidhansabha.setFocusable(false);
+        binding.edtVidhansabha1.setFocusable(false);
+        binding.edtGramPanchayat.setFocusable(false);
+        binding.edtGramPanchayat1.setFocusable(false);
+        binding.edtTehsil.setFocusable(false);
+        binding.edtTehsil1.setFocusable(false);
+        binding.edtVillage.setFocusable(false);
+        binding.edtVillage1.setFocusable(false);
+    }
+
+    @Override
+    public int getTagNo() {
+        return Integer.valueOf(binding.edtTagNo.getText().toString());
+    }
+
+    @Override
+    public String getPashupalakNameBefore() {
+        return binding.edtName.getText().toString();
+    }
+
+    @Override
+    public String getMtgNameBefore() {
+        return binding.edtMtgname.getText().toString();
+    }
+
+    @Override
+    public String getAddressBefore() {
+        return binding.edtAddress.getText().toString();
+    }
+
+    @Override
+    public String getMobileBefore() {
+        return binding.edtMobileNumber.getText().toString();
+    }
+
+    @Override
+    public String getVidhanSabhaBefore() {
+        return binding.edtVidhansabha.getText().toString();
+    }
+
+    @Override
+    public String getGramPanchayatBefore() {
+        return binding.edtGramPanchayat.getText().toString();
+    }
+
+    @Override
+    public String getTehsilBefore() {
+        return binding.edtTehsil.getText().toString();
+    }
+
+    @Override
+    public String getGramBefore() {
+        return binding.edtVillage.getText().toString();
+    }
+
+    @Override
+    public String getPashupalakNameAfter() {
+        return binding.edtName1.getText().toString();
+    }
+
+    @Override
+    public String getMtgNameAfter() {
+        return binding.edtMtgname1.getText().toString();
+    }
+
+    @Override
+    public String getAddressAfter() {
+        return binding.edtAddress1.getText().toString();
+    }
+
+    @Override
+    public String getMobileAfter() {
+        return binding.edtMobileNumber1.getText().toString();
+    }
+
+    @Override
+    public String getVidhanSabhaAfter() {
+        return binding.edtVidhansabha1.getText().toString();
+    }
+
+    @Override
+    public String getGramPanchayatAfter() {
+        return binding.edtGramPanchayat1.getText().toString();
+    }
+
+    @Override
+    public String getTehsilAfter() {
+        return binding.edtTehsil1.getText().toString();
+    }
+
+    @Override
+    public String getGramAfter() {
+        return binding.edtVillage1.getText().toString();
     }
 
     private void getFormRecordData() {

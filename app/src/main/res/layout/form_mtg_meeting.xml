@@ -14,7 +14,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none">
+            android:scrollbarThumbVertical="@null">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -147,6 +147,7 @@
                         android:id="@+id/edt_note"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
+                        android:inputType="textMultiLine"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:gravity="start"

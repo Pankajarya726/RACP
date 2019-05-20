@@ -24,6 +24,7 @@ import com.tekzee.racp.ui.Form.feed_suppliment.model.RetrivedFeedSupplimentRespo
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -166,8 +167,13 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
             } else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-                    Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -527,7 +533,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     private void setDataInSpinner() {
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i < 2019; i++) {
+        for (int i = 2015; i < mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter = new ArrayAdapter <Integer>(this,
@@ -578,6 +584,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 
@@ -631,6 +638,8 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     @Override
     public void onSuccessfullyRetrived(RetrivedFeedSupplimentResponse successResult) {
 
+        Log.e(tag,"deta retrived");
+
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
 
@@ -660,16 +669,48 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
             binding.spAnimalType.setSelection(0);
         }
         if (Integer.valueOf(successResult.getData().getAnimaltypeId())==2){
+            binding.spMilkproduciton1.setVisibility(View.VISIBLE);
+            binding.spMilkproduciton2.setVisibility(View.VISIBLE);
+            binding.spMilkproduciton3.setVisibility(View.VISIBLE);
             binding.spAnimalType.setSelection(1);
         }
         if (Integer.valueOf(successResult.getData().getAnimaltypeId())==3){
             binding.spAnimalType.setSelection(2);
         }
 
+
+        String weight = successResult.getData().getEffetedWeight();
+        String coat_Shining = successResult.getData().getCoatShining();
+        String milk_production  =successResult.getData().getMilkProduction();
+        String heay_friquendy = successResult.getData().getHeatFrquency();
+
+
+
+
+       // String weight1[] = weight.split(",");
+
+
+        //Log.e(tag, weight+"****"+weight1[0]);
+       /* binding.edtWeight1.setText(String.valueOf(weight1[0]));
+        binding.edtWeight2.setText(String.valueOf(weight1[1]));*/
+        //binding.edtWeight3.setText(String.valueOf(weight1[2]));
+
+
+
+
+
+
+
+
+
+
+
         binding.edtTagNo.setText(String.valueOf(Integer.valueOf(successResult.getData().getTagNo())));
         binding.edtAge.setText(String.valueOf(Integer.valueOf(successResult.getData().getAge())));
 
         binding.edtStartweight.setText(String.valueOf(successResult.getData().getWeightStart()));
+
+        Log.e(tag,successResult.getData().getTagNo().toString());
         binding.edtStartmilkproduction.setText(String.valueOf(successResult.getData().getMilkProductionStart()));
         binding.edtSupplimetnAmount.setText(String.valueOf(successResult.getData().getFeedSuplimentAmount()));
         binding.edtStartDate.setText(String.valueOf(successResult.getData().getFeedSupplimentStartDate()));

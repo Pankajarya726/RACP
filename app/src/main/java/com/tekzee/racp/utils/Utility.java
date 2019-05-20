@@ -3,6 +3,8 @@ package com.tekzee.racp.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -64,6 +66,23 @@ public class Utility {
     public static void removepreference(Context context) {
         SharedPreferences settings = context.getSharedPreferences(RACPAPP, 0);
         settings.edit().clear().commit();
+    }
+
+
+    public static byte[] getBytes(InputStream inputStream) {
+        ByteArrayOutputStream byteBuffer = new ByteArrayOutputStream();
+        int bufferSize = 1024;
+        byte[] buffer = new byte[bufferSize];
+        try {
+            int len = 0;
+            while ((len = inputStream.read(buffer)) != -1) {
+                byteBuffer.write(buffer, 0, len);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return byteBuffer.toByteArray();
     }
 
 

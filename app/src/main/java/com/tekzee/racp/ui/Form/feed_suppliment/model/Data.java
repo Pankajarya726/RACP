@@ -37,7 +37,7 @@ private String dateAfter90Days;
 private String supplimentEffectMonth;
 @SerializedName("effeted_weight")
 @Expose
-private Integer effetedWeight;
+private String effetedWeight;
 @SerializedName("coat_shining")
 @Expose
 private String coatShining;
@@ -80,7 +80,7 @@ public Data() {
 * @param dateAfter90Days
 * @param weightStart
 */
-public Data(Integer tableId, Integer animaltypeId, Integer tagNo, Integer age, Integer weightStart, Integer milkProductionStart, Integer feedSuplimentAmount, String feedSupplimentStartDate, String dateAfter90Days, String supplimentEffectMonth, Integer effetedWeight, String coatShining, String milkProduction, String heatFrquency, String dateReceipt, Integer formId) {
+public Data(Integer tableId, Integer animaltypeId, Integer tagNo, Integer age, Integer weightStart, Integer milkProductionStart, Integer feedSuplimentAmount, String feedSupplimentStartDate, String dateAfter90Days, String supplimentEffectMonth, String effetedWeight, String coatShining, String milkProduction, String heatFrquency, String dateReceipt, Integer formId) {
 super();
 this.tableId = tableId;
 this.animaltypeId = animaltypeId;
@@ -180,11 +180,11 @@ public void setSupplimentEffectMonth(String supplimentEffectMonth) {
 this.supplimentEffectMonth = supplimentEffectMonth;
 }
 
-public Integer getEffetedWeight() {
+public String getEffetedWeight() {
 return effetedWeight;
 }
 
-public void setEffetedWeight(Integer effetedWeight) {
+public void setEffetedWeight(String effetedWeight) {
 this.effetedWeight = effetedWeight;
 }
 

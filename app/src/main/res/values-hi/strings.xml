@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="map_api_key">AIzaSyAfk3kKTJ71lQfUsbwH_qlfN5Ylclr4b3s</string>
     <string name="app_name">RACP</string>
     <string name="no_internet">कृपया इंटरनेट कनेक्शन चेक करे</string>
     <string name="login_title"> पशुधन गतिविधियों की निगरानी के लिए ऐप्प का उपयोग करे </string>
@@ -24,7 +24,7 @@
     <string name="add_record">नया रिकॉर्ड जोड़े</string>
     <string name="save">जमा करे</string>
     <string name="list_goat">वितरित बकरो का विवरण</string>
-    <string name="add_animal_owner">ऐड पशु पालक</string>
+    <string name="add_animal_owner">ऐड पशुपालक</string>
     <string name="add_mtggroup">ऐड M.T.G ग्रुप</string>
     <string name="dashboard">LLW डैशबोर्ड</string>
     <string name="animal_owner_list">ऐड पशु पालक वितरण</string>
@@ -36,6 +36,7 @@
     <string name="from">से</string>
     <string name="to">तक</string>
     <string name="fill_form">प्रपत्र भरे</string>
+
     <string name="save_list">जमा विवरण</string>
     <string name="search">खोजे</string>
     <string name="filled_from">भरा हुआ प्रपत्र</string>
@@ -64,7 +65,7 @@
     <string name="after_ajola">अजोला से पश्चात</string>
     <string name="gram_panchayat">ग्राम पंचायत</string>
     <string name="village">ग्राम</string>
-    <string name="mtg_group">MGT ग्रुप</string>
+    <string name="mtg_group">MTG ग्रुप</string>
 
 
 
@@ -99,7 +100,7 @@
     <string name="animal_count">चिकित्सा किये गये पशुओ की संख्या</string>
     <string name="big">बड़े</string>
     <string name="small">छोटे</string>
-    <string name="biomadicel_best_disposel">बिओमेडिकल वेस्ट डिस्पोज़ल उपलब्धता</string>
+    <string name="biomadicel_best_disposel">बायोमेडिकल कचरा निपटान के लिए उपलब्धता</string>
     <string name="mtg_name">M.T.G. का नाम</string>
     <string name="prasikshan_date">प्रशिक्षण दिनांक</string>
     <string name="count_prasiksharthi">प्रशिक्षार्थी की संख्या</string>
@@ -284,6 +285,29 @@
     <string name="select_farmer_unit">पशुपालक श्रेणी चुने</string>
     <string name="select_farmer_category">पशुपालक केटेगरी चुने</string>
     <string name="not_found">पशुपालक नहीं मिला</string>
+    <string name="select_effect">प्रभाव चुने</string>
+    <string name="select_form">प्रपत्र चुने</string>
+    <string name="power">power</string>
+    <string name="manual">manual</string>
+    <string name="enter_awas_build_date">बकरी आवास निर्माण की दिनांक भरे</string>
 
+    <string name="dialog_permission_title">Grant Permissions</string>
+    <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings</string>
+    <string name="go_to_settings">GOTO SETTINGS</string>
+    <string name="mtg_member">MTG सदस्य</string>
+    <string name="totle_milk_production">कुल दुग्ध उत्पादन</string>
+    <string name="upbhog_amount">उपभोग मात्रा प्रतिदिन</string>
+    <string name="avail_amount_for_sale">विक्रय हेतु उपलब्ध मात्रा</string>
+    <string name="form19">बकरी के दुग्ध की सुचना</string>
+    <string name="PleaseWait">कृपया प्रतीक्षा करें ...</string>
+    <string name="getting_your_location">हम आपका स्थान प्राप्त कर रहे हैं</string>
+    <string name="please_install_play_service">कृपया पहले प्ले सर्विस इंस्टॉल करें</string>
+    <string name="select_image">कृपया पहले फोटो का चयन करें</string>
+    <string name="enter_total_amount">कुल दुग्ध उत्पादन मात्रा भरे</string>
+    <string name="enter_upbhod_amount">उपभोग मात्रा प्रतिदिन भरे</string>
+    <string name="enter_avail_amount">उपभोग मात्रा प्रतिदिन भरे</string>
+    <string name="member_not_found">कोई सदस्य नहीं मिला</string>
+    <string name="digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
+    <string name="image_bakri_awas">बकरी आवास की फोटो</string>
 
 </resources>

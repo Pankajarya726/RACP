@@ -36,6 +36,7 @@
             android:id="@+id/recycler_mtggroup"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:scrollbarThumbVertical="@null"
             android:layout_below="@+id/txt_select_mgt"
             android:layout_margin="15dp">
 

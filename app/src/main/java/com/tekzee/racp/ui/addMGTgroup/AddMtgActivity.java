@@ -29,8 +29,8 @@ import java.util.List;
 
 public class AddMtgActivity extends MvpActivity<AddMtgPresenter> implements AddMtgView, View.OnClickListener {
     private AddMtgGroupBinding binding;
-    int gram_panchayat_id;
-    int gram_id;
+    private int gram_panchayat_id = 0;
+    private int gram_id = 0;
 
     List<String> gramPanchayats = new ArrayList <>();
 
@@ -42,8 +42,6 @@ public class AddMtgActivity extends MvpActivity<AddMtgPresenter> implements AddM
         getSupportActionBar().setTitle(R.string.add_mtggroup);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         binding.gramPanchayat.setOnClickListener(this);
         binding.gram.setOnClickListener(this);
         binding.btnSave.setOnClickListener(this);
@@ -93,14 +91,14 @@ public class AddMtgActivity extends MvpActivity<AddMtgPresenter> implements AddM
 
     @Override
     public void onNoInternetConnectivity(CommonResult result) {
-
+        Dialogs.showcolorDialog(getContext(),result.getMessage());
     }
 
     @Override
     public void onGramPanchayatSelected(GramPanchayat model, String type) {
         if (type.equalsIgnoreCase("Gram_panchayat")) {
             binding.gramPanchayat.setText(model.getGrampanchayatName());
-            binding.gram.setText(R.string.village);
+            binding.gram.setText("");
             gram_panchayat_id  = model.getGrampanchayatId();
         } else {
             binding.gram.setText(model.getGrampanchayatName());
@@ -112,28 +110,49 @@ public class AddMtgActivity extends MvpActivity<AddMtgPresenter> implements AddM
     @Override
     public void onAddMtgSuccess(AddMtgResponse successResult) {
         Log.e(this.getPackageName(),successResult.getMessage());
+
+        binding.edtMtgname.setText("");
+        binding.gram.setText("");
+        binding.gramPanchayat.setText("");
+
         Dialogs.showcolorDialog(getContext(),successResult.getMessage());
+
+    }
+
+    @Override
+    public String getName() {
+        return binding.edtMtgname.getText().toString();
+    }
+
+    @Override
+    public int getGramPachayatId() {
+        return gram_panchayat_id;
+    }
+
+    @Override
+    public int GramId() {
+        return gram_id;
     }
 
     private void addMtg() {
 
         if (binding.edtMtgname.getText().toString().trim().isEmpty()){
-            SnackbarUtils.snackBarTop(binding.edtMtgname,getString(R.string.add_mtggroup));
-        }else if (binding.gramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat)))
+            Dialogs.showcolorDialog(getContext(),getString(R.string.enter_mtg_name));
+
+        }else if (binding.gramPanchayat.getText().toString().isEmpty())
         {
-            SnackbarUtils.snackBarTop(binding.gramPanchayat, getString(R.string.gram_panchayat));
-        }else if (binding.gram.getText().toString().equalsIgnoreCase(getString(R.string.village)))
+            Dialogs.showcolorDialog(getContext(),getString(R.string.select_gramPanchayat));
+        }else if (binding.gram.getText().toString().isEmpty())
         {
-            SnackbarUtils.snackBarTop(binding.gramPanchayat, getString(R.string.village));
+            Dialogs.showcolorDialog(getContext(),getString(R.string.select_village));
         }else {
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("mtgName",binding.edtMtgname.getText().toString().trim());
-            jsonObject.addProperty("gramPanchayatId",gram_panchayat_id);
-            jsonObject.addProperty("gramId",gram_id);
+            jsonObject.addProperty("mtgName",getName());
+            jsonObject.addProperty("gramPanchayatId",getGramPachayatId());
+            jsonObject.addProperty("gramId",GramId());
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
             mvpPresenter.addMtgGroup(jsonObject);
-
         }
     }
 }

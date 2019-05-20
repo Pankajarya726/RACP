@@ -15,4 +15,8 @@ public interface AddMtgView extends BaseView {
     void onGramPanchayatSelected(GramPanchayat model, String type);
 
     void onAddMtgSuccess(AddMtgResponse successResult);
+
+    String getName();
+    int getGramPachayatId();
+    int GramId();
 }

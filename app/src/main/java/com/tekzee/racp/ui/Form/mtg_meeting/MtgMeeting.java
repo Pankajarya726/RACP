@@ -29,6 +29,7 @@ import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -129,10 +130,12 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
 
         if (binding.edtMeetingdate.getText().toString().isEmpty()) {
-            Toast.makeText(getContext(), getString(R.string.enter_date_meeting), Toast.LENGTH_SHORT).show();
-        } else if (binding.edtMtgname.getText().toString().equalsIgnoreCase(getString(R.string.mtg_name))) {
 
-            Toast.makeText(getContext(), getString(R.string.enter_mtg_name), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_date_meeting));
+        } else if (binding.edtMtgname.getText().toString().isEmpty()) {
+
+            Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_group));
+
         } else {
 
             String pashupalak_id = "";
@@ -186,7 +189,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 
@@ -265,8 +268,8 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
+        Dialogs.showColorDialog(getContext(),successResult.getMessage());
 
-        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
         binding.edtNote.setText("");
         binding.edtMtgname.setText(getString(R.string.mtg_name));
@@ -302,6 +305,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         for(int i= 0 ;i<data1.length;i++){
             binding.edtNameMembers.append(String.valueOf(data1[i])+"\n");
         }
+        binding.tvSave.setVisibility(View.GONE);
 
 
     }

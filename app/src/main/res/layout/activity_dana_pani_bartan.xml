@@ -13,6 +13,7 @@
 
             <ScrollView
                 android:id="@+id/scrollView"
+                android:scrollbarThumbVertical="@null"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -138,6 +139,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="35dp"
                                 android:layout_weight="1"
+                                android:maxLength="2"
                                 android:background="@drawable/edit_theme_black"
                                 android:inputType="number"
                                 android:paddingHorizontal="10dp"
@@ -185,11 +187,13 @@
                         </LinearLayout>
                         <TextView
                             android:visibility="gone"
-                            android:padding="10dp"
-                            android:gravity="start"
+                            android:gravity="center_vertical"
                             android:id="@+id/receipt_date"
                             android:layout_below="@+id/tv_note"
+                            android:textSize="@dimen/tv_size_medium_tab"
+                            android:textColor="@color/black"
                             android:layout_marginTop="10dp"
+                            android:paddingHorizontal="10dp"
                             android:background="@drawable/edit_theme_black"
                             android:layout_width="match_parent"
                             android:layout_height="35dp" />
@@ -288,6 +292,7 @@
                         <EditText
                             android:padding="10dp"
                             android:gravity="start"
+                            android:inputType="textMultiLine"
                             android:id="@+id/edt_note"
                             android:layout_below="@+id/tv_note"
                             android:layout_marginTop="10dp"

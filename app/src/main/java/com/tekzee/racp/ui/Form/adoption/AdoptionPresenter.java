@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -333,7 +334,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                 });
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
-                EditText et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -421,6 +422,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
 
     public void getFormRecordData(JsonObject jsonObject) {
 
+        Log.e("adopotionpresenter" , jsonObject.get("form_id").toString()+""+jsonObject.toString());
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();

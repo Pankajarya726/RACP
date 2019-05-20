@@ -53,7 +53,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_list_form);
 
-        getSupportActionBar().setTitle(R.string.fill_form);
+        getSupportActionBar().setTitle(R.string.select_form);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
@@ -258,7 +258,14 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
                 break;
 
             case 11:
-                startActivity(new Intent(ListFormActivity.this, BakariAwas.class));
+                if (value==1){
+                    Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
+                    i2.putExtra("form_id",id);
+                    startActivity(i2);
+                }else {
+                    startActivity(new Intent(ListFormActivity.this, BakariAwas.class));
+                }
+
                 break;
 
             case 12:

@@ -15,7 +15,7 @@
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:scrollbarThumbVertical="@null">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -48,7 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                   android:layout_alignParentTop="true"
+                     android:layout_alignParentTop="true"
                     android:layout_toLeftOf="@+id/tv_date"
                     android:textColor="@color/black"
                     android:text="@string/date"
@@ -61,6 +61,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/tv_size_medium_tab" />
 
                 <LinearLayout
@@ -120,7 +121,6 @@
 
                     <LinearLayout
                         android:id="@+id/receipt_layout2"
-                        android:layout_marginTop="10dp"
                         android:orientation="horizontal"
                         android:weightSum="3"
                         android:layout_width="match_parent"
@@ -179,14 +179,39 @@
                         </LinearLayout>
                     </LinearLayout>
 
+
+
+                    <TextView
+                        android:id="@+id/receipt_date"
+                        android:visibility="gone"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
+                        android:background="@drawable/edit_theme_black"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                       />
+
+                    <TextView
+                        android:layout_marginTop="15dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/image_bakri_awas"
+                        android:textColor="@color/colorPrimary"
+                        android:gravity="center"
+
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
                     <ImageView
                         android:src="@drawable/ic_menu_camera"
                         android:layout_marginBottom="15dp"
                         android:layout_marginTop="15dp"
                         android:layout_gravity="center"
                         android:id="@+id/iv_bakriawas"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
                         />
 
 
@@ -282,9 +307,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:gravity="start"
-                        android:padding="10dp"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:textSize="@dimen/tv_size_medium_tab"
                         android:drawableRight="@drawable/calendar"/>
 
                     <TextView
@@ -300,6 +327,7 @@
                         android:id="@+id/edt_note"
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
+                        android:inputType="textMultiLine"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:gravity="start"

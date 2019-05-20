@@ -28,6 +28,7 @@ public class Constant {
 
     public static final String UserEmail = "UserEmail";
     public static final String RoleId= "RoleId";
+    public static final int IMAGE_REQUEST = 9981;
 
 
     public static String mtg_group_id = "mtg_group_id";

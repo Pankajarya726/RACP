@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -35,10 +36,10 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
 
 
     public void getGramPanchayat(int tehsil_id) {
-        mvpView.hideSoftKeyboard();
+
         mvpView.showProgressDialog("Please wait...", false);
-        // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
+            mvpView.hideSoftKeyboard();
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
@@ -63,7 +64,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("grampanchayat_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram_panchayat");
+                            openSelector(arrayList, "Gram_panchayat",mvpView.getContext().getString(R.string.gram_panchayat));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -116,7 +117,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("gram_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram");
+                            openSelector(arrayList, "Gram",mvpView.getContext().getString(R.string.village));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -169,7 +170,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("pashuPalakCategoryName")
                                 ));
                             }
-                            openSelector(arrayList, "PashuPalakCategory");
+                            openSelector(arrayList, "PashuPalakCategory",mvpView.getContext().getString(R.string.pashu_palak_unit));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -195,19 +196,17 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
 
     }
 
-    public void getMtgGroup(int id, int user_id) {
+    public void getMtgGroup(int user_id) {
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
-        JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("gramId", id);
-        jsonObject.addProperty("userId", user_id);
+
 
         // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
-            addSubscription(apiStores.getMtgGroup(jsonObject), new ApiCallback <JsonObject>() {
+            addSubscription(apiStores.getMTGGroupByuserId(user_id), new ApiCallback <JsonObject>() {
                 @Override
                 public void onSuccess(JsonObject successResult) {
 
@@ -228,7 +227,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("mtggroup_name")
                                 ));
                             }
-                            openSelector(arrayList, "MtgGroup");
+                            openSelector(arrayList, "MtgGroup",mvpView.getContext().getString(R.string.mtg_group));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -282,7 +281,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("identificationtype_Name")
                                 ));
                             }
-                            openSelector(arrayList, "identificationtype");
+                            openSelector(arrayList, "identificationtype",mvpView.getContext().getString(R.string.select_identification_type));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -337,7 +336,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("castCategory_Name")
                                 ));
                             }
-                            openSelector(arrayList, "castCategory");
+                            openSelector(arrayList, "castCategory",mvpView.getContext().getResources().getString(R.string.select_farmer_category));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -391,7 +390,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("farmertype_Name")
                                 ));
                             }
-                            openSelector(arrayList, "farmertype");
+                            openSelector(arrayList, "farmertype",mvpView.getContext().getString(R.string.select_farmer_type));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -444,7 +443,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("vidhanasabha_Name")
                                 ));
                             }
-                            openSelector(arrayList, "vidhanasabha");
+                            openSelector(arrayList, "vidhanasabha",mvpView.getContext().getString(R.string.select_vidhansabha));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -497,7 +496,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("tahsil_Name")
                                 ));
                             }
-                            openSelector(arrayList, "tahsil");
+                            openSelector(arrayList, "tahsil",mvpView.getContext().getString(R.string.select_tehsil));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -557,7 +556,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
     }
 
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type ,final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -584,7 +583,8 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                 });
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
-                EditText et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -661,7 +661,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("district_Name")
                                 ));
                             }
-                            openSelector(arrayList, "district");
+                            openSelector(arrayList, "district",mvpView.getContext().getString(R.string.select_district));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));

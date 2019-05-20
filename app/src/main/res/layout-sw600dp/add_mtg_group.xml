@@ -3,7 +3,8 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     >
 
-    <RelativeLayout   android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -35,6 +36,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
 

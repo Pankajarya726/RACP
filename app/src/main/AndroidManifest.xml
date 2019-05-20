@@ -6,8 +6,11 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!--<uses-permission android:name="android.permission.READ_PHONE_STATE" />-->
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -22,13 +25,15 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.dashboardform.DashformActivity"></activity>
+        <activity android:name=".ui.Form.milk_info_bakari.MilkInfoActivity"></activity>
+        <activity android:name=".ui.dashboardform.DashformActivity" />
         <activity android:name=".ui.formdata.FormDataActivity" />
         <activity
             android:name=".ui.formselection.ListFormActivity"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
+                <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
         <activity
@@ -169,10 +174,13 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="com.tekzee.racp" />
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/map_api_key" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.tekzee.cardate.fileprovider"
+            android:authorities="com.tekzee.racp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true"
             tools:replace="android:authorities">
@@ -180,8 +188,17 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths"
                 tools:replace="android:resource" />
-        </provider> <!-- Image Picker activity -->
+        </provider>
+        <!-- Image Picker activity -->
         <activity android:name=".ui.ImagePickerActivity" />
+
+
+
+        <!-- uCrop cropping activity -->
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

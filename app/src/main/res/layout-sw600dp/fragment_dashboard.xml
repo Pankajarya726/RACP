@@ -4,19 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="40dp"
+
     tools:context=".ui.dashboard.DashboardFragment">
 
 
-
+<!--
     <GridView
         android:id="@+id/gridview"
         android:numColumns="3"
+        android:padding="40dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:scrollbarThumbVertical="@null">
+    </GridView>-->
 
-    </GridView>
+<android.support.v7.widget.RecyclerView
+    android:id="@+id/gridview"
+    app:spanCount="3"
+    android:padding="40dp"
+    app:layoutManager="android.support.v7.widget.GridLayoutManager"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:scrollbarThumbVertical="@null">
 
-
+</android.support.v7.widget.RecyclerView>
 </FrameLayout>
 </layout>

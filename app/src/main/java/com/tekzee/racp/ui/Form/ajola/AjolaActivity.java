@@ -21,6 +21,7 @@ import com.tekzee.racp.ui.Form.ajola.model.RetrivedAjolaResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -52,14 +53,12 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         table_id = getIntent().getIntExtra("table_id", 0);
 
 
-
         if (table_id != 0) {
             getFormRecordData();
         } else {
             ShowDialog();
             SpinnerData();
         }
-
 
 
         DataAjola.deleteAll(DataAjola.class);
@@ -87,10 +86,16 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
             //startActivity(new Intent(ForSale.this, HomeActivity.class));
-            finish();
+            this.finish();
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
     @Override
@@ -195,8 +200,13 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
             } else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-                    Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -476,7 +486,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2030; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -617,21 +627,22 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         }
 
 
-        Log.e(tag, "animal type id"+successResult.getData().getAnimaltypeId());
-        if (Integer.valueOf(successResult.getData().getAnimaltypeId())==2){
+        Log.e(tag, "animal type id" + successResult.getData().getAnimaltypeId());
+        if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 2) {
             binding.animal.setText(getString(R.string.bakari));
         }
-        if (Integer.valueOf(successResult.getData().getAnimaltypeId())==5){
+        if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 5) {
             binding.animal.setText(getString(R.string.cow));
-        }if (Integer.valueOf(successResult.getData().getAnimaltypeId())==6){
+        }
+        if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 6) {
             binding.animal.setText(getString(R.string.bhais));
         }
 
         if (successResult.getData().getFatCheckStatus().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkYes.setChecked(true);
             binding.layoutFaitpercent.setVisibility(View.VISIBLE);
-            binding.edtFaitBefore.setText(successResult.getData().getFatBeforeAjola());
-            binding.edtFaitAfter.setText(successResult.getData().getFatAfterAjola());
+            binding.edtFaitBefore.setText(String.valueOf(successResult.getData().getFatBeforeAjola()));
+            binding.edtFaitAfter.setText(String.valueOf(successResult.getData().getFatAfterAjola()));
 
         } else {
             binding.checkNo.setChecked(true);

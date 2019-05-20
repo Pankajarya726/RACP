@@ -10,6 +10,7 @@
         tools:context=".ui.Form.bakara_rotation.RotationActivity">
 
         <ScrollView
+            android:scrollbarThumbVertical="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollIndicators="none">
@@ -118,6 +119,7 @@
                         android:id="@+id/edt_name"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="textPersonName"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -135,6 +137,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:inputType="textPersonName"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -151,6 +154,7 @@
                         android:id="@+id/edt_address"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="textPostalAddress"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -160,6 +164,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
                         android:text="@string/mobile"
+
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
@@ -167,7 +172,8 @@
                         android:id="@+id/edt_mobile_number"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="number"
+                        android:inputType="phone"
+                        android:digits="0123456789"
                         android:maxLength="10"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
@@ -185,6 +191,7 @@
                         android:id="@+id/edt_vidhansabha"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="textPhonetic"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -201,6 +208,7 @@
                         android:id="@+id/edt_gramPanchayat"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -217,6 +225,7 @@
                         android:id="@+id/edt_tehsil"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -234,6 +243,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:inputType="text"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -259,6 +269,7 @@
                         android:id="@+id/edt_name1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="textPersonName"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -268,12 +279,14 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
                         android:text="@string/mtg_name"
+                        android:inputType="textPersonName"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
                     <EditText
                         android:id="@+id/edt_mtgname1"
                         android:layout_width="match_parent"
+                        android:inputType="textPersonName"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
@@ -292,6 +305,7 @@
                         android:id="@+id/edt_address1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="textPostalAddress"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -311,6 +325,7 @@
                         android:inputType="phone"
                         android:maxLength="10"
                         android:maxLines="1"
+                        android:digits="0123456789"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -327,6 +342,7 @@
                         android:id="@+id/edt_vidhansabha1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -343,6 +359,7 @@
                         android:id="@+id/edt_gramPanchayat1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -352,6 +369,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
                         android:text="@string/tehsil"
+                        android:inputType="text"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
@@ -359,6 +377,7 @@
                         android:id="@+id/edt_tehsil1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -375,6 +394,7 @@
                         android:id="@+id/edt_village1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />

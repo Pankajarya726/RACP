@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
@@ -13,7 +12,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -69,11 +67,10 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         // sqliteDB.clearBakariDetail();
 
 
-        table_id = getIntent().getIntExtra("table_id",0);
-        if (table_id !=0) {
+        table_id = getIntent().getIntExtra("table_id", 0);
+        if (table_id != 0) {
             getFormRecordData();
-        }
-        else {
+        } else {
             ShowDialog();
         }
 
@@ -206,7 +203,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         } else if (binding.edtPolicyNo.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_policy_no));
             return false;
-        }else {
+        } else {
 
             String day;
             if (binding.day.getText().toString().isEmpty()) {
@@ -214,8 +211,13 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
             } else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -302,7 +304,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             setupRecyclerView();
 
         } else {
-           clearallField();
+            clearallField();
             setupRecyclerView();
 
             binding.immunization.setVisibility(View.VISIBLE);
@@ -483,7 +485,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         Immunization im = immunizations.get(adapterPosition);
 
-        mDatePickerDialog.getdate(getContext(),tv_date);
+        mDatePickerDialog.getdate(getContext(), tv_date);
 
         im.setTeekadate(tv_date.getText().toString());
 
@@ -494,8 +496,8 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         binding.receiptDate.setVisibility(View.VISIBLE);
         binding.edtTagNo.setFocusable(false);
 
-//        /*binding.edtNote.setEnabled(false);
-//        */binding.edtNote.setText(String.valueOf(successResult.getData().getNote));
+        binding.edtNote.setEnabled(false);
+        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
 
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
@@ -520,6 +522,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         binding.tvSave.setVisibility(View.GONE);
         binding.immunization.setVisibility(View.GONE);
 
+        binding.recyclerImmunization.setClickable(false);
 
 
         String ppr = successResult.getData().getDatePpr();
@@ -527,28 +530,32 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         String fmd = successResult.getData().getDateFmd();
         String hs = successResult.getData().getDateHs();
 
-        if (ppr.isEmpty()){
-            immunizations.add(new Immunization(getString(R.string.ppr),""));
-        }
-        else {
         String date[] = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
-        }
+            if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
+            }
+
         }
         String date1[] = et.split(",");
         for (int i = 0; i < date1.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            }
         }
 
         String date2[] = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            }
         }
 
         String date3[] = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            }
         }
         setupRecyclerView();
 
@@ -578,7 +585,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= 2019; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
@@ -587,17 +594,17 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         binding.spYear.setAdapter(adapter2);
     }
 
-   private void clearallField(){
-       binding.edtTagNo.setText("");
-       binding.day.setText("");
-       binding.edtBeemaVivran.setText("");
-       binding.edtPolicyNo.setText("");
-       binding.edtProofdate.setText("");
-       binding.edtAveragProduction.setText("");
-       binding.edtNote.setText("");
-       binding.spMonth.setSelection(0);
-       binding.spYear.setSelection(0);
-       binding.teekaDate.setText("");
+    private void clearallField() {
+        binding.edtTagNo.setText("");
+        binding.day.setText("");
+        binding.edtBeemaVivran.setText("");
+        binding.edtPolicyNo.setText("");
+        binding.edtProofdate.setText("");
+        binding.edtAveragProduction.setText("");
+        binding.edtNote.setText("");
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
+        binding.teekaDate.setText("");
 
-   }
+    }
 }

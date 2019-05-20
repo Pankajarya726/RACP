@@ -15,6 +15,7 @@ import com.tekzee.racp.databinding.ActivityFormDataBinding;
 import com.tekzee.racp.ui.Form.adoption.Adoption;
 import com.tekzee.racp.ui.Form.ajola.AjolaActivity;
 import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
+import com.tekzee.racp.ui.Form.bakari_awas.BakariAwas;
 import com.tekzee.racp.ui.Form.bakari_vitran.BakriVitranActivity;
 import com.tekzee.racp.ui.Form.beema_detail.BeemaDeatailActivity;
 import com.tekzee.racp.ui.Form.clean_milkkit.MilkKitActivity;
@@ -22,6 +23,7 @@ import com.tekzee.racp.ui.Form.dana_pani_bartan.DanaPaniBartan;
 import com.tekzee.racp.ui.Form.feed_suppliment.FeedSuppliment;
 import com.tekzee.racp.ui.Form.form_2.Form2Activity;
 import com.tekzee.racp.ui.Form.kutti_machine.KuttiMachine;
+import com.tekzee.racp.ui.Form.milk_info_bakari.MilkInfoActivity;
 import com.tekzee.racp.ui.Form.mtg_meeting.MtgMeeting;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.MtgTraining;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.PahsuChikitsha;
@@ -200,6 +202,11 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
                 i11.putExtra("table_id", datum.getTableId());
                 startActivity(i11);
                 break;
+            case 12:
+                Intent i12 = new Intent(getContext(), BakariAwas.class);
+                i12.putExtra("table_id", datum.getTableId());
+                startActivity(i12);
+                break;
 
             case 14:
                 Intent i14 = new Intent(getContext(), PahsuChikitsha.class);
@@ -223,16 +230,23 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
                 Intent i17 = new Intent(getContext(), Adoption.class);
                 i17.putExtra("table_id", datum.getTableId());
                 startActivity(i17);
+                break;
 
             case 18:
                 Intent i18 = new Intent(getContext(), RotationActivity.class);
                 i18.putExtra("table_id", datum.getTableId());
                 startActivity(i18);
+                break;
 
             case 19:
                 Intent i19 = new Intent(getContext(), VipranTableActivity.class);
                 i19.putExtra("table_id", datum.getTableId());
                 startActivity(i19);
+
+           case 20:
+                Intent i20 = new Intent(getContext(), MilkInfoActivity.class);
+                i20.putExtra("table_id", datum.getTableId());
+                startActivity(i20);
 
                 break;
 

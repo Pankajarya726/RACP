@@ -56,7 +56,6 @@ public class DanaPaniBartanPresenter extends BasePresenter<DanaPaniBartanView> {
 
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
-        // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));

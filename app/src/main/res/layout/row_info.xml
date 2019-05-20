@@ -10,7 +10,10 @@
     >
 
     <ImageView
+        android:background="@color/white"
         android:id="@+id/img_heading"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_width="80dp"
         android:layout_height="80dp" />

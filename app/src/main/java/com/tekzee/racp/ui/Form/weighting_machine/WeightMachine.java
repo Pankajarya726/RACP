@@ -43,8 +43,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     private String subAnimal_type = "";
     private int record_count = 1;
     private int recordNo = 1;
-    private int category_id =0;
-    private int type_id =0;
+    private int category_id = 0;
+    private int type_id = 0;
     private String bakriWeight = "";
     private int table_id;
 
@@ -221,26 +221,23 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             return false;
         } else if (binding.spAnimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_category))) {
 
-            Log.e(binding.spAnimalType.getText().toString(),getString(R.string.animal_category));
+            Log.e(binding.spAnimalType.getText().toString(), getString(R.string.animal_category));
             Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
             return false;
-        } else if (category_id ==0) {
+        } else if (category_id == 0) {
 
-            Log.e(binding.spAnimalType.getText().toString(),getString(R.string.animal_category));
+            Log.e(binding.spAnimalType.getText().toString(), getString(R.string.animal_category));
             Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
             return false;
         } else if (binding.spSubanimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_type))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return false;
-        }else if (type_id==0) {
+        } else if (type_id == 0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return false;
-        }
+        } else {
 
-
-        else {
-
-            Log.e("adsjbajdksgh","adjhgkjasdhgkjahsg");
+            Log.e("adsjbajdksgh", "adjhgkjasdhgkjahsg");
 
             String day;
             if (binding.day.getText().toString().isEmpty()) {
@@ -248,8 +245,13 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
             } else {
                 day = binding.day.getText().toString();
-                if (Integer.valueOf(binding.day.getText().toString()) > 31) {
-                    Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                        binding.spMonth.getSelectedItemPosition() + 1,
+                        Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
+
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
+                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
                 }
             }
@@ -270,7 +272,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             }
 
             if (category_id == 1) {
-
 
                 Log.e(tag, "" + category_id);
                 if (binding.edtTagNoAdult.getText().toString().isEmpty()) {
@@ -320,10 +321,9 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                             ""
                     );
                     dataWeighitngMachine.save();
-                    return true;
 
-                }
-                if (type_id == 2) {
+
+                } else if (type_id == 2) {
                     Log.e(tag, "type_id" + type_id);
 
                     DataWeighitngMachine dataWeighitngMachine = new DataWeighitngMachine(
@@ -359,7 +359,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                             ""
                     );
                     dataWeighitngMachine.save();
-                    return true;
+
 
                 }
             } else if (category_id == 2) {
@@ -423,11 +423,9 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                             ""
                     );
                     dataWeighitngMachine.save();
-                    return true;
 
 
-                }
-                if (type_id == 4) {
+                } else if (type_id == 4) {
                     Log.e(tag, "type_id" + type_id);
 
                     DataWeighitngMachine dataWeighitngMachine = new DataWeighitngMachine(
@@ -465,9 +463,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                     );
                     dataWeighitngMachine.save();
 
-
-                    return true;
-
                 }
 
             }
@@ -476,8 +471,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             Toast.makeText(this, "record added", Toast.LENGTH_LONG).show();
 
             recordNo = recordNo + 1;
+            record_count = record_count + 1;
             binding.txtno.setText(String.valueOf(recordNo));
-
             binding.day.setText("");
             binding.day.setText("");
             binding.spMonth.setSelection(0);
@@ -486,8 +481,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             binding.checkUseNo.setChecked(false);
             binding.checkProofYes.setChecked(false);
             binding.checkProofNo.setChecked(false);
-            binding.spAnimalType.setHint(R.string.animal_category);
-            binding.spSubanimalType.setHint(R.string.animal_type);
+            binding.spAnimalType.setText("");
+            binding.spSubanimalType.setText("");
             binding.edtTagNoAdult.setText("");
             binding.edtAgeAdult.setText("");
             binding.edtWeightAdult.setText("");
@@ -498,22 +493,10 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             binding.edtAgeProgeni.setText("");
             binding.layoutProgeni.setVisibility(View.GONE);
             binding.layoutAdult.setVisibility(View.GONE);
-
-            recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
             binding.privious.setVisibility(View.VISIBLE);
-            record_count++;
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-
-
-            binding.privious.setVisibility(View.VISIBLE);
-            record_count++;
+            category_id = 0;
+            type_id = 0;
             return true;
 
         }
@@ -615,8 +598,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             binding.checkUseNo.setChecked(false);
             binding.checkProofYes.setChecked(false);
             binding.checkProofNo.setChecked(false);
-            binding.spAnimalType.setHint(R.string.animal_category);
-            binding.spSubanimalType.setHint(R.string.animal_type);
+            binding.spAnimalType.setText("");
+            binding.spSubanimalType.setText("");
             binding.edtTagNoAdult.setText("");
             binding.edtAgeAdult.setText("");
             binding.edtWeightAdult.setText("");
@@ -804,7 +787,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
 
         List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i < 2019; i++) {
+        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter = new ArrayAdapter <Integer>(this,
@@ -874,6 +857,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         dialog.setCancelable(false);
 
         dialog.setTitle(getResources().getString(R.string.form_6));
+        dialog.setColor("#FF6500");
+        dialog.setColor("#ff6500");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override

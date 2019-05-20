@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.INotificationSideChannel;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.tekzee.racp.databinding.FragmentDashboardBinding;
 import com.tekzee.racp.sqlite.SqliteDB;
 import com.tekzee.racp.ui.Form.adoption.Adoption;
 import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
+import com.tekzee.racp.ui.Form.milk_info_bakari.MilkInfoActivity;
 import com.tekzee.racp.ui.Form.mtg_meeting.MtgMeeting;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.MtgTraining;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.PahsuChikitsha;
@@ -29,7 +29,6 @@ import com.tekzee.racp.ui.base.MvpFragment;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.dashboard.model.DashboardDataResponse;
 import com.tekzee.racp.ui.dashboard.model.Homemenu;
-import com.tekzee.racp.ui.info.InfoActivity;
 import com.tekzee.racp.ui.selectMtgGroup.SelectMtgActivity;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
@@ -43,9 +42,10 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
     public static DashboardFragment dashboardFragment;
     private static String tag = DashboardFragment.class.getSimpleName();
     GridAdapter gridAdapter;
+    private DashboardAdapter dashboardAdapter;
     SqliteDB sqliteDB = new SqliteDB(getContext());
     private FragmentDashboardBinding binding;
-    private List <Homemenu> homemenuList ;
+    private List <Homemenu> homemenuList  = new ArrayList <>();
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -84,7 +84,7 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
 
         getDashboardData();
 
-        binding.gridview.setOnItemClickListener(this);
+        //binding.gridview.setOnItemClickListener(this);
         return binding.getRoot();
 
     }
@@ -132,54 +132,56 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
                 startActivity(new Intent(getActivity(), SelectMtgActivity.class));
                 break;
 
-            case 3:
-               // startActivity(new Intent(getActivity(), InfoActivity.class));
-                break;
 
-            case 4:
+            case 3:
                 Intent intent = new Intent(getActivity(), SelectMtgActivity.class);
                 intent.putExtra("filled_form", 1);
                 startActivity(intent);
                 break;
 
-            case 5:
+            case 4:
                 Intent intent5 = new Intent(getActivity(), PahsuChikitsha.class);
                 intent5.putExtra("form_id", m.getMenuId());
                 startActivity(intent5);
                 break;
 
-            case 6:
+            case 5:
                 Intent intent6 = new Intent(getActivity(), MtgTraining.class);
                 intent6.putExtra("form_id", m.getMenuId());
                 startActivity(intent6);
                 Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
-            case 7:
+            case 6:
                 Intent intent7 = new Intent(getActivity(), MtgMeeting.class);
                 intent7.putExtra("form_id", m.getMenuId());
                 startActivity(intent7);
                 Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
-            case 8:
+            case 7:
                 Intent intent8 = new Intent(getActivity(), Adoption.class);
                 intent8.putExtra("form_id", m.getMenuId());
                 startActivity(intent8);
                 Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
-            case 9:
+            case 8:
                 Intent intent9 = new Intent(getActivity(), RotationActivity.class);
                 intent9.putExtra("form_id", m.getMenuId());
                 startActivity(intent9);
                 Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
-            case 10:
+            case 9:
                 Intent intent10 = new Intent(getActivity(), VipranTableActivity.class);
-                intent10.putExtra("form_id", m.getMenuId());
+                intent10.putExtra("form_id", m.getMenuId()+1);
                 startActivity(intent10);
+                break;
+           case 10:
+                Intent intent11 = new Intent(getActivity(), MilkInfoActivity.class);
+                intent11.putExtra("form_id", m.getMenuId());
+                startActivity(intent11);
                 break;
 
         }
@@ -214,15 +216,18 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
         SqliteDB sqliteDB = new SqliteDB(getContext());
         sqliteDB.clearHomeData();
 
-        homemenuList = new ArrayList <>();
+
 
         homemenuList.addAll(successResult.getData().getHomemenu());
+       // homemenuList.add(new Homemenu(20,getString(R.string.form19),"https://image.flaticon.com/icons/png/512/1691/1691086.png"));
+
         Log.e(tag, "" + homemenuList.size());
 
         for (int i = 0; i < homemenuList.size(); i++) {
             Homemenu homemenu = successResult.getData().getHomemenu().get(i);
-            Boolean success = sqliteDB.addHomeData(homemenu.getMenuId(), homemenu.getMenuName(), homemenu.getMenuImage());
+            Boolean success = sqliteDB.addHomeData(homemenu.getMenuId(), String.valueOf(homemenu.getMenuName()), homemenu.getMenuImage());
             Log.e(tag, "" + success);
+            Log.e(tag, "name is " + homemenu.getMenuName());
         }
 
         setUpGridView(homemenuList);
@@ -231,15 +236,94 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
 
     @Override
     public void onNoFailure(CommonResult commonResult) {
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+
+    }
+
+    @Override
+    public void onItemSelected(int adapterPosition, List <Homemenu> homemenuList) {
+
+
+        Homemenu m = homemenuList.get(adapterPosition);
+
+        switch (adapterPosition) {
+
+            case 0:
+                Log.e(tag, "id at position 0" + m.getMenuId());
+                startActivity(new Intent(getActivity(), AddOwnerActivity.class));
+                break;
+
+            case 1:
+                startActivity(new Intent(getActivity(), AddMtgActivity.class));
+                break;
+
+            case 2:
+                startActivity(new Intent(getActivity(), SelectMtgActivity.class));
+                break;
+
+
+            case 3:
+                Intent intent = new Intent(getActivity(), SelectMtgActivity.class);
+                intent.putExtra("filled_form", 1);
+                startActivity(intent);
+                break;
+
+            case 4:
+                Intent intent5 = new Intent(getActivity(), PahsuChikitsha.class);
+                intent5.putExtra("form_id", m.getMenuId());
+                startActivity(intent5);
+                break;
+
+            case 5:
+                Intent intent6 = new Intent(getActivity(), MtgTraining.class);
+                intent6.putExtra("form_id", m.getMenuId());
+                startActivity(intent6);
+                Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                break;
+
+            case 6:
+                Intent intent7 = new Intent(getActivity(), MtgMeeting.class);
+                intent7.putExtra("form_id", m.getMenuId());
+                startActivity(intent7);
+                Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                break;
+
+            case 7:
+                Intent intent8 = new Intent(getActivity(), Adoption.class);
+                intent8.putExtra("form_id", m.getMenuId());
+                startActivity(intent8);
+                Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                break;
+
+            case 8:
+                Intent intent9 = new Intent(getActivity(), RotationActivity.class);
+                intent9.putExtra("form_id", m.getMenuId());
+                startActivity(intent9);
+                Log.e("TAG", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                break;
+
+            case 9:
+                Intent intent10 = new Intent(getActivity(), VipranTableActivity.class);
+                intent10.putExtra("form_id", m.getMenuId()+1);
+                startActivity(intent10);
+                break;
+            case 10:
+                Intent intent11 = new Intent(getActivity(), MilkInfoActivity.class);
+                intent11.putExtra("form_id", m.getMenuId());
+                startActivity(intent11);
+                break;
+
+        }
 
     }
 
     private void setUpGridView(List <Homemenu> homemenus) {
-        List <Homemenu> mlist = new ArrayList <>();
-        mlist = homemenus;
 
-        gridAdapter = new GridAdapter(getContext(), homemenuList);
-        binding.gridview.setAdapter(gridAdapter);
+        dashboardAdapter = new DashboardAdapter(getActivity(),homemenus,this);
+        binding.gridview.setAdapter(dashboardAdapter);
+
+     /*   gridAdapter = new GridAdapter(getActivity(), homemenus);
+        binding.gridview.setAdapter(gridAdapter);*/
 
     }
 }

@@ -18,7 +18,9 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
+
+import com.tekzee.racp.R;
+import com.tekzee.racp.utils.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,6 +35,7 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.tekzee.racp.utils.Dialogs;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -57,7 +60,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
-        progressDialog.setMessage("Please wait...\nWe are getting your location.");
+        progressDialog.setMessage(getString(R.string.PleaseWait)+"\n"+getString(R.string.getting_your_location));
 
         initMapLocation();
     }
@@ -67,7 +70,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
         /// location code
 
         if (!isGooglePlayServicesAvailable()) {
-            Toast.makeText(this, "Please install play service first", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.please_install_play_service), Toast.LENGTH_LONG).show();
         } else {
             createLocationRequest();
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -107,7 +110,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.e(TAG, "Connection failed: " + connectionResult.toString());
+        Log.view(TAG, "Connection failed: " + connectionResult.toString());
     }
 
     private boolean isGooglePlayServicesAvailable() {
@@ -131,12 +134,15 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
     @Override
     public void onStart() {
         super.onStart();
-        Log.e(TAG, "onStart fired ..............");
+        Log.view(TAG, "onStart fired ..............");
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
             if (mGoogleApiClient.isConnected()) {
                 startLocationUpdates();
-                Log.e(TAG, "Location update resumed .....................");
+
+
+
+                Log.view(TAG, "Location update resumed .....................");
             }
         }
     }
@@ -144,10 +150,10 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
     @Override
     public void onDestroy() {
         super.onDestroy();
-        Log.e(TAG, "onDestroy fired ..............");
+        Log.view(TAG, "onDestroy fired ..............");
         if (mGoogleApiClient != null) {
             mGoogleApiClient.disconnect();
-            Log.e(TAG, "isConnected ...............: " + mGoogleApiClient.isConnected());
+            Log.view(TAG, "isConnected ...............: " + mGoogleApiClient.isConnected());
         }
     }
 
@@ -183,7 +189,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
         } else {
 
             progressDialog.show();
-            if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
                 // here to request_old the missing permissions, and then overriding
@@ -194,7 +200,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
                 return;
             }
             PendingResult<Status> pendingResult = LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
-            Log.e(TAG, "Location update started ..............: ");
+            Log.view(TAG, "Location update started ..............: ");
         }
     }
 
@@ -218,19 +224,19 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
                 final Status status = result.getStatus();
                 switch (status.getStatusCode()) {
                     case LocationSettingsStatusCodes.SUCCESS:
-                        Log.e(TAG, "All location settings are satisfied.");
+                        Log.view(TAG, "All location settings are satisfied.");
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
-                        Log.e(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
+                        Log.view(TAG, "Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
 
                         try {
                             status.startResolutionForResult(BaseMapActivity.this, REQUEST_CHECK_SETTINGS);
                         } catch (IntentSender.SendIntentException e) {
-                            Log.e(TAG, "PendingIntent unable to execute request_old.");
+                            Log.view(TAG, "PendingIntent unable to execute request_old.");
                         }
                         break;
                     case LocationSettingsStatusCodes.SETTINGS_CHANGE_UNAVAILABLE:
-                        Log.e(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
+                        Log.view(TAG, "Location settings are inadequate, and cannot be fixed here. Dialog not created.");
                         break;
                 }
             }
@@ -264,7 +270,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
                         showMessageOK("Permission Denied, You cannot access location data", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Log.e(TAG, "GOTO settings");
+                                Log.view(TAG, "GOTO settings");
 
                                 Intent intent = new Intent();
                                 intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
@@ -335,7 +341,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
             if (mGoogleApiClient != null) {
                 LocationServices.FusedLocationApi.removeLocationUpdates(
                         mGoogleApiClient, this);
-                Log.e(TAG, "Location update stopped .......................");
+                Log.view(TAG, "Location update stopped .......................");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -346,11 +352,11 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
     }
 
     public void allowedLocation() {
-        Log.e(TAG, "allowedLocation");
+        Log.view(TAG, "allowedLocation");
     }
 
     public void deniedLocation() {
-        Log.e(TAG, "deniedLocation");
+        Log.view(TAG, "deniedLocation");
     }
 
 

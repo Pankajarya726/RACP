@@ -36,6 +36,7 @@ import com.tekzee.racp.ui.home.model.SideMenuResponse;
 import com.tekzee.racp.ui.home.model.Sidemenu;
 import com.tekzee.racp.ui.info.InfoActivity;
 import com.tekzee.racp.ui.login.activity.Login;
+import com.tekzee.racp.ui.selectMtgGroup.SelectMtgActivity;
 import com.tekzee.racp.utils.Utility;
 
 import java.util.ArrayList;
@@ -179,16 +180,18 @@ public class HomeActivity extends MvpActivity <homePresenter>
                 break;
 
             case 2:
-                startActivity(new Intent(HomeActivity.this, ListFormActivity.class));
+                startActivity(new Intent(HomeActivity.this, SelectMtgActivity.class));
                 drawer.closeDrawers();
 
                 break;
             case 3:
-               // startActivity(new Intent(HomeActivity.this, ListFormActivity.class));
+                Intent intent = new Intent(HomeActivity.this, SelectMtgActivity.class);
+                intent.putExtra("filled_form", 1);
+                startActivity(intent);
                 drawer.closeDrawers();
                 break;
             case 4:
-               // startActivity(new Intent(HomeActivity.this, InfoActivity.class));
+                startActivity(new Intent(HomeActivity.this, AddMtgActivity.class));
                 drawer.closeDrawers();
                 break;
 
@@ -212,7 +215,7 @@ public class HomeActivity extends MvpActivity <homePresenter>
 
     private void setHeaderData(ImageView image_profile, TextView tv_name, TextView tv_mobile) {
 
-        GlideModuleConstant.setImage(image_profile, this, "");
+        GlideModuleConstant.setCircleImage(image_profile, this, "");
         tv_mobile.setText(Utility.getSharedPreferences(this, Constant.Mobile));
         tv_name.setText(Utility.getSharedPreferences(this, Constant.UserName));
 

@@ -20,10 +20,10 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
     private AddPashupalakBinding binding;
 
-    private int gram_panchayat_id;
-    private int gram_id;
-    private int category_id, vidhansabha_id, tehsil_id,district_id;
-    private int mtgGroup_id, identification_type_id, cast_category_id, former_type_id;
+    private int gram_panchayat_id = 0;
+    private int gram_id = 0;
+    private int category_id = 0, vidhansabha_id = 0, tehsil_id = 0, district_id = 0;
+    private int mtgGroup_id = 0, identification_type_id = 0, cast_category_id = 0, former_type_id = 0;
 
 
     @Override
@@ -91,8 +91,9 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
             case R.id.gram:
                 mvpPresenter.getGram(gram_panchayat_id);
                 break;
+
             case R.id.mtggroup:
-                mvpPresenter.getMtgGroup(gram_id, Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                mvpPresenter.getMtgGroup(Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
                 break;
 
             case R.id.edt_identificationtype:
@@ -108,7 +109,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
                 break;
 
             case R.id.btn_save:
-                 addPashuPalak();
+                addPashuPalak();
                 break;
 
         }
@@ -146,25 +147,43 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
         } else if (binding.edtPashupalakCtg.getText().toString().equalsIgnoreCase(getString(R.string.pashu_palak_ctg))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_category));
 
-        }else if (binding.district.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
+        }/*else if (binding.district.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
+
+        } else if (district_id==0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
 
         } else if (binding.gramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
 
+        } else if (gram_panchayat_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
+
         } else if (binding.gram.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
 
-        } else if (binding.mtggroup.getText().toString().equalsIgnoreCase(getString(R.string.mtg_group))) {
+        }else if (gram_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
+
+        } else if (binding.mtggroup.getHint().toString().equalsIgnoreCase(getString(R.string.mtg_group))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_mtg_name));
 
-        } else if (binding.vidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
+        }*/ else if (mtgGroup_id == 0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_mtg_name));
+
+        }/* else if (binding.vidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
+
+        }else if (vidhansabha_id==0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
 
         } else if (binding.tehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
 
-        } else {
+        }  else if (tehsil_id==0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
+
+        } */ else {
 
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("pashuPalakName", binding.edtFormerName.getText().toString().trim());
@@ -176,13 +195,13 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
             jsonObject.addProperty("identification_no", binding.edtIdentificationNo.getText().toString().trim());
             jsonObject.addProperty("cast_category_id", cast_category_id);
             jsonObject.addProperty("farmer_type_id", former_type_id);
-            jsonObject.addProperty("districtId", district_id);
-            jsonObject.addProperty("vidhanasabhaId", vidhansabha_id);
-            jsonObject.addProperty("tahsilId", tehsil_id);
+            //jsonObject.addProperty("districtId", district_id);
+            //jsonObject.addProperty("vidhanasabhaId", vidhansabha_id);
+           // jsonObject.addProperty("tahsilId", tehsil_id);
 
 
-            jsonObject.addProperty("gramPanchayatId", gram_panchayat_id);
-            jsonObject.addProperty("gramId", gram_id);
+           // jsonObject.addProperty("gramPanchayatId", gram_panchayat_id);
+           // jsonObject.addProperty("gramId", gram_id);
             jsonObject.addProperty("mtgGroup", mtgGroup_id);
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(AddOwnerActivity.this, Constant.USER_ID));
 
@@ -203,22 +222,48 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
     public void onGramPanchayatSelected(GramPanchayat model, String type) {
 
         hideSoftKeyboard();
+
+        if (type.equalsIgnoreCase("district")) {
+            binding.district.setText(model.getGrampanchayatName());
+            district_id = model.getGrampanchayatId();
+            vidhansabha_id = 0;
+            binding.vidhansabha.setText("");
+        }
+        if (type.equalsIgnoreCase("vidhanasabha")) {
+            binding.vidhansabha.setText(model.getGrampanchayatName());
+            vidhansabha_id = model.getGrampanchayatId();
+            tehsil_id = 0;
+            binding.tehsil.setText("");
+        }
+        if (type.equalsIgnoreCase("tahsil")) {
+            binding.tehsil.setText(model.getGrampanchayatName());
+            tehsil_id = model.getGrampanchayatId();
+            gram_panchayat_id = 0;
+            binding.gramPanchayat.setText("");
+        }
         if (type.equalsIgnoreCase("Gram_panchayat")) {
             binding.gramPanchayat.setText(model.getGrampanchayatName());
             gram_panchayat_id = model.getGrampanchayatId();
+            gram_id = 0;
+            binding.gram.setText("");
+
         }
         if (type.equalsIgnoreCase("Gram")) {
             binding.gram.setText(model.getGrampanchayatName());
             gram_id = model.getGrampanchayatId();
+            mtgGroup_id = 0;
+            binding.mtggroup.setText("");
+        }
+
+        if (type.equalsIgnoreCase("MtgGroup")) {
+            binding.mtggroup.setText(model.getGrampanchayatName());
+            mtgGroup_id = model.getGrampanchayatId();
         }
         if (type.equalsIgnoreCase("PashuPalakCategory")) {
             binding.pashupalakUnit.setText(model.getGrampanchayatName());
             category_id = model.getGrampanchayatId();
         }
-        if (type.equalsIgnoreCase("MtgGroup")) {
-            binding.mtggroup.setText(model.getGrampanchayatName());
-            mtgGroup_id = model.getGrampanchayatId();
-        }
+
         if (type.equalsIgnoreCase("identificationtype")) {
             binding.edtIdentificationtype.setText(model.getGrampanchayatName());
             identification_type_id = model.getGrampanchayatId();
@@ -231,17 +276,6 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
         if (type.equalsIgnoreCase("farmertype")) {
             binding.edtFarmertype.setText(model.getGrampanchayatName());
             former_type_id = model.getGrampanchayatId();
-        }
-        if (type.equalsIgnoreCase("vidhanasabha")) {
-            binding.vidhansabha.setText(model.getGrampanchayatName());
-            vidhansabha_id = model.getGrampanchayatId();
-        }
-        if (type.equalsIgnoreCase("tahsil")) {
-            binding.tehsil.setText(model.getGrampanchayatName());
-            tehsil_id = model.getGrampanchayatId();
-        }  if (type.equalsIgnoreCase("district")) {
-            binding.district.setText(model.getGrampanchayatName());
-            district_id = model.getGrampanchayatId();
         }
 
 
@@ -256,6 +290,19 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
     @Override
     public void onAddPashuPalakSuccess(AddPashuPalakResponse successResult) {
         Dialogs.showcolorDialog(this, successResult.getMessage());
+
+
+        binding.edtFormerName.setText("");
+        binding.edtFatherName.setText("");
+        binding.edtAddress.setText("");
+        binding.edtMoNumber.setText("");
+        binding.edtIdentificationtype.setText("");
+        binding.edtIdentificationNo.setText("");
+        binding.edtFarmertype.setText("");
+        binding.edtPashupalakCtg.setText("");
+        binding.pashupalakUnit.setText("");
+        binding.mtggroup.setText("");
+
 
 
     }

@@ -20,16 +20,16 @@ tools:ignore="MissingDefaultResource" >
         android:layout_width="match_parent"
         android:gravity="center"
         android:layout_toLeftOf="@+id/view1"
-        android:textSize="@dimen/tv_size_medium"
+        android:textSize="15dp"
         android:textColor="@color/black"
-        android:layout_marginRight="15dp"
+        android:layout_marginRight="10dp"
         android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/date_receipt"
         android:layout_width="match_parent"
         android:paddingHorizontal="10dp"
-        android:textSize="@dimen/tv_size_medium"
+        android:textSize="15dp"
         android:autoLink="all"
         android:text="@string/view_detail"
         android:layout_toRightOf="@+id/view1"

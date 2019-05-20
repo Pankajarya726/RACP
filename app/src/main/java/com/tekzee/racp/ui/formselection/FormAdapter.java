@@ -79,8 +79,8 @@ public class FormAdapter extends RecyclerView.Adapter<FormAdapter.MyViewHolder> 
 
         FormData data = formData.get(i);
         holder.textView.setText(data.getFormName());
-        //GlideModuleConstant.setImage(holder.imageView,context,data.getFormImage());
-        holder.imageView.setImageResource(R.drawable._form);
+        GlideModuleConstant.setImage(holder.imageView,context,data.getFormImage());
+        //holder.imageView.setImageResource(R.drawable._form);
 
     }
 

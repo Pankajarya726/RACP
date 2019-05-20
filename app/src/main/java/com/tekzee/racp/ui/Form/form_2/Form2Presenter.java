@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -153,7 +154,7 @@ public class Form2Presenter extends BasePresenter<Form2View> {
                 });
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
-                EditText et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
