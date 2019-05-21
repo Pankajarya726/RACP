@@ -9,10 +9,12 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.ui.dashboard.DashboardAdapter;
+import com.tekzee.racp.utils.Dialogs;
 
 import java.util.List;
 
-public interface BakariVitranView extends BaseView {
+public interface BakariVitranView extends BaseView , Dialogs.okClickListner {
     Context getContext();
 
 

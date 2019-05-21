@@ -139,6 +139,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/edit_theme_black"
                             android:inputType="number"
+                            android:maxLength="2"
                             android:paddingHorizontal="10dp"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -285,6 +286,7 @@
                         android:inputType="numberDecimal"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -307,6 +309,7 @@
                         android:inputType="numberDecimal"
                         android:layout_below="@+id/amount_milk"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -328,6 +331,7 @@
                         android:inputType="numberDecimal"
                         android:layout_below="@+id/amountMilk"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -392,6 +396,7 @@
                             android:layout_height="35dp"
                             android:inputType="numberDecimal"
                             android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
                             android:background="@drawable/edit_theme_black"
                             android:paddingHorizontal="10dp" />
 
@@ -413,6 +418,7 @@
                             android:inputType="numberDecimal"
                             android:layout_below="@+id/faitPercent"
                             android:layout_marginTop="10dp"
+                            android:textColor="@color/black"
                             android:background="@drawable/edit_theme_black"
                             android:paddingHorizontal="10dp" />
 

@@ -2,23 +2,13 @@ package com.tekzee.racp.utils;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.tekzee.racp.R;
-import com.tekzee.racp.RacpApplication;
-import com.tekzee.racp.constant.Constant;
-import com.tekzee.racp.ui.base.BaseView;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
@@ -51,7 +41,7 @@ public class Dialogs {
 
 
 
-    public static void showColorDialog(Context context,String msg){
+    /*public static void showColorDialog(Context context,String msg){
         ColorDialog dialog = new ColorDialog(context);
         dialog.setCancelable(false);
         dialog.setTitle(R.string.app_name);
@@ -63,24 +53,37 @@ public class Dialogs {
                 dialog.dismiss();
             }
         }).show();
+    }*/
+
+    public static void showColorDialog(Context context, String msg) {
+        final Dialog dialog = new Dialog(context);
+        try {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setContentView(R.layout.custom_dialog1);
+            dialog.getWindow().setLayout(-1, -2);
+            dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+
+            TextView textView = dialog.findViewById(R.id.dialog1_msg);
+
+            textView.setText(msg);
+
+            dialog.findViewById(R.id.dialog1_ok).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
-    public static void showErrorDialog(Context context,String msg){
-        ColorDialog dialog = new ColorDialog(context);
-        dialog.setCancelable(false);
-        dialog.setTitle(R.string.app_name );
-        dialog.setContentText(msg);
-        dialog.setPositiveListener(R.string.ok, new ColorDialog.OnPositiveListener() {
-            @Override
-            public void onClick(ColorDialog dialog) {
-                dialog.dismiss();
-            }
-        }).show();
-
-    }
-
-    private static void showDialog(Context context,String Msg) {
+    private static void showDialog(Context context, String Msg) {
 
 
         final Dialog dialog = new Dialog(context);
@@ -101,8 +104,8 @@ public class Dialogs {
             msg.setText(Msg);
 
 
-           View view = dialog.findViewById(R.id.viewad);
-           view.setVisibility(View.GONE);
+            View view = dialog.findViewById(R.id.viewad);
+            view.setVisibility(View.GONE);
 
             dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -119,6 +122,92 @@ public class Dialogs {
             e.printStackTrace();
         }
     }
+
+
+    public static void ShowSelectionDialog(Context context, String Title, okClickListner listner) {
+        final Dialog dialog = new Dialog(context);
+        try {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setContentView(R.layout.custom_dialog);
+            dialog.getWindow().setLayout(-1, -2);
+            dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+
+            TextView textView = dialog.findViewById(R.id.yes);
+            TextView textView1 = dialog.findViewById(R.id.no);
+
+            textView.setText(context.getResources().getString(R.string.yes));
+            textView1.setText(context.getResources().getString(R.string.no));
+
+            TextView msg = dialog.findViewById(R.id.dialog_msg);
+            msg.setText(Title);
+
+            dialog.findViewById(R.id.no).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    //listner.onNoClick();
+                    dialog.dismiss();
+
+                }
+            });
+
+            dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listner.onOkClickListner();
+                   dialog.dismiss();
+
+                }
+            });
+
+
+            dialog.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    public static void ShowCustomDialog(Context context, String msg, okClickListner listner) {
+        final Dialog dialog = new Dialog(context);
+        try {
+            dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.setContentView(R.layout.custom_dialog1);
+            dialog.getWindow().setLayout(-1, -2);
+            dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+            dialog.setCancelable(false);
+
+
+            TextView textView = dialog.findViewById(R.id.dialog1_msg);
+
+            textView.setText(msg);
+
+            dialog.findViewById(R.id.dialog1_ok).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listner.onOkClickListner();
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public interface okClickListner {
+        void onOkClickListner();
+       // void onNoClick();
+    }
+
+
+
    /* public static void showPopUp(Context context) {
         final Dialog dialog = new Dialog(context);
         try {

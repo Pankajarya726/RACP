@@ -302,6 +302,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             }
 
             setupRecyclerView();
+            DisableField();
 
         } else {
             clearallField();
@@ -346,6 +347,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         }
 
         setupRecyclerView();
+        DisableField();
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
         binding.immunization.setVisibility(View.GONE);
@@ -460,7 +462,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
 
         BakriData.deleteAll(BakriData.class);
         TeekaData.deleteAll(TeekaData.class);
@@ -493,36 +495,43 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
     @Override
     public void onSuccessfullyRetrived(RetrivedDataResponse successResult) {
+
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.edtTagNo.setFocusable(false);
 
+        binding.edtTagNo.setEnabled(false);
         binding.edtNote.setEnabled(false);
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-
-        binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
-
-
-        binding.edtBeemaVivran.setText(String.valueOf(successResult.getData().getBeemaDetail()));
-        binding.edtBeemaVivran.setFocusable(false);
-
-        binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
-        binding.edtPolicyNo.setFocusable(false);
-
-        binding.edtProofdate.setText(String.valueOf(successResult.getData().getDatePhysicalProof()));
+        binding.edtBeemaVivran.setEnabled(false);
+        binding.edtPolicyNo.setEnabled(false);
         binding.edtProofdate.setClickable(false);
-
-        binding.edtAveragProduction.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
-        binding.edtAveragProduction.setFocusable(false);
-
+        binding.edtAveragProduction.setEnabled(false);
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
         binding.immunization.setVisibility(View.GONE);
-
         binding.recyclerImmunization.setClickable(false);
+
+
+
+        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
+        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+
+
+        binding.edtBeemaVivran.setText(String.valueOf(successResult.getData().getBeemaDetail()));
+
+
+        binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
+
+        binding.edtProofdate.setText(String.valueOf(successResult.getData().getDatePhysicalProof()));
+
+
+        binding.edtAveragProduction.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
+
+
+
+
 
 
         String ppr = successResult.getData().getDatePpr();
@@ -605,6 +614,37 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         binding.spMonth.setSelection(0);
         binding.spYear.setSelection(0);
         binding.teekaDate.setText("");
+        EnableView();
 
     }
+
+    private void DisableField(){
+        binding.edtTagNo.setEnabled(false);
+        binding.edtNote.setEnabled(false);
+        binding.edtBeemaVivran.setEnabled(false);
+        binding.edtPolicyNo.setEnabled(false);
+        binding.edtProofdate.setClickable(false);
+        binding.edtAveragProduction.setEnabled(false);
+        binding.spYear.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+        binding.day.setEnabled(false);
+    }
+    private void EnableView(){
+        binding.edtTagNo.setEnabled(true);
+        binding.edtNote.setEnabled(true);
+        binding.edtBeemaVivran.setEnabled(true);
+        binding.edtPolicyNo.setEnabled(true);
+        binding.edtProofdate.setClickable(true);
+        binding.edtAveragProduction.setEnabled(true);
+        binding.spYear.setEnabled(true);
+        binding.spMonth.setEnabled(true);
+        binding.day.setEnabled(true);
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
+    }
+
+
 }

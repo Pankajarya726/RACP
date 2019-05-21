@@ -25,7 +25,6 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.constant.GlideApp;
-import com.tekzee.racp.constant.GlideModuleConstant;
 import com.tekzee.racp.databinding.FormBakariAwasBinding;
 import com.tekzee.racp.ui.Form.bakari_awas.model.RetrivedBakariAwasResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
@@ -290,7 +289,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         } else {
             if (binding.day.getText().toString().isEmpty()) {
 
-            } else  if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+            } else if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                     binding.spMonth.getSelectedItemPosition() + 1,
                     Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
@@ -420,8 +419,8 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     @Override
     public void onSuccessFullSave(FormSubmitResponse successResult) {
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
-        finish();
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        //finish();
 
     }
 
@@ -435,7 +434,6 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         binding.checkUseNo.setClickable(false);
         binding.checkUseYes.setClickable(false);
         binding.edtNote.setFocusable(false);
-
         binding.tvSave.setVisibility(View.GONE);
 
 
@@ -477,9 +475,6 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         });
 
     }
-
-
-
 
 
     private void showSettingsDialog() {
@@ -553,5 +548,10 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         jsonObject.addProperty("form_id", 12);
 
         mvpPresenter.getFormRecordData(jsonObject);
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

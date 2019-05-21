@@ -41,7 +41,7 @@ public class SplashPresenter extends BasePresenter <SplashView> {
                         mvpView.startLoginActivity();
 
                 }
-            }, 2000);
+            }, 3000);
 
         } else {
 

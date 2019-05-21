@@ -51,6 +51,7 @@
 
                 <TextView
                     android:id="@+id/tv_date"
+                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -228,6 +229,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -243,6 +245,8 @@
                         android:id="@+id/edt_policy_no"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:textColor="@color/black"
+                        android:digits="@string/digits"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -444,6 +448,8 @@
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawableRight="@drawable/_next"
                     android:visibility="gone" />
 
                 <TextView
@@ -456,6 +462,8 @@
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"
                     android:visibility="gone" />
 
 

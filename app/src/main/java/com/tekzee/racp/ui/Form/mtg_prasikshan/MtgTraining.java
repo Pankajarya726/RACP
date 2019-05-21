@@ -34,7 +34,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements MtgTrainginVeiw, View.OnClickListener {
+public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements MtgTrainginVeiw, View.OnClickListener,Dialogs.okClickListner {
     private static String tag = MtgTraining.class.getSimpleName();
 
     private FormMtgPrasikshanBinding binding;
@@ -171,11 +171,10 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
-            binding.edtNote.setText("");
-            binding.edtMtgname.setText("");
-            binding.edtPlace.setText("");
-            binding.edtTrainingdate.setText("");
-            binding.edtCount.setText("");
+
+
+            ClearView();
+
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
             return true;
@@ -183,6 +182,15 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         }
 
 
+    }
+
+    private void ClearView() {
+        binding.edtNote.setText("");
+        binding.edtMtgname.setText("");
+        binding.edtPlace.setText("");
+        binding.edtTrainingdate.setText("");
+        binding.edtCount.setText("");
+        EnableView();
     }
 
     private void privious() {
@@ -214,6 +222,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -243,15 +252,9 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
             binding.edtMtgname.setText(detail.getName());
             binding.edtCount.setText(detail.getCount());
             binding.edtTrainingdate.setText(detail.getDate());
+            DisableView();
         } else {
-            binding.edtNote.setText("");
-            binding.edtNote.setText("");
-
-            binding.edtMtgname.setText("");
-            binding.edtPlace.setText("");
-            binding.edtTrainingdate.setText("");
-            binding.edtCount.setText("");
-
+            ClearView();
         }
 
     }
@@ -317,7 +320,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
 
 //        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -326,13 +329,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         recordNo = 1;
 
         binding.txtno.setText(String.valueOf(recordNo));
-        binding.edtNote.setText("");
-        binding.edtNote.setText("");
-
-        binding.edtMtgname.setText("");
-        binding.edtPlace.setText("");
-        binding.edtTrainingdate.setText("");
-        binding.edtCount.setText("");
+        ClearView();
 
         binding.next.setVisibility(View.GONE);
         binding.privious.setVisibility(View.GONE);
@@ -345,11 +342,8 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
-        binding.edtMtgname.setClickable(false);
-        binding.edtTrainingdate.setClickable(false);
-        binding.edtCount.setFocusable(false);
-        binding.edtPlace.setFocusable(false);
-        binding.edtNote.setFocusable(false);
+
+        DisableView();
 
         binding.edtTrainingdate.setText(String.valueOf(successResult.getData().getTrainingDate()));
         binding.edtCount.setText(String.valueOf(successResult.getData().getTraineeNumber()));
@@ -357,6 +351,22 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
 
+    }
+
+    private void DisableView() {
+        binding.edtMtgname.setClickable(false);
+        binding.edtTrainingdate.setClickable(false);
+        binding.edtCount.setEnabled(false);
+        binding.edtPlace.setEnabled(false);
+        binding.edtNote.setEnabled(false);
+    }
+
+    private void EnableView() {
+        binding.edtMtgname.setClickable(true);
+        binding.edtTrainingdate.setClickable(true);
+        binding.edtCount.setEnabled(true);
+        binding.edtPlace.setEnabled(true);
+        binding.edtNote.setEnabled(true);
     }
 
     private void ShowSelectionDialog() {
@@ -403,5 +413,10 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

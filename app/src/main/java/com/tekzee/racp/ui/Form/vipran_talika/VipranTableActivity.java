@@ -42,7 +42,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class VipranTableActivity extends MvpActivity <VipranPresenter> implements VipranView, View.OnClickListener, DatePickerDialog.OnDateSetListener {
+public class VipranTableActivity extends MvpActivity <VipranPresenter> implements VipranView, View.OnClickListener, Dialogs.okClickListner,DatePickerDialog.OnDateSetListener {
     private static String TAG = VipranTableActivity.class.getSimpleName();
     TeekaAdapter teekaAdapter;
     List <Datum> dataList = new ArrayList <>();
@@ -360,7 +360,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
         binding.animelType.setHint(getString(R.string.animal_type));
         binding.edtTagNo.setText("");
         binding.edtAge.setText("");
@@ -608,4 +608,11 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         }
 
     }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
+    }
+
+
 }

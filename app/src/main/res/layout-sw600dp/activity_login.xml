@@ -8,6 +8,7 @@
         android:paddingBottom="50dp"
         android:paddingLeft="100dp"
         android:paddingRight="100dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -159,23 +160,24 @@
                         android:layout_alignParentTop="true"
                         android:layout_width="250dp"
                         android:layout_height="250dp"
-                        android:src="@drawable/logo_tab"
+                        android:src="@drawable/racp_logo"
                         android:layout_marginBottom="20dp"
                         />
 
 
                     <TextView
                         android:id="@+id/tv_title"
-                        android:gravity="center"
-                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+
+                        android:layout_height="50dp"
                         android:layout_below="@+id/img_logo"
                         android:layout_alignParentBottom="true"
-                        android:textSize="@dimen/login_title_size"
-                        android:textColor="@color/colorPrimary"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:gravity="center"
+                        android:minEms="2"
                         android:text="@string/login_title"
-                        android:minEms="2"/>
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="@dimen/login_title_size" />
                 </RelativeLayout>
 
 
@@ -231,7 +233,7 @@
                         android:layout_below="@+id/edt_mobile_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/check_otp"
+                        android:text="@string/enter_otp"
                         android:textSize="18dp"
                         android:textColor="@color/colorPrimary"/>
 
@@ -243,6 +245,8 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:textSize="16dp"
+                        android:inputType="number"
+                        android:maxLines="1"
                         android:hint="@string/enter_otp"
                         android:background="@drawable/edit_theme"
                         android:layout_marginBottom="45dp"/>

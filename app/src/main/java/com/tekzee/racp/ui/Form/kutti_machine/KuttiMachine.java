@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,7 +19,6 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.SnackbarUtils;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -32,7 +30,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements KuttiMachineView, View.OnClickListener {
+public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements KuttiMachineView, View.OnClickListener, Dialogs.okClickListner {
     private static String tag = KuttiMachine.class.getSimpleName();
 
     private List <DataKuttiMachine> detailList = new ArrayList <>();
@@ -168,17 +166,15 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
 
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
-            SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.physical_proof));
+            Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
+
             return false;
         } else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()) {
-            SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.in_use_or_not));
-            return false;
-        } else if (binding.edtNote.getText().toString().isEmpty()) {
-            SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.note));
+            Dialogs.showColorDialog(getContext(), getString(R.string.in_use_or_not));
             return false;
         } else {
 
-            if (!binding.day.getText().toString().isEmpty()){
+            if (!binding.day.getText().toString().isEmpty()) {
                 if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
@@ -219,15 +215,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
             recordNo = recordNo + 1;
             binding.tvNo.setText(String.valueOf(recordNo));
-            binding.day.setText("");
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.spMachine.setSelection(0);
-            binding.edtNote.setText("");
+            ClearView();
 
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
@@ -236,6 +224,19 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         }
 
 
+    }
+
+    private void ClearView() {
+        binding.day.setText("");
+        binding.checkProofYes.setChecked(false);
+        binding.checkProofNo.setChecked(false);
+        binding.checkUseYes.setChecked(false);
+        binding.checkUseNo.setChecked(false);
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
+        binding.spMachine.setSelection(0);
+        binding.edtNote.setText("");
+        EnableView();
     }
 
     private void privious() {
@@ -283,6 +284,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -330,16 +332,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
             binding.spYear.setSelection(detail.getYy_id(), true);
             binding.spMachine.setSelection(detail.getMachine_id());
             binding.edtNote.setText(detail.getNote());
+            DisableView();
         } else {
-            binding.day.setText("");
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.spMachine.setSelection(0);
-            binding.edtNote.setText("");
+            ClearView();
 
         }
 
@@ -439,7 +434,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spMonth.setAdapter(adapter1);
 
-        int year1  = mDatePickerDialog.getYear();
+        int year1 = mDatePickerDialog.getYear();
         List <Integer> year = new ArrayList <>();
         for (int i = 2015; i <= year1; i++) {
             year.add(i);
@@ -453,22 +448,14 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
         DataKuttiMachine.deleteAll(DataKuttiMachine.class);
         record_count = 1;
         recordNo = 1;
         binding.tvNo.setText("1");
         binding.next.setVisibility(View.GONE);
         binding.privious.setVisibility(View.GONE);
-        binding.day.setText("");
-        binding.checkProofYes.setChecked(false);
-        binding.checkProofNo.setChecked(false);
-        binding.checkUseYes.setChecked(false);
-        binding.checkUseNo.setChecked(false);
-        binding.spMonth.setSelection(0);
-        binding.spYear.setSelection(0);
-        binding.spMachine.setSelection(0);
-        binding.edtNote.setText("");
+        ClearView();
     }
 
     @Override
@@ -488,13 +475,8 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
-        binding.checkProofYes.setClickable(false);
-        binding.checkProofNo.setClickable(false);
-        binding.checkUseNo.setClickable(false);
-        binding.checkUseYes.setClickable(false);
-        binding.edtNote.setFocusable(false);
 
-        binding.spMachine.setClickable(false);
+        DisableView();
 
         binding.receiptDate.setVisibility(View.VISIBLE);
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
@@ -526,6 +508,30 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
     }
 
+    private void DisableView() {
+        binding.checkProofYes.setClickable(false);
+        binding.checkProofNo.setClickable(false);
+        binding.checkUseNo.setClickable(false);
+        binding.checkUseYes.setClickable(false);
+        binding.edtNote.setEnabled(false);
+        binding.spMachine.setClickable(false);
+        binding.spYear.setEnabled(false);
+        binding.day.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+    }
+
+    private void EnableView() {
+        binding.checkProofYes.setClickable(true);
+        binding.checkProofNo.setClickable(true);
+        binding.checkUseNo.setClickable(true);
+        binding.checkUseYes.setClickable(true);
+        binding.edtNote.setEnabled(true);
+        binding.spMachine.setClickable(true);
+        binding.spYear.setEnabled(true);
+        binding.day.setEnabled(true);
+        binding.spMonth.setEnabled(true);
+    }
+
     private void getFormRecordData() {
 
         JsonObject jsonObject = new JsonObject();
@@ -533,5 +539,10 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         jsonObject.addProperty("form_id", 8);
 
         mvpPresenter.getFormRecordData(jsonObject);
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

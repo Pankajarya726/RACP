@@ -77,8 +77,8 @@ public class ImagePickerActivity extends AppCompatActivity {
 
         int requestCode = intent.getIntExtra(INTENT_IMAGE_PICKER_OPTION, -1);
         if (requestCode == REQUEST_IMAGE_CAPTURE) {
-            chooseImageFromGallery();
-            //takeCameraImage();
+           // chooseImageFromGallery();
+            takeCameraImage();
         } else {
             chooseImageFromGallery();
         }

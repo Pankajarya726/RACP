@@ -52,7 +52,9 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     @Override
     public void onNoInternetConnectivity(CommonResult result) {
 
-        Toast.makeText(getContext(),""+result.getMessage(),Toast.LENGTH_LONG).show();
+        Dialogs.showColorDialog(getContext(),result.getMessage());
+
+        //Toast.makeText(getContext(),""+result.getMessage(),Toast.LENGTH_LONG).show();
         binding.edtMobileNumber.setEnabled(true);
         binding.imgNext.setClickable(true);
         Dialogs.ShowDialog(getContext(),result.getMessage());
@@ -63,7 +65,9 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     public void onRequestOtpSuccess(RequestOtpResponse successResult) {
         Log.e(TAG,successResult.getMessage());
 
-        Toast.makeText(getContext(),""+successResult.getMessage(),Toast.LENGTH_LONG).show();
+        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+
+        //Toast.makeText(getContext(),""+successResult.getMessage(),Toast.LENGTH_LONG).show();
 
         Utility.setSharedPreference(getContext(),Constant.Mobile,binding.edtMobileNumber.getText().toString().trim());
 
@@ -74,6 +78,7 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
 
     @Override
     public void onRequestOtpFailure(String message) {
+        Dialogs.showColorDialog(getContext(),message);
 
     }
 
@@ -81,7 +86,9 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     @Override
     public void onVerifyOtpSuccess(VerifyOtpResponse response) {
 
-        Toast.makeText(getContext(),""+response.getMessage(),Toast.LENGTH_LONG).show();
+        Dialogs.showColorDialog(getContext(),response.getMessage());
+
+        //Toast.makeText(getContext(),""+response.getMessage(),Toast.LENGTH_LONG).show();
 
 
         Utility.setSharedPreferenceBoolean(getContext(),Constant.isVerifyOtp,true);
@@ -106,6 +113,7 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
             case R.id.img_next:
                 if(binding.edtMobileNumber.getText().toString().isEmpty()){
 
+                    Dialogs.showColorDialog(getContext(),getString(R.string.enter_number));
                     SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_number));
                    // binding.edtMobileNumber.setError(getString(R.string.enter_number));
                 }
@@ -126,7 +134,8 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
 
                 if(binding.edtOtp.getText().toString().isEmpty()){
 
-                    SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_otp));
+                    Dialogs.showColorDialog(getContext(),getString(R.string.enter_otp));
+                  //  SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_otp));
 
                 }
                 else {

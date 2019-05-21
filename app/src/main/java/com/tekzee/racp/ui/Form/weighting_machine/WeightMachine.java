@@ -820,6 +820,8 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
         Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
@@ -886,8 +888,14 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
-        DataWeighitngMachine.deleteAll(DataWeighitngMachine.class);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                DataWeighitngMachine.deleteAll(DataWeighitngMachine.class);
+                finish();
+            }
+        });
+
         record_count = 1;
         recordNo = 1;
 

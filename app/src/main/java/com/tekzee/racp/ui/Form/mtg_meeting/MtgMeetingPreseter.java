@@ -94,9 +94,6 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
         }
     }
 
-
-
-
     private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
         if (arrayList.size() > 0) {
 
@@ -170,8 +167,6 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
         }
 
     }
-
-
 
     public void getMtgMemberList(Integer id) {
         mvpView.hideSoftKeyboard();

@@ -13,6 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.load.engine.cache.DiskCacheAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -36,7 +37,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implements PashuChikitshaView, View.OnClickListener {
+public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implements PashuChikitshaView, Dialogs.okClickListner,View.OnClickListener {
 
     private static String tag = PahsuChikitsha.class.getSimpleName();
 
@@ -66,8 +67,6 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         }
 
 
-
-
         DataChikitsha.deleteAll(DataChikitsha.class);
         binding.txtno.setText(String.valueOf(recordNo));
         binding.tvDate.setText(mDatePickerDialog.showDate());
@@ -78,7 +77,6 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         binding.next.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
         binding.edtDate.setOnClickListener(this);
-
 
     }
 
@@ -201,14 +199,9 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
-            binding.edtNote.setText("");
-            binding.edtSmall.setText("");
-            binding.edtBig.setText("");
-            binding.edtPlace.setText("");
-            binding.edtDate.setText("");
-            binding.edtCount.setText("");
-            binding.checkAvailableNo.setChecked(false);
-            binding.checkAvailableYes.setChecked(false);
+
+            ClearView();
+
 
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
@@ -218,6 +211,8 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
 
     }
+
+
 
     private void privious() {
 
@@ -259,6 +254,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -300,15 +296,9 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
             binding.edtCount.setText(detail.getCount());
             binding.edtBig.setText(detail.getBig());
             binding.edtSmall.setText(detail.getSmall());
+            DisableView();
         } else {
-            binding.edtNote.setText("");
-            binding.edtSmall.setText("");
-            binding.edtBig.setText("");
-            binding.edtPlace.setText("");
-            binding.edtDate.setText("");
-            binding.edtCount.setText("");
-            binding.checkAvailableNo.setChecked(false);
-            binding.checkAvailableYes.setChecked(false);
+            ClearView();
 
         }
 
@@ -355,21 +345,14 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
 
         record_count =1;
         recordNo =1;
         binding.txtno.setText(String.valueOf(record_count));
         DataChikitsha.deleteAll(DataChikitsha.class);
 
-        binding.edtNote.setText("");
-        binding.edtSmall.setText("");
-        binding.edtBig.setText("");
-        binding.edtPlace.setText("");
-        binding.edtDate.setText("");
-        binding.edtCount.setText("");
-        binding.checkAvailableNo.setChecked(false);
-        binding.checkAvailableYes.setChecked(false);
+        ClearView();
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
 
@@ -377,7 +360,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(),commonResult.getMessage(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),commonResult.getMessage(),Toast.LENGTH_SHORT).show();
         Dialogs.showColorDialog(getContext(),commonResult.getMessage());
     }
 
@@ -391,16 +374,9 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
+        binding.next.setVisibility(View.GONE);
 
-        binding.edtPlace.setFocusable(false);
-        binding.edtDate.setClickable(false);
-        binding.edtCount.setFocusable(false);
-        binding.edtBig.setFocusable(false);
-        binding.edtSmall.setFocusable(false);
-        binding.next.setFocusable(false);
-        binding.checkAvailableNo.setClickable(false);
-        binding.checkAvailableYes.setClickable(false);
-        binding.edtNote.setFocusable(false);
+        DisableView();
 
 
         binding.edtPlace.setText(String.valueOf(successResult.getData().getShivirSthal()));
@@ -419,6 +395,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
 
     }
+
 
 
     private void getFormRecordData() {
@@ -473,5 +450,46 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         }
 
     }
+    private void ClearView() {
+        binding.edtNote.setText("");
+        binding.edtSmall.setText("");
+        binding.edtBig.setText("");
+        binding.edtPlace.setText("");
+        binding.edtDate.setText("");
+        binding.edtCount.setText("");
+        binding.checkAvailableNo.setChecked(false);
+        binding.checkAvailableYes.setChecked(false);
+        EnableView();
+    }
+    private void DisableView() {
 
+        binding.edtPlace.setEnabled(false);
+        binding.edtDate.setClickable(false);
+        binding.edtCount.setEnabled(false);
+        binding.edtBig.setEnabled(false);
+        binding.edtSmall.setEnabled(false);
+        binding.checkAvailableNo.setClickable(false);
+        binding.checkAvailableYes.setClickable(false);
+        binding.edtNote.setEnabled(false);
+
+    }
+    private void EnableView() {
+
+        binding.edtPlace.setEnabled(true);
+        binding.edtDate.setClickable(true);
+        binding.edtCount.setEnabled(true);
+        binding.edtBig.setEnabled(true);
+        binding.edtSmall.setEnabled(true);
+        binding.checkAvailableNo.setClickable(true);
+        binding.checkAvailableYes.setClickable(true);
+        binding.edtNote.setEnabled(true);
+
+    }
+
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
+
+    }
 }

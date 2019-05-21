@@ -243,13 +243,8 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
 
-            binding.edtTagNo.setText("");
-            binding.tvPhyProof.setText("");
-            binding.edtBeemaVivran.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
+            ClearVeiws();
+
             Immunization.deleteAll(Immunization.class);
             immunizations.clear();
             binding.privious.setVisibility(View.VISIBLE);
@@ -260,6 +255,8 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
 
     }
+
+
 
     private void loadList(String date, String type) {
 
@@ -332,10 +329,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             }
         } else {
 
-            binding.edtTagNo.setText("");
-            binding.edtBeemaVivran.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.tvPhyProof.setText("");
+            ClearVeiws();
             setupRecyclerView();
 
         }
@@ -505,7 +499,12 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+            }
+        });
         Record.deleteAll(Record.class);
 
         for (int i = 0; i < Myobject.size(); i++) {
@@ -515,6 +514,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
         recordNo = 1;
         record_count = 1;
+        ClearVeiws();
         binding.txtno.setText(String.valueOf(record_count));
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
@@ -530,27 +530,19 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         binding.receiptLayout3.setClickable(false);
 
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-
         binding.edtPolicyNo.setText(successResult.getData().getPolicyNo());
-
         binding.edtBeemaVivran.setText(successResult.getData().getBeemaDetail());
-
         binding.tvPhyProof.setText(successResult.getData().getDatePhysicalProof());
-
-
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.receiptLayout3.setVisibility(View.VISIBLE);
-
         binding.receiptLayout3.setText(successResult.getData().getDateReceipt());
-
         binding.immunization.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
         binding.spTeeka.setVisibility(View.GONE);
         binding.teekaDate.setVisibility(View.GONE);
         binding.addmore.setVisibility(View.GONE);
-
         binding.recyclerImmunization.setEnabled(false);
 
         String ppr = successResult.getData().getDatePpr();
@@ -615,5 +607,15 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
         binding.teekaDate.setText("");
 
+    }
+
+    private void ClearVeiws() {
+        binding.edtTagNo.setText("");
+        binding.tvPhyProof.setText("");
+        binding.edtBeemaVivran.setText("");
+        binding.edtPolicyNo.setText("");
+        binding.day.setText("");
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
     }
 }

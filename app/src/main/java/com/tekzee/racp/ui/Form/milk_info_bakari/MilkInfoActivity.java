@@ -34,7 +34,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements MilkInfoView, View.OnClickListener {
+public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements MilkInfoView, View.OnClickListener,Dialogs.okClickListner {
 
     private static final String TAG = MilkInfoActivity.class.getSimpleName();
 
@@ -220,27 +220,19 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
-        binding.edtTotleAmount.setText("");
-        binding.edtAvailAmount.setText("");
-        binding.edtUpbhogAmount.setText("");
+
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+
+        ClearVeiw();
     }
+
+
 
     @Override
     public void onSuccessfullyRetrived(RetrivedMilkInfoResponse successResult) {
 
 
-        binding.spMtgPerson.setEnabled(false);
-        binding.spMtgGroup.setEnabled(false);
-
-        binding.edtGramPanchayat.setEnabled(false);
-        binding.edtVillage.setEnabled(false);
-        binding.edtMobile.setEnabled(false);
-
-        binding.edtAvailAmount.setEnabled(false);
-        binding.edtUpbhogAmount.setEnabled(false);
-        binding.edtTotleAmount.setEnabled(false);
-        binding.edtName.setEnabled(false);
+      DisableView();
 
 
         if (successResult.getData().getIsMtgMember()==0){
@@ -268,11 +260,38 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         binding.edtUpbhogAmount.setText(String.valueOf(successResult.getData().getConsumptionQuantityPerDay()));
         binding.edtAvailAmount.setText(String.valueOf(successResult.getData().getQuantitySalePerDay()   ));
 
-
-
-
         binding.tvSave.setVisibility(View.GONE);
 
+    }
+
+    private void ClearVeiw() {
+        binding.edtTotleAmount.setText("");
+        binding.edtAvailAmount.setText("");
+        binding.edtUpbhogAmount.setText("");
+        EnableView();
+    }
+    private void DisableView() {
+        binding.spMtgPerson.setEnabled(false);
+        binding.spMtgGroup.setEnabled(false);
+        binding.edtGramPanchayat.setEnabled(false);
+        binding.edtVillage.setEnabled(false);
+        binding.edtMobile.setEnabled(false);
+        binding.edtAvailAmount.setEnabled(false);
+        binding.edtUpbhogAmount.setEnabled(false);
+        binding.edtTotleAmount.setEnabled(false);
+        binding.edtName.setEnabled(false);
+    }
+
+    private void EnableView(){
+        binding.spMtgPerson.setEnabled(true);
+        binding.spMtgGroup.setEnabled(true);
+        binding.edtGramPanchayat.setEnabled(true);
+        binding.edtVillage.setEnabled(true);
+        binding.edtMobile.setEnabled(true);
+        binding.edtAvailAmount.setEnabled(true);
+        binding.edtUpbhogAmount.setEnabled(true);
+        binding.edtTotleAmount.setEnabled(true);
+        binding.edtName.setEnabled(true);
     }
 
 
@@ -446,4 +465,11 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
                     }
                 }).show();
     }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
+    }
+
+
 }

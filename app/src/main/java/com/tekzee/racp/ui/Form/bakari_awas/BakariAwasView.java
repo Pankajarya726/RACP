@@ -6,8 +6,9 @@ import com.tekzee.racp.ui.Form.bakari_awas.model.RetrivedBakariAwasResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.Dialogs;
 
-public interface BakariAwasView extends BaseView {
+public interface BakariAwasView extends BaseView , Dialogs.okClickListner {
 
     Activity getContext();
     void onNoInternetConnectivity(CommonResult result);

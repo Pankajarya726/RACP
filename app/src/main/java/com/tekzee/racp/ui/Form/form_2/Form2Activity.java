@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -32,7 +31,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2View, View.OnClickListener {
+public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2View, View.OnClickListener,Dialogs.okClickListner {
     private static final String tag = Form2Activity.class.getSimpleName();
     List <mData> dataList = new ArrayList <>();
     List <Record2> record2s = new ArrayList <>();
@@ -55,7 +54,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         table_id = getIntent().getIntExtra("table_id", 0);
         if (table_id != 0) {
             getFormRecordData();
-        }else {
+        } else {
             ShowDialog();
         }
 
@@ -172,7 +171,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
             recordNo = recordNo + 1;
             binding.tvNo.setText(String.valueOf(recordNo));
-           clearAllField();
+            clearAllField();
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
             return true;
@@ -200,6 +199,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         binding.edtAvarage.setText(data.getAverage());
         binding.spNasl.setText(data.getNasl());
         binding.edtNote.setText(data.getNote());
+        DisableView();
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
@@ -228,6 +228,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
             binding.edtAvarage.setText(data.getAverage());
             binding.spNasl.setText(data.getNasl());
             binding.edtNote.setText(data.getNote());
+            DisableView();
 
 
         } else {
@@ -340,14 +341,14 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
 
         mData.deleteAll(mData.class);
         recordNo = 1;
         record_count = 1;
         binding.tvNo.setText(String.valueOf(record_count));
 
-       clearAllField();
+        clearAllField();
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
     }
@@ -366,22 +367,17 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     public void onSuccessfullyRetrived(RetrivedDataResponse successResult) {
 
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.edtTagNo.setFocusable(false);
+
+        DisableView();
+
+
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
-
-
         binding.edtAge.setText(String.valueOf(successResult.getData().getAge()));
-        binding.edtAge.setFocusable(false);
-
         binding.edtAvarage.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
-        binding.edtAvarage.setFocusable(false);
-
         binding.spNasl.setText(String.valueOf(successResult.getData().getNaslaName()));
-        binding.spNasl.setClickable(false);
-
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-        binding.edtNote.setFocusable(false);
+
 
         binding.layoutEditReceipt.setVisibility(View.GONE);
         binding.layoutTextReceipt.setVisibility(View.GONE);
@@ -391,7 +387,18 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
     }
 
-    public void clearAllField(){
+    private void DisableView() {
+        binding.edtTagNo.setEnabled(false);
+        binding.edtAge.setEnabled(false);
+        binding.edtAvarage.setEnabled(false);
+        binding.spNasl.setClickable(false);
+        binding.edtNote.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+        binding.spYear.setEnabled(false);
+        binding.day.setEnabled(false);
+    }
+
+    public void clearAllField() {
         binding.day.setText("");
         binding.edtTagNo.setText("");
         binding.edtNote.setText("");
@@ -399,6 +406,23 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         binding.edtAge.setText("");
         binding.spNasl.setText("");
         binding.spNasl.setHint(getString(R.string.nasl));
+        EnableView();
 
+    }
+
+    private void EnableView() {
+        binding.edtTagNo.setEnabled(true);
+        binding.edtAge.setEnabled(true);
+        binding.edtAvarage.setEnabled(true);
+        binding.spNasl.setClickable(true);
+        binding.edtNote.setEnabled(true);
+        binding.spMonth.setEnabled(true);
+        binding.spYear.setEnabled(true);
+        binding.day.setEnabled(true);
+    }
+
+    @Override
+    public void onOkClickListner() {
+this.finish();
     }
 }

@@ -11,6 +11,7 @@
         android:id="@+id/tv_name_mtggroup"
         android:gravity="center"
         android:textSize="@dimen/tv_size_medium_tab"
+        android:textColor="@color/black"
         android:paddingHorizontal="10dp"
         android:layout_alignParentLeft="true"
         android:layout_width="wrap_content"

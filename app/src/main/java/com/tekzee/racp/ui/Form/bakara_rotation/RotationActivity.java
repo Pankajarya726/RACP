@@ -33,7 +33,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RotationActivity extends MvpActivity <RotationPresenter> implements RotationView, View.OnClickListener {
+public class RotationActivity extends MvpActivity <RotationPresenter> implements RotationView, View.OnClickListener,Dialogs.okClickListner {
 
     private static String tag = RotationActivity.class.getSimpleName();
     private FormBakaraRotationBinding binding;
@@ -222,7 +222,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
 
-           ClearField();
+            ClearField();
 
 
             binding.privious.setVisibility(View.VISIBLE);
@@ -315,10 +315,14 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             binding.edtGramPanchayat1.setText(detail.getGrampanchayat_after());
             binding.edtTehsil1.setText(detail.getTehsil_after());
             binding.edtVillage1.setText(detail.getGram_after());
+
             DisableField();
+            com.tekzee.racp.utils.Log.view(tag,"disablefield");
         } else {
 
             ClearField();
+            EnableView();
+            com.tekzee.racp.utils.Log.view(tag,"enablefield");
 
 
         }
@@ -385,7 +389,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
 
         DataBakaraRotation.deleteAll(DataBakaraRotation.class);
         ClearField();
@@ -416,6 +420,45 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         binding.edtGramPanchayat1.setText("");
         binding.edtTehsil1.setText("");
         binding.edtVillage1.setText("");
+        EnableView();
+    }
+    public void DisableField(){
+        binding.edtTagNo.setEnabled(false);
+        binding.edtAddress.setEnabled(false);
+        binding.edtAddress1.setEnabled(false);
+        binding.edtName.setEnabled(false);
+        binding.edtName1.setEnabled(false);
+        binding.edtMtgname.setEnabled(false);
+        binding.edtMtgname1.setEnabled(false);
+        binding.edtMobileNumber.setEnabled(false);
+        binding.edtMobileNumber1.setEnabled(false);
+        binding.edtVidhansabha.setEnabled(false);
+        binding.edtVidhansabha1.setEnabled(false);
+        binding.edtGramPanchayat.setEnabled(false);
+        binding.edtGramPanchayat1.setEnabled(false);
+        binding.edtTehsil.setEnabled(false);
+        binding.edtTehsil1.setEnabled(false);
+        binding.edtVillage.setEnabled(false);
+        binding.edtVillage1.setEnabled(false);
+    }
+    public void EnableView(){
+        binding.edtTagNo.setEnabled(true);
+        binding.edtAddress.setEnabled(true);
+        binding.edtAddress1.setEnabled(true);
+        binding.edtName.setEnabled(true);
+        binding.edtName1.setEnabled(true);
+        binding.edtMtgname.setEnabled(true);
+        binding.edtMtgname1.setEnabled(true);
+        binding.edtMobileNumber.setEnabled(true);
+        binding.edtMobileNumber1.setEnabled(true);
+        binding.edtVidhansabha.setEnabled(true);
+        binding.edtVidhansabha1.setEnabled(true);
+        binding.edtGramPanchayat.setEnabled(true);
+        binding.edtGramPanchayat1.setEnabled(true);
+        binding.edtTehsil.setEnabled(true);
+        binding.edtTehsil1.setEnabled(true);
+        binding.edtVillage.setEnabled(true);
+        binding.edtVillage1.setEnabled(true);
     }
 
     @Override
@@ -451,25 +494,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     }
 
-    public void DisableField(){
-        binding.edtTagNo.setFocusable(false);
-        binding.edtAddress.setFocusable(false);
-        binding.edtAddress1.setFocusable(false);
-        binding.edtName.setFocusable(false);
-        binding.edtName1.setFocusable(false);
-        binding.edtMtgname.setFocusable(false);
-        binding.edtMtgname1.setFocusable(false);
-        binding.edtMobileNumber.setFocusable(false);
-        binding.edtMobileNumber1.setFocusable(false);
-        binding.edtVidhansabha.setFocusable(false);
-        binding.edtVidhansabha1.setFocusable(false);
-        binding.edtGramPanchayat.setFocusable(false);
-        binding.edtGramPanchayat1.setFocusable(false);
-        binding.edtTehsil.setFocusable(false);
-        binding.edtTehsil1.setFocusable(false);
-        binding.edtVillage.setFocusable(false);
-        binding.edtVillage1.setFocusable(false);
-    }
+
 
     @Override
     public int getTagNo() {
@@ -609,5 +634,10 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onOkClickListner() {
+            this.finish();
     }
 }

@@ -16,7 +16,9 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 
-public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements AddOwnerView, View.OnClickListener {
+import cn.refactor.lib.colordialog.ColorDialog;
+
+public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements AddOwnerView, View.OnClickListener ,Dialogs.okClickListner{
 
     private AddPashupalakBinding binding;
 
@@ -118,7 +120,6 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
     private void addPashuPalak() {
 
         if (binding.edtFormerName.getText().toString().isEmpty()) {
-
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
         } else if (binding.edtFatherName.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_father_name));
@@ -283,13 +284,16 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.showcolorDialog(getContext(), commonResult.getMessage());
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
 
     }
 
     @Override
     public void onAddPashuPalakSuccess(AddPashuPalakResponse successResult) {
-        Dialogs.showcolorDialog(this, successResult.getMessage());
+
+       // showuSuccessDialog(successResult.getMessage());
+
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
 
 
         binding.edtFormerName.setText("");
@@ -306,4 +310,11 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
 
     }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
+    }
+
+
 }

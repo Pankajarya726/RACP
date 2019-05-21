@@ -14,7 +14,7 @@
     <string name="tag_no"> टैग नंबर</string>
 
     <string name="physical_date">भौतिक सत्यापन दिनांक </string>
-    <string name="date">दिनांक : </string>
+    <string name="date">दिनांक :  </string>
     <string name="immunization"> टीकाकरण </string>
     <string name="start_year">चालू वर्ष में</string>
     <string name="name_disease">बीमारी का नाम</string>
@@ -308,5 +308,8 @@
     <string name="member_not_found">कोई सदस्य नहीं मिला</string>
     <string name="digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
     <string name="image_bakri_awas">बकरी आवास की फोटो</string>
+    <string name="enter_start_milk_production">प्रारम्भ में दुग्ध उत्पादन मात्रा भरे</string>
+    <string name="enter_feed_suppliment_amount">फीड सप्लीमेंट मात्रा भरे</string>
+    <string name="enter_feed_suppliment_start_date">फीड सप्लीमेंट प्रारम्भ करने की दिनांक भरे</string>
 
 </resources>

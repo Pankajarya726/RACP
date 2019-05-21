@@ -26,13 +26,14 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.DTDHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implements DanaPaniBartanView, View.OnClickListener {
+public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implements DanaPaniBartanView,Dialogs.okClickListner, View.OnClickListener {
 
     private static String tag = DanaPaniBartan.class.getSimpleName();
     private ActivityDanaPaniBartanBinding binding;
@@ -73,6 +74,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         binding.privious.setOnClickListener(this);
         binding.tvAddRecord.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
+
 
 
     }
@@ -224,15 +226,8 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
             recordNo = recordNo + 1;
             binding.tvNo.setText(String.valueOf(recordNo));
-            binding.day.setText("");
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.edtNote.setText("");
 
+            ClearView();
             binding.privious.setVisibility(View.VISIBLE);
             record_count = record_count + 1;
             return true;
@@ -251,7 +246,8 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         }
         Log.e(tag, String.valueOf(DataDanaPaniBartan.count(DataDanaPaniBartan.class)));
 
-        // BeemaDetail beemaDetail =   BeemaDetail.findById(BeemaDetail.class,record_count);
+
+        binding.tvNo.setText(String.valueOf(record_count));
 
         detailList.clear();
         detailList = DataDanaPaniBartan.listAll(DataDanaPaniBartan.class);
@@ -288,6 +284,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -334,15 +331,9 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
             binding.spMonth.setSelection(detail.getMm_id());
             binding.spYear.setSelection(detail.getYy_id(), true);
             binding.edtNote.setText(detail.getNote());
+            DisableView();
         } else {
-            binding.day.setText("");
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.edtNote.setText("");
+           ClearView();
 
         }
 
@@ -449,21 +440,14 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
         DataDanaPaniBartan.deleteAll(DataDanaPaniBartan.class);
         record_count = 1;
         recordNo = 1;
         binding.tvNo.setText("1");
         binding.next.setVisibility(View.GONE);
         binding.privious.setVisibility(View.GONE);
-        binding.day.setText("");
-        binding.checkProofYes.setChecked(false);
-        binding.checkProofNo.setChecked(false);
-        binding.checkUseYes.setChecked(false);
-        binding.checkUseNo.setChecked(false);
-        binding.spMonth.setSelection(0);
-        binding.spYear.setSelection(0);
-        binding.edtNote.setText("");
+       ClearView();
 
     }
 
@@ -483,11 +467,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
-        binding.checkProofYes.setClickable(false);
-        binding.checkProofNo.setClickable(false);
-        binding.checkUseNo.setClickable(false);
-        binding.checkUseYes.setClickable(false);
-        binding.edtNote.setFocusable(false);
+      DisableView();
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
 
@@ -519,5 +499,45 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         jsonObject.addProperty("form_id", 9);
 
         mvpPresenter.getFormRecordData(jsonObject);
+    }
+
+    private void ClearView(){
+        binding.day.setText("");
+        binding.checkProofYes.setChecked(false);
+        binding.checkProofNo.setChecked(false);
+        binding.checkUseYes.setChecked(false);
+        binding.checkUseNo.setChecked(false);
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
+        binding.edtNote.setText("");
+        EnableView();
+
+    }
+
+    private void EnableView() {
+        binding.checkProofYes.setClickable(true);
+        binding.checkProofNo.setClickable(true);
+        binding.checkUseNo.setClickable(true);
+        binding.checkUseYes.setClickable(true);
+        binding.edtNote.setEnabled(true);
+        binding.day.setEnabled(true);
+        binding.spYear.setEnabled(true);
+        binding.spMonth.setEnabled(true);
+    }
+
+    private void DisableView(){
+        binding.checkProofYes.setClickable(false);
+        binding.checkProofNo.setClickable(false);
+        binding.checkUseNo.setClickable(false);
+        binding.checkUseYes.setClickable(false);
+        binding.edtNote.setEnabled(false);
+        binding.day.setEnabled(false);
+        binding.spYear.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

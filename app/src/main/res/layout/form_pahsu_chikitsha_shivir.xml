@@ -91,6 +91,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:inputType="textPostalAddress"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
@@ -129,6 +130,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -163,6 +165,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -186,6 +189,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
@@ -243,6 +247,7 @@
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:gravity="start"
+                        android:textColor="@color/black"
                         android:padding="10dp" />
 
                 </LinearLayout>

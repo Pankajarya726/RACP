@@ -33,7 +33,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class AjolaActivity extends MvpActivity <AjolaPresenter> implements AjolaView, View.OnClickListener {
+public class AjolaActivity extends MvpActivity <AjolaPresenter> implements AjolaView, View.OnClickListener,Dialogs.okClickListner {
     private static String tag = AjolaActivity.class.getSimpleName();
     List <Datum> animal = new ArrayList <>();
     private FormAjolaBinding binding;
@@ -238,7 +238,6 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
                     binding.checkProofYes.isChecked(),
                     binding.spType.getSelectedItem().toString(),
                     binding.spType.getSelectedItemPosition(),
-
                     binding.edtProductionAverage.getText().toString(),
                     binding.edtAmountMilkBefore.getText().toString(),
                     binding.edtAmountMilkAfter.getText().toString(),
@@ -255,21 +254,8 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
             recordNo = recordNo + 1;
             binding.tvNo.setText(String.valueOf(recordNo));
 
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.spType.setSelection(0);
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkYes.setChecked(false);
-            binding.checkNo.setChecked(false);
-            binding.edtAmountMilkAfter.setText("");
-            binding.edtAmountMilkBefore.setText("");
-            binding.edtProductionAverage.setText("");
-            binding.edtFaitAfter.setText("");
-            binding.edtFaitBefore.setText("");
+            ClearVeiw();
 
-            binding.layoutFaitpercent.setVisibility(View.GONE);
 
             binding.privious.setVisibility(View.VISIBLE);
             record_count++;
@@ -329,25 +315,11 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
             binding.edtAmountMilkAfter.setText(detail.getMilk_amount_after());
             binding.tvAddRecord.setVisibility(View.GONE);
             binding.next.setVisibility(View.VISIBLE);
+            DisableView();
 
         } else {
 
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.spType.setSelection(0);
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkYes.setChecked(false);
-            binding.checkNo.setChecked(false);
-            binding.edtAmountMilkAfter.setText("");
-            binding.edtAmountMilkBefore.setText("");
-            binding.edtProductionAverage.setText("");
-            binding.edtFaitAfter.setText("");
-            binding.edtFaitBefore.setText("");
-
-            binding.layoutFaitpercent.setVisibility(View.GONE);
-
+            ClearVeiw();
 
         }
 
@@ -406,6 +378,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         binding.edtAmountMilkAfter.setText(detail.getMilk_amount_after());
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -468,6 +441,54 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
             Log.e(tag, "data is" + json.toString());
         }
 
+    }
+
+
+    public void ClearVeiw(){
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
+        binding.spType.setSelection(0);
+        binding.checkProofYes.setChecked(false);
+        binding.checkProofNo.setChecked(false);
+        binding.checkYes.setChecked(false);
+        binding.checkNo.setChecked(false);
+        binding.edtAmountMilkAfter.setText("");
+        binding.edtAmountMilkBefore.setText("");
+        binding.edtProductionAverage.setText("");
+        binding.edtFaitAfter.setText("");
+        binding.edtFaitBefore.setText("");
+        binding.layoutFaitpercent.setVisibility(View.GONE);
+        EnableView();
+    }
+
+    public void DisableView(){
+        binding.checkProofYes.setClickable(false);
+        binding.checkProofNo.setClickable(false);
+        binding.checkNo.setClickable(false);
+        binding.checkYes.setClickable(false);
+        binding.edtAmountMilkAfter.setEnabled(false);
+        binding.edtAmountMilkBefore.setEnabled(false);
+        binding.edtProductionAverage.setEnabled(false);
+        binding.tvAddRecord.setVisibility(View.GONE);
+        binding.tvSave.setVisibility(View.GONE);
+        binding.edtFaitAfter.setEnabled(false);
+        binding.edtFaitBefore.setEnabled(false);
+        binding.spType.setEnabled(false);
+
+    }
+    public void EnableView(){
+        binding.checkProofYes.setClickable(true);
+        binding.checkProofNo.setClickable(true);
+        binding.checkNo.setClickable(true);
+        binding.checkYes.setClickable(true);
+        binding.edtAmountMilkAfter.setEnabled(true);
+        binding.edtAmountMilkBefore.setEnabled(true);
+        binding.edtProductionAverage.setEnabled(true);
+        binding.tvAddRecord.setVisibility(View.VISIBLE);
+        binding.tvSave.setVisibility(View.VISIBLE);
+        binding.edtFaitAfter.setEnabled(true);
+        binding.edtFaitBefore.setEnabled(true);
+        binding.spType.setEnabled(true);
     }
 
 
@@ -537,7 +558,8 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
 
         DataAjola.deleteAll(DataAjola.class);
 
@@ -546,30 +568,19 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
 
         binding.tvNo.setText(String.valueOf(record_count));
-        binding.day.setText("");
-        binding.spMonth.setSelection(0);
-        binding.spYear.setSelection(0);
-        binding.spType.setSelection(0);
-        binding.checkProofYes.setChecked(false);
-        binding.checkProofNo.setChecked(false);
-        binding.checkYes.setChecked(false);
-        binding.checkNo.setChecked(false);
-        binding.edtAmountMilkAfter.setText("");
-        binding.edtAmountMilkBefore.setText("");
-        binding.edtProductionAverage.setText("");
-        binding.edtFaitAfter.setText("");
-        binding.edtFaitBefore.setText("");
+        ClearVeiw();
 
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
-        binding.layoutFaitpercent.setVisibility(View.GONE);
+
 
     }
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 
@@ -595,23 +606,16 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
     @Override
     public void onSuccessfullyRetrived(RetrivedAjolaResponse successResult) {
+
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
-        binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.checkProofYes.setClickable(false);
-        binding.checkProofNo.setClickable(false);
-        binding.checkNo.setClickable(false);
-        binding.checkYes.setClickable(false);
-        binding.edtAmountMilkAfter.setFocusable(false);
-        binding.edtAmountMilkBefore.setFocusable(false);
-        binding.edtProductionAverage.setFocusable(false);
-        binding.tvAddRecord.setVisibility(View.GONE);
-        binding.tvSave.setVisibility(View.GONE);
-        binding.edtFaitAfter.setFocusable(false);
-        binding.edtFaitBefore.setFocusable(false);
-        binding.spType.setEnabled(false);
+
+        DisableView();
+
+
         binding.layoutAnimelType.setVisibility(View.GONE);
         binding.animal.setVisibility(View.VISIBLE);
+        binding.receiptDate.setVisibility(View.VISIBLE);
 
 
         binding.edtProductionAverage.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
@@ -659,4 +663,12 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
         mvpPresenter.getFormRecordData(jsonObject);
     }
+
+    @Override
+    public void onOkClickListner() {
+
+        this.finish();
+    }
+
+
 }

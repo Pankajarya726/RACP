@@ -1,5 +1,13 @@
 package com.tekzee.racp.ui.Form.feed_suppliment;
 
+import android.app.Dialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.Window;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
@@ -10,6 +18,8 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
 
 import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class FeedSupplimentPresenter extends BasePresenter<FeedSupplimentView> {
     public FeedSupplimentPresenter(FeedSupplimentView feedSuppliment) {
@@ -85,4 +95,66 @@ public class FeedSupplimentPresenter extends BasePresenter<FeedSupplimentView> {
             });
         }
     }
+
+
+    public void openSelector(ArrayList <String> arrayList, final String type , final String title) {
+        if (arrayList.size() > 0) {
+
+            final Dialog dialog = new Dialog(mvpView.getContext());
+            try {
+                dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setContentView(R.layout.popup_select_grampanchayat);
+                dialog.getWindow().setLayout(-1, -2);
+                dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+
+                RecyclerView rv_country = dialog.findViewById(R.id.rv_grampanchayat);
+
+                rv_country.setLayoutManager(new LinearLayoutManager(dialog.getContext()));
+                final EffectAdapter adapter = new EffectAdapter(arrayList, new EffectAdapter.RowSelect() {
+                    @Override
+                    public void onSelect(String model) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                        mvpView.onEffectSelect(model, type,title);
+
+
+                    }
+                });
+                mvpView.hideSoftKeyboard();
+                rv_country.setAdapter(adapter);
+                TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
+
+
+
+
+                dialog.findViewById(R.id.iv_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // mvpView.showInPopup(mvpView.getContext().getResources().getString(R.string.gram_panchayat));
+        }
+
+    }
+
 }

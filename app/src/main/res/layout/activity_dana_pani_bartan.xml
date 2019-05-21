@@ -294,6 +294,7 @@
                             android:gravity="start"
                             android:inputType="textMultiLine"
                             android:id="@+id/edt_note"
+                            android:textColor="@color/black"
                             android:layout_below="@+id/tv_note"
                             android:layout_marginTop="10dp"
                             android:background="@drawable/edit_theme_black"
@@ -311,6 +312,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
+                        android:layout_marginBottom="15dp"
                         android:drawableRight="@drawable/_next"
                         />
                     <TextView
@@ -324,6 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
+                        android:layout_marginBottom="15dp"
                         android:drawableLeft="@drawable/_privious"/>
 
 

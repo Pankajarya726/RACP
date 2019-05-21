@@ -32,28 +32,28 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements MilkKitView, View.OnClickListener {
-    private static String tag= MilkKitActivity.class.getSimpleName();
-    private FormMilkKitBinding binding;
-    int record_count  =1;
+public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements MilkKitView, View.OnClickListener ,Dialogs.okClickListner{
+    private static String tag = MilkKitActivity.class.getSimpleName();
+    int record_count = 1;
     int recordNo = 1;
+    private FormMilkKitBinding binding;
     private int table_id;
-     private List <DataCleanMilkKit> detailList = new ArrayList <>();
+    private List <DataCleanMilkKit> detailList = new ArrayList <>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.form_milk_kit);
+        binding = DataBindingUtil.setContentView(this, R.layout.form_milk_kit);
 
         getSupportActionBar().setTitle(R.string.form_7);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        table_id = getIntent().getIntExtra("table_id",0);
-        if(table_id != 0){
+        table_id = getIntent().getIntExtra("table_id", 0);
+        if (table_id != 0) {
             getFormRecordData();
-        }else {
+        } else {
             ShowDialog();
         }
 
@@ -89,21 +89,21 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.privious:
                 privious();
-                Log.e(tag,"privious is"+detailList.size());
+                Log.e(tag, "privious is" + detailList.size());
                 break;
 
             case R.id.next:
                 next();
-                Log.e(tag,"next is"+detailList.size());
+                Log.e(tag, "next is" + detailList.size());
                 break;
 
             case R.id.tv_addRecord:
                 addRecordinSqlite();
-                Log.e(tag,"tv_addRecord is"+detailList.size());
+                Log.e(tag, "tv_addRecord is" + detailList.size());
                 break;
 
             case R.id.tv_save:
@@ -116,98 +116,98 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
 
             case R.id.check_proof_yes:
 
-                if(binding.checkProofYes.isChecked()){
-                    if(binding.checkProofNo.isChecked()){
+                if (binding.checkProofYes.isChecked()) {
+                    if (binding.checkProofNo.isChecked()) {
                         binding.checkProofNo.setChecked(false);
                     }
                     binding.checkProofYes.setChecked(true);
-                }else {
+                } else {
                     binding.checkProofYes.setChecked(false);
                 }
                 break;
 
 
             case R.id.check_proof_no:
-                if(binding.checkProofNo.isChecked()){
-                    if (binding.checkProofYes.isChecked()){
+                if (binding.checkProofNo.isChecked()) {
+                    if (binding.checkProofYes.isChecked()) {
                         binding.checkProofYes.setChecked(false);
                     }
                     binding.checkProofNo.setChecked(true);
-                }else {
+                } else {
                     binding.checkProofNo.setChecked(false);
                 }
                 break;
 
 
             case R.id.check_use_yes:
-                if(binding.checkUseYes.isChecked()){
-                    if(binding.checkUseNo.isChecked()){
+                if (binding.checkUseYes.isChecked()) {
+                    if (binding.checkUseNo.isChecked()) {
                         binding.checkUseNo.setChecked(false);
                     }
                     binding.checkUseYes.setChecked(true);
-                }else {
+                } else {
                     binding.checkUseYes.setChecked(false);
                 }
                 break;
 
             case R.id.check_use_no:
-                if(binding.checkUseNo.isChecked()){
-                    if (binding.checkUseYes.isChecked()){
+                if (binding.checkUseNo.isChecked()) {
+                    if (binding.checkUseYes.isChecked()) {
                         binding.checkUseYes.setChecked(false);
                     }
                     binding.checkUseNo.setChecked(true);
-                }else {
+                } else {
                     binding.checkUseNo.setChecked(false);
                 }
                 break;
 
             case R.id.check_available_yes:
-                if(binding.checkAvailableYes.isChecked()){
-                    if(binding.checkAvailableNo.isChecked()){
+                if (binding.checkAvailableYes.isChecked()) {
+                    if (binding.checkAvailableNo.isChecked()) {
                         binding.checkAvailableNo.setChecked(false);
                     }
                     binding.checkAvailableYes.setChecked(true);
-                }else {
+                } else {
                     binding.checkAvailableYes.setChecked(false);
                 }
                 break;
 
             case R.id.check_available_no:
-                if(binding.checkAvailableNo.isChecked()){
-                    if (binding.checkAvailableYes.isChecked()){
+                if (binding.checkAvailableNo.isChecked()) {
+                    if (binding.checkAvailableYes.isChecked()) {
                         binding.checkAvailableYes.setChecked(false);
                     }
                     binding.checkAvailableNo.setChecked(true);
-                }else {
+                } else {
                     binding.checkAvailableNo.setChecked(false);
                 }
                 break;
 
             case R.id.check_possitive:
-                if(binding.checkPossitive.isChecked()){
-                    if(binding.checkNegative.isChecked()){
+                if (binding.checkPossitive.isChecked()) {
+                    if (binding.checkNegative.isChecked()) {
                         binding.checkNegative.setChecked(false);
                     }
                     binding.checkPossitive.setChecked(true);
-                }else {
+                } else {
                     binding.checkPossitive.setChecked(false);
                 }
                 break;
 
             case R.id.check_negative:
-                if(binding.checkNegative.isChecked()){
-                    if (binding.checkPossitive.isChecked()){
+                if (binding.checkNegative.isChecked()) {
+                    if (binding.checkPossitive.isChecked()) {
                         binding.checkPossitive.setChecked(false);
                     }
                     binding.checkNegative.setChecked(true);
-                }else {
+                } else {
                     binding.checkNegative.setChecked(false);
                 }
                 break;
 
 
             case R.id.edt_test_date:
-                mDatePickerDialog.getdate(this,binding.edtTestDate);
+                mDatePickerDialog.getdate(this, binding.edtTestDate);
                 break;
         }
 
@@ -224,30 +224,29 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.txtno.setText(String.valueOf(record_count));
 
         // detailList = BeemaDetail.listAll(BeemaDetail.class);
-        detailList.clear();;
+        detailList.clear();
+        ;
         detailList = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
 
 
-        if (detailList.size() >= record_count){
+        if (detailList.size() >= record_count) {
 
-            DataCleanMilkKit detail = detailList.get(record_count-1);
+            DataCleanMilkKit detail = detailList.get(record_count - 1);
 
-            if (detail.isProof()){
+            if (detail.isProof()) {
                 binding.checkProofYes.setChecked(true);
                 binding.checkProofNo.setChecked(false);
-            }
-            else{
+            } else {
                 binding.checkProofNo.setChecked(true);
                 binding.checkProofYes.setChecked(false);
             }
 
-            if (detail.isUse()){
-                Log.e(tag,"true"+detail.isUse());
+            if (detail.isUse()) {
+                Log.e(tag, "true" + detail.isUse());
                 binding.checkUseYes.setChecked(true);
                 binding.checkUseNo.setChecked(false);
-            }
-            else{
-                Log.e(tag,"false"+detail.isUse());
+            } else {
+                Log.e(tag, "false" + detail.isUse());
                 binding.checkUseNo.setChecked(true);
                 binding.checkUseYes.setChecked(false);
 
@@ -256,23 +255,19 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
             if (detail.isAvailability()) {
                 binding.checkAvailableYes.setChecked(true);
                 binding.checkAvailableNo.setChecked(false);
-            }
-            else{
+            } else {
                 binding.checkAvailableNo.setChecked(true);
                 binding.checkAvailableYes.setChecked(false);
             }
 
 
-            if (detail.isResult()){
+            if (detail.isResult()) {
                 binding.checkPossitive.setChecked(true);
                 binding.checkNegative.setChecked(false);
-            }
-
-            else{
+            } else {
                 binding.checkNegative.setChecked(true);
                 binding.checkPossitive.setChecked(false);
             }
-
 
 
             binding.txtno.setText(String.valueOf(record_count));
@@ -283,27 +278,11 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
             binding.edtBeforeuse.setText(detail.getBefore_use());
             binding.edtAfteruser.setText(detail.getAfter_use());
             binding.edtNote.setText(detail.getNote());
+            DisableView();
+        } else {
+
+            ClearView();
         }
-        else {
-
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.checkAvailableYes.setChecked(false);
-            binding.checkAvailableNo.setChecked(false);
-            binding.checkPossitive.setChecked(false);
-            binding.checkNegative.setChecked(false);
-            binding.edtTestDate.setText("");
-            binding.edtAfteruser.setText("");
-            binding.edtBeforeuse.setText("");
-            binding.edtNote.setText("");
-        }
-
-
 
 
     }
@@ -320,7 +299,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         // BeemaDetail beemaDetail =   BeemaDetail.findById(BeemaDetail.class,record_count);
 
 
-        List<DataCleanMilkKit> list = new ArrayList <>();
+        List <DataCleanMilkKit> list = new ArrayList <>();
         detailList.clear();
 
         list = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
@@ -328,24 +307,22 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         Log.e(tag, String.valueOf(list.size()));
         Log.e(tag, String.valueOf(record_count));
 
-        DataCleanMilkKit detail = list.get(record_count-1);
+        DataCleanMilkKit detail = list.get(record_count - 1);
 
-        if (detail.isProof()){
+        if (detail.isProof()) {
             binding.checkProofYes.setChecked(true);
             binding.checkProofNo.setChecked(false);
-        }
-        else{
+        } else {
             binding.checkProofNo.setChecked(true);
             binding.checkProofYes.setChecked(false);
         }
 
-        if (detail.isUse()){
-            Log.e(tag,"true"+detail.isUse());
+        if (detail.isUse()) {
+            Log.e(tag, "true" + detail.isUse());
             binding.checkUseYes.setChecked(true);
             binding.checkUseNo.setChecked(false);
-        }
-        else{
-            Log.e(tag,"false"+detail.isUse());
+        } else {
+            Log.e(tag, "false" + detail.isUse());
             binding.checkUseNo.setChecked(true);
             binding.checkUseYes.setChecked(false);
 
@@ -354,19 +331,16 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         if (detail.isAvailability()) {
             binding.checkAvailableYes.setChecked(true);
             binding.checkAvailableNo.setChecked(false);
-        }
-        else{
+        } else {
             binding.checkAvailableNo.setChecked(true);
             binding.checkAvailableYes.setChecked(false);
         }
 
 
-        if (detail.isResult()){
+        if (detail.isResult()) {
             binding.checkPossitive.setChecked(true);
             binding.checkNegative.setChecked(false);
-        }
-
-        else{
+        } else {
             binding.checkNegative.setChecked(true);
             binding.checkPossitive.setChecked(false);
         }
@@ -380,6 +354,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.edtBeforeuse.setText(detail.getBefore_use());
         binding.edtAfteruser.setText(detail.getAfter_use());
         binding.edtNote.setText(detail.getNote());
+        DisableView();
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
@@ -389,37 +364,37 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
 
     private Boolean addRecordinSqlite() {
 
-        Log.e(tag,"size is"+detailList.size());
+        Log.e(tag, "size is" + detailList.size());
 
-        if (!binding.checkProofYes.isChecked()  && !binding.checkProofNo.isChecked()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.physical_proof));
+        if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
             return false;
-        }else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.in_use_or_not));
+        } else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.in_use_or_not));
             return false;
-        }else if (!binding.checkAvailableYes.isChecked() && !binding.checkAvailableNo.isChecked()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.reajent_availability));
+        } else if (!binding.checkAvailableYes.isChecked() && !binding.checkAvailableNo.isChecked()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.reajent_availability));
             return false;
-        }else if (binding.edtTestDate.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_test_date));
-            Toast.makeText(this,getString(R.string.test_Date),Toast.LENGTH_SHORT).show();
+        } else if (binding.edtTestDate.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_test_date));
+            Toast.makeText(this, getString(R.string.test_Date), Toast.LENGTH_SHORT).show();
             return false;
-        }else if (!binding.checkPossitive.isChecked() && !binding.checkNegative.isChecked()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.result_after_test));
+        } else if (!binding.checkPossitive.isChecked() && !binding.checkNegative.isChecked()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.result_after_test));
             return false;
-        }else if (binding.edtBeforeuse.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.before_use_milkkit));
+        } else if (binding.edtBeforeuse.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.before_use_milkkit));
             return false;
-        }else if (binding.edtAfteruser.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.after_use_milkkit));
+        } else if (binding.edtAfteruser.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.after_use_milkkit));
             return false;
-        }else {
+        } else {
 
             String day;
-            if (binding.day.getText().toString().isEmpty()){
+            if (binding.day.getText().toString().isEmpty()) {
                 day = "01";
 
-            }else {
+            } else {
                 day = binding.day.getText().toString();
                 if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                         binding.spMonth.getSelectedItemPosition() + 1,
@@ -432,27 +407,27 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
                 }
             }
 
-            String proof,use,available,result;
-            if (binding.checkUseYes.isChecked()){
+            String proof, use, available, result;
+            if (binding.checkUseYes.isChecked()) {
                 use = binding.checkUseYes.getText().toString();
-            }else {
-                use  = binding.checkUseNo.getText().toString();
+            } else {
+                use = binding.checkUseNo.getText().toString();
             }
-            if (binding.checkProofYes.isChecked()){
+            if (binding.checkProofYes.isChecked()) {
                 proof = binding.checkProofYes.getText().toString();
-            }else {
-                proof  = binding.checkProofNo.getText().toString();
+            } else {
+                proof = binding.checkProofNo.getText().toString();
             }
-            if (binding.checkAvailableYes.isChecked()){
+            if (binding.checkAvailableYes.isChecked()) {
                 available = binding.checkAvailableYes.getText().toString();
-            }else {
-                available  = binding.checkAvailableNo.getText().toString();
-            }if (binding.checkPossitive.isChecked()){
-                result = binding.checkPossitive.getText().toString();
-            }else {
-                result  = binding.checkNegative.getText().toString();
+            } else {
+                available = binding.checkAvailableNo.getText().toString();
             }
-
+            if (binding.checkPossitive.isChecked()) {
+                result = binding.checkPossitive.getText().toString();
+            } else {
+                result = binding.checkNegative.getText().toString();
+            }
 
 
             DataCleanMilkKit details = new DataCleanMilkKit(day,
@@ -476,26 +451,12 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
             details.save();
 
             Toast.makeText(this, "record added", Toast.LENGTH_LONG).show();
-            Log.e(tag,"recoud count"+ DataCleanMilkKit.count(DataCleanMilkKit.class));
+            Log.e(tag, "recoud count" + DataCleanMilkKit.count(DataCleanMilkKit.class));
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
 
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.spYear.setSelection(0);
-            binding.checkProofYes.setChecked(false);
-            binding.checkProofNo.setChecked(false);
-            binding.checkUseYes.setChecked(false);
-            binding.checkUseNo.setChecked(false);
-            binding.checkAvailableYes.setChecked(false);
-            binding.checkAvailableNo.setChecked(false);
-            binding.checkPossitive.setChecked(false);
-            binding.checkNegative.setChecked(false);
-            binding.edtTestDate.setText("");
-            binding.edtAfteruser.setText("");
-            binding.edtBeforeuse.setText("");
-            binding.edtNote.setText("");
+            ClearView();
             binding.privious.setVisibility(View.VISIBLE);
             record_count++;
             return true;
@@ -508,7 +469,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
 
         boolean success = addRecordinSqlite();
 
-        if(success) {
+        if (success) {
 
             detailList.clear();
             detailList = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
@@ -568,29 +529,15 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
 
         DataCleanMilkKit.deleteAll(DataCleanMilkKit.class);
 
-        record_count =1;
-        recordNo =1;
+        record_count = 1;
+        recordNo = 1;
         binding.txtno.setText("1");
 
-        binding.day.setText("");
-        binding.spMonth.setSelection(0);
-        binding.spYear.setSelection(0);
-        binding.checkProofYes.setChecked(false);
-        binding.checkProofNo.setChecked(false);
-        binding.checkUseYes.setChecked(false);
-        binding.checkUseNo.setChecked(false);
-        binding.checkAvailableYes.setChecked(false);
-        binding.checkAvailableNo.setChecked(false);
-        binding.checkPossitive.setChecked(false);
-        binding.checkNegative.setChecked(false);
-        binding.edtTestDate.setText("");
-        binding.edtAfteruser.setText("");
-        binding.edtBeforeuse.setText("");
-        binding.edtNote.setText("");
+        ClearView();
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
 
@@ -598,7 +545,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(),this);
 
     }
 
@@ -608,21 +555,10 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.checkNegative.setClickable(false);
-        binding.checkPossitive.setClickable(false);
-        binding.checkAvailableNo.setClickable(false);
-        binding.checkAvailableYes.setClickable(false);
-        binding.checkProofYes.setClickable(false);
-        binding.checkUseNo.setClickable(false);
-        binding.checkUseYes.setClickable(false);
-        binding.checkProofNo.setClickable(false);
+        DisableView();
 
-        binding.edtTestDate.setClickable(false);
-        binding.edtAfteruser.setFocusable(false);
-        binding.edtBeforeuse.setFocusable(false);
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
-
 
 
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
@@ -632,24 +568,24 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.edtBeforeuse.setText(String.valueOf(successResult.getData().getBeforeUseCleanMilkKeet()));
         binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
 
-        if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))){
+        if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
-        }else {
+        } else {
             binding.checkProofNo.setChecked(true);
         }
-        if (successResult.getData().getUsability().equalsIgnoreCase(getString(R.string.yes))){
+        if (successResult.getData().getUsability().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkUseYes.setChecked(true);
-        }else {
+        } else {
             binding.checkUseNo.setChecked(true);
         }
-        if (successResult.getData().getReagentAvailability().equalsIgnoreCase(getString(R.string.yes))){
+        if (successResult.getData().getReagentAvailability().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkAvailableYes.setChecked(true);
-        }else {
+        } else {
             binding.checkAvailableNo.setChecked(true);
         }
-        if (successResult.getData().getThanelaRogResult().equalsIgnoreCase(getString(R.string.possitive))){
+        if (successResult.getData().getThanelaRogResult().equalsIgnoreCase(getString(R.string.possitive))) {
             binding.checkPossitive.setChecked(true);
-        }else {
+        } else {
             binding.checkNegative.setChecked(true);
         }
 
@@ -702,7 +638,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         binding.spMonth.setAdapter(adapter1);
 
 
-        int year1  = mDatePickerDialog.getYear();
+        int year1 = mDatePickerDialog.getYear();
         List <Integer> year = new ArrayList <>();
         for (int i = 2015; i <= year1; i++) {
             year.add(i);
@@ -712,6 +648,7 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spYear.setAdapter(adapter2);
     }
+
     private void getFormRecordData() {
 
         JsonObject jsonObject = new JsonObject();
@@ -721,4 +658,66 @@ public class MilkKitActivity extends MvpActivity<MilkKitPresenter> implements Mi
         mvpPresenter.getFormRecordData(jsonObject);
     }
 
+    private void ClearView() {
+        binding.day.setText("");
+        binding.spMonth.setSelection(0);
+        binding.spYear.setSelection(0);
+        binding.checkProofYes.setChecked(false);
+        binding.checkProofNo.setChecked(false);
+        binding.checkUseYes.setChecked(false);
+        binding.checkUseNo.setChecked(false);
+        binding.checkAvailableYes.setChecked(false);
+        binding.checkAvailableNo.setChecked(false);
+        binding.checkPossitive.setChecked(false);
+        binding.checkNegative.setChecked(false);
+        binding.edtTestDate.setText("");
+        binding.edtAfteruser.setText("");
+        binding.edtBeforeuse.setText("");
+        binding.edtNote.setText("");
+        EnableView();
+    }
+
+    private void EnableView() {
+
+        binding.checkNegative.setClickable(true);
+        binding.checkPossitive.setClickable(true);
+        binding.checkAvailableNo.setClickable(true);
+        binding.checkAvailableYes.setClickable(true);
+        binding.checkProofYes.setClickable(true);
+        binding.checkUseNo.setClickable(true);
+        binding.checkUseYes.setClickable(true);
+        binding.checkProofNo.setClickable(true);
+        binding.edtTestDate.setClickable(true);
+        binding.edtAfteruser.setEnabled(true);
+        binding.edtBeforeuse.setEnabled(true);
+        binding.edtNote.setEnabled(true);
+        binding.day.setEnabled(true);
+        binding.spYear.setEnabled(true);
+        binding.spMonth.setEnabled(true);
+    }
+
+    private void DisableView() {
+        binding.checkNegative.setClickable(false);
+        binding.checkPossitive.setClickable(false);
+        binding.checkAvailableNo.setClickable(false);
+        binding.checkAvailableYes.setClickable(false);
+        binding.checkProofYes.setClickable(false);
+        binding.checkUseNo.setClickable(false);
+        binding.checkUseYes.setClickable(false);
+        binding.checkProofNo.setClickable(false);
+
+        binding.edtTestDate.setClickable(false);
+        binding.edtAfteruser.setEnabled(false);
+        binding.edtBeforeuse.setEnabled(false);
+        binding.edtNote.setEnabled(false);
+
+        binding.day.setEnabled(false);
+        binding.spYear.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+    }
+
+    @Override
+    public void onOkClickListner() {
+this.finish();
+    }
 }

@@ -1,6 +1,5 @@
 package com.tekzee.racp.ui.Form.beema_detail;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -23,7 +21,6 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.SnackbarUtils;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -35,7 +32,7 @@ import java.util.List;
 
 import cn.refactor.lib.colordialog.ColorDialog;
 
-public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> implements BeemaDetailView, View.OnClickListener {
+public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> implements BeemaDetailView, View.OnClickListener, Dialogs.okClickListner {
 
     private static String tag = BeemaDeatailActivity.class.getSimpleName();
     private FormBeemaDeatailBinding binding;
@@ -43,7 +40,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     private int record_count = 1;
     private List <BeemaDetail> detailList = new ArrayList <>();
     private int table_id;
-    private int animaltype_id= 0;
+    private int animaltype_id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,10 +51,10 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        table_id = getIntent().getIntExtra("table_id",0);
-        if (table_id != 0){
+        table_id = getIntent().getIntExtra("table_id", 0);
+        if (table_id != 0) {
             getFormRecordData();
-        }else {
+        } else {
             ShowDialog();
         }
 
@@ -211,30 +208,22 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             binding.edtDatefrom.setText(detail.getDateFrom());
             binding.edtDateto.setText(detail.getDateTo());
 
-            if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))){
+            if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))) {
                 binding.tvDeath.setVisibility(View.VISIBLE);
                 binding.edtDateDeath.setVisibility(View.VISIBLE);
                 binding.edtDateDeath.setText(detail.getDeath_date());
                 binding.checkYes.setChecked(true);
-            }else {
+            } else {
                 binding.edtDateDeath.setVisibility(View.GONE);
                 binding.tvDeath.setVisibility(View.GONE);
                 binding.checkNo.setChecked(true);
             }
 
+            DisableView();
         } else {
 
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.edtTagNo.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.edtDateto.setText("");
-            binding.edtDatefrom.setText("");
-            binding.checkYes.setChecked(false);
-            binding.checkNo.setChecked(false);
-            binding.edtDateDeath.setText("");
-            binding.tvDeath.setVisibility(View.GONE);
-            binding.edtDateDeath.setVisibility(View.GONE);
+
+            ClearView();
             binding.privious.setVisibility(View.VISIBLE);
 
 
@@ -250,6 +239,8 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         if (record_count == 1) {
             binding.privious.setVisibility(View.GONE);
         }
+
+        binding.txtno.setText(String.valueOf(record_count));
         Log.e(tag, String.valueOf(BeemaDetail.count(BeemaDetail.class)));
 
         // BeemaDetail beemaDetail =   BeemaDetail.findById(BeemaDetail.class,record_count);
@@ -267,21 +258,21 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         binding.day.setText(detail.getDd());
         binding.edtPolicyNo.setText(detail.getPolicy_no());
 
-        if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))){
+        if (detail.getDeathCondition().equalsIgnoreCase(getString(R.string.yes))) {
             binding.tvDeath.setVisibility(View.VISIBLE);
             binding.edtDateDeath.setVisibility(View.VISIBLE);
             binding.edtDateDeath.setText(detail.getDeath_date());
             binding.checkYes.setChecked(true);
-        }else {
+        } else {
             binding.edtDateDeath.setVisibility(View.GONE);
             binding.tvDeath.setVisibility(View.GONE);
             binding.checkNo.setChecked(true);
         }
 
 
-
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
+        DisableView();
 
 
     }
@@ -289,22 +280,22 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     private boolean addRecordinSqlite() {
 
         if (binding.edtTagNo.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tagno));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
         } else if (binding.edtDatefrom.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_start_Date));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_start_Date));
             return false;
         } else if (binding.edtDateto.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_end_Date));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_end_Date));
             return false;
         } else if (binding.edtPolicyNo.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_policy_no));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_policy_no));
             return false;
         } else if (!binding.checkNo.isChecked() && !binding.checkYes.isChecked()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.death_condition));
+            Dialogs.showColorDialog(getContext(), getString(R.string.death_condition));
             return false;
         } else if (binding.checkYes.isChecked() && binding.edtDateDeath.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_date_death));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_date_death));
             return false;
 
         } else {
@@ -313,8 +304,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             if (binding.day.getText().toString().isEmpty()) {
                 day = "01";
 
-            }
-            else {
+            } else {
                 day = binding.day.getText().toString();
                 if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                         binding.spMonth.getSelectedItemPosition() + 1,
@@ -366,18 +356,11 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
-            binding.day.setText("");
-            binding.spMonth.setSelection(0);
-            binding.edtTagNo.setText("");
-            binding.edtPolicyNo.setText("");
-            binding.edtDateto.setText("");
-            binding.edtDatefrom.setText("");
-            binding.checkYes.setChecked(false);
-            binding.checkNo.setChecked(false);
-            binding.edtDateDeath.setText("");
-            binding.tvDeath.setVisibility(View.GONE);
-            binding.edtDateDeath.setVisibility(View.GONE);
+
+            ClearView();
             binding.privious.setVisibility(View.VISIBLE);
+
+
             record_count++;
             return true;
 
@@ -501,14 +484,16 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowDialog(getContext(), successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+            }
+        });
         BeemaDetail.deleteAll(BeemaDetail.class);
         recordNo = 1;
         record_count = 1;
-        binding.checkNo.setChecked(false);
-        binding.checkYes.setChecked(false);
-        binding.edtDateDeath.setVisibility(View.GONE);
-        binding.tvDeath.setVisibility(View.GONE);
+        ClearView();
         binding.txtno.setText(String.valueOf(record_count));
         binding.privious.setVisibility(View.GONE);
         binding.next.setVisibility(View.GONE);
@@ -517,41 +502,34 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.ShowDialog(getContext(), commonResult.getMessage());
-
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), this);
     }
 
     @Override
     public void onSuccessfullyRetrived(RetrivedBeemaDataResponse successResult) {
 
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.edtTagNo.setFocusable(false);
+
+        DisableView();
+
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
 
 
-        binding.spAnimalType.setEnabled(false);
-
         binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
-        binding.edtPolicyNo.setFocusable(false);
 
         binding.edtDateto.setText(String.valueOf(successResult.getData().getDateToBeema()));
-        binding.edtDateto.setClickable(false);
 
         binding.edtDatefrom.setText(String.valueOf(successResult.getData().getDateFromBeema()));
-        binding.edtDatefrom.setFocusable(false);
 
-        binding.checkYes.setClickable(false);
-        binding.checkNo.setClickable(false);
 
-        if (successResult.getData().getDeathStage().equalsIgnoreCase(getString(R.string.yes))){
+        if (successResult.getData().getDeathStage().equalsIgnoreCase(getString(R.string.yes))) {
 
             binding.checkYes.setChecked(true);
             binding.edtDateDeath.setVisibility(View.VISIBLE);
             binding.edtDateDeath.setClickable(false);
             binding.edtDateDeath.setText(String.valueOf(successResult.getData().getDateDeath()));
-        }
-        else {
+        } else {
             binding.checkNo.setChecked(true);
         }
         /*binding.edtNote.setText(String.valueOf(successResult.getData().getn()));
@@ -568,5 +546,51 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
 
+    }
+
+    private void ClearView() {
+        binding.day.setText("");
+        binding.spMonth.setSelection(0);
+        binding.edtTagNo.setText("");
+        binding.edtPolicyNo.setText("");
+        binding.edtDateto.setText("");
+        binding.edtDatefrom.setText("");
+        binding.checkYes.setChecked(false);
+        binding.checkNo.setChecked(false);
+        binding.edtDateDeath.setText("");
+        binding.tvDeath.setVisibility(View.GONE);
+        binding.edtDateDeath.setVisibility(View.GONE);
+        EnableView();
+    }
+
+    private void DisableView() {
+        binding.edtTagNo.setEnabled(false);
+        binding.spAnimalType.setEnabled(false);
+        binding.edtPolicyNo.setEnabled(false);
+        binding.edtDateto.setClickable(false);
+        binding.edtDatefrom.setEnabled(false);
+        binding.checkYes.setClickable(false);
+        binding.checkNo.setClickable(false);
+        binding.spMonth.setEnabled(false);
+        binding.spYear.setEnabled(false);
+        binding.day.setEnabled(false);
+    }
+
+    private void EnableView() {
+        binding.edtTagNo.setEnabled(true);
+        binding.spAnimalType.setEnabled(true);
+        binding.edtPolicyNo.setEnabled(true);
+        binding.edtDateto.setClickable(true);
+        binding.edtDatefrom.setEnabled(true);
+        binding.checkYes.setClickable(true);
+        binding.checkNo.setClickable(true);
+        binding.spMonth.setEnabled(true);
+        binding.spYear.setEnabled(true);
+        binding.day.setEnabled(true);
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

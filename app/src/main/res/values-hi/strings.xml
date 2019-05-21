@@ -15,7 +15,7 @@
     <string name="tag_no"> टैग नंबर</string>
 
     <string name="physical_date">भौतिक सत्यापन दिनांक </string>
-    <string name="date">दिनांक : </string>
+    <string name="date">दिनांक :  </string>
     <string name="immunization"> टीकाकरण </string>
     <string name="start_year">चालू वर्ष में</string>
     <string name="name_disease">बीमारी का नाम</string>
@@ -213,7 +213,7 @@
     <string name="availornot">प्राप्त हुआ या नहीं</string>
     <string name="date_receipt">प्राप्ति की दिनांक </string>
     <string name="day">दिन</string>
-    <string name="list_submitted_from">जमा किये गए फॉर्म की सूचि</string>
+    <string name="list_submitted_from">जमा किये गए फॉर्म की सूची</string>
     <string name="invalid_Date">दिनांक अमान्य</string>
     <string name="select_nasl">नस्ल चुने</string>
     <string name="enter_beema_detial">पालिसी विवरण भरे</string>
@@ -307,7 +307,10 @@
     <string name="enter_upbhod_amount">उपभोग मात्रा प्रतिदिन भरे</string>
     <string name="enter_avail_amount">उपभोग मात्रा प्रतिदिन भरे</string>
     <string name="member_not_found">कोई सदस्य नहीं मिला</string>
-    <string name="digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789</string>
+    <string name="digits">abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 </string>
     <string name="image_bakri_awas">बकरी आवास की फोटो</string>
+    <string name="enter_start_milk_production">प्रारम्भ में दुग्ध उत्पादन मात्रा भरे</string>
+    <string name="enter_feed_suppliment_amount">फीड सप्लीमेंट मात्रा भरे</string>
+    <string name="enter_feed_suppliment_start_date">फीड सप्लीमेंट प्रारम्भ करने की दिनांक भरे</string>
 
 </resources>

@@ -39,7 +39,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgMeetingView, View.OnClickListener {
+public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgMeetingView, View.OnClickListener,Dialogs.okClickListner {
 
     private static String tag = MtgMeeting.class.getSimpleName();
     int form_id;
@@ -268,7 +268,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
 
 
         binding.edtNote.setText("");
@@ -364,5 +364,10 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void onOkClickListner() {
+        this.finish();
     }
 }

@@ -375,7 +375,9 @@
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:drawableRight="@drawable/_next"
+                    android:layout_marginBottom="15dp"/>
 
                 <TextView
                     android:id="@+id/privious"
@@ -387,7 +389,9 @@
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone" />
+                    android:visibility="gone"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"/>
 
 
                 <LinearLayout

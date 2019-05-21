@@ -15,4 +15,6 @@ public interface FeedSupplimentView extends BaseView {
     Context getContext();
 
     void onSuccessfullyRetrived(RetrivedFeedSupplimentResponse successResult);
+
+    void onEffectSelect(String model, String type, String title);
 }
