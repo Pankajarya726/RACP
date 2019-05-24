@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -95,6 +94,12 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
     @Override
@@ -289,10 +294,9 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtNote.setClickable(false);
         binding.edtNote.setEnabled(false);
 
-        if (successResult.getData().getNote().equalsIgnoreCase("null")){
-            binding.edtNote.setText("");
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
 
         binding.edtMtgname.setTextColor(getResources().getColor(R.color.black));
         binding.edtNameMembers.setTextColor(getResources().getColor(R.color.black));
@@ -301,9 +305,9 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
         String data  = String.valueOf(successResult.getData().getPashupalakName());
 
-        String data1[] = data.split(",");
+        String[] data1 = data.split(",");
         for(int i= 0 ;i<data1.length;i++){
-            binding.edtNameMembers.append(String.valueOf(data1[i])+"\n");
+            binding.edtNameMembers.append(data1[i] +"\n");
         }
         binding.tvSave.setVisibility(View.GONE);
 

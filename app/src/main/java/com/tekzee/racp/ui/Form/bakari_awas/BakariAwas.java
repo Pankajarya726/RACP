@@ -13,7 +13,6 @@ import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
@@ -40,8 +39,6 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.refactor.lib.colordialog.ColorDialog;
 
 public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements BakariAwasView, View.OnClickListener {
     private static final String TAG = BakariAwas.class.getSimpleName();
@@ -100,6 +97,12 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
     @Override
@@ -314,9 +317,23 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
     }
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
-        dialog.setCancelable(false);
 
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                finish();
+            }
+        });
+
+
+
+       /* ColorDialog dialog = new ColorDialog(this);
+        dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_12));
         dialog.setColor("#FF6500");
         dialog.setContentText(R.string.availornot);
@@ -335,7 +352,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     private void SpinnerData() {
@@ -367,7 +384,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     @Override
     public void onNoInternetConnectivity(CommonResult result) {
-        Toast.makeText(getContext(), "" + result.getMessage(), Toast.LENGTH_LONG).show();
+
         Dialogs.showColorDialog(getContext(), result.getMessage());
     }
 
@@ -437,8 +454,9 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         binding.tvSave.setVisibility(View.GONE);
 
 
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         binding.receiptDate.setVisibility(View.VISIBLE);
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {

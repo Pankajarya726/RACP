@@ -60,7 +60,6 @@ public class DashboardFragment extends MvpFragment <DashboardPresenter> implemen
             dashboardFragment = new DashboardFragment();
         }
         return dashboardFragment;
-
     }
 
     @Override

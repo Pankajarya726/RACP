@@ -10,10 +10,10 @@
         tools:context=".ui.Form.bakara_rotation.RotationActivity">
 
         <ScrollView
-            android:scrollbarThumbVertical="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollIndicators="none">
+            android:scrollIndicators="none"
+            android:scrollbarThumbVertical="@null">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,8 +46,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
-                    android:text="@string/date"
                     android:layout_toLeftOf="@+id/tv_date"
+                    android:text="@string/date"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
 
@@ -62,18 +62,15 @@
                     android:textSize="@dimen/login_title_size" />
 
 
-
-
-
                 <LinearLayout
                     android:id="@+id/linear_layout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/txt"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
-                    android:layout_marginBottom="15dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingBottom="20dp">
@@ -91,11 +88,11 @@
                         android:id="@+id/edt_tagNo"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="number"
-                        android:textColor="@color/black"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -112,24 +109,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
-                        android:text="@string/animal_owner_name"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
-
-                    <EditText
-                        android:id="@+id/edt_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:inputType="textPersonName"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
                         android:text="@string/mtg_name"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
@@ -138,11 +117,29 @@
                         android:id="@+id/edt_mtgname"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
                         android:layout_marginTop="10dp"
-                        android:inputType="textPersonName"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/animal_owner_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -157,11 +154,11 @@
                         android:id="@+id/edt_address"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
-                        android:inputType="textPostalAddress"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -176,15 +173,15 @@
                         android:id="@+id/edt_mobile_number"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="phone"
-                        android:textColor="@color/black"
-                        android:digits="0123456789"
-                        android:maxLength="10"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:digits="0123456789"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
-                   <TextView
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
@@ -196,29 +193,11 @@
                         android:id="@+id/edt_vidhansabha"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
                         android:inputType="textPhonetic"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
-
-                  <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/gram_panchayat"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
-
-                    <EditText
-                        android:id="@+id/edt_gramPanchayat"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:textColor="@color/black"
-                        android:inputType="text"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -232,11 +211,30 @@
                         android:id="@+id/edt_tehsil"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
-                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/gram_panchayat"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_gramPanchayat"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -251,11 +249,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="text"
+
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -271,6 +269,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
+                        android:inputType="textPersonName"
+                        android:text="@string/mtg_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_mtgname1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
                         android:text="@string/animal_owner_name"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
@@ -279,32 +297,11 @@
                         android:id="@+id/edt_name1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="textPersonName"
-                        android:textColor="@color/black"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/mtg_name"
                         android:inputType="textPersonName"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
-
-                    <EditText
-                        android:id="@+id/edt_mtgname1"
-                        android:layout_width="match_parent"
-                        android:inputType="textPersonName"
-                        android:layout_height="35dp"
-                        android:textColor="@color/black"
-
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -319,12 +316,12 @@
                         android:id="@+id/edt_address1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="textPostalAddress"
-                        android:textColor="@color/black"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -338,15 +335,15 @@
                         android:id="@+id/edt_mobile_number1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="phone"
-                        android:textColor="@color/black"
-
-                        android:maxLength="10"
-                        android:maxLines="1"
-                        android:digits="0123456789"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+
+                        android:digits="0123456789"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:maxLines="1"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -360,12 +357,34 @@
                         android:id="@+id/edt_vidhansabha1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:inputType="text"
+                        android:text="@string/tehsil"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_tehsil1"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+
+                        android:background="@drawable/edit_theme_black"
+
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -379,33 +398,13 @@
                         android:id="@+id/edt_gramPanchayat1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="text"
-                        android:textColor="@color/black"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/tehsil"
                         android:inputType="text"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
-                    <EditText
-                        android:id="@+id/edt_tehsil1"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:inputType="text"
-
-                        android:textColor="@color/black"
-
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -419,12 +418,12 @@
                         android:id="@+id/edt_village1"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
-
-                        android:inputType="text"
                         android:layout_marginTop="10dp"
+
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                 </LinearLayout>
 
@@ -434,12 +433,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableRight="@drawable/_next"
                     android:padding="10dp"
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/_next"
                     android:visibility="gone" />
 
                 <TextView
@@ -448,12 +447,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"
                     android:padding="10dp"
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableLeft="@drawable/_privious"
                     android:visibility="gone" />
 
 

@@ -281,6 +281,7 @@
                             android:layout_height="35dp"
                             android:layout_below="@+id/edt_address"
                             android:layout_marginTop="20dp"
+                            android:hint="@string/select_animal_type"
                             android:layout_toRightOf="@+id/mview"
                             android:background="@drawable/edit_theme_black"
                             android:drawableRight="@drawable/spinner"

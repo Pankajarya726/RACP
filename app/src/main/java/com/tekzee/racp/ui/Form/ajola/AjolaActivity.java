@@ -31,9 +31,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
-public class AjolaActivity extends MvpActivity <AjolaPresenter> implements AjolaView, View.OnClickListener,Dialogs.okClickListner {
+public class AjolaActivity extends MvpActivity <AjolaPresenter> implements AjolaView, View.OnClickListener, Dialogs.okClickListner {
     private static String tag = AjolaActivity.class.getSimpleName();
     List <Datum> animal = new ArrayList <>();
     private FormAjolaBinding binding;
@@ -181,17 +179,28 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         Log.e(tag, "size is" + detailList.size());
 
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
-            Toast.makeText(this, getString(R.string.physical_proof), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
             return false;
         } else if (!binding.checkYes.isChecked() && !binding.checkNo.isChecked()) {
-            Toast.makeText(this, getString(R.string.in_use_or_not), Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
-            Toast.makeText(this, getString(R.string.reajent_availability), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.fait_percent_check));
             return false;
         } else if (binding.edtProductionAverage.getText().toString().isEmpty()) {
-            Toast.makeText(this, getString(R.string.test_Date), Toast.LENGTH_SHORT).show();
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_average_milk_production));
             return false;
+        } else if (binding.edtAmountMilkBefore.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_milk_amount_before_ajola));
+            return false;
+        } else if (binding.edtAmountMilkAfter.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_milk_amount_after_ajola));
+            return false;
+        } else if (binding.checkYes.isChecked() && binding.edtFaitBefore.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_fait_percent_before));
+            return false;
+
+        } else if (binding.checkYes.isChecked() && binding.edtFaitAfter.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_fait_percent_after));
+            return false;
+
         } else {
 
             String day;
@@ -204,9 +213,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
-                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
-                    // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_avail_date));
                     return false;
                 }
             }
@@ -444,7 +451,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     }
 
 
-    public void ClearVeiw(){
+    public void ClearVeiw() {
         binding.spMonth.setSelection(0);
         binding.spYear.setSelection(0);
         binding.spType.setSelection(0);
@@ -461,7 +468,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         EnableView();
     }
 
-    public void DisableView(){
+    public void DisableView() {
         binding.checkProofYes.setClickable(false);
         binding.checkProofNo.setClickable(false);
         binding.checkNo.setClickable(false);
@@ -476,7 +483,8 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         binding.spType.setEnabled(false);
 
     }
-    public void EnableView(){
+
+    public void EnableView() {
         binding.checkProofYes.setClickable(true);
         binding.checkProofNo.setClickable(true);
         binding.checkNo.setClickable(true);
@@ -518,7 +526,33 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 10);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+
+
+       /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_10));
         dialog.setColor("#FF6500");
@@ -548,7 +582,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override
@@ -559,7 +593,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
         //Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
 
         DataAjola.deleteAll(DataAjola.class);
 
@@ -579,8 +613,8 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-       // Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+        // Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
 
     }
 

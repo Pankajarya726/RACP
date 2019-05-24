@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,14 +15,12 @@ import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
 import com.tekzee.racp.constant.Constant;
-import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMember;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMemberResponse;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.RetrivedMtgMeetingResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
-import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
 import com.tekzee.racp.utils.Utility;
@@ -70,7 +67,7 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
                                         object.getString("mtggroup_name")
                                 ));
                             }
-                            openSelector(arrayList, "mtggroup");
+                            openSelector(arrayList, "mtggroup",mvpView.getContext().getString(R.string.select_mtg_name));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -94,7 +91,45 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
         }
     }
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+
+
+    public void getMtgMemberList(Integer id) {
+        mvpView.hideSoftKeyboard();
+        mvpView.showProgressDialog("Please wait...", false);
+        // mvpView.hideSoftKeyboard();
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
+            mvpView.hideProgressDialog();
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
+        } else {
+            addSubscription(apiStores.getMTGMemberDetailByMtgMemberId(id), new ApiCallback <MtgMemberResponse>() {
+                @Override
+                public void onSuccess(MtgMemberResponse successResult) throws JSONException {
+
+                    Log.e(getClass().getSimpleName(),successResult.toString());
+                    if (successResult.getSuccess()){
+
+                        mvpView.onGetMemberList(successResult);
+
+                    }
+                    else {
+                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
+                    }
+
+                }
+                @Override
+                public void onFailure(CommonResult commonResult) {
+                    mvpView.onNoInternetConnectivity(new CommonResult(false,mvpView.getContext().getString(R.string.member_not_found)));
+                }
+
+                @Override
+                public void onFinish() {
+                    mvpView.hideProgressDialog();
+                }
+            });
+        }
+    }
+
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type,final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -123,6 +158,7 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
 
+                et_country_name.setText(title);
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -166,42 +202,6 @@ public class MtgMeetingPreseter extends BasePresenter<MtgMeetingView> {
             // mvpView.showInPopup(mvpView.getContext().getResources().getString(R.string.gram_panchayat));
         }
 
-    }
-
-    public void getMtgMemberList(Integer id) {
-        mvpView.hideSoftKeyboard();
-        mvpView.showProgressDialog("Please wait...", false);
-        // mvpView.hideSoftKeyboard();
-        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
-            mvpView.hideProgressDialog();
-            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
-        } else {
-            addSubscription(apiStores.getMTGMemberDetailByMtgMemberId(id), new ApiCallback <MtgMemberResponse>() {
-                @Override
-                public void onSuccess(MtgMemberResponse successResult) throws JSONException {
-
-                    Log.e(getClass().getSimpleName(),successResult.toString());
-                    if (successResult.getSuccess()){
-
-                        mvpView.onGetMemberList(successResult);
-
-                    }
-                    else {
-                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
-                    }
-
-                }
-                @Override
-                public void onFailure(CommonResult commonResult) {
-                    mvpView.onNoInternetConnectivity(new CommonResult(false,mvpView.getContext().getString(R.string.member_not_found)));
-                }
-
-                @Override
-                public void onFinish() {
-                    mvpView.hideProgressDialog();
-                }
-            });
-        }
     }
 
     public void saveForm(JsonObject json) {

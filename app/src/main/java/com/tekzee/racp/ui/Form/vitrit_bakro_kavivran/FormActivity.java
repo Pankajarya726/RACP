@@ -40,8 +40,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 
 public class FormActivity extends MvpActivity <FormPresenter> implements FormView, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
@@ -63,7 +61,6 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         KeyboardUtils.hideSoftInput(this);
 
         Log.e(tag, "panding record to submit online " + Data.count(Data.class));
-
 
         table_id = getIntent().getIntExtra("table_id", 0);
         if (table_id != 0) {
@@ -119,6 +116,12 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+    @Override
     protected FormPresenter createPresenter() {
         return new FormPresenter(this);
     }
@@ -163,14 +166,6 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
                 break;
 
-            case R.id.addmore:
-
-              /*  if (binding.teekaDate.getText().toString().isEmpty()) {
-                    Toast.makeText(this, R.string.select_date_first, Toast.LENGTH_LONG).show();
-                } else {
-                    loadList();
-                }
-                binding.teekaDate.setText("");*/
 
         }
 
@@ -255,8 +250,6 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
 
     }
-
-
 
     private void loadList(String date, String type) {
 
@@ -395,16 +388,15 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             mRecord.clear();
             mRecord = Record.listAll(Record.class);
 
-
             Log.e(tag, "as----" + Myobject.toString());
             JsonObject jsonObject = new JsonObject();
-
 
             jsonObject.addProperty("status_receipt", 1);
             jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(this, Constant.USER_ID));
             jsonObject.addProperty("form_id", 1);
             jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(this, Constant.mtg_member_id));
             jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(this, Constant.mtg_group_id));
+
             jsonObject.add("data", Myobject);
 
 
@@ -427,6 +419,36 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spTeeka.setAdapter(adapter);
 
+//
+//        जनवरी
+//                फरवरी
+//        मार्च
+//                अप्रैल
+//        मई
+//                जून
+//        जुलाई
+//                अगस्त
+//        सितम्बर
+//                अक्टूबर
+//        नवम्बर
+//                दिसंबर
+
+       /* List<String> months = new ArrayList <>();
+        months.add("जनवरी");
+        months.add("फरवरी");
+        months.add("मार्च");
+        months.add("अप्रैल");
+        months.add("मई");
+        months.add("जून");
+        months.add("जुलाई");
+        months.add("अगस्त");
+        months.add("सितम्बर");
+        months.add("अक्टूबर");
+        months.add("नवम्बर");
+        months.add("दिसंबर");
+        ArrayAdapter<String> MonthAdapter = new ArrayAdapter <String>(getContext(),R.layout.spinner_item,months);
+        MonthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spMonth.setAdapter(MonthAdapter);*/
 
         List <Integer> month = new ArrayList <>();
         for (int i = 1; i <= 12; i++) {
@@ -449,40 +471,33 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
     }
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
-        dialog.setCancelable(false);
-        dialog.setColor("#FF6500");
-        dialog.setTitle(getResources().getString(R.string.form_1));
-        dialog.setContentText(R.string.availornot);
-        dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
             @Override
-            public void onClick(ColorDialog dialog) {
+            public void onOkClick() {
 
-                dialog.dismiss();
             }
-        })
-                .setNegativeListener(getText(R.string.no), new ColorDialog.OnNegativeListener() {
-                    @Override
-                    public void onClick(ColorDialog dialog) {
 
-                        dialog.dismiss();
-                        try {
-                            JSONObject jsonObject = new JSONObject();
-                            jsonObject.put("status_receipt", 0);
-                            jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
-                            jsonObject.put("form_id", 1);
-                            jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
-                            jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 1);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
 
-                            Data mData = new Data(jsonObject.toString());
-                            mData.save();
+                    Data mData = new Data(jsonObject.toString());
+                    mData.save();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
 
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        finish();
-                    }
-                }).show();
+
     }
 
     @Override
@@ -551,28 +566,28 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         String hs = successResult.getData().getDateHs();
 
 
-        String date[] = ppr.split(",");
+        String[] date = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
             if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
             }
 
         }
-        String date1[] = et.split(",");
+        String[] date1 = et.split(",");
         for (int i = 0; i < date1.length; i++) {
             if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.et), date1[i]));
             }
         }
 
-        String date2[] = fmd.split(",");
+        String[] date2 = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
             if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
             }
         }
 
-        String date3[] = hs.split(",");
+        String[] date3 = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
             if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.hs), date3[i]));

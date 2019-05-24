@@ -28,8 +28,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements KuttiMachineView, View.OnClickListener, Dialogs.okClickListner {
     private static String tag = KuttiMachine.class.getSimpleName();
 
@@ -83,6 +81,12 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
     @Override
@@ -383,7 +387,30 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
     private void ShowDialog() {
 
-        ColorDialog dialog = new ColorDialog(this);
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 8);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+       /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_8));
         dialog.setColor("#FF6500");
@@ -413,7 +440,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     private void SpinnerData() {
@@ -494,7 +521,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
             binding.checkUseNo.setChecked(true);
         }
 
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         if (successResult.getData().getMachineType().equalsIgnoreCase(getString(R.string.power))) {
             binding.spMachine.setSelection(0);
         } else {

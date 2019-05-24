@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -69,7 +68,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
                                         object.getString("mtggroup_name")
                                 ));
                             }
-                            openSelector(arrayList, "mtggroup");
+                            openSelector(arrayList, "mtggroup",mvpView.getContext().getString(R.string.select_mtg_name));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -124,7 +123,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
                                         object.getString("pashupalak_name")
                                 ));
                             }
-                            openSelector(arrayList, "pashupalak");
+                            openSelector(arrayList, "pashupalak",mvpView.getContext().getString(R.string.selcet_mtg_person));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -177,7 +176,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
                                         object.getString("grampanchayat_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram_panchayat");
+                            openSelector(arrayList, "Gram_panchayat",mvpView.getContext().getString(R.string.select_gramPanchayat));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -231,7 +230,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
                                         object.getString("gram_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram");
+                            openSelector(arrayList, "Gram",mvpView.getContext().getString(R.string.select_village));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -255,7 +254,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
         }
     }
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type, final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -283,6 +282,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override

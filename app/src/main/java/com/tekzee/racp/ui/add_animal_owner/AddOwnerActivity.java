@@ -16,8 +16,6 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements AddOwnerView, View.OnClickListener ,Dialogs.okClickListner{
 
     private AddPashupalakBinding binding;
@@ -131,21 +129,21 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
 
         } else if (binding.edtMoNumber.getText().toString().length() != 10) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
 
-        } else if (binding.edtIdentificationtype.getText().toString().equalsIgnoreCase(getString(R.string.identification_type))) {
+        } else if (binding.edtIdentificationtype.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_identification_type));
 
-        } else if (binding.edtIdentificationNo.getText().toString().equalsIgnoreCase(getString(R.string.identification_no))) {
+        } else if (binding.edtIdentificationNo.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_identification_number));
 
-        } else if (binding.edtFarmertype.getText().toString().equalsIgnoreCase(getString(R.string.former_type))) {
+        } else if (binding.edtFarmertype.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_type));
 
-        } else if (binding.pashupalakUnit.getText().toString().equalsIgnoreCase(getString(R.string.pashu_palak_unit))) {
+        } else if (binding.pashupalakUnit.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_unit));
 
-        } else if (binding.edtPashupalakCtg.getText().toString().equalsIgnoreCase(getString(R.string.pashu_palak_ctg))) {
+        } else if (binding.edtPashupalakCtg.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_farmer_category));
 
         }/*else if (binding.district.getText().toString().equalsIgnoreCase(getString(R.string.district))) {

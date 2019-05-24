@@ -103,6 +103,12 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -145,10 +151,10 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_training_place));
             return false;
         } else if (binding.edtTrainingdate.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_ayojak_date));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_date_trainging));
             return false;
         } else if (binding.edtCount.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_count));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_treainee_count));
             return false;
         } else if (binding.edtMtgname.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
@@ -348,7 +354,9 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         binding.edtTrainingdate.setText(String.valueOf(successResult.getData().getTrainingDate()));
         binding.edtCount.setText(String.valueOf(successResult.getData().getTraineeNumber()));
         binding.edtPlace.setText(String.valueOf(successResult.getData().getTrainingPlace()));
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
 
     }

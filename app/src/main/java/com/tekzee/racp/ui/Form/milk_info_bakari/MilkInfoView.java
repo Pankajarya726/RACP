@@ -18,9 +18,9 @@ public interface MilkInfoView extends BaseView {
     int getGramPanchayatId();
     String getAddress();
     String getMobile();
-    Float getTotleMilkProduction();
-    Float getUpbhogMatra();
-    Float getUplabdhMatra();
+    String getTotleMilkProduction();
+    String getUpbhogMatra();
+    String getUplabdhMatra();
 
     void onNoInternetConnectivity(CommonResult message);
 

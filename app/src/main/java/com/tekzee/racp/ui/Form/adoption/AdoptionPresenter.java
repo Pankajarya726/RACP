@@ -8,14 +8,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.ui.Form.adoption.model.RetrivedAdoptionResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
@@ -23,7 +21,6 @@ import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
-import com.tekzee.racp.utils.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +63,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                                         object.getString("district_Name")
                                 ));
                             }
-                            openSelector(arrayList, "district");
+                            openSelector(arrayList, "district",mvpView.getContext().getString(R.string.select_district));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -120,7 +117,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                                         object.getString("vidhanasabha_Name")
                                 ));
                             }
-                            openSelector(arrayList, "vidhanasabha");
+                            openSelector(arrayList, "vidhanasabha",mvpView.getContext().getString(R.string.select_vidhansabha));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -175,7 +172,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                                         object.getString("tahsil_Name")
                                 ));
                             }
-                            openSelector(arrayList, "tahsil");
+                            openSelector(arrayList, "tahsil",mvpView.getContext().getString(R.string.select_tehsil));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -228,7 +225,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                                         object.getString("grampanchayat_name")
                                 ));
                             }
-                            openSelector(arrayList, "grampanchayat");
+                            openSelector(arrayList, "grampanchayat", mvpView.getContext().getString(R.string.select_gramPanchayat));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -283,7 +280,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                                         object.getString("gram_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram");
+                            openSelector(arrayList, "Gram",mvpView.getContext().getString(R.string.select_village));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -307,7 +304,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
         }
     }
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type, final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -335,6 +332,7 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override

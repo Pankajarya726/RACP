@@ -8,20 +8,17 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
-import com.tekzee.racp.utils.Utility;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -170,7 +167,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("pashuPalakCategoryName")
                                 ));
                             }
-                            openSelector(arrayList, "PashuPalakCategory",mvpView.getContext().getString(R.string.pashu_palak_unit));
+                            openSelector(arrayList, "PashuPalakCategory",mvpView.getContext().getString(R.string.select_pashu_palak_unit));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -227,7 +224,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                                         object.getString("mtggroup_name")
                                 ));
                             }
-                            openSelector(arrayList, "MtgGroup",mvpView.getContext().getString(R.string.mtg_group));
+                            openSelector(arrayList, "MtgGroup",mvpView.getContext().getString(R.string.selcet_mtg_group));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -304,7 +301,6 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
             });
         }
     }
-
 
     public void getCastCategory() {
         mvpView.hideSoftKeyboard();

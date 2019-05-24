@@ -9,7 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.tekzee.racp.R;
@@ -20,6 +19,7 @@ import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.home.HomeActivity;
 import com.tekzee.racp.ui.login.activity.Login;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 
 import org.json.JSONObject;
@@ -76,7 +76,7 @@ public class SplashActivity extends MvpActivity <SplashPresenter> implements Spl
     @Override
     public void onValidateAppVersionSuccess(JSONObject jsonObject) {
 
-        Log.e(TAG, "login" + String.valueOf(Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)));
+        Log.e(TAG, "login" + Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp));
 
         if (Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)) {
 
@@ -88,20 +88,26 @@ public class SplashActivity extends MvpActivity <SplashPresenter> implements Spl
 
     @Override
     public void onNoInternetConnectivity(CommonResult result) {
-        Toast.makeText(getContext(), R.string.no_internet, Toast.LENGTH_LONG).show();
-        Log.e(TAG, result.getMessage());
+       // Toast.makeText(getContext(), R.string.no_internet, Toast.LENGTH_LONG).show();
+
+        Dialogs.showColorDialog(getContext(),result.getMessage());
+        mvpPresenter.checkInternetPermission(getContext(),3000);
+      /*  Log.e(TAG, result.getMessage());
         ColorDialog dialog = new ColorDialog(getContext());
         dialog.setCancelable(false);
+        dialog.setColor("#FF6500");
         dialog.setTitle(getResources().getString(R.string.app_name));
-        dialog.setContentText(R.string.no_internet);
-        dialog.setContentTextColor(R.color.white);
+        dialog.setContentText(result.getMessage());
+        dialog.setContentTextColor("#FFFFFF");
         dialog.setPositiveListener("ok", new ColorDialog.OnPositiveListener() {
             @Override
             public void onClick(ColorDialog dialog) {
 
                 dialog.dismiss();
+                mvpPresenter.checkInternetPermission(getContext(),3000);
             }
-        }).show();
+        }).show();*/
+
     }
 
     @Override

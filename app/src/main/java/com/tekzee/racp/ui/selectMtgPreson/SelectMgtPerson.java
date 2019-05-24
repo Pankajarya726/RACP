@@ -46,7 +46,7 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
-        value = getIntent().getIntExtra("filled_form",0);
+        value = getIntent().getIntExtra("filled_form", 0);
         group_id = getIntent().getIntExtra("MtgGroupId", 0);
         mvpPresenter.getMtgPerson(getIntent().getIntExtra("MtgGroupId", 0));
 
@@ -118,11 +118,10 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
         Utility.setIntegerSharedPreference(getContext(), Constant.mtg_member_id, datum.getPashupalakId());
 
 
-
         Intent intent = new Intent(SelectMgtPerson.this, ListFormActivity.class);
         Log.e(tag, "" + datum.getPashupalakId() + "    " + group_id);
 
-        intent.putExtra("filled_form",value);
+        intent.putExtra("filled_form", value);
         startActivity(intent);
 
     }
@@ -134,13 +133,18 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-Log.e(tag,commonResult.getMessage());
+        Log.e(tag, commonResult.getMessage());
 
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+       // Dialogs.showColorDialog(getContext(), commonResult.getMessage());
 
         Cursor cursor = sqliteDB.getMtgMember(group_id);
         if (cursor.getCount() == 0) {
-            Dialogs.showColorDialog(getContext(), commonResult.getMessage());
+            Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), new Dialogs.okClickListner() {
+                @Override
+                public void onOkClickListner() {
+                    finish();
+                }
+            });
         } else {
             while (cursor.moveToNext()) {
                 mtgperson.add(new Datum(cursor.getInt(1), cursor.getString(2)));

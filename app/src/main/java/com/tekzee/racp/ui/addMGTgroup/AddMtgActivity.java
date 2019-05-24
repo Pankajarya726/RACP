@@ -1,6 +1,7 @@
 package com.tekzee.racp.ui.addMGTgroup;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.tekzee.racp.ui.addMGTgroup.model.AddMtgResponse;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.ui.home.HomeActivity;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 
@@ -44,7 +46,7 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
-            //startActivity(new Intent(ForSale.this, HomeActivity.class));
+            startActivity(new Intent(this, HomeActivity.class));
             finish();
         }
 
@@ -130,12 +132,12 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
     private void addMtg() {
 
         if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
-            Dialogs.showcolorDialog(getContext(), getString(R.string.enter_mtg_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
         } else if (binding.gramPanchayat.getText().toString().isEmpty()) {
-            Dialogs.showcolorDialog(getContext(), getString(R.string.select_gramPanchayat));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
         } else if (binding.gram.getText().toString().isEmpty()) {
-            Dialogs.showcolorDialog(getContext(), getString(R.string.select_village));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
         } else {
 
             JsonObject jsonObject = new JsonObject();
@@ -149,7 +151,9 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
 
     @Override
     public void onOkClickListner() {
-        this.finish();
+        startActivity(new Intent(this, HomeActivity.class));
+        finish();
+
     }
 
 

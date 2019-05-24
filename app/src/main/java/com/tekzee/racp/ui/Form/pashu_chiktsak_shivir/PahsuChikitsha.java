@@ -11,23 +11,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.bumptech.glide.load.engine.cache.DiskCacheAdapter;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.FormPahsuChikitshaShivirBinding;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.model.DataChikitsha;
-import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.model.DataChikitsha;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.model.RetrivedPashuChikithsResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
-import com.tekzee.racp.ui.dashboardform.DashformActivity;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
-import com.tekzee.racp.ui.formselection.model.FormData;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -93,6 +88,12 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
     @Override
@@ -169,7 +170,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
             Dialogs.showColorDialog(getContext(),getString(R.string.enter_count_big));
             return false;
         } else if (binding.edtSmall.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_count_big));
+            Dialogs.showColorDialog(getContext(),getString(R.string.enter_count_small));
             return false;
         } else if (!binding.checkAvailableYes.isChecked() && !binding.checkAvailableNo.isChecked()) {
             Dialogs.showColorDialog(getContext(),getString(R.string.availebilityornot));
@@ -384,7 +385,10 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         binding.edtDate.setText(String.valueOf(successResult.getData().getPashuShivirAayojanDate()));
         binding.edtBig.setText(String.valueOf(successResult.getData().getBadePashu()));
         binding.edtSmall.setText(String.valueOf(successResult.getData().getChotePashu()));
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
 
 
         if (successResult.getData().getBiomedicalWasteDisposal().equalsIgnoreCase(getString(R.string.yes))){

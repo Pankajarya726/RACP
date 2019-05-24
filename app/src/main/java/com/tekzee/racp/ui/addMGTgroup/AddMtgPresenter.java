@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -103,7 +102,7 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                                         object.getString("gram_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram");
+                            openSelector(arrayList, "Gram",mvpView.getContext().getString(R.string.select_village));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -156,7 +155,7 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                                         object.getString("grampanchayat_name")
                                 ));
                             }
-                            openSelector(arrayList, "Gram_panchayat");
+                            openSelector(arrayList, "Gram_panchayat",mvpView.getContext().getString(R.string.select_gramPanchayat));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -180,7 +179,7 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
         }
     }
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type, final  String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -207,6 +206,7 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                 });
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -226,7 +226,15 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                 });
 
 
+
+
                 dialog.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.iv_cancel).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         dialog.dismiss();

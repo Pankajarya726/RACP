@@ -1,6 +1,5 @@
 package com.tekzee.racp.ui.selectMtgGroup;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -12,10 +11,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.Window;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
@@ -23,7 +18,6 @@ import com.tekzee.racp.databinding.ActivitySelectMgtBinding;
 import com.tekzee.racp.sqlite.SqliteDB;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
-import com.tekzee.racp.ui.dashboardform.DashformActivity;
 import com.tekzee.racp.ui.selectMtgGroup.model.Data;
 import com.tekzee.racp.ui.selectMtgGroup.model.GetMtgResponse;
 import com.tekzee.racp.ui.selectMtgPreson.SelectMgtPerson;
@@ -128,6 +122,7 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+
         Cursor cursor = sqliteDB.getMtgGroup();
         if (cursor.getCount() == 0) {
             Dialogs.showColorDialog(getContext(), commonResult.getMessage());

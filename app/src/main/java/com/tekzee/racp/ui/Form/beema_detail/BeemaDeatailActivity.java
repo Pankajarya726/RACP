@@ -30,8 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> implements BeemaDetailView, View.OnClickListener, Dialogs.okClickListner {
 
     private static String tag = BeemaDeatailActivity.class.getSimpleName();
@@ -178,6 +176,12 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                 break;
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 
@@ -443,7 +447,32 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 4);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+
+        /*ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_1));
         dialog.setColor("#FF6500");
@@ -473,7 +502,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override

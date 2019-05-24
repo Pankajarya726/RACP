@@ -29,7 +29,6 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
-import com.tekzee.racp.ui.dashboardform.DashformActivity;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
@@ -39,8 +38,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import cn.refactor.lib.colordialog.ColorDialog;
 
 public class VipranTableActivity extends MvpActivity <VipranPresenter> implements VipranView, View.OnClickListener, Dialogs.okClickListner,DatePickerDialog.OnDateSetListener {
     private static String TAG = VipranTableActivity.class.getSimpleName();
@@ -106,7 +103,11 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
 
     @Override
     public void onClick(View v) {
@@ -193,7 +194,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         }
 
         if (binding.edtName.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return;
 
         }else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
@@ -216,8 +217,8 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         }  else if (binding.edtAddress.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
             return;
-        }  else if (binding.animelType.getText().toString().equalsIgnoreCase(getString(R.string.animal_type))) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.animal_type));
+        }  else if (binding.animelType.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return;
         } else if (binding.edtAge.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_age));
@@ -442,38 +443,61 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         String fmd = successResult.getData().getDateFmd();
         String hs = successResult.getData().getDateHs();
 
-        if (ppr.isEmpty()){
-            immunizations.add(new Immunization(getString(R.string.ppr),""));
-        }
-        else {
-            String date[] = ppr.split(",");
-            for (int i = 0; i < date.length; i++) {
+
+        String[] date = ppr.split(",");
+        for (int i = 0; i < date.length; i++) {
+            if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
             }
+
         }
-        String date1[] = et.split(",");
+        String[] date1 = et.split(",");
         for (int i = 0; i < date1.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+            }
         }
 
-        String date2[] = fmd.split(",");
+        String[] date2 = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+            }
         }
 
-        String date3[] = hs.split(",");
+        String[] date3 = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
-            immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
+                immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+            }
         }
         setupRecyclerView();
 
 
     }
 
-
     private void ShowDialog() {
 
-        ColorDialog dialog = new ColorDialog(this);
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.is_mtg_member_or_not), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+                binding.layoutMtgselection.setVisibility(View.VISIBLE);
+                isMtgMember = 1;
+            }
+
+            @Override
+            public void onNoClick() {
+                binding.layoutMtgselection.setVisibility(View.GONE);
+                binding.edtTagNo.setVisibility(View.GONE);
+                binding.tvTagNo.setVisibility(View.GONE);
+                isMtgMember = 0;
+
+            }
+
+        });
+
+
+       /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_5));
         dialog.setColor("#FF6500");
@@ -502,7 +526,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
                         dialog.dismiss();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override
@@ -562,7 +586,13 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         mvpPresenter.getFormRecordData(jsonObject);
     }
+
+
     private void ShowSelectionDialog() {
+
+      //  Dialogs.ShowSelectionDialog(getContext(),);
+
+
         final Dialog dialog = new Dialog(getContext());
         try {
             dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);

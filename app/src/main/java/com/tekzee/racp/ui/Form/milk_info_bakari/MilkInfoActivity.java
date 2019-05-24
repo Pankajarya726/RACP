@@ -32,8 +32,6 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements MilkInfoView, View.OnClickListener,Dialogs.okClickListner {
 
     private static final String TAG = MilkInfoActivity.class.getSimpleName();
@@ -49,9 +47,9 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
     private String pashupalak_name = "";
     private String mobile = "";
     private String address = "";
-    private Float totle_amount = 0.0f;
-    private Float upbhog_amount = 0.0f;
-    private Float available_amount = 0.0f;
+    private String  totle_amount = "";
+    private String upbhog_amount = "";
+    private String available_amount = "";
     private int isMtgMember = 0;
     private int table_id;
 
@@ -84,6 +82,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
 
     }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
         if (item.getItemId() == android.R.id.home) {
@@ -92,6 +91,12 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 
@@ -141,18 +146,18 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
     }
 
     @Override
-    public Float getTotleMilkProduction() {
-        return Float.valueOf(binding.edtTotleAmount.getText().toString());
+    public String getTotleMilkProduction() {
+        return binding.edtTotleAmount.getText().toString();
     }
 
     @Override
-    public Float getUpbhogMatra() {
-        return Float.valueOf(binding.edtUpbhogAmount.getText().toString());
+    public String getUpbhogMatra() {
+        return binding.edtUpbhogAmount.getText().toString();
     }
 
     @Override
-    public Float getUplabdhMatra() {
-        return Float.valueOf(binding.edtAvailAmount.getText().toString());
+    public String getUplabdhMatra() {
+        return binding.edtAvailAmount.getText().toString();
     }
 
     @Override
@@ -371,8 +376,6 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
             Log.view(TAG,jsonObject.toString());
 
             mvpPresenter.saveForm(jsonObject);
-
-
         }
     }
 
@@ -435,7 +438,23 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
     private void ShowDialog() {
 
-        ColorDialog dialog = new ColorDialog(this);
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.is_mtg_member_or_not), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+                binding.layoutMtgselection.setVisibility(View.VISIBLE);
+                isMtgMember = 1;
+            }
+
+            @Override
+            public void onNoClick() {
+                binding.layoutMtgselection.setVisibility(View.GONE);
+
+                isMtgMember = 0;
+            }
+        });
+
+        /*ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form19));
         dialog.setColor("#FF6500");
@@ -445,8 +464,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
             @Override
             public void onClick(ColorDialog dialog) {
 
-                binding.layoutMtgselection.setVisibility(View.VISIBLE);
-                isMtgMember = 1;
+
 
 
                 dialog.dismiss();
@@ -457,13 +475,11 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
                     @Override
                     public void onClick(ColorDialog dialog) {
 
-                        binding.layoutMtgselection.setVisibility(View.GONE);
 
-                        isMtgMember = 0;
 
                         dialog.dismiss();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override

@@ -112,6 +112,13 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         return super.onOptionsItemSelected(item);
     }
 
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -170,7 +177,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_activity));
             return false;
         } else if (binding.edtName.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return false;
         } else if (binding.edtNameFather.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_father_name));
@@ -178,31 +185,31 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         } else if (binding.edtAddress.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
             return false;
-        } else if (binding.edtDistrict.getText().toString().equalsIgnoreCase(getString(R.string.district))) {
+        } else if (binding.edtDistrict.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
             return false;
         } else if (district_id == 0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_district));
             return false;
-        } else if (binding.edtVidhansabha.getText().toString().equalsIgnoreCase(getString(R.string.vidhansabha))) {
+        } else if (binding.edtVidhansabha.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
             return false;
         } else if (vidhansabhi_id == 0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_vidhansabha));
             return false;
-        } else if (binding.edtTehsil.getText().toString().equalsIgnoreCase(getString(R.string.tehsil))) {
+        } else if (binding.edtTehsil.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
             return false;
         } else if (tehsil_id == 0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_tehsil));
             return false;
-        } else if (binding.edtGramPanchayat.getText().toString().equalsIgnoreCase(getString(R.string.gram_panchayat))) {
+        } else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
             return false;
         } else if (gram_panchayat_id == 0) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
             return false;
-        } else if (binding.edtVillage.getText().toString().equalsIgnoreCase(getString(R.string.village))) {
+        } else if (binding.edtVillage.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
             return false;
         } else if (gram_id == 0) {

@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -65,7 +64,7 @@ public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
                                         object.getString("mtggroup_name")
                                 ));
                             }
-                            openSelector(arrayList, "MtgGroup");
+                            openSelector(arrayList, "MtgGroup",mvpView.getContext().getString(R.string.select_mtg_name));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -89,7 +88,7 @@ public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
         }
     }
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type,final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -117,6 +116,7 @@ public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override
@@ -162,8 +162,6 @@ public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
         }
 
     }
-
-
 
     public void saveForm(JsonObject json) {
 

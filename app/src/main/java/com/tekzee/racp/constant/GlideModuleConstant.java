@@ -27,8 +27,8 @@ public class GlideModuleConstant extends AppGlideModule {
     public static void setImage(ImageView view, Context context, String url) {
         GlideApp.with(context)
                 .load(url)
-                .placeholder(R.drawable.user)
-                .error(R.drawable.user)
+                .placeholder(R.drawable._form_orange)
+                .error(R.drawable._form_orange)
                 .into(view);
     }
 

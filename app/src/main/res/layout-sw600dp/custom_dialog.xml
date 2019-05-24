@@ -20,7 +20,9 @@
             android:gravity="center"
             android:id="@+id/dialog_msg"
             android:text="@string/select_form_type"
-            android:textSize="25dp"
+            android:inputType="textMultiLine"
+            android:maxLines="4"
+            android:textSize="22dp"
             android:textColor="@color/white"
             android:layout_width="match_parent"
             android:layout_height="100dp" />

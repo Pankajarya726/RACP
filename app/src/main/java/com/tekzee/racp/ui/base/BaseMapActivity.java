@@ -1,4 +1,5 @@
 package com.tekzee.racp.ui.base;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,10 +20,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
 
-import com.tekzee.racp.R;
-import com.tekzee.racp.utils.Log;
-import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -35,7 +32,9 @@ import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResult;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
+import com.tekzee.racp.R;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.Log;
 
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
 
@@ -70,7 +69,9 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
         /// location code
 
         if (!isGooglePlayServicesAvailable()) {
-            Toast.makeText(this, getString(R.string.please_install_play_service), Toast.LENGTH_LONG).show();
+
+            Dialogs.showColorDialog(this,getString(R.string.please_install_play_service));
+
         } else {
             createLocationRequest();
             mGoogleApiClient = new GoogleApiClient.Builder(this)
@@ -253,7 +254,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE:
                 if (grantResults.length > 0) {

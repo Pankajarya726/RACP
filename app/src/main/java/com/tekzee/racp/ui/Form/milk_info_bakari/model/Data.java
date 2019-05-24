@@ -13,7 +13,7 @@ private Integer tableId;
 private Integer isMtgMember;
 @SerializedName("total_milk_production_per_day")
 @Expose
-private Integer totalMilkProductionPerDay;
+private Float totalMilkProductionPerDay;
 @SerializedName("consumption_quantity_per_day")
 @Expose
 private Float consumptionQuantityPerDay;
@@ -68,7 +68,7 @@ public Data() {
 * @param pashupalakMobile
 * @param mtgmemberName
 */
-public Data(Integer tableId, Integer isMtgMember, Integer totalMilkProductionPerDay, Float consumptionQuantityPerDay, String pashupalakName, String pashupalakMobile, String pashupalakAddress, Integer formId, Float quantitySalePerDay, String mtgmemberName, String mtggroupName, String grampanchayatName, String gramName) {
+public Data(Integer tableId, Integer isMtgMember, Float totalMilkProductionPerDay, Float consumptionQuantityPerDay, String pashupalakName, String pashupalakMobile, String pashupalakAddress, Integer formId, Float quantitySalePerDay, String mtgmemberName, String mtggroupName, String grampanchayatName, String gramName) {
 super();
 this.tableId = tableId;
 this.isMtgMember = isMtgMember;
@@ -101,11 +101,11 @@ public void setIsMtgMember(Integer isMtgMember) {
 this.isMtgMember = isMtgMember;
 }
 
-public Integer getTotalMilkProductionPerDay() {
+public Float getTotalMilkProductionPerDay() {
 return totalMilkProductionPerDay;
 }
 
-public void setTotalMilkProductionPerDay(Integer totalMilkProductionPerDay) {
+public void setTotalMilkProductionPerDay(Float totalMilkProductionPerDay) {
 this.totalMilkProductionPerDay = totalMilkProductionPerDay;
 }
 

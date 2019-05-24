@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,20 +19,16 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.SnackbarUtils;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xml.sax.DTDHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
-public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implements DanaPaniBartanView,Dialogs.okClickListner, View.OnClickListener {
+public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implements DanaPaniBartanView, Dialogs.okClickListner, View.OnClickListener {
 
     private static String tag = DanaPaniBartan.class.getSimpleName();
     private ActivityDanaPaniBartanBinding binding;
@@ -76,7 +71,6 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         binding.tvSave.setOnClickListener(this);
 
 
-
     }
 
     @Override
@@ -92,6 +86,12 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 
@@ -177,19 +177,18 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
 
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
-            SnackbarUtils.snackBarBottom(binding.edtNote, getString(R.string.physical_proof));
+            Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
+
             return false;
         } else if (!binding.checkUseYes.isChecked() && !binding.checkUseNo.isChecked()) {
-            SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.in_use_or_not));
-            return false;
-        } else if (binding.edtNote.getText().toString().isEmpty()) {
-            SnackbarUtils.snackBarTop(binding.edtNote, getString(R.string.note));
+            Dialogs.showColorDialog(getContext(), getString(R.string.in_use_or_not));
+
             return false;
         } else {
 
-            if (binding.day.getText().toString().isEmpty()){
+            if (binding.day.getText().toString().isEmpty()) {
 
-            }else  if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+            } else if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                     binding.spMonth.getSelectedItemPosition() + 1,
                     Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
@@ -333,7 +332,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
             binding.edtNote.setText(detail.getNote());
             DisableView();
         } else {
-           ClearView();
+            ClearView();
 
         }
 
@@ -381,6 +380,35 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
 
     private void ShowDialog() {
+
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 9);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+
+/*
+
+
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_9));
@@ -411,7 +439,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     private void SpinnerData() {
@@ -440,14 +468,14 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
         DataDanaPaniBartan.deleteAll(DataDanaPaniBartan.class);
         record_count = 1;
         recordNo = 1;
         binding.tvNo.setText("1");
         binding.next.setVisibility(View.GONE);
         binding.privious.setVisibility(View.GONE);
-       ClearView();
+        ClearView();
 
     }
 
@@ -467,13 +495,14 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
-      DisableView();
+        DisableView();
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
 
 
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         binding.receiptDate.setVisibility(View.VISIBLE);
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
@@ -501,7 +530,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         mvpPresenter.getFormRecordData(jsonObject);
     }
 
-    private void ClearView(){
+    private void ClearView() {
         binding.day.setText("");
         binding.checkProofYes.setChecked(false);
         binding.checkProofNo.setChecked(false);
@@ -525,7 +554,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         binding.spMonth.setEnabled(true);
     }
 
-    private void DisableView(){
+    private void DisableView() {
         binding.checkProofYes.setClickable(false);
         binding.checkProofNo.setClickable(false);
         binding.checkUseNo.setClickable(false);

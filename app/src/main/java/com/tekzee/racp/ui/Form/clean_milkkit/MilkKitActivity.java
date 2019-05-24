@@ -30,8 +30,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements MilkKitView, View.OnClickListener ,Dialogs.okClickListner{
     private static String tag = MilkKitActivity.class.getSimpleName();
     int record_count = 1;
@@ -225,7 +223,6 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
         // detailList = BeemaDetail.listAll(BeemaDetail.class);
         detailList.clear();
-        ;
         detailList = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
 
 
@@ -380,7 +377,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
             Toast.makeText(this, getString(R.string.test_Date), Toast.LENGTH_SHORT).show();
             return false;
         } else if (!binding.checkPossitive.isChecked() && !binding.checkNegative.isChecked()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.result_after_test));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_result_after_test));
             return false;
         } else if (binding.edtBeforeuse.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.before_use_milkkit));
@@ -520,6 +517,11 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
 
     @Override
     public Context getContext() {
@@ -566,7 +568,9 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         binding.edtTestDate.setText(String.valueOf(successResult.getData().getTestDate()));
         binding.edtAfteruser.setText(String.valueOf(successResult.getData().getAfterUseCleanMilkKeet()));
         binding.edtBeforeuse.setText(String.valueOf(successResult.getData().getBeforeUseCleanMilkKeet()));
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
 
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
@@ -593,6 +597,35 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
 
     private void ShowDialog() {
+
+
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 7);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+
+
+/*
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_7));
@@ -623,7 +656,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     private void SpinnerData() {

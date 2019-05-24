@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -54,7 +53,7 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
 
         Dialogs.showColorDialog(getContext(),result.getMessage());
 
-        //Toast.makeText(getContext(),""+result.getMessage(),Toast.LENGTH_LONG).show();
+
         binding.edtMobileNumber.setEnabled(true);
         binding.imgNext.setClickable(true);
         Dialogs.ShowDialog(getContext(),result.getMessage());
@@ -66,8 +65,6 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
         Log.e(TAG,successResult.getMessage());
 
         Dialogs.showColorDialog(getContext(),successResult.getMessage());
-
-        //Toast.makeText(getContext(),""+successResult.getMessage(),Toast.LENGTH_LONG).show();
 
         Utility.setSharedPreference(getContext(),Constant.Mobile,binding.edtMobileNumber.getText().toString().trim());
 
@@ -88,7 +85,6 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
 
         Dialogs.showColorDialog(getContext(),response.getMessage());
 
-        //Toast.makeText(getContext(),""+response.getMessage(),Toast.LENGTH_LONG).show();
 
 
         Utility.setSharedPreferenceBoolean(getContext(),Constant.isVerifyOtp,true);

@@ -1,6 +1,5 @@
 package com.tekzee.racp.ui.Form.feed_suppliment;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -35,8 +33,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-
-import cn.refactor.lib.colordialog.ColorDialog;
 
 public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implements Dialogs.okClickListner,AdapterView.OnItemSelectedListener, FeedSupplimentView, View.OnClickListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener {
     private static String tag = FeedSuppliment.class.getSimpleName();
@@ -107,6 +103,11 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
     }
 
 
@@ -484,7 +485,31 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     }
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 11);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+       /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_11));
         dialog.setColor("#FF6500");
@@ -514,7 +539,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
                         }
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override

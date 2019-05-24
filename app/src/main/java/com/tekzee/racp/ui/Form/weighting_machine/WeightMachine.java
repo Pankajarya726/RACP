@@ -27,11 +27,10 @@ import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.refactor.lib.colordialog.ColorDialog;
 
 public class WeightMachine extends MvpActivity <WeightingMachinePresenter> implements WeightinhMachineView, View.OnClickListener {
 
@@ -219,25 +218,16 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         } else if (!binding.checkUseNo.isChecked() && !binding.checkUseYes.isChecked()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.in_use_or_not));
             return false;
-        } else if (binding.spAnimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_category))) {
+        } else if (binding.spAnimalType.getText().toString().isEmpty()) {
 
-            Log.e(binding.spAnimalType.getText().toString(), getString(R.string.animal_category));
-            Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
-            return false;
-        } else if (category_id == 0) {
 
-            Log.e(binding.spAnimalType.getText().toString(), getString(R.string.animal_category));
-            Dialogs.showColorDialog(getContext(), getString(R.string.animal_category));
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_category));
             return false;
-        } else if (binding.spSubanimalType.getText().toString().equalsIgnoreCase(getString(R.string.animal_type))) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
-            return false;
-        } else if (type_id == 0) {
+        } else if (binding.spSubanimalType.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return false;
         } else {
 
-            Log.e("adsjbajdksgh", "adjhgkjasdhgkjahsg");
 
             String day;
             if (binding.day.getText().toString().isEmpty()) {
@@ -783,6 +773,13 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+
     private void setDataInSpinner() {
 
 
@@ -821,7 +818,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
         Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
@@ -832,12 +829,12 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         if (type.equalsIgnoreCase("animalcategory")) {
             category_id = model.getGrampanchayatId();
             binding.spAnimalType.setText(model.getGrampanchayatName());
+            type_id = 0;
 
-            binding.tvAnimelType.setText(model.getGrampanchayatName() + " " + getString(R.string.animal_type));
-
-            subanimaltype = model.getGrampanchayatName() + " " + getString(R.string.animal_type);
-            binding.spSubanimalType.setHint(subanimaltype);
+            binding.spSubanimalType.setText("");
             subAnimal_type = model.getGrampanchayatName();
+            binding.layoutProgeni.setVisibility(View.GONE);
+            binding.layoutAdult.setVisibility(View.GONE);
 
 
         }
@@ -855,6 +852,32 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     }
 
     private void ShowDialog() {
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 6);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+/*
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
 
@@ -877,7 +900,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override

@@ -102,7 +102,7 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
 
     }
 
@@ -242,8 +242,9 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
                 Intent i19 = new Intent(getContext(), VipranTableActivity.class);
                 i19.putExtra("table_id", datum.getTableId());
                 startActivity(i19);
+                break;
 
-           case 20:
+            case 20:
                 Intent i20 = new Intent(getContext(), MilkInfoActivity.class);
                 i20.putExtra("table_id", datum.getTableId());
                 startActivity(i20);

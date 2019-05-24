@@ -25,11 +25,10 @@ import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import cn.refactor.lib.colordialog.ColorDialog;
 
 public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2View, View.OnClickListener,Dialogs.okClickListner {
     private static final String tag = Form2Activity.class.getSimpleName();
@@ -94,6 +93,12 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
@@ -126,7 +131,6 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
     }
 
-
     private Boolean addRecordinSqlite() {
 
         if (binding.edtTagNo.getText().toString().isEmpty()) {
@@ -138,10 +142,9 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         } else if (binding.edtAvarage.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_average_milk_production));
             return false;
-        } else if (binding.spNasl.getText().toString().equalsIgnoreCase(getString(R.string.nasl))) {
+        } else if (binding.spNasl.getText().toString().isEmpty() ){
             Dialogs.showColorDialog(getContext(), getString(R.string.select_nasl));
             return false;
-
         } else {
 
             if (!binding.day.getText().toString().isEmpty()) {
@@ -178,7 +181,6 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
         }
     }
-
 
     private void privious() {
         record_count = record_count - 1;
@@ -239,41 +241,43 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     }
 
     private void submitRecord() throws JSONException {
-        addRecordinSqlite();
+
+       if( addRecordinSqlite()) {
 
 
-        dataList.clear();
-        dataList = mData.listAll(mData.class);
+           dataList.clear();
+           dataList = mData.listAll(mData.class);
 
-        JsonArray jsonArray = new JsonArray();
-        for (int i = 0; i < dataList.size(); i++) {
+           JsonArray jsonArray = new JsonArray();
+           for (int i = 0; i < dataList.size(); i++) {
 
-            mData data = dataList.get(i);
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("tag_no", data.getTag_no());
-            jsonObject.addProperty("dd", data.getDd());
-            jsonObject.addProperty("mm", data.getMm());
-            jsonObject.addProperty("yy", data.getYy());
-            jsonObject.addProperty("age", data.getAge());
-            jsonObject.addProperty("average_milk_production", data.getAverage());
-            jsonObject.addProperty("nasl", data.getNasl_Selection());
-            jsonObject.addProperty("note", data.getNote());
-            jsonArray.add(jsonObject);
+               mData data = dataList.get(i);
+               JsonObject jsonObject = new JsonObject();
+               jsonObject.addProperty("tag_no", data.getTag_no());
+               jsonObject.addProperty("dd", data.getDd());
+               jsonObject.addProperty("mm", data.getMm());
+               jsonObject.addProperty("yy", data.getYy());
+               jsonObject.addProperty("age", data.getAge());
+               jsonObject.addProperty("average_milk_production", data.getAverage());
+               jsonObject.addProperty("nasl", data.getNasl_Selection());
+               jsonObject.addProperty("note", data.getNote());
+               jsonArray.add(jsonObject);
 
-        }
+           }
 
 
-        JsonObject jsonObject = new JsonObject();
+           JsonObject jsonObject = new JsonObject();
 
-        jsonObject.addProperty("status_receipt", 1);
-        jsonObject.addProperty("form_id", 2);
-        jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
-        jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
-        jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
-        jsonObject.add("data", jsonArray);
-        Log.e(tag, "final json is" + jsonObject.toString());
+           jsonObject.addProperty("status_receipt", 1);
+           jsonObject.addProperty("form_id", 2);
+           jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+           jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+           jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+           jsonObject.add("data", jsonArray);
+           Log.e(tag, "final json is" + jsonObject.toString());
 
-        mvpPresenter.saveForm(jsonObject);
+           mvpPresenter.saveForm(jsonObject);
+       }
 
     }
 
@@ -303,6 +307,31 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     }
 
     private void ShowDialog() {
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                try {
+                    JSONObject jsonObject = new JSONObject();
+                    jsonObject.put("status_receipt", 0);
+                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.put("form_id", 2);
+                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                finish();
+            }
+        });
+
+/*
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_2));
@@ -323,7 +352,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override
@@ -376,9 +405,9 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
         binding.edtAge.setText(String.valueOf(successResult.getData().getAge()));
         binding.edtAvarage.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
         binding.spNasl.setText(String.valueOf(successResult.getData().getNaslaName()));
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
-
-
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         binding.layoutEditReceipt.setVisibility(View.GONE);
         binding.layoutTextReceipt.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);

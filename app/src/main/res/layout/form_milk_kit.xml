@@ -227,7 +227,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
-                        android:text="@string/upyog"
+                        android:text="@string/in_use_or_not"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 

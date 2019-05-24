@@ -8,14 +8,12 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.ui.Form.form_2.Model.GetNaslResponse;
 import com.tekzee.racp.ui.Form.form_2.Model.RetrivedDataResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
@@ -30,21 +28,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class Form2Presenter extends BasePresenter<Form2View> {
+public class Form2Presenter extends BasePresenter <Form2View> {
     public Form2Presenter(Form2Activity form2Activity) {
-       attachView(form2Activity);
+        attachView(form2Activity);
     }
 
 
     public void getNasl() {
-        mvpView.hideSoftKeyboard();
-        mvpView.showProgressDialog("Please wait...", false);
 
-        // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         } else {
+
+            mvpView.hideSoftKeyboard();
+            mvpView.showProgressDialog("Please wait...", false);
+
             addSubscription(apiStores.getNasla(), new ApiCallback <JsonObject>() {
                 @Override
                 public void onSuccess(JsonObject successResult) {
@@ -66,7 +65,7 @@ public class Form2Presenter extends BasePresenter<Form2View> {
                                         object.getString("nasla_Name")
                                 ));
                             }
-                            openSelector(arrayList, "nasla");
+                            openSelector(arrayList, "nasla",mvpView.getContext().getString(R.string.select_nasl));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -89,7 +88,6 @@ public class Form2Presenter extends BasePresenter<Form2View> {
             });
         }
     }
-
 
     public void saveForm(JsonObject jsonObject) {
 
@@ -126,8 +124,7 @@ public class Form2Presenter extends BasePresenter<Form2View> {
         }
     }
 
-
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type,String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -155,6 +152,7 @@ public class Form2Presenter extends BasePresenter<Form2View> {
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
                 et_country_name.addTextChangedListener(new TextWatcher() {
                     @Override

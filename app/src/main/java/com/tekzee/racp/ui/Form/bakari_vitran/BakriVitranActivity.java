@@ -39,15 +39,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import cn.refactor.lib.colordialog.ColorDialog;
-
 public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> implements BakariVitranView, View.OnClickListener, DatePickerDialog.OnDateSetListener {
 
     private static String tag = BakriVitranActivity.class.getCanonicalName();
     JsonArray marray = new JsonArray();
+
     List <TeekaData> dataList = new ArrayList <>();
     List <Immunization> immunizations = new ArrayList <>();
     List <BakriData> bakriDataList = new ArrayList <>();
+
     boolean isOkayClicked = true;
 
     com.tekzee.racp.ui.Form.bakari_vitran.TeekaAdapter teekaAdapter;
@@ -120,6 +120,12 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
 
     @Override
     public void onClick(View v) {
@@ -403,14 +409,26 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
             jsonObject.add("data", jsonArray);
             Log.e(tag, "final json = " + jsonObject.toString());
-
             mvpPresenter.saveForm(jsonObject);
         }
 
     }
 
     private void ShowDialog() {
-        ColorDialog dialog = new ColorDialog(this);
+
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+            @Override
+            public void onOkClick() {
+
+            }
+
+            @Override
+            public void onNoClick() {
+                finish();
+            }
+        });
+
+        /*ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
 
         dialog.setTitle(getResources().getString(R.string.form_3));
@@ -431,7 +449,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
                         finish();
                     }
-                }).show();
+                }).show();*/
     }
 
     @Override
@@ -514,7 +532,9 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
 
 
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
 
@@ -539,28 +559,28 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         String fmd = successResult.getData().getDateFmd();
         String hs = successResult.getData().getDateHs();
 
-        String date[] = ppr.split(",");
+        String[] date = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
             if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
             }
 
         }
-        String date1[] = et.split(",");
+        String[] date1 = et.split(",");
         for (int i = 0; i < date1.length; i++) {
             if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.et), date1[i]));
             }
         }
 
-        String date2[] = fmd.split(",");
+        String[] date2 = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
             if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
             }
         }
 
-        String date3[] = hs.split(",");
+        String[] date3 = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
             if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
                 immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
@@ -645,6 +665,5 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     public void onOkClickListner() {
         this.finish();
     }
-
 
 }

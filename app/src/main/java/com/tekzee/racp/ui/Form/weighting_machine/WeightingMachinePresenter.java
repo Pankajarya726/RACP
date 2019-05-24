@@ -8,7 +8,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +15,6 @@ import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
-import com.tekzee.racp.ui.Form.weighting_machine.model.GetAnimalCetegoryResponse;
 import com.tekzee.racp.ui.Form.weighting_machine.model.RetrivedWeightingMachineResponse;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
@@ -66,7 +64,7 @@ public class WeightingMachinePresenter extends BasePresenter<WeightinhMachineVie
                                         object.getString("animalcategory_Name")
                                 ));
                             }
-                            openSelector(arrayList, "animalcategory");
+                            openSelector(arrayList, "animalcategory",mvpView.getContext().getString(R.string.select_animal_category));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -121,7 +119,7 @@ public class WeightingMachinePresenter extends BasePresenter<WeightinhMachineVie
                                         object.getString("animaltype_Name")
                                 ));
                             }
-                            openSelector(arrayList, "animaltype");
+                            openSelector(arrayList, "animaltype",mvpView.getContext().getString(R.string.select_animal_type));
 
                         } else {
                             mvpView.onNoInternetConnectivity(new CommonResult(false, jsonObject.getString("message")));
@@ -146,7 +144,7 @@ public class WeightingMachinePresenter extends BasePresenter<WeightinhMachineVie
     }
 
 
-    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type) {
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type,final String title) {
         if (arrayList.size() > 0) {
 
             final Dialog dialog = new Dialog(mvpView.getContext());
@@ -174,6 +172,7 @@ public class WeightingMachinePresenter extends BasePresenter<WeightinhMachineVie
                 mvpView.hideSoftKeyboard();
                 rv_country.setAdapter(adapter);
                 TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
 
 
                 et_country_name.addTextChangedListener(new TextWatcher() {

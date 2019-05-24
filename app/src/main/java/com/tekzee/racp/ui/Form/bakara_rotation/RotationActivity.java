@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -90,6 +89,12 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+    @Override
     public void onClick(View v) {
 
         switch (v.getId()) {
@@ -126,7 +131,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
         } else if (binding.edtName.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.animal_owner_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
 
             return false;
         } else if (binding.edtMtgname.getText().toString().isEmpty()) {
@@ -380,7 +385,6 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     }
 
-
     @Override
     public Context getContext() {
         return this;
@@ -463,7 +467,8 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
+
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
     }
 
     @Override
