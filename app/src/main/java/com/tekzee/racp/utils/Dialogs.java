@@ -160,7 +160,7 @@ public class Dialogs {
     }
 
 
-    public static void ShowCustomDialog(Context context, String msg, okClickListner listner) {
+    public static void ShowCustomDialog(Context context, String msg, okClickListner listner,String... title) {
         final Dialog dialog = new Dialog(context);
         try {
             dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -170,6 +170,19 @@ public class Dialogs {
             dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             dialog.setCancelable(false);
 
+
+            TextView tv_title = dialog.findViewById(R.id.dialog1_title);
+            if(title.length > 0){
+
+                if (title[0].equalsIgnoreCase("")){
+                    tv_title.setText(context.getResources().getString(R.string.alert));
+                }else
+                {
+                    tv_title.setText(title[0]);
+                }
+
+
+            }
 
             TextView textView = dialog.findViewById(R.id.dialog1_msg);
 

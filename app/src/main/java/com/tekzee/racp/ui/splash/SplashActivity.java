@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
@@ -31,7 +32,7 @@ import cn.refactor.lib.colordialog.ColorDialog;
 public class SplashActivity extends MvpActivity <SplashPresenter> implements SplashView {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
-    private final int SCREEN_DURATION = 3000;
+    private final int SCREEN_DURATION = 5000;
     private ActivitySplashBinding binding;
 
     @Override
@@ -60,12 +61,14 @@ public class SplashActivity extends MvpActivity <SplashPresenter> implements Spl
     public void startHomeActivity() {
 
         startActivity(new Intent(getContext(), HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK));
+        finish();
     }
 
     @Override
     public void startLoginActivity() {
         Log.d("TAG", "firebase token" + FirebaseInstanceId.getInstance().getToken());
         startActivity(new Intent(getContext(), Login.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        finish();
     }
 
     @Override
@@ -76,14 +79,19 @@ public class SplashActivity extends MvpActivity <SplashPresenter> implements Spl
     @Override
     public void onValidateAppVersionSuccess(JSONObject jsonObject) {
 
-        Log.e(TAG, "login" + Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp));
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)) {
 
-        if (Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)) {
+                    startHomeActivity();
+                } else {
+                    startLoginActivity();
+                }
 
-            startHomeActivity();
-        } else {
-            startLoginActivity();
-        }
+            }
+        }, 3000);
+
     }
 
     @Override

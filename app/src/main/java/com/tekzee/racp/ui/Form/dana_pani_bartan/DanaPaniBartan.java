@@ -42,7 +42,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_dana_pani_bartan);
 
-        getSupportActionBar().setTitle(R.string.form_9);
+            getSupportActionBar().setTitle(R.string.form_9);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -382,7 +382,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
     private void ShowDialog() {
 
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.dana_pani_bartan_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -468,7 +468,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this,"  ");
         DataDanaPaniBartan.deleteAll(DataDanaPaniBartan.class);
         record_count = 1;
         recordNo = 1;

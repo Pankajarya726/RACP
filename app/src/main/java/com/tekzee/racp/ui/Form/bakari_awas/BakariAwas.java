@@ -318,7 +318,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.goat_house_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -436,7 +436,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     @Override
     public void onSuccessFullSave(FormSubmitResponse successResult) {
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
         //finish();
 
     }

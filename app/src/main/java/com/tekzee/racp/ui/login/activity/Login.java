@@ -19,21 +19,19 @@ import com.tekzee.racp.ui.login.LoginView;
 import com.tekzee.racp.ui.login.model.RequestOtpResponse;
 import com.tekzee.racp.ui.login.model.VerifyOtpResponse;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.SnackbarUtils;
 import com.tekzee.racp.utils.Utility;
 
-public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.OnClickListener {
+public class Login extends MvpActivity <LoginPresenter> implements LoginView, View.OnClickListener {
     private static final String TAG = Login.class.getSimpleName();
     private ActivityLoginBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_login);
-
-        binding.btSubmit.setEnabled(false);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
         binding.imgNext.setOnClickListener(this);
+        binding.btSubmit.setVisibility(View.GONE);
         binding.btSubmit.setOnClickListener(this);
 
     }
@@ -51,31 +49,37 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     @Override
     public void onNoInternetConnectivity(CommonResult result) {
 
-        Dialogs.showColorDialog(getContext(),result.getMessage());
+        Dialogs.showColorDialog(getContext(), result.getMessage());
 
 
         binding.edtMobileNumber.setEnabled(true);
         binding.imgNext.setClickable(true);
-        Dialogs.ShowDialog(getContext(),result.getMessage());
+//        Dialogs.ShowDialog(getContext(),result.getMessage());
 
     }
 
     @Override
     public void onRequestOtpSuccess(RequestOtpResponse successResult) {
-        Log.e(TAG,successResult.getMessage());
+        Log.e(TAG, successResult.getMessage());
 
-        Dialogs.showColorDialog(getContext(),successResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
 
-        Utility.setSharedPreference(getContext(),Constant.Mobile,binding.edtMobileNumber.getText().toString().trim());
+                binding.btSubmit.setVisibility(View.VISIBLE);
+
+            }
+        }, " ");
+
+        Utility.setSharedPreference(getContext(), Constant.Mobile, binding.edtMobileNumber.getText().toString().trim());
 
         binding.edtMobileNumber.setEnabled(true);
-        binding.btSubmit.setEnabled(true);
 
     }
 
     @Override
     public void onRequestOtpFailure(String message) {
-        Dialogs.showColorDialog(getContext(),message);
+        Dialogs.showColorDialog(getContext(), message);
 
     }
 
@@ -83,20 +87,20 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     @Override
     public void onVerifyOtpSuccess(VerifyOtpResponse response) {
 
-        Dialogs.showColorDialog(getContext(),response.getMessage());
+//        Dialogs.showColorDialog(getContext(), response.getMessage());
 
+        Utility.setSharedPreferenceBoolean(getContext(), Constant.isVerifyOtp, true);
+        Utility.setIntegerSharedPreference(getContext(), Constant.USER_ID, response.getData().getUserId());
+        Utility.setSharedPreference(getContext(), Constant.UserName, response.getData().getUserName());
+        Utility.setSharedPreference(getContext(), Constant.UserRole, response.getData().getRoleName());
+        Utility.setIntegerSharedPreference(getContext(), Constant.RoleId, response.getData().getRoleId());
+        Utility.setSharedPreference(getContext(), Constant.UserEmail, response.getData().getEmail());
+        Utility.setSharedPreference(getContext(), Constant.Mobile, response.getData().getMobile());
+        Utility.setSharedPreference(getContext(), Constant.image, response.getData().getProfileImage());
 
-
-        Utility.setSharedPreferenceBoolean(getContext(),Constant.isVerifyOtp,true);
-        Utility.setIntegerSharedPreference(getContext(),Constant.USER_ID,response.getData().getUserId());
-        Utility.setSharedPreference(getContext(),Constant.UserName,response.getData().getUserName());
-        Utility.setSharedPreference(getContext(),Constant.UserRole,response.getData().getRoleName());
-        Utility.setIntegerSharedPreference(getContext(),Constant.RoleId,response.getData().getRoleId());
-        Utility.setSharedPreference(getContext(),Constant.UserEmail,response.getData().getEmail());
-        Utility.setSharedPreference(getContext(),Constant.Mobile,response.getData().getMobile());
-
-        Log.e(TAG,String.valueOf(Utility.getSharedPreferencesBoolean(getContext(),Constant.isVerifyOtp)));
-        startActivity(new Intent(Login.this,HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        Log.e(TAG, String.valueOf(Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)));
+        startActivity(new Intent(Login.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        finish();
 
 
     }
@@ -104,19 +108,17 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
 
             case R.id.img_next:
-                if(binding.edtMobileNumber.getText().toString().isEmpty()){
+                if (binding.edtMobileNumber.getText().toString().isEmpty()) {
 
-                    Dialogs.showColorDialog(getContext(),getString(R.string.enter_number));
-                    SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_number));
-                   // binding.edtMobileNumber.setError(getString(R.string.enter_number));
-                }
-                else if (binding.edtMobileNumber.getText().toString().length()<10){
-                    binding.edtMobileNumber.setError("Invalid number");
-                }
-                else {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.number));
+//                    SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_number));
+                    // binding.edtMobileNumber.setError(getString(R.string.enter_number));
+                } else if (binding.edtMobileNumber.getText().toString().length() < 10) {
+                    binding.edtMobileNumber.setError(getResources().getString(R.string.invlid_number));
+                } else {
 
                     callRequestOtpApi();
                     binding.imgNext.setClickable(false);
@@ -128,17 +130,25 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
 
             case R.id.bt_submit:
 
-                if(binding.edtOtp.getText().toString().isEmpty()){
+                if (binding.edtMobileNumber.getText().toString().isEmpty()) {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.number));
 
-                    Dialogs.showColorDialog(getContext(),getString(R.string.enter_otp));
-                  //  SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_otp));
+                } else if (binding.edtMobileNumber.getText().toString().length() < 10) {
+                    binding.edtMobileNumber.setError(getResources().getString(R.string.invlid_number));
 
-                }
-                else {
+                } else if (binding.edtOtp.getText().toString().isEmpty()) {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_otp));
+
+                } else if (binding.edtOtp.getText().toString().length() < 4 ) {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.invalid_otp));
+
+
+                }else{
+
                     callVerifyOtpApi();
-
                 }
-                 break;
+
+                break;
 
 
         }
@@ -151,13 +161,12 @@ public class Login extends MvpActivity<LoginPresenter>implements LoginView,View.
         mvpPresenter.requestOtp(input);
 
 
-
     }
 
     private void callVerifyOtpApi() {
         JsonObject input = new JsonObject();
         input.addProperty("mobile", binding.edtMobileNumber.getText().toString().trim());
-        input.addProperty("otp",binding.edtOtp.getText().toString().trim());
+        input.addProperty("otp", binding.edtOtp.getText().toString().trim());
         mvpPresenter.verifyOtp(input);
 
     }

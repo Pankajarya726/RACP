@@ -29,6 +29,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
+
+    private static final String TAG = MtgTrainingPresenter.class.getSimpleName();
+
     public MtgTrainingPresenter(MtgTrainginVeiw mtgTraining) {
         attachView(mtgTraining);
     }
@@ -77,6 +80,7 @@ public class MtgTrainingPresenter extends BasePresenter<MtgTrainginVeiw> {
 
                 @Override
                 public void onFailure(CommonResult commonResult) {
+                    com.tekzee.racp.utils.Log.view(TAG,commonResult.getMessage());
                     mvpView.onNoInternetConnectivity(commonResult);
                 }
 

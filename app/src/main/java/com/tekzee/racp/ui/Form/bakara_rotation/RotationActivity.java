@@ -59,7 +59,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            ShowSelectionDialog();
+            //ShowSelectionDialog();
         }
 
 
@@ -167,7 +167,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
             return false;
         } else if (binding.edtName1.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(), getString(R.string.enter_name));
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return false;
         } else if (binding.edtMtgname1.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
@@ -393,7 +393,7 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
 
         DataBakaraRotation.deleteAll(DataBakaraRotation.class);
         ClearField();

@@ -1,26 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_marginTop="15dp"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp">
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp">
 
-    <ImageView
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        android:layout_marginLeft="30dp"
-        android:layout_gravity="center_vertical"
-        android:id="@+id/image_nav"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:backgroundTintMode="@color/black"
 
-        />
-    <TextView
-        android:id="@+id/txt_nav"
-        android:layout_gravity="center_vertical"
-        android:paddingLeft="25dp"
-        android:textSize="@dimen/tv_size_medium_tab"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent" />
+        <ImageView
+            android:id="@+id/image_nav"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:backgroundTintMode="@color/black" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/txt_nav"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:paddingLeft="25dp"
+            android:textSize="@dimen/tv_size_medium" />
+
+
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/header"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:background="#C4C3C3" />
+
+</RelativeLayout>

@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -321,7 +320,6 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                 }
             }
 
-            Toast.makeText(this, "record added" + BeemaDetail.count(BeemaDetail.class), Toast.LENGTH_LONG).show();
 
             String death_date;
             String condition;
@@ -356,7 +354,6 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                     radioButton.getText().toString());
             beemaDetail.save();
 
-            Toast.makeText(this, "record added" + BeemaDetail.count(BeemaDetail.class), Toast.LENGTH_LONG).show();
 
             recordNo = recordNo + 1;
             binding.txtno.setText(String.valueOf(recordNo));
@@ -448,7 +445,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.beema_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -518,7 +515,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             public void onOkClickListner() {
                 finish();
             }
-        });
+        },"  ");
         BeemaDetail.deleteAll(BeemaDetail.class);
         recordNo = 1;
         record_count = 1;
@@ -556,6 +553,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
             binding.checkYes.setChecked(true);
             binding.edtDateDeath.setVisibility(View.VISIBLE);
+            binding.tvDeath.setVisibility(View.VISIBLE);
             binding.edtDateDeath.setClickable(false);
             binding.edtDateDeath.setText(String.valueOf(successResult.getData().getDateDeath()));
         } else {

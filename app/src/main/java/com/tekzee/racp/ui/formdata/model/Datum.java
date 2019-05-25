@@ -5,10 +5,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Datum {
 
-
     @SerializedName("table_id")
     @Expose
     private Integer tableId;
+    @SerializedName("name")
+    @Expose
+    private String name;
     @SerializedName("tag_no")
     @Expose
     private Integer tagNo;
@@ -24,20 +26,24 @@ public class Datum {
 
     /**
      * No args constructor for use in serialization
+     *
      */
     public Datum() {
     }
 
     /**
+     *
      * @param tableId
      * @param formId
      * @param createdAt
+     * @param name
      * @param dateReceipt
      * @param tagNo
      */
-    public Datum(Integer tableId, Integer tagNo, String dateReceipt, Integer formId, String createdAt) {
+    public Datum(Integer tableId, String name, Integer tagNo, String dateReceipt, Integer formId, String createdAt) {
         super();
         this.tableId = tableId;
+        this.name = name;
         this.tagNo = tagNo;
         this.dateReceipt = dateReceipt;
         this.formId = formId;
@@ -50,6 +56,14 @@ public class Datum {
 
     public void setTableId(Integer tableId) {
         this.tableId = tableId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Integer getTagNo() {

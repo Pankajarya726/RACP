@@ -486,7 +486,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.feed_suppliment_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -662,7 +662,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     public void SuccessfullSave(FormSubmitResponse successResult) {
         //Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
 
         record_count = 1;
         recordNo = 1;
@@ -687,6 +687,8 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     public void onSuccessfullyRetrived(RetrivedFeedSupplimentResponse successResult) {
 
         Log.e(tag, "deta retrived");
+        binding.tvSave.setVisibility(View.GONE);
+        binding.tvAddRecord.setVisibility(View.GONE);
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);

@@ -173,27 +173,27 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
     private Boolean save() {
 
-        if (binding.edtTagNo.getText().toString().isEmpty()) {
+        if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
-        } else if (binding.edtBeemaVivran.getText().toString().isEmpty()) {
+        } else if (binding.edtBeemaVivran.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_beema_detial));
             return false;
-        } else if (binding.edtPolicyNo.getText().toString().isEmpty()) {
+        } else if (binding.edtPolicyNo.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_policy_no));
             return false;
-        } else if (binding.tvPhyProof.getText().toString().isEmpty()) {
+        } else if (binding.tvPhyProof.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_physical_proof_date));
             return false;
         } else {
-            if (binding.day.getText().toString().isEmpty()) {
+            if (binding.day.getText().toString().trim().isEmpty()) {
 
             } else {
-                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
@@ -216,17 +216,17 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
                 jsonArray.add(jsonObject);
             }
             JsonObject object = new JsonObject();
-            object.addProperty("tag_no", binding.edtTagNo.getText().toString());
-            object.addProperty("beema_detail", binding.edtBeemaVivran.getText().toString());
-            if (binding.day.getText().toString().isEmpty()) {
+            object.addProperty("tag_no", binding.edtTagNo.getText().toString().trim());
+            object.addProperty("beema_detail", binding.edtBeemaVivran.getText().toString().trim());
+            if (binding.day.getText().toString().trim().isEmpty()) {
                 object.addProperty("dd", "01");
             } else {
-                object.addProperty("dd", binding.day.getText().toString());
+                object.addProperty("dd", binding.day.getText().toString().trim());
             }
             object.addProperty("mm", binding.spMonth.getSelectedItem().toString());
             object.addProperty("yy", binding.spYear.getSelectedItem().toString());
-            object.addProperty("policy_no", binding.edtPolicyNo.getText().toString());
-            object.addProperty("physical_proof_date", binding.tvPhyProof.getText().toString());
+            object.addProperty("policy_no", binding.edtPolicyNo.getText().toString().trim());
+            object.addProperty("physical_proof_date", binding.tvPhyProof.getText().toString().trim());
             object.add("teekakaran", jsonArray);
 
             Log.e(tag, "record 1 data is " + object.toString());
@@ -472,7 +472,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.bakare_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -480,21 +480,29 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
             @Override
             public void onNoClick() {
-                try {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("status_receipt", 0);
-                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
-                    jsonObject.put("form_id", 1);
-                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
-                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
 
-                    Data mData = new Data(jsonObject.toString());
-                    mData.save();
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("status_receipt", 0);
+                    jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                    jsonObject.addProperty("form_id", 1);
+                    jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                    jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+                    jsonObject.add("data",Myobject);
+                try {
+                    mvpPresenter.saveData(jsonObject);
+
+                    finish();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                finish();
-            }
+
+
+                Data mData = new Data(jsonObject.toString());
+                    mData.save();
+
+                }
+
+
         });
 
 
@@ -519,7 +527,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             public void onOkClickListner() {
                 finish();
             }
-        });
+        },"  ");
         Record.deleteAll(Record.class);
 
         for (int i = 0; i < Myobject.size(); i++) {
@@ -548,10 +556,11 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         binding.edtPolicyNo.setText(successResult.getData().getPolicyNo());
         binding.edtBeemaVivran.setText(successResult.getData().getBeemaDetail());
         binding.tvPhyProof.setText(successResult.getData().getDatePhysicalProof());
+
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.receiptLayout3.setVisibility(View.VISIBLE);
-        binding.receiptLayout3.setText(successResult.getData().getDateReceipt());
+        binding.receiptLayout3.setText(mDatePickerDialog.changeFormate(successResult.getData().getDateReceipt()));
         binding.immunization.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
@@ -603,7 +612,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
 
         mDatePickerDialog.getdate(getContext(), tv_date);
         Immunization immunization = immunizations.get(adapterPosition);
-        immunization.setTeekadate(tv_date.getText().toString());
+        immunization.setTeekadate(tv_date.getText().toString().trim());
         teekaAdapter.notifyDataSetChanged();
 
     }

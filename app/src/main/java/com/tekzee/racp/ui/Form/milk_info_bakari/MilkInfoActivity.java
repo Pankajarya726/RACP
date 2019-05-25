@@ -68,7 +68,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
             getFormRecordData();
         }else {
-            ShowSelectionDialog();
+            //ShowSelectionDialog();
         }
 
 
@@ -226,7 +226,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
 
         ClearVeiw();
     }

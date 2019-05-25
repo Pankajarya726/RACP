@@ -308,7 +308,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.bakariya_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -366,11 +366,10 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
     }
 
-
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
 
         mData.deleteAll(mData.class);
         recordNo = 1;

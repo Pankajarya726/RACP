@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -61,7 +60,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            ShowSelectionDialog();
+            //ShowSelectionDialog();
         }
 
         DataMtgTraingin.deleteAll(DataMtgTraingin.class);
@@ -147,16 +146,16 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     private Boolean saveRecord() {
 
 
-        if (binding.edtPlace.getText().toString().isEmpty()) {
+        if (binding.edtPlace.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_training_place));
             return false;
-        } else if (binding.edtTrainingdate.getText().toString().isEmpty()) {
+        } else if (binding.edtTrainingdate.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_date_trainging));
             return false;
-        } else if (binding.edtCount.getText().toString().isEmpty()) {
+        } else if (binding.edtCount.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_treainee_count));
             return false;
-        } else if (binding.edtMtgname.getText().toString().isEmpty()) {
+        } else if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
             return false;
         } else {
@@ -281,7 +280,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
                 DataMtgTraingin detail = detailList.get(i);
 
                 jsonObject.addProperty("mtggroup_id", detail.getMtg_id());
-                jsonObject.addProperty("training_date", detail.getDate());
+                jsonObject.addProperty("training_date", mDatePickerDialog.changeFormate(detail.getDate()));
                 jsonObject.addProperty("trainee_number", detail.getCount());
                 jsonObject.addProperty("training_place", detail.getPlace());
                 jsonObject.addProperty("note", detail.getNote());
@@ -312,7 +311,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
     @Override
     public void onNoInternetConnectivity(CommonResult message) {
-        Toast.makeText(getContext(), message.getMessage(), Toast.LENGTH_SHORT).show();
+        Dialogs.showColorDialog(getContext(),message.getMessage());
 
     }
 
@@ -326,7 +325,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
 
 //        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 

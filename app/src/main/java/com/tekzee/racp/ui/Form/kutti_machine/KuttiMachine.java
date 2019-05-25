@@ -387,7 +387,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.kuttimachine_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -475,7 +475,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this,"  ");
         DataKuttiMachine.deleteAll(DataKuttiMachine.class);
         record_count = 1;
         recordNo = 1;

@@ -73,11 +73,15 @@ public class FormDataAdapter extends  RecyclerView.Adapter <FormDataAdapter.MyVi
 
         Datum data = formData.get(i);
 
-        if (String.valueOf(data.getTagNo()).isEmpty() || String.valueOf(data.getTagNo()).equalsIgnoreCase("null")){
-            holder.tagno.setText(String.valueOf(data.getCreatedAt()));
+        if (!String.valueOf(data.getCreatedAt()).isEmpty() && !String.valueOf(data.getCreatedAt()).equalsIgnoreCase("null")){
+            String dateNtime = data.getCreatedAt();
 
-        }else {
-            holder.tagno.setText(String.valueOf(data.getCreatedAt()));
+            holder.tvDate.setText(dateNtime.split(" ")[0]);
+            holder.tvTime.setText("("+dateNtime.split(" ")[1]+")");
+
+        }
+        if (!String.valueOf(data.getName()).isEmpty() && !String.valueOf(data.getName()).equalsIgnoreCase("null")){
+            holder.dateReceipt.setText(String.valueOf(data.getName()));
 
         }
     }
@@ -89,12 +93,14 @@ public class FormDataAdapter extends  RecyclerView.Adapter <FormDataAdapter.MyVi
 
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        TextView tagno;
-        TextView date;
+        TextView tvDate;
+        TextView tvTime;
+        TextView dateReceipt;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            tagno = itemView.findViewById(R.id.tagNo);
-            date = itemView.findViewById(R.id.date_receipt);
+            tvDate = itemView.findViewById(R.id.tvDate);
+            tvTime = itemView.findViewById(R.id.tvTime);
+            dateReceipt = itemView.findViewById(R.id.dateReceipt);
 
         }
     }

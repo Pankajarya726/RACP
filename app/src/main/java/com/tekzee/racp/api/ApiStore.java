@@ -311,5 +311,7 @@ public interface ApiStore {
     Observable <RetrivedMilkInfoResponse> getMilkInfoData(@Body JsonObject jsonObject);
 
 
+    @POST("getAllFiledForm")
+    Observable <GetAllFormResponse> getAllFormtype1(@Body JsonObject jsonObject);
 
 }

@@ -2,7 +2,6 @@ package com.tekzee.racp.ui.selectMtgGroup;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -123,7 +122,14 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-        Cursor cursor = sqliteDB.getMtgGroup();
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+            }
+        });
+
+       /* Cursor cursor = sqliteDB.getMtgGroup();
         if (cursor.getCount() == 0) {
             Dialogs.showColorDialog(getContext(), commonResult.getMessage());
         }
@@ -132,7 +138,7 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
                 mtggroup.add(new Data(cursor.getInt(0),cursor.getString(1)));
             }
             setUpRecyclerView();
-        }
+        }*/
 
 
     }

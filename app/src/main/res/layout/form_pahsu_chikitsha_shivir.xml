@@ -49,6 +49,7 @@
                     android:layout_toLeftOf="@+id/tv_date"
                     android:textColor="@color/black"
                     android:text="@string/date"
+                    android:layout_marginRight="5dp"
                     android:textSize="@dimen/login_title_size" />
 
 

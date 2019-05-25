@@ -291,7 +291,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
        // showuSuccessDialog(successResult.getMessage());
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
 
 
         binding.edtFormerName.setText("");

@@ -58,7 +58,7 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
         super.onCreate(savedInstanceState);
 
         progressDialog = new ProgressDialog(this);
-        progressDialog.setCancelable(false);
+        progressDialog.setCancelable(true);
         progressDialog.setMessage(getString(R.string.PleaseWait)+"\n"+getString(R.string.getting_your_location));
 
         initMapLocation();
@@ -267,7 +267,6 @@ public class BaseMapActivity extends BaseActivity implements LocationListener,
                     } else {
                         deniedLocation();
 
-                        //Toast.makeText(this, "Permission Denied, You cannot access location data", Toast.LENGTH_LONG).show();
                         showMessageOK("Permission Denied, You cannot access location data", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

@@ -36,6 +36,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:maxLength="60"
                     android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />

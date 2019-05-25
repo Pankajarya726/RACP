@@ -71,7 +71,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            ShowSelectionDialog();
+            //ShowSelectionDialog();
         }
 
 
@@ -177,53 +177,53 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         if (isMtgMember==1){
 
-            if (binding.spMtgGroup.getText().toString().equalsIgnoreCase(getString(R.string.selcet_mtg_group))){
+            if (binding.spMtgGroup.getText().toString().trim().equalsIgnoreCase(getString(R.string.selcet_mtg_group))){
                 Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_group));
                 return;
             }
-            else if (binding.spMtgPerson.getText().toString().equalsIgnoreCase(getString(R.string.selcet_mtg_person))){
+            else if (binding.spMtgPerson.getText().toString().trim().equalsIgnoreCase(getString(R.string.selcet_mtg_person))){
 
                 Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_person));
                 return;
             }
-            else if (binding.edtTagNo.getText().toString().isEmpty()) {
+            else if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
                 Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
                 return;
             }
 
         }
 
-        if (binding.edtName.getText().toString().isEmpty()) {
+        if (binding.edtName.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return;
 
-        }else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
+        }else if (binding.edtGramPanchayat.getText().toString().trim().isEmpty()) {
 
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
             return;
 
-        } else if (binding.edtVillage.getText().toString().isEmpty()) {
+        } else if (binding.edtVillage.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
             return;
 
 
-        } else if (binding.edtMobile.getText().toString().isEmpty()) {
+        } else if (binding.edtMobile.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_number));
             return;
 
-        } else if (binding.edtMobile.getText().toString().length()!=10) {
+        } else if (binding.edtMobile.getText().toString().trim().trim().length()!=10) {
             Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
             return;
-        }  else if (binding.edtAddress.getText().toString().isEmpty()) {
+        }  else if (binding.edtAddress.getText().toString().trim().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
             return;
-        }  else if (binding.animelType.getText().toString().isEmpty()) {
+        }  else if (binding.animelType.getText().toString().trim().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return;
-        } else if (binding.edtAge.getText().toString().isEmpty()) {
+        } else if (binding.edtAge.getText().toString().trim().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_age));
             return;
-        }else if (binding.edtWeight.getText().toString().isEmpty()) {
+        }else if (binding.edtWeight.getText().toString().trim().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_weight));
             return;
         }else if (!binding.checkYes.isChecked() && !binding.checkNo.isChecked()){
@@ -238,16 +238,16 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
                 Immunization im = immunizations.get(i);
                 JsonObject obj = new JsonObject();
                 obj.addProperty("teeka_type",im.getTeekaname());
-                obj.addProperty("teeka_date",im.getTeekadate());
+                obj.addProperty("teeka_date",mDatePickerDialog.changeFormate(im.getTeekadate()));
                 jsonArray.add(obj);
             }
 
             JsonObject mobject = new JsonObject();
             mobject.addProperty("animaltype_id",animal_id);
             mobject.addProperty("bechan_yogya",bechan_yogya);
-            mobject.addProperty("tag_no",binding.edtTagNo.getText().toString());
-            mobject.addProperty("age",binding.edtAge.getText().toString());
-            mobject.addProperty("weight",binding.edtWeight.getText().toString());
+            mobject.addProperty("tag_no",binding.edtTagNo.getText().toString().trim().trim());
+            mobject.addProperty("age",binding.edtAge.getText().toString().trim().trim());
+            mobject.addProperty("weight",binding.edtWeight.getText().toString().trim().trim());
             mobject.add("teekakaran",jsonArray);
 
 
@@ -261,9 +261,9 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
             jsonObject.addProperty("form_id",19);
             jsonObject.addProperty("mtg_member_id",mtg_member_id);
             jsonObject.addProperty("mtg_group_id",mtg_id);
-            jsonObject.addProperty("pashupalak_name",binding.edtName.getText().toString());
-            jsonObject.addProperty("pashupalak_mobile",binding.edtMobile.getText().toString());
-            jsonObject.addProperty("pashupalak_address",binding.edtAddress.getText().toString());
+            jsonObject.addProperty("pashupalak_name",binding.edtName.getText().toString().trim().trim());
+            jsonObject.addProperty("pashupalak_mobile",binding.edtMobile.getText().toString().trim().trim());
+            jsonObject.addProperty("pashupalak_address",binding.edtAddress.getText().toString().trim().trim());
             jsonObject.addProperty("grampanchayat_id",gram_panchayat_id);
             jsonObject.addProperty("gram_id",gram_id);
             jsonObject.add("data",marray);
@@ -286,7 +286,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         Immunization im = immunizations.get(adapterPosition);
         mDatePickerDialog.getdate(getContext(), tv_date);
-        im.setTeekadate(tv_date.getText().toString());
+        im.setTeekadate(tv_date.getText().toString().trim().trim());
         teekaAdapter.notifyDataSetChanged();
 
     }
@@ -361,7 +361,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
         binding.animelType.setHint(getString(R.string.animal_type));
         binding.edtTagNo.setText("");
         binding.edtAge.setText("");

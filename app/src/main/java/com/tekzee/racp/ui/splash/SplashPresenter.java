@@ -44,11 +44,18 @@ public class SplashPresenter extends BasePresenter <SplashView> {
             }, 3000);
 
         } else {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (Utility.getSharedPreferencesBoolean(context, Constant.isVerifyOtp) && Utility.getIngerSharedPreferences(context, Constant.USER_ID) != 0) {
+                        mvpView.startHomeActivity();
+                    } else
+                        mvpView.startLoginActivity();
 
-            if (Utility.getSharedPreferencesBoolean(context, Constant.isVerifyOtp) && Utility.getIngerSharedPreferences(context, Constant.USER_ID) != 0) {
-                mvpView.startHomeActivity();
-            } else
-                mvpView.startLoginActivity();
+                }
+            }, 3000);
+
+
             // mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
         }
 

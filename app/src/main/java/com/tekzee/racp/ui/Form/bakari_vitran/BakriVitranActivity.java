@@ -191,37 +191,37 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     }
 
     private boolean addRecordinSqlite() {
-        if (binding.edtTagNo.getText().toString().isEmpty()) {
+        if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
-        } else if (binding.edtAveragProduction.getText().toString().isEmpty()) {
+        } else if (binding.edtAveragProduction.getText().toString().trim().isEmpty()) {
 
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_average_milk_production));
             return false;
-        } else if (binding.edtProofdate.getText().toString().isEmpty()) {
+        } else if (binding.edtProofdate.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_physical_proof_date));
             return false;
 
-        } else if (binding.edtBeemaVivran.getText().toString().isEmpty()) {
+        } else if (binding.edtBeemaVivran.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_beema_detial));
             return false;
 
-        } else if (binding.edtPolicyNo.getText().toString().isEmpty()) {
+        } else if (binding.edtPolicyNo.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_policy_no));
             return false;
         } else {
 
             String day;
-            if (binding.day.getText().toString().isEmpty()) {
+            if (binding.day.getText().toString().trim().isEmpty()) {
                 day = "01";
 
             } else {
-                day = binding.day.getText().toString();
-                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                day = binding.day.getText().toString().trim();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
@@ -246,12 +246,12 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             BakriData data = new BakriData(day,
                     binding.spMonth.getSelectedItem().toString(),
                     binding.spYear.getSelectedItem().toString(),
-                    binding.edtTagNo.getText().toString(),
-                    binding.edtBeemaVivran.getText().toString(),
-                    binding.edtPolicyNo.getText().toString(),
-                    binding.edtAveragProduction.getText().toString(),
-                    binding.edtProofdate.getText().toString(),
-                    binding.edtNote.getText().toString());
+                    binding.edtTagNo.getText().toString().trim(),
+                    binding.edtBeemaVivran.getText().toString().trim(),
+                    binding.edtPolicyNo.getText().toString().trim(),
+                    binding.edtAveragProduction.getText().toString().trim(),
+                    binding.edtProofdate.getText().toString().trim(),
+                    binding.edtNote.getText().toString().trim());
 
             data.save();
 
@@ -416,7 +416,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.bakari_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -480,7 +480,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"");
 
         BakriData.deleteAll(BakriData.class);
         TeekaData.deleteAll(TeekaData.class);
@@ -507,7 +507,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         mDatePickerDialog.getdate(getContext(), tv_date);
 
-        im.setTeekadate(tv_date.getText().toString());
+        im.setTeekadate(tv_date.getText().toString().trim());
 
     }
 

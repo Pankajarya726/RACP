@@ -2,13 +2,15 @@
 <resources>
     <string name="map_api_key">AIzaSyAfk3kKTJ71lQfUsbwH_qlfN5Ylclr4b3s</string>
     <string name="app_name">RACP</string>
-    <string name="no_internet">कृपया इंटरनेट कनेक्शन चेक करे</string>
-    <string name="login_title"> पशुधन गतिविधियों की निगरानी के लिए ऐप्प का उपयोग करे </string>
-    <string name="submit">भेजे </string>
-    <string name="check_otp">OTP जाँच करे </string>
-    <string name="enter_otp">OTP दर्ज करे</string>
-    <string name="enter_number">नंबर दर्ज करे </string>
-    <string name="number">फोन नंबर दर्ज करे </string>
+    <string name="no_internet">कृपया इंटरनेट कनेक्शन चेक करें </string>
+    <string name="login_title"> पशुधन गतिविधियों की निगरानी के लिए ऐप्प का उपयोग करें  </string>
+    <string name="submit">सत्यापित करें</string>
+  <!--  <string name="check_otp">OTP जाँच करें </string>-->
+    <string name="otp">ओ टी पी डालें </string>
+    <string name="invalid_otp">ओ टी पी गलत है </string>
+    <string name="enter_otp">ओ टी पी यहाँ लिखें </string>
+    <string name="enter_number">मोबाइल नंबर यहाँ लिखें </string>
+    <string name="number">रजिस्टर्ड  मोबाइल नंबर डालें </string>
     <string name="splash_txt">राजस्थान एग्रीकल्चर कम्पेटिटिवेनेस्स प्रोजेक्ट</string>
     <string name="record2">रिकॉर्ड : </string>
     <string name="report">रिपोर्ट</string>
@@ -22,10 +24,10 @@
     <string name="linsurence_time">बीमा अवधि</string>
     <string name="note">टिप्पणी</string>
     <string name="add_record">नया रिकॉर्ड जोड़े</string>
-    <string name="save">जमा करे</string>
+    <string name="save">जमा करें </string>
     <string name="list_goat">वितरित बकरो का विवरण</string>
     <string name="add_animal_owner">ऐड पशुपालक</string>
-    <string name="add_mtggroup">ऐड M.T.G ग्रुप</string>
+    <string name="add_mtggroup">ऐड एमटीजी ग्रुप</string>
     <string name="dashboard">LLW डैशबोर्ड</string>
     <string name="animal_owner_list">ऐड पशु पालक वितरण</string>
     <string name="add_info">नोटिफिकेशन</string>
@@ -42,12 +44,12 @@
     <string name="filled_from">भरा हुआ प्रपत्र</string>
     
     <string name="tag_no_bakari">बकरी का टैग नंबर</string>
-    <string name="tag_no_bakara">बकरा का टैग नंबर</string>
+    <string name="tag_no_bakara">बकरे का टैग नंबर</string>
     <string name="age">उम्र माह में</string>
     <string name="average_milk_time">औसत दूग्ध उत्पादन प्रतिदिन</string>
     <string name="nasl">नस्ल</string>
-    <string name="physical_proof">भौतिक सत्यापन है या नहीं? चयन करे </string>
-    <string name="in_use_or_not">उपयोग में आ रहा है या नहीं? चयन करे </string>
+    <string name="physical_proof">भौतिक सत्यापन है या नहीं?  </string>
+    <string name="in_use_or_not">उपयोग में आ रहा है या नहीं?  </string>
     <string name="yes">हाँ</string>
     <string name="no">नहीं</string>
     <string name="dana_pani_bartan">दाना पानी बर्तन</string>
@@ -58,14 +60,14 @@
     <string name="cow">गाय</string>
     <string name="bhais">भैंस</string>
     <string name="before_ajola">अजोला से पूर्व</string>
-    <string name="amount_milk_before_ajola">दूध मात्रा(अजोला से पूर्व)</string>
-    <string name="amount_milk_after_ajola">दूध मात्रा(अजोला के पश्चात)</string>
+    <string name="amount_milk_before_ajola">दुग्ध मात्रा(अजोला से पूर्व)</string>
+    <string name="amount_milk_after_ajola">दुग्ध मात्रा(अजोला के पश्चात)</string>
     <string name="fait_percent_before">फैट प्रतिशत (अजोला से पूर्व)</string>
     <string name="fait_percent_after">फैट प्रतिशत (अजोला के पश्चात)</string>
     <string name="after_ajola">अजोला के पश्चात</string>
     <string name="gram_panchayat">ग्राम पंचायत</string>
     <string name="village">ग्राम</string>
-    <string name="mtg_group">MTG ग्रुप</string>
+    <string name="mtg_group">एमटीजी ग्रुप</string>
 
 
 
@@ -86,11 +88,11 @@
     <string name="menu_share">Share</string>
     <string name="menu_send">Send</string>
     <string name="something_went_wrong">Somthing went wrong</string>
-    <string name="selcet_mtg_group">MTG ग्रुप चुने  </string>
+    <string name="selcet_mtg_group">एमटीजी ग्रुप चुने  </string>
 
-    <string name="search_mtg_group">MTG ग्रुप खोजे </string>
-    <string name="selcet_mtg_person">MTG सदस्य चुने ( पशु पालक )</string>
-    <string name="search_mtg_person">MTG सदस्य खोजे ( पशु पालक )</string>
+    <string name="search_mtg_group">एमटीजी ग्रुप खोजे </string>
+    <string name="selcet_mtg_person">एमटीजी सदस्य चुने ( पशु पालक )</string>
+    <string name="search_mtg_person">एमटीजी सदस्य खोजे ( पशु पालक )</string>
     <string name="bakra">बकरा</string>
     <string name="Update">हाँ</string>
     <string name="not_now">अभी नहीं</string>
@@ -101,12 +103,12 @@
     <string name="big">बड़े</string>
     <string name="small">छोटे</string>
     <string name="biomadicel_best_disposel">बायोमेडिकल कचरा निपटान के लिए उपलब्धता</string>
-    <string name="mtg_name">M.T.G. का नाम</string>
+    <string name="mtg_name">एमटीजी का नाम</string>
     <string name="prasikshan_date">प्रशिक्षण दिनांक</string>
     <string name="count_prasiksharthi">प्रशिक्षार्थी की संख्या</string>
     <string name="peoples_name">उपस्थित सदस्यों के नाम</string>
     <string name="activity">गतिविधि</string>
-    <string name="detail_pashupakal">एडॉप्शन करने वाले पशुपालक का</string>
+    <string name="detail_pashupakal">एडॉप्शन करने वाले पशुपालक का </string>
     <string name="name">नाम</string>
     <string name="address">पता</string>
     <string name="mobile">मोबाइल नंबर</string>
@@ -126,9 +128,9 @@
     <string name="after_use_milkkit">क्लीन मिल्क किट के उपयोग के पश्चात</string>
     <string name="before_rotation">रोटेशन के पूर्व स्थिति</string>
     <string name="animal_owner_name">पशुपालक का नाम</string>
-    <string name="mtgname_and_ownerAddress">M.T.G. का नाम </string>
+    <string name="mtgname_and_ownerAddress">एमटीजी का नाम </string>
     <string name="weight">भार किलो ग्राम में</string>
-    <string name="milk_produciton">दूध उत्पादन</string>
+    <string name="milk_produciton">दुग्ध उत्पादन</string>
     <string name="immunization_date">टीकाकरण की दिनांक</string>
     <string name="name_teeka">टीके का नाम</string>
     <string name="ppr">पी.पी.आर</string>
@@ -151,7 +153,7 @@
     <string name="form_2">R.A.C.P. अंतर्गत बकरा विवरण के लाभार्थी M. T. G. सदस्यों के पास उपलब्ध बकरियों का विवरण</string>
     <string name="form_3">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को वितरित बकरी का विवरण</string>
     <string name="form_4">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी के बीमा का विवरण </string>
-    <string name="form_5">विपणन तालिका (M.T.G. सदस्यों के अतिरिक्त बकरी पलको हेतु ) </string>
+    <string name="form_5">विपणन तालिका (M.T.G. सदस्यों के अतिरिक्त बकरी पालको हेतु ) </string>
     <string name="form_6">भार तोलने की मशीन</string>
     <string name="form_7">क्लीन मिल्क किट</string>
     <string name="form_8">कुट्टी मशीन</string>
@@ -160,7 +162,7 @@
     <string name="form_11">फीड सप्लीमेंट</string>
     <string name="form_12">बकरी आवास</string>
     <string name="form_13">बेचने योग्य बकरा / बकरी का विवरण (३ माह से अधिक उम्र के) </string>
-    <string name="form_14">पशुचिकित्सा / शिविर</string>
+    <string name="form_14">पशुचिकित्सा शिविर</string>
     <string name="form_15">M.T.G. प्रशिक्षण</string>
     <string name="form_16">M.T.G. बैठक</string>
     <string name="form_17">एडॉप्शन </string>
@@ -181,7 +183,8 @@
     <string name="invalid_no">गलत मोबाइल नंबर</string>
     <string name="empty_field">यह स्थान भरे</string>
     <string name="pashu_palak_ctg">पशुपालक केटेगरी</string>
-    <string name="ok">ठीक</string>
+    <!--<string name="ok">ठीक</string>-->
+    <string name="ok">ओके</string>
 
     <string name="jamnapari">जमनापारी</string>
     <string name="sirohi">सिरोही</string>
@@ -193,7 +196,7 @@
     <string name="enter_average_milk_production">कृपया औसत दुग्ध उत्पादन प्रतिदिन भरे</string>
     <string name="enter_physical_proof_date">भौतिक सत्यापन दिनांक चुने</string>
     <string name="enter_dateppr">पी पी आर दिनांक चुने</string>
-    <string name="beema_detail">बीमा विवरण</string>
+    <string name="beema_detail">पॉलिसी विवरण</string>
     <string name="policy_no">पॉलिसी नंबर</string>
     <string name="pashu_palak_unit">पशुपालक श्रेणी</string>
     <string name="select_animal_category">पशु श्रेणी चुने</string>
@@ -209,17 +212,17 @@
     <string name="identification_type">पहचान प्रकार</string>
     <string name="identification_no">पहचान संख्या</string>
     <string name="former_type">किसान प्रकार</string>
-    <string name="close">बंद करे</string>
+    <string name="close">बंद करें </string>
     <string name="addmore">जोड़ें</string>
     <string name="select_date_first">कृपया पहले दिनांक चुने</string>
-    <string name="availornot">प्राप्त हुआ या नहीं</string>
+    <string name="availornot">प्राप्त हुआ या नहीं ?</string>
     <string name="date_receipt">प्राप्ति की दिनांक </string>
     <string name="day">दिन</string>
     <string name="list_submitted_from">जमा किये गए फॉर्म की सूची</string>
     <string name="invalid_Date">दिनांक अमान्य</string>
     <string name="select_nasl">नस्ल चुने</string>
-    <string name="enter_beema_detial">पालिसी विवरण भरे</string>
-    <string name="enter_policy_no">पालिसी नंबर भरे</string>
+    <string name="enter_beema_detial">पॉलिसी विवरण भरे</string>
+    <string name="enter_policy_no">पॉलिसी नंबर भरे</string>
     <string name="select_death_condition">मृत्यु की स्थिति चुने</string>
     <string name="enter_date_death">मृत्यु की दिनांक चुने</string>
     <string name="machine_type">मशीन प्रकार</string>
@@ -232,23 +235,23 @@
     <string name="enter_place">शिविर स्थान भरे</string>
     <string name="enter_ayojak_date">शिविर आयोजक दिनांक</string>
     <string name="enter_count">पशुपालको की संख्या भरे</string>
-    <string name="enter_count_big">बड़े पशुओ की संख्या दर्ज करे</string>
-    <string name="enter_count_small">छोटे पशुओ की संख्या दर्ज करे</string>
+    <string name="enter_count_big">बड़े पशुओ की संख्या दर्ज करें </string>
+    <string name="enter_count_small">छोटे पशुओ की संख्या दर्ज करें </string>
     <string name="availebilityornot">बायोमेडिकल बेस्ट की उपलब्धता है या नहीं</string>
     <string name="enter_training_place">प्रशिक्षण स्थान भरे</string>
-    <string name="enter_mtg_name">M.T.G. का नाम दर्ज करे</string>
-    <string name="select_mtg_name">MTG का नाम चुने</string>
+    <string name="enter_mtg_name">एमटीजी का नाम दर्ज करें </string>
+    <string name="select_mtg_name">एमटीजी का नाम चुने</string>
     <string name="district">जिला</string>
     <string name="enter_activity">गतिविधि भरे</string>
-    <string name="enter_name">नाम दर्ज करे</string>
-    <string name="enter_father_name">पिता या पति का नाम दर्ज करे</string>
-    <string name="enter_address">पता दर्ज करे</string>
+    <string name="enter_name">नाम दर्ज करें </string>
+    <string name="enter_father_name">पिता या पति का नाम दर्ज करें </string>
+    <string name="enter_address">पता दर्ज करें </string>
     <string name="select_district">जिला चुने</string>
     <string name="select_vidhansabha">विधानसभा चुने</string>
     <string name="select_tehsil">तहसील चुने</string>
     <string name="select_gramPanchayat">ग्राम पंचायत चुने</string>
     <string name="select_village">ग्राम चुने</string>
-    <string name="enter_mobile">मोबाइल नंबर दर्ज करे</string>
+    <string name="enter_mobile">मोबाइल नंबर दर्ज करें </string>
     <string name="enter_tagno">टैग नंबर भरे</string>
     <string name="enter_date_meeting">बैठक की दिनांक चुने </string>
     <string name="invalid_avail_date">अमान्य प्राप्ति की दिनांक</string>
@@ -257,22 +260,24 @@
     <string name="enter_end_Date">बीमा अवधि समाप्त दिनांक चुने</string>
     <string name="select_animal_type">पशु प्रकार चुने</string>
     <string name="animal_category">पशु श्रेणी</string>
-    <string name="enter_weight">भार दर्ज करे</string>
+    <string name="enter_weight">भार दर्ज करें </string>
     <string name="enter_tagno_bakra">बकरे का टैग नंबर भरे</string>
     <string name="enter_tagno_bakri">बकरी का टैग नंबर भरे</string>
     <string name="enter_tag_projeni">प्रोजिनि का टैग नंबर भरे</string>
-    <string name="enter_test_date">टेस्ट की दिनांक दर्ज करे</string>
+    <string name="enter_test_date">टेस्ट की दिनांक दर्ज करें </string>
     <string name="adult">एडल्ट</string>
     <string name="projeny">प्रोजेनि</string>
     <string name="memni">मेमनी</string>
     <string name="date_of_form_submition">फॉर्म भरने की दिनांक एवं समय</string>
+    <string name="date_submition">दिनांक एवं समय</string>
+    <string name="time_vivran">विवरण</string>
     <string name="dashboard_form">डैशबोर्ड फॉर्म</string>
     <string name="activity_form">एक्टिविटी फॉर्म</string>
     <string name="select_form_type">कृपया फॉर्म प्रकार चुने</string>
     <string name="show_fille_fom">भरा हुआ फॉर्म देखे</string>
     <string name="fill_new_form">नया फॉर्म भरे</string>
-    <string name="is_mtg_member_or_not">MTG सदस्य है या नहीं</string>
-    <string name="avail_for_sale">बेचान योग्य है या नहीं</string>
+    <string name="is_mtg_member_or_not">एमटीजी सदस्य है या नहीं</string>
+    <string name="avail_for_sale">बेचान योग्य है या नहीं ?</string>
     <string name="enter_gram_panchayat">ग्राम पंचायत का नाम भरे</string>
     <string name="enter_village">ग्राम का नाम भरे</string>
     <string name="enter_shivir_place">शिविर स्थल भरे</string>
@@ -280,7 +285,7 @@
     <string name="enter_tehsil">तहसील का नाम भरे</string>
     <string name="enter_vidhansavha">विधानसभा का नाम भरे</string>
     <string name="view_detail">पूरा विवरण देखे</string>
-    <string name="enter_animal_owner_name">पशुपालक का नाम दर्ज करे</string>
+    <string name="enter_animal_owner_name">पशुपालक का नाम दर्ज करें </string>
     <string name="select_identification_type">पहचान प्रकार चुने</string>
     <string name="enter_identification_number">पहचान संख्या भरे</string>
     <string name="select_farmer_type">किसान प्रकार चुने</string>
@@ -299,11 +304,11 @@
   <!-- <string name="dialog_permission_title">Grant Permissions</string>
     <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings</string>
     <string name="go_to_settings">GOTO SETTINGS</string>
-  -->  <string name="mtg_member">MTG सदस्य</string>
+  -->  <string name="mtg_member">एमटीजी सदस्य</string>
     <string name="totle_milk_production">कुल दुग्ध उत्पादन</string>
     <string name="upbhog_amount">उपभोग मात्रा प्रतिदिन</string>
     <string name="avail_amount_for_sale">विक्रय हेतु उपलब्ध मात्रा</string>
-    <string name="form19">बकरी के दुग्ध की सुचना</string>
+    <string name="form19">बकरी के दुग्ध की सूचना </string>
     <string name="PleaseWait">कृपया प्रतीक्षा करें ...</string>
     <string name="getting_your_location">हम आपका स्थान प्राप्त कर रहे हैं</string>
     <string name="please_install_play_service">कृपया पहले प्ले सर्विस इंस्टॉल करें</string>
@@ -321,9 +326,52 @@
     <string name="enter_milk_amount_after_ajola">अजोला के पश्चात दुग्ध मात्रा भरे</string>
     <string name="enter_fait_percent_after">अजोला के पश्चात फैट प्रतिशत भरे</string>
     <string name="enter_fait_percent_before">अजोला से पूर्व फैट प्रतिशत भरे</string>
-    <string name="enter_treainee_count">प्रशिक्षार्थीयो की संख्या दर्ज करे</string>
+    <string name="enter_treainee_count">प्रशिक्षार्थीयो की संख्या दर्ज करें </string>
     <string name="select_pashu_palak_unit">पशुपालक श्रेणी चुने</string>
     <string name="select_result_after_test">थनैला रोग रिजल्ट चुने</string>
     <string name="enter_date_trainging">प्रशिक्षण दिनांक चुने</string>
+    <string name="ajola_is_avail_or_not">अजोला प्राप्त हुआ है या नहीं ?</string>
+    <string name="goat_house_availornot">बकरी आवास प्राप्त हुआ या नहीं ?</string>
+    <string name="bakari_availornot">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को बकरिया प्राप्त हुई या नहीं ?</string>
+    <string name="milkkit_availornot">क्लीन मिल्क किट प्राप्त  हुई या नहीं ?</string>
+    <string name="dana_pani_bartan_availornot">दाना पानी बर्तन प्राप्त  हुआ या नहीं ?</string>
+    <string name="feed_suppliment_availornot">फीड सप्लीमेंट प्राप्त  हुआ या नहीं ?</string>
+    <string name="kuttimachine_availornot">कुट्टी मशीन प्राप्त हुई या नहीं ?</string>
+    <string name="weighing_machine_availornot">भार तोलने की मशीन प्राप्त हुई या नहीं ?</string>
+    <string name="mtg_group_not_found">एमटीजी ग्रुप नहीं मिला</string>
+    <string name="bakare_availornot">R.A.C.P. के अंतर्गत वितरित बकरे प्राप्त हुए या नहीं ?</string>
+    <string name="bakariya_availornot">R.A.C.P. के अंतर्गत बकरा विवरण के लाभार्थी M.T.G. सदस्यों को बकरिया प्राप्त हुई या नहीं ?</string>
+    <string name="beema_availornot">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>
+    <string name="search_form">प्रपत्र खोजे</string>
+    <string name="alert">सतर्क</string>
+    <string name="invlid_number">मोबाइल नंबर गलत है</string>
+    <string name="vipran_talika">विपणन तालिका</string>
+
+    <string name="januari">जनवरी</string>
+    <string name="fabrary">फरवरी</string>
+    <string name="march">मार्च</string>
+    <string name="april">अप्रैल</string>
+    <string name="may">मई</string>
+    <string name="june">जून</string>
+    <string name="juli">जुलाई</string>
+    <string name="augost">अगस्त</string>
+    <string name="september">सितम्बर</string>
+    <string name="octuber">अक्टूबर</string>
+    <string name="november">नवम्बर</string>
+    <string name="disamber">दिसंबर</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

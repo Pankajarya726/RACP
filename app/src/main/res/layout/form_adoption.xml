@@ -10,10 +10,9 @@
         tools:context=".ui.Form.adoption.Adoption">
 
         <ScrollView
-            android:scrollbarThumbVertical="@null"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            >
+            android:scrollbarThumbVertical="@null">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -36,13 +35,12 @@
 
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                   android:layout_toLeftOf="@+id/tv_date"
                     android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp"
                     android:text="@string/date"
+                    android:layout_toLeftOf="@+id/tv_date"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
-
-
 
 
                 <TextView
@@ -51,10 +49,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
-
 
 
                 <TextView
@@ -65,7 +61,6 @@
                     android:layout_toRightOf="@+id/txt"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
-
 
 
                 <LinearLayout
@@ -91,11 +86,11 @@
                         android:id="@+id/edt_activity"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
-                        android:inputType="text"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="text"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -125,12 +120,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginLeft="20dp"
-                        android:inputType="textPersonName"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -150,11 +145,11 @@
                         android:layout_height="35dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:layout_marginRight="20dp"
-                        android:inputType="textPersonName"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -171,13 +166,13 @@
                         android:id="@+id/edt_address"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:inputType="textPostalAddress"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -198,13 +193,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:hint="@string/district"
-                        android:drawableRight="@drawable/spinner"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:drawableRight="@drawable/spinner"
+                        android:gravity="center_vertical"
+                        android:hint="@string/district"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -216,6 +211,7 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab"
                         android:textStyle="bold" />
+
                     <TextView
                         android:id="@+id/edt_vidhansabha"
                         android:layout_width="match_parent"
@@ -223,13 +219,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:hint="@string/vidhansabha"
-                        android:drawableRight="@drawable/spinner"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:drawableRight="@drawable/spinner"
+                        android:gravity="center_vertical"
+                        android:hint="@string/vidhansabha"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
 
                     <TextView
@@ -249,14 +245,14 @@
                         android:layout_height="35dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:hint="@string/tehsil"
-                        android:drawableRight="@drawable/spinner"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:drawableRight="@drawable/spinner"
+                        android:gravity="center_vertical"
+                        android:hint="@string/tehsil"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -276,13 +272,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:hint="@string/gram_panchayat"
-                        android:drawableRight="@drawable/spinner"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:drawableRight="@drawable/spinner"
+                        android:gravity="center_vertical"
+                        android:hint="@string/gram_panchayat"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
 
                     <TextView
@@ -303,14 +299,13 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:gravity="center_vertical"
-                        android:textColor="@color/black"
-                        android:hint="@string/village"
-                        android:drawableRight="@drawable/spinner"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
-
+                        android:drawableRight="@drawable/spinner"
+                        android:gravity="center_vertical"
+                        android:hint="@string/village"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
 
                     <TextView
@@ -328,18 +323,15 @@
                         android:id="@+id/edt_mobile"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:digits="0123456789"
-                        android:textColor="@color/black"
                         android:layout_marginLeft="20dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
-
-
-
+                        android:digits="0123456789"
+                        android:inputType="phone"
+                        android:maxLength="10"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -356,11 +348,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
                         android:layout_marginTop="10dp"
-                        android:inputType="textMultiLine"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:gravity="start"
-                        android:padding="10dp" />
+                        android:inputType="textMultiLine"
+                        android:padding="10dp"
+                        android:textColor="@color/black" />
 
 
                 </LinearLayout>
@@ -371,13 +363,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableRight="@drawable/_next"
                     android:padding="10dp"
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone"
-                    android:drawableRight="@drawable/_next"
-                    android:layout_marginBottom="15dp"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/privious"
@@ -385,13 +377,13 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"
                     android:padding="10dp"
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone"
-                    android:layout_marginBottom="15dp"
-                    android:drawableLeft="@drawable/_privious"/>
+                    android:visibility="gone" />
 
 
                 <LinearLayout

@@ -56,11 +56,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
         if (table_id !=0){
             getFormRecordData();
-        }else {
-
-            ShowSelectionDialog();
         }
-
 
         DataChikitsha.deleteAll(DataChikitsha.class);
         binding.txtno.setText(String.valueOf(recordNo));
@@ -319,9 +315,8 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
                 JsonObject jsonObject = new JsonObject();
 
                 DataChikitsha detail = detailList.get(i);
-
                 jsonObject.addProperty("shivir_sthal", detail.getPlace());
-                jsonObject.addProperty("pashu_shivir_aayojan_date", detail.getDate());
+                jsonObject.addProperty("pashu_shivir_aayojan_date", mDatePickerDialog.changeFormate(detail.getDate()));
                 jsonObject.addProperty("present_mtgmember_number", detail.getCount());
                 jsonObject.addProperty("bade_pashu", detail.getBig());
                 jsonObject.addProperty("chote_pashu", detail.getSmall());
@@ -346,7 +341,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
 
         record_count =1;
         recordNo =1;
@@ -454,6 +449,8 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
         }
 
     }
+
+
     private void ClearView() {
         binding.edtNote.setText("");
         binding.edtSmall.setText("");

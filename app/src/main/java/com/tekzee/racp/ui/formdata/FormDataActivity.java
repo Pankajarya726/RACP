@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
@@ -36,27 +36,120 @@ import com.tekzee.racp.ui.formdata.model.Datum;
 import com.tekzee.racp.ui.formdata.model.FormDataResponse;
 import com.tekzee.racp.ui.home.HomeActivity;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FormDataActivity extends MvpActivity <FormDataPresenter> implements FormDataView {
-    List <Datum> datumList = new ArrayList <>();
+    private static final String TAG = FormDataActivity.class.getSimpleName();
+    private List <Datum> datumList = new ArrayList <>();
     private ActivityFormDataBinding binding;
     private int form_id;
+    private TextView titleVivran;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_form_data);
-
-
         form_id = getIntent().getIntExtra("form_id", 0);
+        titleVivran = findViewById(R.id.titleVivran);
+        Log.view("form data activity", "" + form_id);
 
-        Log.e("form data activity", "" + form_id);
+        switch (form_id) {
+            case 1:
+                getSupportActionBar().setTitle(R.string.form_1);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
 
-        getSupportActionBar().setTitle(R.string.list_submitted_from);
+            case 2:
+                getSupportActionBar().setTitle(R.string.form_2);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 3:
+                getSupportActionBar().setTitle(R.string.form_3);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 4:
+                getSupportActionBar().setTitle(R.string.form_4);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 6:
+                getSupportActionBar().setTitle(R.string.form_6);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 7:
+                getSupportActionBar().setTitle(R.string.form_7);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 8:
+                getSupportActionBar().setTitle(R.string.form_8);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 9:
+                getSupportActionBar().setTitle(R.string.form_9);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 10:
+                getSupportActionBar().setTitle(R.string.form_10);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 11:
+                getSupportActionBar().setTitle(R.string.form_11);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 12:
+                getSupportActionBar().setTitle(R.string.form_12);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+
+            case 14:
+                getSupportActionBar().setTitle(R.string.form_14);
+                titleVivran.setText(getResources().getString(R.string.shivir_place));
+                break;
+
+            case 15:
+                getSupportActionBar().setTitle(R.string.form_15);
+                titleVivran.setText(getResources().getString(R.string.mtg_name));
+                break;
+
+            case 16:
+                getSupportActionBar().setTitle(R.string.form_16);
+                titleVivran.setText(getResources().getString(R.string.mtg_name));
+                break;
+
+            case 17:
+                getSupportActionBar().setTitle(R.string.form_17);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+            case 18:
+                getSupportActionBar().setTitle(R.string.form_18);
+                titleVivran.setText(getResources().getString(R.string.tag_no_bakara));
+                break;
+            case 19:
+                getSupportActionBar().setTitle(R.string.form_5);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+            case 20:
+                getSupportActionBar().setTitle(R.string.form19);
+                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                break;
+
+
+        }
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
@@ -76,13 +169,19 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        Log.view(TAG, "back pressed");
+        //startActivity(new Intent(this,HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
+        finish();
+    }
+
+    @Override
     protected FormDataPresenter createPresenter() {
         return new FormDataPresenter(this);
     }
 
     private void loadList() {
-
-
         JsonObject input = new JsonObject();
         input.addProperty("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
         input.addProperty("form_id", form_id);
@@ -111,17 +210,17 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
 
         datumList.addAll(successResult.getData());
 
-        Log.e("tag", "list size" + datumList.size());
+        Log.view("tag", "list size" + datumList.size());
 
 
         for (int i = 0; i < datumList.size(); i++) {
 
             Datum datum = datumList.get(i);
 
-            Log.e("tagno  = ", "" + datum.getTagNo());
-            Log.e("receipt date  = ", "" + datum.getDateReceipt());
-            Log.e("table id  = ", "" + datum.getTableId());
-            Log.e("table id  = ", "" + datum.getTableId());
+            com.tekzee.racp.utils.Log.view("tagno  = ", "" + datum.getTagNo());
+            Log.view("receipt date  = ", "" + datum.getDateReceipt());
+            Log.view("table id  = ", "" + datum.getTableId());
+
         }
 
         setUpRecyclerView();

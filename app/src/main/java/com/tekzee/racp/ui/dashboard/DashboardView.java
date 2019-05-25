@@ -2,6 +2,7 @@ package com.tekzee.racp.ui.dashboard;
 
 import android.content.Context;
 
+import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.dashboard.model.DashboardDataResponse;
@@ -18,4 +19,6 @@ public interface DashboardView extends BaseView {
     void onNoFailure(CommonResult commonResult);
 
     void onItemSelected(int adapterPosition, List<Homemenu> homemenuList);
+
+    void onOptionSelected(int menuId,GramPanchayat model);
 }

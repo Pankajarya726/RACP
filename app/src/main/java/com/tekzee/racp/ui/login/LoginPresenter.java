@@ -3,14 +3,13 @@ package com.tekzee.racp.ui.login;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.ui.Form.kutti_machine.KuttiMachineView;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.login.model.RequestOtpResponse;
 import com.tekzee.racp.ui.login.model.VerifyOtpResponse;
 import com.tekzee.racp.utils.NetworkUtils;
 
-public class LoginPresenter extends BasePresenter<LoginView> {
+public class LoginPresenter extends BasePresenter <LoginView> {
 
 
     public LoginPresenter(LoginView view) {
@@ -20,21 +19,19 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void requestOtp(JsonObject input) {
         mvpView.hideSoftKeyboard();
-        mvpView.showProgressDialog("Please wait...",false);
+        mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
-        if(!NetworkUtils.isNetworkConnected(mvpView.getContext()))
-        {
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
-        }else {
+        } else {
             addSubscription(apiStores.requestOtp(input), new ApiCallback <RequestOtpResponse>() {
                 @Override
                 public void onSuccess(RequestOtpResponse successResult) {
-                    if(successResult.isSuccess())
-                    {
+                    if (successResult.isSuccess()) {
                         mvpView.onRequestOtpSuccess(successResult);
-                    }else {
-                       mvpView.onNoInternetConnectivity(new CommonResult(false,successResult.getMessage()));
+                    } else {
+                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
                     }
                 }
 
@@ -55,21 +52,19 @@ public class LoginPresenter extends BasePresenter<LoginView> {
 
     public void verifyOtp(JsonObject jsonObject) {
         mvpView.hideSoftKeyboard();
-        mvpView.showProgressDialog("Please wait...",false);
-       // mvpView.hideSoftKeyboard();
-        if(!NetworkUtils.isNetworkConnected(mvpView.getContext()))
-        {
+        mvpView.showProgressDialog("Please wait...", false);
+        // mvpView.hideSoftKeyboard();
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
             mvpView.hideProgressDialog();
             mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
-        }else {
+        } else {
             addSubscription(apiStores.verifyOtp(jsonObject), new ApiCallback <VerifyOtpResponse>() {
                 @Override
                 public void onSuccess(VerifyOtpResponse successResult) {
-                    if(successResult.isSuccess())
-                    {
+                    if (successResult.isSuccess()) {
                         mvpView.onVerifyOtpSuccess(successResult);
-                    }else {
-                       mvpView.onNoInternetConnectivity(new CommonResult(false,successResult.getMessage()));
+                    } else {
+                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
                     }
                 }
 
@@ -86,7 +81,6 @@ public class LoginPresenter extends BasePresenter<LoginView> {
         }
 
     }
-
 
 
 }

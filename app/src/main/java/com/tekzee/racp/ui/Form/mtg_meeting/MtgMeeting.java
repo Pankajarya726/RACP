@@ -64,7 +64,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            ShowSelectionDialog();
+            //ShowSelectionDialog();
         }
 
 
@@ -166,7 +166,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
 
                 jsonObject.addProperty("mtggroup_id", mtg_id);
-                jsonObject.addProperty("meeting_date", binding.edtMeetingdate.getText().toString());
+                jsonObject.addProperty("meeting_date", mDatePickerDialog.changeFormate(binding.edtMeetingdate.getText().toString().trim()));
                 jsonObject.addProperty("pashupalak_id", pashupalak_id);
                 jsonObject.addProperty("note", binding.edtNote.getText().toString());
                 jsonArray.add(jsonObject);
@@ -273,7 +273,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
 
 
         binding.edtNote.setText("");
@@ -291,7 +291,6 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtMeetingdate.setClickable(false);
         binding.edtMtgname.setClickable(false);
         binding.edtNameMembers.setClickable(false);
-        binding.edtNote.setClickable(false);
         binding.edtNote.setEnabled(false);
 
         if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
@@ -303,15 +302,14 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtMeetingdate.setText(String.valueOf(successResult.getData().getMeetingDate()));
         binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
 
-        String data  = String.valueOf(successResult.getData().getPashupalakName());
-
-        String[] data1 = data.split(",");
-        for(int i= 0 ;i<data1.length;i++){
-            binding.edtNameMembers.append(data1[i] +"\n");
+        if (!String.valueOf(successResult.getData().getPashupalakName()).equalsIgnoreCase("null")) {
+            String data = String.valueOf(successResult.getData().getPashupalakName());
+            String[] data1 = data.split(",");
+            for (int i = 0; i < data1.length; i++) {
+                binding.edtNameMembers.append(data1[i] + "\n");
+            }
         }
         binding.tvSave.setVisibility(View.GONE);
-
-
     }
 
     private void getFormRecordData() {

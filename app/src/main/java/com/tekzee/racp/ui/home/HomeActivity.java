@@ -31,7 +31,6 @@ import com.tekzee.racp.ui.add_animal_owner.AddOwnerActivity;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.dashboard.DashboardFragment;
-import com.tekzee.racp.ui.formselection.ListFormActivity;
 import com.tekzee.racp.ui.home.model.SideMenuResponse;
 import com.tekzee.racp.ui.home.model.Sidemenu;
 import com.tekzee.racp.ui.info.InfoActivity;
@@ -182,7 +181,6 @@ public class HomeActivity extends MvpActivity <homePresenter>
             case 2:
                 startActivity(new Intent(HomeActivity.this, SelectMtgActivity.class));
                 drawer.closeDrawers();
-
                 break;
             case 3:
                 Intent intent = new Intent(HomeActivity.this, SelectMtgActivity.class);
@@ -196,7 +194,9 @@ public class HomeActivity extends MvpActivity <homePresenter>
                 break;
 
             case 5:
-                startActivity(new Intent(HomeActivity.this, AddMtgActivity.class));
+                startActivity(new Intent(HomeActivity.this, Login.class));
+                Utility.removepreference(getContext());
+                finish();
                 drawer.closeDrawers();
                 break;
 
@@ -215,7 +215,8 @@ public class HomeActivity extends MvpActivity <homePresenter>
 
     private void setHeaderData(ImageView image_profile, TextView tv_name, TextView tv_mobile) {
 
-        GlideModuleConstant.setCircleImage(image_profile, this, "");
+        com.tekzee.racp.utils.Log.view(TAG,Utility.getSharedPreferences(getContext(),Constant.image));
+        GlideModuleConstant.setCircleImage(image_profile, this, Utility.getSharedPreferences(getContext(),Constant.image));
         tv_mobile.setText(Utility.getSharedPreferences(this, Constant.Mobile));
         tv_name.setText(Utility.getSharedPreferences(this, Constant.UserName));
 
@@ -262,6 +263,8 @@ public class HomeActivity extends MvpActivity <homePresenter>
 
     @Override
     public void onSuccess(SideMenuResponse successResult) {
+        Utility.setSharedPreference(getContext(),Constant.image,successResult.getData().getProfile().getProfileImage());
+
         sqliteDB.clearSideMenu();
         sidemenu = new ArrayList <>();
         sidemenu.removeAll(successResult.getData().getSidemenu());

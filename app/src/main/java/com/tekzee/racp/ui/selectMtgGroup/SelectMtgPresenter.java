@@ -1,17 +1,13 @@
 package com.tekzee.racp.ui.selectMtgGroup;
 
-import android.util.Log;
-
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
 import com.tekzee.racp.sqlite.SqliteDB;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
-import com.tekzee.racp.ui.selectMtgGroup.model.Data;
 import com.tekzee.racp.ui.selectMtgGroup.model.GetMtgResponse;
-import com.tekzee.racp.ui.selectMtgPreson.model.GetMtgMemberResponse;
-import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.NetworkUtils;
 
 import org.json.JSONArray;
@@ -19,6 +15,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
+
+    private static final String TAG = SelectMtgPresenter.class.getSimpleName();
+
     public SelectMtgPresenter(SelectMtgActivity selectMtgActivity) {
         attachView(selectMtgActivity);
     }
@@ -35,18 +34,21 @@ public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
             addSubscription(apiStores.getMTGGroupByUserId(id), new ApiCallback <GetMtgResponse>() {
                 @Override
                 public void onSuccess(GetMtgResponse successResult) {
+                    Log.view(TAG,successResult.getMessage());
                     if(successResult.getSuccess())
                     {
                         mvpView.onSuccess(successResult);
 
                     }else {
+                        Log.view("tag",successResult.getMessage());
                         mvpView.onNoInternetConnectivity(new CommonResult(false,successResult.getMessage()));
                     }
                 }
 
                 @Override
                 public void onFailure(CommonResult commonResult) {
-                    mvpView.onNoInternetConnectivity(commonResult);
+
+                    mvpView.onNoInternetConnectivity(new CommonResult(false,mvpView.getContext().getString(R.string.mtg_group_not_found)));
                 }
 
                 @Override

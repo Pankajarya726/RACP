@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -58,7 +57,6 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
             SpinnerData();
         }
 
-
         DataAjola.deleteAll(DataAjola.class);
 
         binding.tvDate.setText(mDatePickerDialog.showDate());
@@ -71,14 +69,12 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         binding.tvAddRecord.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
         binding.layoutFaitpercent.setVisibility(View.GONE);
-
     }
 
     @Override
     protected AjolaPresenter createPresenter() {
         return new AjolaPresenter(this);
     }
-
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -155,6 +151,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
                 } else {
                     binding.checkYes.setChecked(false);
+                    binding.layoutFaitpercent.setVisibility(View.GONE);
                 }
                 break;
 
@@ -196,11 +193,9 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         } else if (binding.checkYes.isChecked() && binding.edtFaitBefore.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_fait_percent_before));
             return false;
-
         } else if (binding.checkYes.isChecked() && binding.edtFaitAfter.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_fait_percent_after));
             return false;
-
         } else {
 
             String day;
@@ -255,7 +250,6 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
             details.save();
 
-            Toast.makeText(this, "record added", Toast.LENGTH_LONG).show();
             Log.e(tag, "recoud count" + DataAjola.count(DataAjola.class));
 
             recordNo = recordNo + 1;
@@ -527,7 +521,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.ajola_is_avail_or_not), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -593,7 +587,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
         //Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this,"  ");
 
         DataAjola.deleteAll(DataAjola.class);
 

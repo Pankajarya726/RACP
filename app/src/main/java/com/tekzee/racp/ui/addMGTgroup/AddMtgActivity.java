@@ -110,7 +110,7 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
         binding.gram.setText("");
         binding.gramPanchayat.setText("");
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this,"  ");
 
     }
 

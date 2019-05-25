@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.tekzee.racp.R;
 import com.tekzee.racp.databinding.ActivityListFormBinding;
@@ -16,8 +15,8 @@ import com.tekzee.racp.ui.Form.adoption.Adoption;
 import com.tekzee.racp.ui.Form.ajola.AjolaActivity;
 import com.tekzee.racp.ui.Form.bachne_yogya_bakara_bakari.ForSale;
 import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
-import com.tekzee.racp.ui.Form.bakari_vitran.BakriVitranActivity;
 import com.tekzee.racp.ui.Form.bakari_awas.BakariAwas;
+import com.tekzee.racp.ui.Form.bakari_vitran.BakriVitranActivity;
 import com.tekzee.racp.ui.Form.beema_detail.BeemaDeatailActivity;
 import com.tekzee.racp.ui.Form.clean_milkkit.MilkKitActivity;
 import com.tekzee.racp.ui.Form.dana_pani_bartan.DanaPaniBartan;
@@ -35,6 +34,7 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
 import com.tekzee.racp.ui.formselection.model.FormData;
 import com.tekzee.racp.ui.formselection.model.GetAllFormResponse;
+import com.tekzee.racp.utils.Dialogs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,9 +59,13 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
         value = getIntent().getIntExtra("filled_form",0);
 
-        mvpPresenter.getAllForm();
+        if (value!=0){
+            mvpPresenter.getAllForm1();
+        }else {
 
-        if (formData.size()>0){
+            mvpPresenter.getAllForm();
+        }
+
         binding.edtSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,int after) {
@@ -80,7 +84,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
             }
         });}
 
-    }
+
 
     public boolean onOptionsItemSelected(MenuItem item) {
         // handle arrow click here
@@ -103,6 +107,13 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
         mAdapter.filterList(filteredList);
     }
+
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        finish();
+    }
+
 
     @Override
     protected ListFormPresenter createPresenter() {
@@ -304,13 +315,14 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
     @Override
     public void onGetFormSuccess(GetAllFormResponse successResult) {
 
-        Toast.makeText(getContext(),successResult.getMessage(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(),successResult.getMessage(),Toast.LENGTH_SHORT).show();
         formData.addAll(successResult.getData());
         setUpRecyclerView();
     }
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
 
     }
 }

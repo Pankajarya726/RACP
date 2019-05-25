@@ -3,52 +3,74 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
-<RelativeLayout
-
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="20dp"
-    tools:context=".ui.formdata.FormDataActivity">
-
-
-
     <LinearLayout
-        android:id="@+id/linearlayout"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        tools:ignore="MissingDefaultResource">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tagNo"
+
+        <!-- <LinearLayout
+             android:id="@+id/linearlayout"
+             android:layout_width="match_parent"
+             android:layout_height="50dp"
+             tools:ignore="MissingDefaultResource">
+
+             <TextView
+                 android:id="@+id/tagNo"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent"
+                 android:layout_marginRight="25dp"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:text="@string/date_of_form_submition"
+                 android:textColor="@color/colorPrimary"
+                 android:textSize="25dp" />
+
+             <TextView
+                 android:id="@+id/date_receipt"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:gravity="center"
+                 android:paddingHorizontal="10dp"
+                 android:textColor="@color/colorPrimary"
+                 android:textSize="25dp" />
+         </LinearLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:weightSum="2"
+            tools:ignore="MissingDefaultResource">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="1"
+                android:text="@string/date_submition"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp" />
+
+
+            <TextView
+                android:id="@+id/titleVivran"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/time_vivran"
+                android:textColor="@color/colorPrimary"
+                android:textSize="25dp" />
+
+        </LinearLayout>
+
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginRight="25dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="@string/date_of_form_submition"
-            android:textColor="@color/colorPrimary"
-            android:textSize="25dp" />
+            android:scrollbarThumbVertical="@null" />
 
-        <TextView
-            android:id="@+id/date_receipt"
-            android:layout_width="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:textSize="25dp"
-            android:gravity="center"
-            android:textColor="@color/colorPrimary"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
     </LinearLayout>
-
-
-
-    <android.support.v7.widget.RecyclerView
-       android:layout_below="@+id/linearlayout"
-        android:id="@+id/recycler_list"
-        android:scrollbarThumbVertical="@null"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-
-</RelativeLayout>
 </layout>

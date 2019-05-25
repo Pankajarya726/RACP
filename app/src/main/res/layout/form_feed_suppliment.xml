@@ -49,6 +49,7 @@
                     android:textSize="@dimen/login_title_size" />
                 <TextView
                     android:text="@string/date"
+                    android:layout_marginRight="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_toLeftOf="@+id/tv_date"
@@ -64,7 +65,6 @@
                     android:layout_below="@+id/txt"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="15dp"
-
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
                     android:padding="20dp">

@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -27,7 +26,6 @@ import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -458,7 +456,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             }
 
 
-            Toast.makeText(this, "record added", Toast.LENGTH_LONG).show();
 
             recordNo = recordNo + 1;
             record_count = record_count + 1;
@@ -819,7 +816,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
         Dialogs.showColorDialog(getContext(), commonResult.getMessage());
-        Toast.makeText(getContext(), commonResult.getMessage(), Toast.LENGTH_SHORT).show();
 
     }
 
@@ -853,7 +849,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
     private void ShowDialog() {
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.weighing_machine_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 
@@ -861,18 +857,17 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
             @Override
             public void onNoClick() {
-                try {
-                    JSONObject jsonObject = new JSONObject();
-                    jsonObject.put("status_receipt", 0);
-                    jsonObject.put("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
-                    jsonObject.put("form_id", 6);
-                    jsonObject.put("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
-                    jsonObject.put("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+                JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("status_receipt", 0);
+                jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.USER_ID));
+                jsonObject.addProperty("form_id", 6);
+                jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
+                jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
+                JsonArray jsonElements = new JsonArray();
+                jsonObject.add("data",jsonElements);
+               // mvpPresenter.saveForm(jsonObject);
+               // mvpPresenter.saveForm(jsonObject);
 
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
                 finish();
             }
         });
@@ -917,7 +912,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                 DataWeighitngMachine.deleteAll(DataWeighitngMachine.class);
                 finish();
             }
-        });
+        },"  ");
 
         record_count = 1;
         recordNo = 1;

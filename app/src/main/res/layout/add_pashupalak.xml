@@ -37,6 +37,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:maxLength="40"
                     android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp"
@@ -65,6 +66,8 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
                     android:layout_weight="1"
+                    android:maxLength="40"
+
                     android:inputType="textPersonName"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
@@ -89,10 +92,15 @@
                 <EditText
                     android:id="@+id/edt_address"
                     android:layout_width="0dp"
-                    android:layout_height="45dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="top|left"
                     android:layout_marginLeft="20dp"
+                    android:inputType="textMultiLine"
+                    android:lines="8"
+                    android:maxHeight="70dp"
+                    android:maxLines="30"
                     android:layout_weight="1"
-                    android:inputType="textPostalAddress"
+                    android:minLines="4"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
 
@@ -122,6 +130,7 @@
                     android:layout_width="0dp"
                     android:layout_height="45dp"
                     android:layout_marginLeft="20dp"
+
                     android:layout_weight="1"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />
@@ -179,8 +188,8 @@
                     android:id="@+id/edt_identificationNo"
                     android:layout_width="0dp"
                     android:layout_height="45dp"
-                    android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
                     android:layout_marginLeft="20dp"
+                    android:maxLength="20"
                     android:layout_weight="1"
                     android:background="@drawable/edit_theme"
                     android:paddingHorizontal="10dp" />

@@ -45,6 +45,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:text="@string/date"
+                    android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/tv_date"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />

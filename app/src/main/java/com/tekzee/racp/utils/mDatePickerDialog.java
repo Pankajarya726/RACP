@@ -9,7 +9,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.widget.TextView;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -22,7 +21,7 @@ public class mDatePickerDialog extends DialogFragment {
 
         final TextView tv = textView;
         final android.app.DatePickerDialog fromDatePickerDialog;
-        final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        final SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
 
         final Calendar newCalendar = Calendar.getInstance();
         fromDatePickerDialog = new android.app.DatePickerDialog(context, new android.app.DatePickerDialog.OnDateSetListener() {
@@ -46,7 +45,7 @@ public class mDatePickerDialog extends DialogFragment {
     public static String showDate(){
 
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat mdformat = new SimpleDateFormat("YYYY-MM-dd");
+        SimpleDateFormat mdformat = new SimpleDateFormat("dd-MM-YYYY");
         String strDate =mdformat.format(calendar.getTime());
         return strDate;
 
@@ -109,8 +108,11 @@ public class mDatePickerDialog extends DialogFragment {
         return new DatePickerDialog(getActivity(), (DatePickerDialog.OnDateSetListener) getActivity(), year, month, day);
     }
 
-
-
-
+    public static String changeFormate(String Date){
+        String newDate = "";
+        String[] date = Date.split("-");
+        newDate = date[2]+"-"+date[1]+"-"+date[0];
+        return newDate;
+    }
 
 }

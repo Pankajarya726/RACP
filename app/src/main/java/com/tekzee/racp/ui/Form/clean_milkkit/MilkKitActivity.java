@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -374,7 +373,6 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
             return false;
         } else if (binding.edtTestDate.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_test_date));
-            Toast.makeText(this, getString(R.string.test_Date), Toast.LENGTH_SHORT).show();
             return false;
         } else if (!binding.checkPossitive.isChecked() && !binding.checkNegative.isChecked()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_result_after_test));
@@ -447,7 +445,6 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                     binding.edtNote.getText().toString());
             details.save();
 
-            Toast.makeText(this, "record added", Toast.LENGTH_LONG).show();
             Log.e(tag, "recoud count" + DataCleanMilkKit.count(DataCleanMilkKit.class));
 
             recordNo = recordNo + 1;
@@ -531,7 +528,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
 
         DataCleanMilkKit.deleteAll(DataCleanMilkKit.class);
 
@@ -600,7 +597,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
 
 
-        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.availornot), new Dialogs.DialogClickListner() {
+        Dialogs.ShowSelectionDialog(getContext(), getString(R.string.milkkit_availornot), new Dialogs.DialogClickListner() {
             @Override
             public void onOkClick() {
 

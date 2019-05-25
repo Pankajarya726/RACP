@@ -34,7 +34,7 @@ tools:ignore="MissingDefaultResource" >
         android:text="@string/view_detail"
         android:layout_toRightOf="@+id/view1"
         android:textColor="@color/black"
-        android:gravity="center"
+        android:gravity="center_vertical"
         android:layout_height="match_parent"
         android:drawableRight="@drawable/arrow_right"
         />

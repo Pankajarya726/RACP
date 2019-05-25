@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -65,7 +64,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            ShowSelectionDialog();
+          //  ShowSelectionDialog();
         }
 
 
@@ -479,9 +478,8 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this);
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this," ");
         DataAdoption.deleteAll(DataAdoption.class);
 
         record_count = 1;

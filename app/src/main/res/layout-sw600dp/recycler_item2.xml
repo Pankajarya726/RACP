@@ -1,49 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-<android.support.v7.widget.CardView
-android:layout_marginTop="3dp"
-android:elevation="5dp"
-xmlns:tools="http://schemas.android.com/tools"
-android:orientation="horizontal"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="50dp"
-tools:ignore="MissingDefaultResource" >
-
-<RelativeLayout
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-    <TextView
-        android:id="@+id/tagNo"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="3dp"
+    android:elevation="5dp"
+    android:minHeight="50dp"
+    tools:ignore="MissingDefaultResource">
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_toLeftOf="@+id/view1"
-        android:textSize="@dimen/tv_size_medium_tab"
-        android:textColor="@color/black"
-        android:layout_marginRight="25dp"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical"
+        android:weightSum="2"
+        tools:ignore="MissingDefaultResource">
 
-    <TextView
-        android:id="@+id/date_receipt"
-        android:layout_width="match_parent"
-        android:paddingHorizontal="10dp"
-        android:textSize="@dimen/tv_size_medium_tab"
-        android:autoLink="all"
-        android:text="@string/view_detail"
-        android:layout_toRightOf="@+id/view1"
-        android:textColor="@color/black"
-        android:gravity="center"
-        android:layout_height="match_parent"
-        android:drawableRight="@drawable/arrow_right"
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-    <View
-        android:id="@+id/view1"
-        android:layout_centerHorizontal="true"
-        android:layout_width="0dp"
-        android:layout_height="0dp"></View>
 
-</RelativeLayout>
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/date_submition"
+                android:textColor="@color/black"
+                android:textSize="@dimen/tv_size_medium_tab" />
+
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="(time)"
+                android:textColor="@color/black"
+                android:textSize="@dimen/tv_size_small" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/dateReceipt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableRight="@drawable/arrow_right"
+            android:paddingRight="15dp"
+            android:text="@string/time_vivran"
+            android:textColor="@color/black"
+            android:textSize="@dimen/tv_size_medium_tab" />
+
+    </LinearLayout>
+
+
+    <!--  <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <TextView
+              android:id="@+id/tagNo"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_marginRight="25dp"
+              android:layout_toLeftOf="@+id/view1"
+              android:gravity="center"
+              android:textColor="@color/black"
+              android:textSize="@dimen/tv_size_medium_tab" />
+
+          <TextView
+              android:id="@+id/date_receipt"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_toRightOf="@+id/view1"
+              android:autoLink="all"
+              android:drawableRight="@drawable/arrow_right"
+              android:gravity="center_vertical"
+              android:paddingHorizontal="10dp"
+              android:text="@string/view_detail"
+              android:textColor="@color/black"
+              android:textSize="@dimen/tv_size_medium_tab" />
+
+          <View
+              android:id="@+id/view1"
+              android:layout_width="0dp"
+              android:layout_height="0dp"
+              android:layout_centerHorizontal="true"></View>
+
+      </RelativeLayout>-->
 </android.support.v7.widget.CardView>

@@ -12,7 +12,6 @@ import com.tekzee.racp.R;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TeekaAdapter extends RecyclerView.Adapter <TeekaAdapter.MyViewHolder> {
@@ -48,7 +47,7 @@ public class TeekaAdapter extends RecyclerView.Adapter <TeekaAdapter.MyViewHolde
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, int i) {
         final Immunization data = immunizations.get(i);
         myViewHolder.tv_name.setText(data.getTeekaname());
-        myViewHolder.tv_date.setText(data.getTeekadate());
+        myViewHolder.tv_date.setText(mDatePickerDialog.changeFormate(data.getTeekadate()));
         myViewHolder.tv_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

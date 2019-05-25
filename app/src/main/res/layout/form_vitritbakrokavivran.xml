@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
       <ScrollView
             android:scrollbars="none"
             android:paddingLeft="20dp"
@@ -37,6 +35,7 @@
                 <TextView
                     android:id="@+id/date"
                     android:text="@string/date"
+                    android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/tv_date"
                     android:textSize="@dimen/login_title_size"
                     android:textColor="@color/black"

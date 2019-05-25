@@ -44,7 +44,8 @@ public class ApiClient {
                     Request request = original.newBuilder()
                             .header("appversion", String.valueOf(RacpApplication.versionCode))
                             .header("fcmtoken", Utility.getSharedPreferences(RacpApplication.context, Constant.F_TOKEN))
-                            .header("languagecode",Utility.getSharedPreferences(RacpApplication.context,Constant.language_code))
+                            //.header("languagecode",Utility.getSharedPreferences(RacpApplication.context,Constant.language_code))
+                            .header("languagecode","hi")
                             .method(original.method(), original.body())
                             .build();
 
