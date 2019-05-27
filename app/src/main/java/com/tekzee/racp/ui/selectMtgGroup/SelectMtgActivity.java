@@ -115,6 +115,12 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
     }
 
     @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
+
+    @Override
     public Context getContext() {
         return this;
     }

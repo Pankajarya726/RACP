@@ -127,77 +127,77 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
     private Boolean saveRecord() {
 
 
-        if (binding.edtTagNo.getText().toString().isEmpty()) {
+        if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
-        } else if (binding.edtName.getText().toString().isEmpty()) {
+        } else if (binding.edtName.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
 
             return false;
-        } else if (binding.edtMtgname.getText().toString().isEmpty()) {
+        } else if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
             return false;
-        } else if (binding.edtAddress.getText().toString().isEmpty()) {
+        } else if (binding.edtAddress.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
 
             return false;
-        } else if (binding.edtMobileNumber.getText().toString().isEmpty()) {
+        } else if (binding.edtMobileNumber.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
 
             return false;
-        } else if (binding.edtMobileNumber.getText().toString().length() != 10) {
+        } else if (binding.edtMobileNumber.getText().toString().trim().length() != 10) {
             Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
 
             return false;
-        } else if (binding.edtVidhansabha.getText().toString().isEmpty()) {
+        } else if (binding.edtVidhansabha.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_vidhansavha));
 
             return false;
-        } else if (binding.edtTehsil.getText().toString().isEmpty()) {
+        } else if (binding.edtTehsil.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tehsil));
 
             return false;
-        } else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
+        } else if (binding.edtGramPanchayat.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
 
             return false;
-        } else if (binding.edtVillage.getText().toString().isEmpty()) {
+        } else if (binding.edtVillage.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
 
             return false;
-        } else if (binding.edtName1.getText().toString().isEmpty()) {
+        } else if (binding.edtName1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return false;
-        } else if (binding.edtMtgname1.getText().toString().isEmpty()) {
+        } else if (binding.edtMtgname1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
             return false;
-        } else if (binding.edtAddress1.getText().toString().isEmpty()) {
+        } else if (binding.edtAddress1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
 
             return false;
-        } else if (binding.edtMobileNumber1.getText().toString().isEmpty()) {
+        } else if (binding.edtMobileNumber1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
 
             return false;
-        } else if (binding.edtMobileNumber1.getText().toString().length() != 10) {
+        } else if (binding.edtMobileNumber1.getText().toString().trim().length() != 10) {
             Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
 
             return false;
-        } else if (binding.edtVidhansabha1.getText().toString().isEmpty()) {
+        } else if (binding.edtVidhansabha1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_vidhansavha));
 
             return false;
-        } else if (binding.edtTehsil1.getText().toString().isEmpty()) {
+        } else if (binding.edtTehsil1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tehsil));
 
             return false;
-        } else if (binding.edtGramPanchayat1.getText().toString().isEmpty()) {
+        } else if (binding.edtGramPanchayat1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
 
             return false;
-        } else if (binding.edtVillage1.getText().toString().isEmpty()) {
+        } else if (binding.edtVillage1.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
             return false;
         } else {
@@ -503,87 +503,87 @@ public class RotationActivity extends MvpActivity <RotationPresenter> implements
 
     @Override
     public int getTagNo() {
-        return Integer.valueOf(binding.edtTagNo.getText().toString());
+        return Integer.valueOf(binding.edtTagNo.getText().toString().trim());
     }
 
     @Override
     public String getPashupalakNameBefore() {
-        return binding.edtName.getText().toString();
+        return binding.edtName.getText().toString().trim();
     }
 
     @Override
     public String getMtgNameBefore() {
-        return binding.edtMtgname.getText().toString();
+        return binding.edtMtgname.getText().toString().trim();
     }
 
     @Override
     public String getAddressBefore() {
-        return binding.edtAddress.getText().toString();
+        return binding.edtAddress.getText().toString().trim();
     }
 
     @Override
     public String getMobileBefore() {
-        return binding.edtMobileNumber.getText().toString();
+        return binding.edtMobileNumber.getText().toString().trim();
     }
 
     @Override
     public String getVidhanSabhaBefore() {
-        return binding.edtVidhansabha.getText().toString();
+        return binding.edtVidhansabha.getText().toString().trim();
     }
 
     @Override
     public String getGramPanchayatBefore() {
-        return binding.edtGramPanchayat.getText().toString();
+        return binding.edtGramPanchayat.getText().toString().trim();
     }
 
     @Override
     public String getTehsilBefore() {
-        return binding.edtTehsil.getText().toString();
+        return binding.edtTehsil.getText().toString().trim();
     }
 
     @Override
     public String getGramBefore() {
-        return binding.edtVillage.getText().toString();
+        return binding.edtVillage.getText().toString().trim();
     }
 
     @Override
     public String getPashupalakNameAfter() {
-        return binding.edtName1.getText().toString();
+        return binding.edtName1.getText().toString().trim();
     }
 
     @Override
     public String getMtgNameAfter() {
-        return binding.edtMtgname1.getText().toString();
+        return binding.edtMtgname1.getText().toString().trim();
     }
 
     @Override
     public String getAddressAfter() {
-        return binding.edtAddress1.getText().toString();
+        return binding.edtAddress1.getText().toString().trim();
     }
 
     @Override
     public String getMobileAfter() {
-        return binding.edtMobileNumber1.getText().toString();
+        return binding.edtMobileNumber1.getText().toString().trim();
     }
 
     @Override
     public String getVidhanSabhaAfter() {
-        return binding.edtVidhansabha1.getText().toString();
+        return binding.edtVidhansabha1.getText().toString().trim();
     }
 
     @Override
     public String getGramPanchayatAfter() {
-        return binding.edtGramPanchayat1.getText().toString();
+        return binding.edtGramPanchayat1.getText().toString().trim();
     }
 
     @Override
     public String getTehsilAfter() {
-        return binding.edtTehsil1.getText().toString();
+        return binding.edtTehsil1.getText().toString().trim();
     }
 
     @Override
     public String getGramAfter() {
-        return binding.edtVillage1.getText().toString();
+        return binding.edtVillage1.getText().toString().trim();
     }
 
     private void getFormRecordData() {

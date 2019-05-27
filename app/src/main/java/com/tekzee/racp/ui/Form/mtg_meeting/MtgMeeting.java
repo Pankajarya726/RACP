@@ -38,17 +38,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgMeetingView, View.OnClickListener,Dialogs.okClickListner {
+public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgMeetingView, View.OnClickListener, Dialogs.okClickListner {
 
     private static String tag = MtgMeeting.class.getSimpleName();
     int form_id;
+    int table_id;
     private FormMtgMeetingBinding binding;
     private int recordNo = 1;
     private List <DataMtgMeeting> meetingList = new ArrayList <>();
     private List <MtgMember> mtgMembers = new ArrayList <>();
     private int record_count = 1;
     private int mtg_id;
-    int table_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         form_id = getIntent().getIntExtra("form_id", 0);
-        table_id = getIntent().getIntExtra("table_id",0);
+        table_id = getIntent().getIntExtra("table_id", 0);
         if (table_id != 0) {
             getFormRecordData();
         } else {
@@ -134,12 +134,14 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
     private void submitRecord() throws JSONException {
 
 
-        if (binding.edtMeetingdate.getText().toString().isEmpty()) {
+        if (binding.edtMeetingdate.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_date_meeting));
+            return;
+        } else if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.selcet_mtg_group));
 
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_date_meeting));
-        } else if (binding.edtMtgname.getText().toString().isEmpty()) {
-
-            Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_group));
+        }else if (binding.edtNameMembers.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_member_name));
 
         } else {
 
@@ -168,7 +170,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
                 jsonObject.addProperty("mtggroup_id", mtg_id);
                 jsonObject.addProperty("meeting_date", mDatePickerDialog.changeFormate(binding.edtMeetingdate.getText().toString().trim()));
                 jsonObject.addProperty("pashupalak_id", pashupalak_id);
-                jsonObject.addProperty("note", binding.edtNote.getText().toString());
+                jsonObject.addProperty("note", binding.edtNote.getText().toString().trim());
                 jsonArray.add(jsonObject);
 
 
@@ -194,7 +196,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
 
     }
 
@@ -273,7 +275,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
 
 
         binding.edtNote.setText("");
@@ -293,13 +295,13 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtNameMembers.setClickable(false);
         binding.edtNote.setEnabled(false);
 
-        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")) {
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
 
         binding.edtMtgname.setTextColor(getResources().getColor(R.color.black));
         binding.edtNameMembers.setTextColor(getResources().getColor(R.color.black));
-        binding.edtMeetingdate.setText(String.valueOf(successResult.getData().getMeetingDate()));
+        binding.edtMeetingdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getMeetingDate())));
         binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));
 
         if (!String.valueOf(successResult.getData().getPashupalakName()).equalsIgnoreCase("null")) {

@@ -57,6 +57,11 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
         return super.onOptionsItemSelected(item);
     }
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
 
 
     @Override
@@ -185,13 +190,13 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
         } */ else {
 
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("pashuPalakName", binding.edtFormerName.getText().toString().trim());
-            jsonObject.addProperty("fatherHusbandName", binding.edtFatherName.getText().toString().trim());
-            jsonObject.addProperty("pashuPalakAddress", binding.edtAddress.getText().toString().trim());
-            jsonObject.addProperty("mobile", binding.edtMoNumber.getText().toString().trim());
+            jsonObject.addProperty("pashuPalakName", binding.edtFormerName.getText().toString());
+            jsonObject.addProperty("fatherHusbandName", binding.edtFatherName.getText().toString());
+            jsonObject.addProperty("pashuPalakAddress", binding.edtAddress.getText().toString());
+            jsonObject.addProperty("mobile", binding.edtMoNumber.getText().toString());
             jsonObject.addProperty("pashuPalakCategoryID", category_id);
             jsonObject.addProperty("identification_type_id", identification_type_id);
-            jsonObject.addProperty("identification_no", binding.edtIdentificationNo.getText().toString().trim());
+            jsonObject.addProperty("identification_no", binding.edtIdentificationNo.getText().toString());
             jsonObject.addProperty("cast_category_id", cast_category_id);
             jsonObject.addProperty("farmer_type_id", former_type_id);
             //jsonObject.addProperty("districtId", district_id);

@@ -18,6 +18,7 @@ import com.tekzee.racp.ui.Form.kutti_machine.mode.RetrivedKuttiMachineResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -52,9 +53,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
 
             ShowDialog();
         }
+
         SpinnerData();
         DataKuttiMachine.deleteAll(DataKuttiMachine.class);
-
         binding.tvDate.setText(mDatePickerDialog.showDate());
         binding.tvNo.setText(String.valueOf(recordNo));
         binding.checkProofNo.setOnClickListener(this);
@@ -178,12 +179,12 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
             return false;
         } else {
 
-            if (!binding.day.getText().toString().isEmpty()) {
-                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+            if (!binding.day.getText().toString().trim().isEmpty()) {
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
@@ -191,9 +192,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
             }
             String proof, use;
             if (binding.checkUseYes.isChecked()) {
-                use = binding.checkUseYes.getText().toString();
+                use = binding.checkUseYes.getText().toString().trim();
             } else {
-                use = binding.checkUseNo.getText().toString();
+                use = binding.checkUseNo.getText().toString().trim();
             }
             if (binding.checkProofYes.isChecked()) {
                 proof = binding.checkProofYes.getText().toString();
@@ -364,7 +365,7 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
                 jsonObject.addProperty("machine_type", detail.getMachine_type());
                 jsonObject.addProperty("note", detail.getNote());
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm());
+                jsonObject.addProperty("mm", detail.getMm_id()+1);
                 jsonObject.addProperty("yy", detail.getYy());
                 jsonArray.add(jsonObject);
 
@@ -452,24 +453,9 @@ public class KuttiMachine extends MvpActivity <KuttiMachinePresenter> implements
         adapter_machine.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spMachine.setAdapter(adapter_machine);
 
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
 
-        int year1 = mDatePickerDialog.getYear();
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= year1; i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+
     }
 
     @Override

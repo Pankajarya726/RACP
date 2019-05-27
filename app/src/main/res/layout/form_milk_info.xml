@@ -82,6 +82,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="@string/mtg_group"
+                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -102,6 +103,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:text="@string/mtg_member"
+                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black" />
 
                         <TextView
@@ -133,7 +135,6 @@
                             android:layout_toLeftOf="@+id/mview"
 
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
                             android:text="@string/animal_owner_name"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -158,7 +159,6 @@
                             android:layout_toLeftOf="@+id/mview"
 
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
                             android:text="@string/gram_panchayat"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -186,7 +186,6 @@
                             android:layout_toLeftOf="@+id/mview"
 
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
                             android:text="@string/village"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -214,7 +213,6 @@
                             android:layout_toLeftOf="@+id/mview"
 
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
                             android:text="@string/mobile_number"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -243,7 +241,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
+
                             android:text="@string/address"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -269,7 +267,7 @@
                             android:layout_marginTop="20dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
+
                             android:text="@string/totle_milk_production"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -296,7 +294,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
+
                             android:text="@string/upbhog_amount"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -322,7 +320,7 @@
                             android:layout_marginTop="15dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
-                            android:paddingHorizontal="10dp"
+                            android:paddingHorizontal="0dp"
                             android:text="@string/avail_amount_for_sale"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />

@@ -71,7 +71,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         if (table_id != 0) {
             getFormRecordData();
         } else {
-            //ShowSelectionDialog();
+            ShowDialog();
         }
 
 
@@ -177,53 +177,53 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         if (isMtgMember==1){
 
-            if (binding.spMtgGroup.getText().toString().trim().equalsIgnoreCase(getString(R.string.selcet_mtg_group))){
+            if (binding.spMtgGroup.getText().toString().equalsIgnoreCase(getString(R.string.selcet_mtg_group))){
                 Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_group));
                 return;
             }
-            else if (binding.spMtgPerson.getText().toString().trim().equalsIgnoreCase(getString(R.string.selcet_mtg_person))){
+            else if (binding.spMtgPerson.getText().toString().equalsIgnoreCase(getString(R.string.selcet_mtg_person))){
 
                 Dialogs.showColorDialog(getContext(),getString(R.string.selcet_mtg_person));
                 return;
             }
-            else if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
+            else if (binding.edtTagNo.getText().toString().isEmpty()) {
                 Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
                 return;
             }
 
         }
 
-        if (binding.edtName.getText().toString().trim().isEmpty()) {
+        if (binding.edtName.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
             return;
 
-        }else if (binding.edtGramPanchayat.getText().toString().trim().isEmpty()) {
+        }else if (binding.edtGramPanchayat.getText().toString().isEmpty()) {
 
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_gram_panchayat));
             return;
 
-        } else if (binding.edtVillage.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtVillage.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_village));
             return;
 
 
-        } else if (binding.edtMobile.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtMobile.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_number));
             return;
 
-        } else if (binding.edtMobile.getText().toString().trim().trim().length()!=10) {
+        } else if (binding.edtMobile.getText().toString().trim().length()!=10) {
             Dialogs.showColorDialog(getContext(), getString(R.string.invalid_no));
             return;
-        }  else if (binding.edtAddress.getText().toString().trim().trim().isEmpty()) {
+        }  else if (binding.edtAddress.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
             return;
-        }  else if (binding.animelType.getText().toString().trim().trim().isEmpty()) {
+        }  else if (binding.animelType.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_animal_type));
             return;
-        } else if (binding.edtAge.getText().toString().trim().trim().isEmpty()) {
+        } else if (binding.edtAge.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_age));
             return;
-        }else if (binding.edtWeight.getText().toString().trim().trim().isEmpty()) {
+        }else if (binding.edtWeight.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_weight));
             return;
         }else if (!binding.checkYes.isChecked() && !binding.checkNo.isChecked()){
@@ -245,9 +245,9 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
             JsonObject mobject = new JsonObject();
             mobject.addProperty("animaltype_id",animal_id);
             mobject.addProperty("bechan_yogya",bechan_yogya);
-            mobject.addProperty("tag_no",binding.edtTagNo.getText().toString().trim().trim());
-            mobject.addProperty("age",binding.edtAge.getText().toString().trim().trim());
-            mobject.addProperty("weight",binding.edtWeight.getText().toString().trim().trim());
+            mobject.addProperty("tag_no",binding.edtTagNo.getText().toString().trim());
+            mobject.addProperty("age",binding.edtAge.getText().toString().trim());
+            mobject.addProperty("weight",binding.edtWeight.getText().toString().trim());
             mobject.add("teekakaran",jsonArray);
 
 
@@ -261,9 +261,9 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
             jsonObject.addProperty("form_id",19);
             jsonObject.addProperty("mtg_member_id",mtg_member_id);
             jsonObject.addProperty("mtg_group_id",mtg_id);
-            jsonObject.addProperty("pashupalak_name",binding.edtName.getText().toString().trim().trim());
-            jsonObject.addProperty("pashupalak_mobile",binding.edtMobile.getText().toString().trim().trim());
-            jsonObject.addProperty("pashupalak_address",binding.edtAddress.getText().toString().trim().trim());
+            jsonObject.addProperty("pashupalak_name",binding.edtName.getText().toString().trim());
+            jsonObject.addProperty("pashupalak_mobile",binding.edtMobile.getText().toString().trim());
+            jsonObject.addProperty("pashupalak_address",binding.edtAddress.getText().toString().trim());
             jsonObject.addProperty("grampanchayat_id",gram_panchayat_id);
             jsonObject.addProperty("gram_id",gram_id);
             jsonObject.add("data",marray);
@@ -286,7 +286,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
         Immunization im = immunizations.get(adapterPosition);
         mDatePickerDialog.getdate(getContext(), tv_date);
-        im.setTeekadate(tv_date.getText().toString().trim().trim());
+        im.setTeekadate(tv_date.getText().toString().trim());
         teekaAdapter.notifyDataSetChanged();
 
     }
@@ -420,7 +420,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         binding.edtVillage.setText(String.valueOf(successResult.getData().getGramName()));
 
         binding.edtMobile.setText(String.valueOf(successResult.getData().getPashupalakMobile()));
-        binding.edtAddress.append(String.valueOf(successResult.getData().getPashupalakMobile()));
+        binding.edtAddress.append(String.valueOf(successResult.getData().getPashupalakAddress()));
         binding.edtAddress.setEnabled(false);
         binding.animelType.setText(String.valueOf(successResult.getData().getAnimalType()));
         binding.edtAge.setText(String.valueOf(successResult.getData().getAge()));
@@ -447,28 +447,28 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
         String[] date = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
             if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
+                immunizations.add(new Immunization(getString(R.string.ppr), mDatePickerDialog.changeFormate(date[i])));
             }
 
         }
         String[] date1 = et.split(",");
         for (int i = 0; i < date1.length; i++) {
             if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+                immunizations.add(new Immunization(getString(R.string.et), mDatePickerDialog.changeFormate(date1[i])));
             }
         }
 
         String[] date2 = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
             if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+                immunizations.add(new Immunization(getString(R.string.fmd), mDatePickerDialog.changeFormate(date2[i])));
             }
         }
 
         String[] date3 = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
             if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+                immunizations.add(new Immunization(getString(R.string.hs), mDatePickerDialog.changeFormate(date3[i])));
             }
         }
         setupRecyclerView();
@@ -531,7 +531,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
@@ -615,7 +615,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
                 public void onClick(View v) {
                     hideSoftKeyboard();
                     dialog.dismiss();
-                    ShowDialog();
+
                 }
             });
             dialog.findViewById(R.id.yes).setOnClickListener(new View.OnClickListener() {

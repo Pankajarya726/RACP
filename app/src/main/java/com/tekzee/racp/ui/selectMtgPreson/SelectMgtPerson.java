@@ -56,7 +56,11 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
     protected MgtPersonPresenter createPresenter() {
         return new MgtPersonPresenter(this);
     }
-
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
     private void setUpRecyclerView() {
 
         binding.recyclerMgtperson.setHasFixedSize(true);

@@ -344,6 +344,7 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
 
                     Log.e(getClass().getSimpleName(),successResult.toString());
                     if (successResult.getSuccess()){
+                        mvpView.hideSoftKeyboard();
                         mvpView.onGetMemberDetail(successResult);
                     }
                     else {
@@ -411,10 +412,12 @@ public class MilkInfoPresenter extends BasePresenter<MilkInfoView> {
 
 
                     if (successResult.getSuccess()) {
+                        mvpView.hideSoftKeyboard();
                         mvpView.onSuccessfullyRetrived(successResult);
 
 
                     } else {
+                        mvpView.hideSoftKeyboard();
                         mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
                     }
 

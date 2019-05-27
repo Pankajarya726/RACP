@@ -10,6 +10,7 @@ import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
 import com.tekzee.racp.utils.Utility;
+import com.tekzee.racp.utils.mDatePickerDialog;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -36,7 +37,7 @@ public class BakariAwasPresenter extends BasePresenter <BakariAwasView> {
             RequestBody physical_proof = RequestBody.create(MultipartBody.FORM, mvpView.getPhysicalProof());
             RequestBody usability = RequestBody.create(MultipartBody.FORM, mvpView.getUsability());
             RequestBody note = RequestBody.create(MultipartBody.FORM, mvpView.getNote());
-            RequestBody date_creation_goat_house = RequestBody.create(MultipartBody.FORM, mvpView.getDateCreationGoatHouse());
+            RequestBody date_creation_goat_house = RequestBody.create(MultipartBody.FORM, mDatePickerDialog.changeFormate(mvpView.getDateCreationGoatHouse()));
             RequestBody dd = RequestBody.create(MultipartBody.FORM, mvpView.getDD());
             RequestBody mm = RequestBody.create(MultipartBody.FORM, mvpView.getMM());
             RequestBody yy = RequestBody.create(MultipartBody.FORM, mvpView.getYY());

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -19,6 +18,7 @@ import com.tekzee.racp.ui.Form.clean_milkkit.model.RetrivedMilkKitResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -478,14 +478,14 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                 jsonObject.addProperty("physical_proof", detail.getPhy_proof());
                 jsonObject.addProperty("usability", detail.getUsability());
                 jsonObject.addProperty("reagent_availability", detail.getAvailable());
-                jsonObject.addProperty("test_date", detail.getTest_date());
+                jsonObject.addProperty("test_date", mDatePickerDialog.changeFormate(detail.getTest_date()));
                 jsonObject.addProperty("thanela_rog_result", detail.getMresult());
                 jsonObject.addProperty("before_use_clean_milk_keet", detail.getBefore_use());
                 jsonObject.addProperty("after_use_clean_milk_keet", detail.getAfter_use());
-                jsonObject.addProperty("llw_visiting_date", detail.getVisiting_date());
+                jsonObject.addProperty("llw_visiting_date", mDatePickerDialog.changeFormate(detail.getVisiting_date()));
                 jsonObject.addProperty("note", detail.getNote());
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm());
+                jsonObject.addProperty("mm", detail.getMm_id()+1);
                 jsonObject.addProperty("yy", detail.getYy());
                 jsonArray.add(jsonObject);
 
@@ -560,9 +560,9 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         binding.tvSave.setVisibility(View.GONE);
 
 
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
-        binding.edtDatevisiting.setText(String.valueOf(successResult.getData().getLlwVisitingDate()));
-        binding.edtTestDate.setText(String.valueOf(successResult.getData().getTestDate()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
+        binding.edtDatevisiting.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getLlwVisitingDate())));
+        binding.edtTestDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getTestDate())));
         binding.edtAfteruser.setText(String.valueOf(successResult.getData().getAfterUseCleanMilkKeet()));
         binding.edtBeforeuse.setText(String.valueOf(successResult.getData().getBeforeUseCleanMilkKeet()));
         if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
@@ -658,25 +658,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     private void SpinnerData() {
 
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        int year1 = mDatePickerDialog.getYear();
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= year1; i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
     }
 
     private void getFormRecordData() {

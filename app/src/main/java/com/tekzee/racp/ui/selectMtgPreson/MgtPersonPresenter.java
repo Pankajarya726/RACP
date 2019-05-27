@@ -42,7 +42,7 @@ public class MgtPersonPresenter extends BasePresenter <MgtPersonView> {
                 @Override
                 public void onFailure(CommonResult commonResult) {
                     Log.e("", String.valueOf(commonResult.getMessage()));
-                    mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.not_found)));
+                    mvpView.onNoInternetConnectivity(new CommonResult(false, commonResult.getMessage()));
                 }
 
                 @Override

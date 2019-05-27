@@ -146,16 +146,16 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     private Boolean saveRecord() {
 
 
-        if (binding.edtPlace.getText().toString().trim().isEmpty()) {
+        if (binding.edtPlace.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_training_place));
             return false;
-        } else if (binding.edtTrainingdate.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtTrainingdate.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_date_trainging));
             return false;
-        } else if (binding.edtCount.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtCount.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_treainee_count));
             return false;
-        } else if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtMtgname.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
             return false;
         } else {
@@ -350,7 +350,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
         DisableView();
 
-        binding.edtTrainingdate.setText(String.valueOf(successResult.getData().getTrainingDate()));
+        binding.edtTrainingdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getTrainingDate())));
         binding.edtCount.setText(String.valueOf(successResult.getData().getTraineeNumber()));
         binding.edtPlace.setText(String.valueOf(successResult.getData().getTrainingPlace()));
         if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){

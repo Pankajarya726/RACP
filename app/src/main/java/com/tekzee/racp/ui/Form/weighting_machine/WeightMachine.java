@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -21,6 +20,7 @@ import com.tekzee.racp.ui.Form.weighting_machine.model.RetrivedWeightingMachineR
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -456,7 +456,6 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
             }
 
 
-
             recordNo = recordNo + 1;
             record_count = record_count + 1;
             binding.txtno.setText(String.valueOf(recordNo));
@@ -735,7 +734,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
                 jsonObject.addProperty("age", "");
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm());
+                jsonObject.addProperty("mm", detail.getMm_id() + 1);
                 jsonObject.addProperty("yy", detail.getYy());
                 jsonArray.add(jsonObject);
 
@@ -779,26 +778,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
     private void setDataInSpinner() {
 
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter);
-
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adaptermonth = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adaptermonth);
-
+        CalenderUtils.loadMonths(getContext(), binding.spMonth, binding.spYear);
     }
 
     @Override
@@ -864,9 +844,9 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                 jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_member_id));
                 jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getActivityContext(), Constant.mtg_group_id));
                 JsonArray jsonElements = new JsonArray();
-                jsonObject.add("data",jsonElements);
-               // mvpPresenter.saveForm(jsonObject);
-               // mvpPresenter.saveForm(jsonObject);
+                jsonObject.add("data", jsonElements);
+                // mvpPresenter.saveForm(jsonObject);
+                // mvpPresenter.saveForm(jsonObject);
 
                 finish();
             }
@@ -912,7 +892,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
                 DataWeighitngMachine.deleteAll(DataWeighitngMachine.class);
                 finish();
             }
-        },"  ");
+        }, "  ");
 
         record_count = 1;
         recordNo = 1;
@@ -961,7 +941,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         binding.checkProofYes.setClickable(false);
 
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
 
         if (successResult.getData().getAnimaltypeId() == 1) {
             binding.spAnimalType.setText(getString(R.string.adult));

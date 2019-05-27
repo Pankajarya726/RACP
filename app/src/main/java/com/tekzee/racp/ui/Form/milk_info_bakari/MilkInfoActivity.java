@@ -32,14 +32,11 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements MilkInfoView, View.OnClickListener,Dialogs.okClickListner {
+public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements MilkInfoView, View.OnClickListener, Dialogs.okClickListner {
 
     private static final String TAG = MilkInfoActivity.class.getSimpleName();
-
-
-    private FormMilkInfoBinding binding;
-
     List <Datum> dataList = new ArrayList <>();
+    private FormMilkInfoBinding binding;
     private int mtg_group_id = 0;
     private int mtg_member_id = 0;
     private int gramPanchayat_id = 0;
@@ -47,7 +44,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
     private String pashupalak_name = "";
     private String mobile = "";
     private String address = "";
-    private String  totle_amount = "";
+    private String totle_amount = "";
     private String upbhog_amount = "";
     private String available_amount = "";
     private int isMtgMember = 0;
@@ -63,12 +60,12 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
-        table_id = getIntent().getIntExtra("table_id",0);
-        if (table_id != 0){
+        table_id = getIntent().getIntExtra("table_id", 0);
+        if (table_id != 0) {
 
             getFormRecordData();
-        }else {
-            //ShowSelectionDialog();
+        } else {
+            ShowDialog();
         }
 
 
@@ -78,7 +75,6 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         binding.tvSave.setOnClickListener(this);
         binding.edtGramPanchayat.setOnClickListener(this);
         binding.edtVillage.setOnClickListener(this);
-
 
 
     }
@@ -122,7 +118,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
     @Override
     public String getPashuPalakName() {
-        return binding.edtName.getText().toString();
+        return binding.edtName.getText().toString().trim();
     }
 
     @Override
@@ -137,32 +133,32 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
     @Override
     public String getAddress() {
-        return binding.edtAddress.getText().toString();
+        return binding.edtAddress.getText().toString().trim();
     }
 
     @Override
     public String getMobile() {
-        return binding.edtMobile.getText().toString();
+        return binding.edtMobile.getText().toString().trim();
     }
 
     @Override
     public String getTotleMilkProduction() {
-        return binding.edtTotleAmount.getText().toString();
+        return binding.edtTotleAmount.getText().toString().trim();
     }
 
     @Override
     public String getUpbhogMatra() {
-        return binding.edtUpbhogAmount.getText().toString();
+        return binding.edtUpbhogAmount.getText().toString().trim();
     }
 
     @Override
     public String getUplabdhMatra() {
-        return binding.edtAvailAmount.getText().toString();
+        return binding.edtAvailAmount.getText().toString().trim();
     }
 
     @Override
     public void onNoInternetConnectivity(CommonResult message) {
-        Dialogs.showColorDialog(getContext(),message.getMessage());
+        Dialogs.showColorDialog(getContext(), message.getMessage());
 
     }
 
@@ -226,25 +222,32 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
 
         ClearVeiw();
     }
 
 
-
     @Override
     public void onSuccessfullyRetrived(RetrivedMilkInfoResponse successResult) {
+        hideSoftKeyboard();
+        DisableView();
+        binding.spMtgPerson.setFocusable(false);
+        binding.spMtgGroup.setFocusable(false);
+        binding.edtGramPanchayat.setFocusable(false);
+        binding.edtVillage.setFocusable(false);
+        binding.edtMobile.setFocusable(false);
+        binding.edtAvailAmount.setFocusable(false);
+        binding.edtUpbhogAmount.setFocusable(false);
+        binding.edtTotleAmount.setFocusable(false);
+        binding.edtName.setFocusable(false);
 
 
-      DisableView();
-
-
-        if (successResult.getData().getIsMtgMember()==0){
+        if (successResult.getData().getIsMtgMember() == 0) {
             binding.layoutMtgselection.setVisibility(View.GONE);
 
         }
-        if (successResult.getData().getIsMtgMember()==1){
+        if (successResult.getData().getIsMtgMember() == 1) {
 
 
             binding.layoutMtgselection.setVisibility(View.VISIBLE);
@@ -263,7 +266,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         binding.edtAddress.setEnabled(false);
         binding.edtTotleAmount.setText(String.valueOf(successResult.getData().getTotalMilkProductionPerDay()));
         binding.edtUpbhogAmount.setText(String.valueOf(successResult.getData().getConsumptionQuantityPerDay()));
-        binding.edtAvailAmount.setText(String.valueOf(successResult.getData().getQuantitySalePerDay()   ));
+        binding.edtAvailAmount.setText(String.valueOf(successResult.getData().getQuantitySalePerDay()));
 
         binding.tvSave.setVisibility(View.GONE);
 
@@ -275,6 +278,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         binding.edtUpbhogAmount.setText("");
         EnableView();
     }
+
     private void DisableView() {
         binding.spMtgPerson.setEnabled(false);
         binding.spMtgGroup.setEnabled(false);
@@ -287,7 +291,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         binding.edtName.setEnabled(false);
     }
 
-    private void EnableView(){
+    private void EnableView() {
         binding.spMtgPerson.setEnabled(true);
         binding.spMtgGroup.setEnabled(true);
         binding.edtGramPanchayat.setEnabled(true);
@@ -331,49 +335,49 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
 
     private void submitRecord() {
 
-        if (binding.edtName.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_animal_owner_name));
-        }else if (binding.edtMobile.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_mobile));
-        } else if (binding.edtAddress.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_address));
-        }else if (binding.edtTotleAmount.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_total_amount));
-        }else if (binding.edtUpbhogAmount.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_upbhod_amount));
-        }else if (binding.edtAvailAmount.getText().toString().isEmpty()){
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_avail_amount));
-        }else if (gramPanchayat_id==0){
-            Dialogs.showColorDialog(getContext(),getString(R.string.select_gramPanchayat));
-        }else if (gram_id ==0){
-            Dialogs.showColorDialog(getContext(),getString(R.string.select_village));
-        }else {
+        if (binding.edtName.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_animal_owner_name));
+        } else if (binding.edtMobile.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_mobile));
+        } else if (binding.edtAddress.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_address));
+        } else if (binding.edtTotleAmount.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_total_amount));
+        } else if (binding.edtUpbhogAmount.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_upbhod_amount));
+        } else if (binding.edtAvailAmount.getText().toString().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_avail_amount));
+        } else if (gramPanchayat_id == 0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_gramPanchayat));
+        } else if (gram_id == 0) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
+        } else {
 
-            JsonObject jsonObject= new JsonObject();
-            jsonObject.addProperty("is_mtg_member",isMtgMember);
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("is_mtg_member", isMtgMember);
             jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
-            jsonObject.addProperty("form_id",20);
-            jsonObject.addProperty("mtg_member_id",getMtgMemberId());
-            jsonObject.addProperty("mtg_group_id",getMtgGroupId());
-            jsonObject.addProperty("pashupalak_name",getPashuPalakName());
-            jsonObject.addProperty("pashupalak_mobile",getMobile());
-            jsonObject.addProperty("pashupalak_address",getAddress());
-            jsonObject.addProperty("grampanchayat_id",getGramPanchayatId());
-            jsonObject.addProperty("gram_id",getGramId());
+            jsonObject.addProperty("form_id", 20);
+            jsonObject.addProperty("mtg_member_id", getMtgMemberId());
+            jsonObject.addProperty("mtg_group_id", getMtgGroupId());
+            jsonObject.addProperty("pashupalak_name", getPashuPalakName());
+            jsonObject.addProperty("pashupalak_mobile", getMobile());
+            jsonObject.addProperty("pashupalak_address", getAddress());
+            jsonObject.addProperty("grampanchayat_id", getGramPanchayatId());
+            jsonObject.addProperty("gram_id", getGramId());
 
 
             JsonArray jsonArray = new JsonArray();
-             JsonObject object = new JsonObject();
-            object.addProperty("total_milk_production_per_day",getTotleMilkProduction());
-            object.addProperty("consumption_quantity_per_day",getUpbhogMatra());
-            object.addProperty("quantity_sale_per_day",getUplabdhMatra());
+            JsonObject object = new JsonObject();
+            object.addProperty("total_milk_production_per_day", getTotleMilkProduction());
+            object.addProperty("consumption_quantity_per_day", getUpbhogMatra());
+            object.addProperty("quantity_sale_per_day", getUplabdhMatra());
 
             jsonArray.add(object);
 
-            jsonObject.add("data",jsonArray);
+            jsonObject.add("data", jsonArray);
 
 
-            Log.view(TAG,jsonObject.toString());
+            Log.view(TAG, jsonObject.toString());
 
             mvpPresenter.saveForm(jsonObject);
         }
@@ -410,7 +414,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
                 @Override
                 public void onClick(View v) {
                     hideSoftKeyboard();
-                     Intent intent = new Intent(getContext(), FormDataActivity.class);
+                    Intent intent = new Intent(getContext(), FormDataActivity.class);
                     intent.putExtra("form_id", 20);
                     startActivity(intent);
 

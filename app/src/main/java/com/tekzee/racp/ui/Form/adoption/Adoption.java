@@ -497,6 +497,7 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
 
         binding.tvAddRecord.setVisibility(View.GONE);
         binding.tvSave.setVisibility(View.GONE);
+        DisableView();
 
         binding.edtActivity.setText(String.valueOf(successResult.getData().getActivity()));
         binding.edtName.setText(String.valueOf(successResult.getData().getPashupalakName()));
@@ -510,7 +511,12 @@ public class Adoption extends MvpActivity <AdoptionPresenter> implements Adoptio
         binding.edtTehsil.setText(String.valueOf(successResult.getData().getTahsilName()));
         binding.edtGramPanchayat.setText(String.valueOf(successResult.getData().getGrampanchayatName()));
         binding.edtVillage.setText(String.valueOf(successResult.getData().getGramName()));
-        binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+
+        if (successResult.getData().getNote()!=null && !successResult.getData().getNote().equalsIgnoreCase("null"))
+        {
+            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        }
+
 
 
     }

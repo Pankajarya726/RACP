@@ -32,7 +32,7 @@ import cn.refactor.lib.colordialog.ColorDialog;
 public class SplashActivity extends MvpActivity <SplashPresenter> implements SplashView {
 
     private static final String TAG = SplashActivity.class.getSimpleName();
-    private final int SCREEN_DURATION = 5000;
+    private final int SCREEN_DURATION = 3000;
     private ActivitySplashBinding binding;
 
     @Override

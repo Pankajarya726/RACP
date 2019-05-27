@@ -52,7 +52,11 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
 
         return super.onOptionsItemSelected(item);
     }
-
+    @Override
+    public void onBackPressed() {
+        // TODO Auto-generated method stub
+        this.finish();
+    }
 
     @Override
     protected AddMtgPresenter createPresenter() {
@@ -131,7 +135,7 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
 
     private void addMtg() {
 
-        if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
+        if (binding.edtMtgname.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_name));
 
         } else if (binding.gramPanchayat.getText().toString().isEmpty()) {

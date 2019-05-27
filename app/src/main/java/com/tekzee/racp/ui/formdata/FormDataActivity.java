@@ -36,6 +36,7 @@ import com.tekzee.racp.ui.formdata.model.Datum;
 import com.tekzee.racp.ui.formdata.model.FormDataResponse;
 import com.tekzee.racp.ui.home.HomeActivity;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.KeyboardUtils;
 import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.Utility;
 
@@ -60,91 +61,91 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
         switch (form_id) {
             case 1:
                 getSupportActionBar().setTitle(R.string.form_1);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 2:
                 getSupportActionBar().setTitle(R.string.form_2);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 3:
                 getSupportActionBar().setTitle(R.string.form_3);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 4:
                 getSupportActionBar().setTitle(R.string.form_4);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 6:
                 getSupportActionBar().setTitle(R.string.form_6);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 7:
                 getSupportActionBar().setTitle(R.string.form_7);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 8:
                 getSupportActionBar().setTitle(R.string.form_8);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 9:
                 getSupportActionBar().setTitle(R.string.form_9);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 10:
                 getSupportActionBar().setTitle(R.string.form_10);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 11:
                 getSupportActionBar().setTitle(R.string.form_11);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 12:
                 getSupportActionBar().setTitle(R.string.form_12);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
 
             case 14:
                 getSupportActionBar().setTitle(R.string.form_14);
-                titleVivran.setText(getResources().getString(R.string.shivir_place));
+                binding.titleVivran.setText(getResources().getString(R.string.shivir_place));
                 break;
 
             case 15:
                 getSupportActionBar().setTitle(R.string.form_15);
-                titleVivran.setText(getResources().getString(R.string.mtg_name));
+                binding.titleVivran.setText(getResources().getString(R.string.mtg_name));
                 break;
 
             case 16:
                 getSupportActionBar().setTitle(R.string.form_16);
-                titleVivran.setText(getResources().getString(R.string.mtg_name));
+                binding.titleVivran.setText(getResources().getString(R.string.mtg_name));
                 break;
 
             case 17:
                 getSupportActionBar().setTitle(R.string.form_17);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
             case 18:
                 getSupportActionBar().setTitle(R.string.form_18);
-                titleVivran.setText(getResources().getString(R.string.tag_no_bakara));
+                binding.titleVivran.setText(getResources().getString(R.string.tag_no_bakara));
                 break;
             case 19:
                 getSupportActionBar().setTitle(R.string.form_5);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
             case 20:
                 getSupportActionBar().setTitle(R.string.form19);
-                titleVivran.setText(getResources().getString(R.string.animal_owner_name));
+                binding.titleVivran.setText(getResources().getString(R.string.animal_owner_name));
                 break;
 
 
@@ -201,7 +202,12 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
 
-        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+            }
+        });
 
     }
 
@@ -346,6 +352,8 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
             case 20:
                 Intent i20 = new Intent(getContext(), MilkInfoActivity.class);
                 i20.putExtra("table_id", datum.getTableId());
+
+                KeyboardUtils.hideSoftInput(FormDataActivity.this);
                 startActivity(i20);
 
                 break;

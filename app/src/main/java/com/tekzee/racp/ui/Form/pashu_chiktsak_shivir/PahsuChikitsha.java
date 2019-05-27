@@ -377,7 +377,7 @@ public class PahsuChikitsha extends MvpActivity <PashuChikitshaPresenter> implem
 
         binding.edtPlace.setText(String.valueOf(successResult.getData().getShivirSthal()));
         binding.edtCount.setText(String.valueOf(successResult.getData().getPresentMtgmemberNumber()));
-        binding.edtDate.setText(String.valueOf(successResult.getData().getPashuShivirAayojanDate()));
+        binding.edtDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getPashuShivirAayojanDate())));
         binding.edtBig.setText(String.valueOf(successResult.getData().getBadePashu()));
         binding.edtSmall.setText(String.valueOf(successResult.getData().getChotePashu()));
 

@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
@@ -30,6 +29,7 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.ImagePickerActivity;
 import com.tekzee.racp.ui.base.MvpMapActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.PhotoFullPopupWindow;
@@ -37,7 +37,6 @@ import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements BakariAwasView, View.OnClickListener {
@@ -356,25 +355,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
     }
 
     private void SpinnerData() {
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
     }
 
     @Override
@@ -401,22 +382,22 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     @Override
     public String getNote() {
-        return binding.edtNote.getText().toString().trim();
+        return binding.edtNote.getText().toString();
     }
 
     @Override
     public String getDateCreationGoatHouse() {
-        return binding.edtDateAvail.getText().toString().trim();
+        return binding.edtDateAvail.getText().toString();
     }
 
     @Override
     public String getDD() {
-        return binding.day.getText().toString().trim();
+        return binding.day.getText().toString();
     }
 
     @Override
     public String getMM() {
-        return binding.spMonth.getSelectedItem().toString().trim();
+        return String.valueOf(binding.spMonth.getSelectedItemPosition());
     }
 
     @Override
@@ -458,7 +439,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
         } else {
@@ -472,7 +453,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
             binding.checkUseNo.setChecked(true);
         }
 
-        binding.edtDateAvail.setText(String.valueOf(successResult.getData().getDateCreationGoatHouse()));
+        binding.edtDateAvail.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateCreationGoatHouse())));
         binding.edtDateAvail.setEnabled(false);
 
         //binding.ivBakriawas.setClickable(false);

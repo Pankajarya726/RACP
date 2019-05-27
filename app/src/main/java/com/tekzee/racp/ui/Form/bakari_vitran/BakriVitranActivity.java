@@ -26,6 +26,7 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -191,37 +192,37 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     }
 
     private boolean addRecordinSqlite() {
-        if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
+        if (binding.edtTagNo.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
-        } else if (binding.edtAveragProduction.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtAveragProduction.getText().toString().isEmpty()) {
 
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_average_milk_production));
             return false;
-        } else if (binding.edtProofdate.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtProofdate.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_physical_proof_date));
             return false;
 
-        } else if (binding.edtBeemaVivran.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtBeemaVivran.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_beema_detial));
             return false;
 
-        } else if (binding.edtPolicyNo.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtPolicyNo.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_policy_no));
             return false;
         } else {
 
             String day;
-            if (binding.day.getText().toString().trim().isEmpty()) {
+            if (binding.day.getText().toString().isEmpty()) {
                 day = "01";
 
             } else {
-                day = binding.day.getText().toString().trim();
-                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),
+                day = binding.day.getText().toString();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
@@ -244,14 +245,14 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             teekaData.save();
 
             BakriData data = new BakriData(day,
-                    binding.spMonth.getSelectedItem().toString(),
+                   String.valueOf(binding.spMonth.getSelectedItemPosition()),
                     binding.spYear.getSelectedItem().toString(),
-                    binding.edtTagNo.getText().toString().trim(),
-                    binding.edtBeemaVivran.getText().toString().trim(),
-                    binding.edtPolicyNo.getText().toString().trim(),
-                    binding.edtAveragProduction.getText().toString().trim(),
-                    binding.edtProofdate.getText().toString().trim(),
-                    binding.edtNote.getText().toString().trim());
+                    binding.edtTagNo.getText().toString(),
+                    binding.edtBeemaVivran.getText().toString(),
+                    binding.edtPolicyNo.getText().toString(),
+                    binding.edtAveragProduction.getText().toString(),
+                    binding.edtProofdate.getText().toString(),
+                    binding.edtNote.getText().toString());
 
             data.save();
 
@@ -378,7 +379,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
                 jsonObject.addProperty("tag_no", data.getTag_no());
                 jsonObject.addProperty("beema_detail", data.getBeema_detail());
                 jsonObject.addProperty("policy_no", data.getPolicy_no());
-                jsonObject.addProperty("physical_proof_date", data.getPhucal_proof_date());
+                jsonObject.addProperty("physical_proof_date", mDatePickerDialog.changeFormate(data.getPhucal_proof_date()));
                 jsonObject.addProperty("average_milk_production", data.getAverage());
                 jsonObject.addProperty("note", data.getNote());
                 jsonObject.addProperty("dd", data.getDd());
@@ -393,7 +394,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
                     JSONObject obj = array.getJSONObject(j);
                     JsonObject jsonObject1 = new JsonObject();
                     jsonObject1.addProperty("teeka_type", obj.getString("teeka_type"));
-                    jsonObject1.addProperty("teeka_date", obj.getString("teeka_date"));
+                    jsonObject1.addProperty("teeka_date", mDatePickerDialog.changeFormate(obj.getString("teeka_date")));
                     marray.add(jsonObject1);
 
                 }
@@ -480,7 +481,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
 
         BakriData.deleteAll(BakriData.class);
         TeekaData.deleteAll(TeekaData.class);
@@ -507,7 +508,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         mDatePickerDialog.getdate(getContext(), tv_date);
 
-        im.setTeekadate(tv_date.getText().toString().trim());
+        im.setTeekadate(tv_date.getText().toString());
 
     }
 
@@ -536,7 +537,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
 
 
         binding.edtBeemaVivran.setText(String.valueOf(successResult.getData().getBeemaDetail()));
@@ -544,7 +545,7 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
 
         binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
 
-        binding.edtProofdate.setText(String.valueOf(successResult.getData().getDatePhysicalProof()));
+        binding.edtProofdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDatePhysicalProof())));
 
 
         binding.edtAveragProduction.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
@@ -562,28 +563,28 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         String[] date = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
             if (!date[i].isEmpty() && date[i] != null && !date[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.ppr), date[i]));
+                immunizations.add(new Immunization(getString(R.string.ppr), mDatePickerDialog.changeFormate(date[i])));
             }
 
         }
         String[] date1 = et.split(",");
         for (int i = 0; i < date1.length; i++) {
             if (!date1[i].isEmpty() && date1[i] != null && !date1[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.et), date1[i]));
+                immunizations.add(new Immunization(getString(R.string.et), mDatePickerDialog.changeFormate(date1[i])));
             }
         }
 
         String[] date2 = fmd.split(",");
         for (int i = 0; i < date2.length; i++) {
             if (!date2[i].isEmpty() && date2[i] != null && !date2[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.fmd), date2[i]));
+                immunizations.add(new Immunization(getString(R.string.fmd), mDatePickerDialog.changeFormate(date2[i])));
             }
         }
 
         String[] date3 = hs.split(",");
         for (int i = 0; i < date3.length; i++) {
             if (!date3[i].isEmpty() && date3[i] != null && !date3[i].equalsIgnoreCase("null")) {
-                immunizations.add(new Immunization(getString(R.string.hs), date3[i]));
+                immunizations.add(new Immunization(getString(R.string.hs), mDatePickerDialog.changeFormate(date3[i])));
             }
         }
         setupRecyclerView();
@@ -602,25 +603,8 @@ public class BakriVitranActivity extends MvpActivity <BakriVitranPresenter> impl
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spTeeka.setAdapter(adapter);
 
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
 
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
     }
 
     private void clearallField() {

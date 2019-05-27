@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -18,6 +17,7 @@ import com.tekzee.racp.ui.Form.dana_pani_bartan.model.RetrivedDanaPaniResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -357,7 +357,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
                 jsonObject.addProperty("usability", detail.getUse());
                 jsonObject.addProperty("note", detail.getNote());
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm());
+                jsonObject.addProperty("mm", detail.getMm_id()+1);
                 jsonObject.addProperty("yy", detail.getYy());
                 jsonArray.add(jsonObject);
 
@@ -443,26 +443,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
     }
 
     private void SpinnerData() {
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        int yearlimit = mDatePickerDialog.getYear();
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= yearlimit; i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
     }
 
     @Override
@@ -504,7 +485,7 @@ public class DanaPaniBartan extends MvpActivity <DanaPaniBartanPresenter> implem
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
         binding.receiptDate.setVisibility(View.VISIBLE);
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
         if (successResult.getData().getPhysicalProof().equalsIgnoreCase(getString(R.string.yes))) {
             binding.checkProofYes.setChecked(true);
         } else {

@@ -26,6 +26,7 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Immunization;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.Record;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.KeyboardUtils;
 import com.tekzee.racp.utils.Utility;
@@ -223,10 +224,10 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
             } else {
                 object.addProperty("dd", binding.day.getText().toString().trim());
             }
-            object.addProperty("mm", binding.spMonth.getSelectedItem().toString());
+            object.addProperty("mm", binding.spMonth.getSelectedItemPosition()+1);
             object.addProperty("yy", binding.spYear.getSelectedItem().toString());
             object.addProperty("policy_no", binding.edtPolicyNo.getText().toString().trim());
-            object.addProperty("physical_proof_date", binding.tvPhyProof.getText().toString().trim());
+            object.addProperty("physical_proof_date", mDatePickerDialog.changeFormate(binding.tvPhyProof.getText().toString().trim()));
             object.add("teekakaran", jsonArray);
 
             Log.e(tag, "record 1 data is " + object.toString());
@@ -419,55 +420,28 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spTeeka.setAdapter(adapter);
 
-//
-//        जनवरी
-//                फरवरी
-//        मार्च
-//                अप्रैल
-//        मई
-//                जून
-//        जुलाई
-//                अगस्त
-//        सितम्बर
-//                अक्टूबर
-//        नवम्बर
-//                दिसंबर
 
-       /* List<String> months = new ArrayList <>();
-        months.add("जनवरी");
-        months.add("फरवरी");
-        months.add("मार्च");
-        months.add("अप्रैल");
-        months.add("मई");
-        months.add("जून");
-        months.add("जुलाई");
-        months.add("अगस्त");
-        months.add("सितम्बर");
-        months.add("अक्टूबर");
-        months.add("नवम्बर");
-        months.add("दिसंबर");
-        ArrayAdapter<String> MonthAdapter = new ArrayAdapter <String>(getContext(),R.layout.spinner_item,months);
-        MonthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(MonthAdapter);*/
 
-        List <Integer> month = new ArrayList <>();
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
+
+        /*List <Integer> month = new ArrayList <>();
         for (int i = 1; i <= 12; i++) {
             month.add(i);
         }
         ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
                 R.layout.spinner_item, month);
         adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
+        binding.spMonth.setAdapter(adapter1);*/
 
 
-        List <Integer> year = new ArrayList <>();
+       /* List <Integer> year = new ArrayList <>();
         for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
             year.add(i);
         }
         ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
                 R.layout.spinner_item, year);
         adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+        binding.spYear.setAdapter(adapter2);*/
     }
 
     private void ShowDialog() {
@@ -555,7 +529,7 @@ public class FormActivity extends MvpActivity <FormPresenter> implements FormVie
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
         binding.edtPolicyNo.setText(successResult.getData().getPolicyNo());
         binding.edtBeemaVivran.setText(successResult.getData().getBeemaDetail());
-        binding.tvPhyProof.setText(successResult.getData().getDatePhysicalProof());
+        binding.tvPhyProof.setText(mDatePickerDialog.changeFormate(successResult.getData().getDatePhysicalProof()));
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);

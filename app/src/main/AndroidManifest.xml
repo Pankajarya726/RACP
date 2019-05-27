@@ -25,9 +25,14 @@
         android:roundIcon="@drawable/racp_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.Form.milk_info_bakari.MilkInfoActivity"></activity>
+        <activity android:name=".ui.Form.milk_info_bakari.MilkInfoActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".ui.dashboardform.DashformActivity" />
-        <activity android:name=".ui.formdata.FormDataActivity" />
+        <activity android:name=".ui.formdata.FormDataActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
+
         <activity
             android:name=".ui.formselection.ListFormActivity"
             android:windowSoftInputMode="stateHidden">

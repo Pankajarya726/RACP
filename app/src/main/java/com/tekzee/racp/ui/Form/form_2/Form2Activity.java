@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,6 +19,7 @@ import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -160,7 +160,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
             }
             mData data = new mData(binding.edtTagNo.getText().toString(),
                     binding.day.getText().toString(),
-                    binding.spMonth.getSelectedItem().toString(),
+                    String.valueOf(binding.spMonth.getSelectedItemPosition()+1),
                     binding.spYear.getSelectedItem().toString(),
                     binding.edtAge.getText().toString(),
                     binding.edtAvarage.getText().toString(),
@@ -282,27 +282,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
     }
 
     private void setDataInSpinner() {
-
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
-
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
 
     }
 
@@ -400,7 +380,7 @@ public class Form2Activity extends MvpActivity <Form2Presenter> implements Form2
 
 
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
         binding.edtAge.setText(String.valueOf(successResult.getData().getAge()));
         binding.edtAvarage.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
         binding.spNasl.setText(String.valueOf(successResult.getData().getNaslaName()));

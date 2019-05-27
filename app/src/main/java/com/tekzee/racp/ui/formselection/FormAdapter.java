@@ -83,6 +83,7 @@ public class FormAdapter extends RecyclerView.Adapter <FormAdapter.MyViewHolder>
                 holder.ivGray.setVisibility(View.GONE);
             } else {
                 holder.ivGray.setVisibility(View.VISIBLE);
+                holder.itemView.setClickable(false);
             }
         }
 

@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 
 import com.google.gson.JsonArray;
@@ -19,6 +18,7 @@ import com.tekzee.racp.ui.Form.beema_detail.model.RetrivedBeemaDataResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -341,7 +341,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             }
 
             BeemaDetail beemaDetail = new BeemaDetail(day,
-                    binding.spMonth.getSelectedItem().toString(),
+                    String.valueOf(binding.spMonth.getSelectedItemPosition()),
                     binding.spYear.getSelectedItem().toString(),
                     binding.spAnimalType.getSelectedItem().toString(),
                     binding.spAnimalType.getSelectedItemPosition(),
@@ -386,11 +386,11 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
                 jsonObject.addProperty("animaltype_id", detail.getAnimal_id() + 1);
                 jsonObject.addProperty("tag_no", detail.getTagNo());
-                jsonObject.addProperty("date_from_beema", detail.getDateFrom());
-                jsonObject.addProperty("date_to_beema", detail.getDateTo());
+                jsonObject.addProperty("date_from_beema", mDatePickerDialog.changeFormate(detail.getDateFrom()));
+                jsonObject.addProperty("date_to_beema", mDatePickerDialog.changeFormate(detail.getDateTo()));
                 jsonObject.addProperty("death_stage", detail.getDeathCondition());
                 jsonObject.addProperty("claim_receipt_stage", detail.getClaim_condition());
-                jsonObject.addProperty("date_death", detail.getDeath_date());
+                jsonObject.addProperty("date_death", mDatePickerDialog.changeFormate(detail.getDeath_date()));
                 jsonObject.addProperty("policy_no", detail.getPolicy_no());
                 jsonObject.addProperty("dd", detail.getDd());
                 jsonObject.addProperty("mm", detail.getMm());
@@ -414,32 +414,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     }
 
     private void SpinnerData() {
-        List <String> animal = new ArrayList <>();
-        animal.add(getString(R.string.bakra));
-        animal.add(getString(R.string.bakari));
-        ArrayAdapter <String> adapter_animal = new ArrayAdapter <String>(this,
-                R.layout.spinner_item, animal);
-        adapter_animal.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spAnimalType.setAdapter(adapter_animal);
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adapter1 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter1.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adapter1);
-
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i <= mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter2);
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
     }
 
 
@@ -539,14 +514,14 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         DisableView();
 
         binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-        binding.receiptDate.setText(String.valueOf(successResult.getData().getDateReceipt()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
 
 
         binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
 
-        binding.edtDateto.setText(String.valueOf(successResult.getData().getDateToBeema()));
+        binding.edtDateto.setText(String.valueOf(mDatePickerDialog.changeFormate(successResult.getData().getDateToBeema())));
 
-        binding.edtDatefrom.setText(String.valueOf(successResult.getData().getDateFromBeema()));
+        binding.edtDatefrom.setText(String.valueOf(mDatePickerDialog.changeFormate(successResult.getData().getDateFromBeema())));
 
 
         if (successResult.getData().getDeathStage().equalsIgnoreCase(getString(R.string.yes))) {
@@ -555,7 +530,7 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
             binding.edtDateDeath.setVisibility(View.VISIBLE);
             binding.tvDeath.setVisibility(View.VISIBLE);
             binding.edtDateDeath.setClickable(false);
-            binding.edtDateDeath.setText(String.valueOf(successResult.getData().getDateDeath()));
+            binding.edtDateDeath.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateDeath())));
         } else {
             binding.checkNo.setChecked(true);
         }

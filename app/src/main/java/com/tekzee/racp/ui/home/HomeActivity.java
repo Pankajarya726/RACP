@@ -36,6 +36,7 @@ import com.tekzee.racp.ui.home.model.Sidemenu;
 import com.tekzee.racp.ui.info.InfoActivity;
 import com.tekzee.racp.ui.login.activity.Login;
 import com.tekzee.racp.ui.selectMtgGroup.SelectMtgActivity;
+import com.tekzee.racp.utils.PhotoFullPopupWindow;
 import com.tekzee.racp.utils.Utility;
 
 import java.util.ArrayList;
@@ -62,6 +63,7 @@ public class HomeActivity extends MvpActivity <homePresenter>
         setContentView(R.layout.activity_home);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(R.string.dashboard);
         Log.e(TAG, String.valueOf(1));
 
         getNAvigationData();
@@ -72,6 +74,16 @@ public class HomeActivity extends MvpActivity <homePresenter>
         ImageView image_profile = navigationView.findViewById(R.id.header_img);
         TextView tv_name = navigationView.findViewById(R.id.header_name);
         TextView tv_mobile = navigationView.findViewById(R.id.header_mobile);
+        image_profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new PhotoFullPopupWindow(getContext(), R.layout.popup_photo_full, image_profile, Utility.getSharedPreferences(getContext(),Constant.image), null);
+
+            }
+        });
+
+        //;
+
         setHeaderData(image_profile, tv_name, tv_mobile);
         recyclerView = navigationView.findViewById(R.id.recycler_nav);
 
@@ -103,7 +115,7 @@ public class HomeActivity extends MvpActivity <homePresenter>
     @Override
     public void onBackPressed() {
 
-        finish();
+        this.finish();
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -169,7 +181,7 @@ public class HomeActivity extends MvpActivity <homePresenter>
 
         switch (position) {
             case 0:
-                fragment = new DashboardFragment();
+                //fragment = new DashboardFragment();
                 drawer.closeDrawers();
                 break;
             case 1:

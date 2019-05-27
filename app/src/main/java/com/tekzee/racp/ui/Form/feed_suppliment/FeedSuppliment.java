@@ -22,6 +22,7 @@ import com.tekzee.racp.ui.Form.feed_suppliment.model.RetrivedFeedSupplimentRespo
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -34,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implements Dialogs.okClickListner,AdapterView.OnItemSelectedListener, FeedSupplimentView, View.OnClickListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener {
+public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implements Dialogs.okClickListner, AdapterView.OnItemSelectedListener, FeedSupplimentView, View.OnClickListener, DatePickerDialog.OnDateSetListener, AdapterView.OnItemClickListener {
     private static String tag = FeedSuppliment.class.getSimpleName();
     int recordNo = 1;
     int record_count = 1;
@@ -104,6 +105,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         // TODO Auto-generated method stub
@@ -221,42 +223,42 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     private boolean addRecordinSqlite() {
 
         Log.e(tag, "addrecord");
-        if (binding.edtAge.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_age));
+        if (binding.edtAge.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_age));
 
             return false;
-        } else if (binding.edtStartweight.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_weight));
+        } else if (binding.edtStartweight.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_weight));
 
             return false;
-        } else if (binding.edtStartmilkproduction.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_start_milk_production));
+        } else if (binding.spAnimalType.getSelectedItem().toString().equalsIgnoreCase(getString(R.string.bakari)) && binding.edtStartmilkproduction.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_start_milk_production));
             return false;
-        } else if (binding.edtTagNo.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_tagno));
+        } else if (binding.edtTagNo.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
-        } else if (binding.edtSupplimetnAmount.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_feed_suppliment_amount));
+        } else if (binding.edtSupplimetnAmount.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_feed_suppliment_amount));
             return false;
-        } else if (binding.edtStartDate.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_feed_suppliment_start_date));
+        } else if (binding.edtStartDate.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_feed_suppliment_start_date));
             return false;
-        } else if (binding.edtAfterStart90.getText().toString().isEmpty()) {
-            Dialogs.showColorDialog(getContext(),getString(R.string.enter_feed_suppliment_start_date));
+        } else if (binding.edtAfterStart90.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_feed_suppliment_start_date));
             return false;
         } else {
 
             String day;
-            if (binding.day.getText().toString().isEmpty()) {
+            if (binding.day.getText().toString().trim().isEmpty()) {
                 day = "01";
 
             } else {
-                day = binding.day.getText().toString();
-                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),
+                day = binding.day.getText().toString().trim();
+                if (!mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),
                         binding.spMonth.getSelectedItemPosition() + 1,
                         Integer.valueOf(binding.spYear.getSelectedItem().toString()))) {
 
-                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
+                    //mDatePickerDialog.validateDate(Integer.valueOf(binding.day.getText().toString().trim()),binding.spMonth.getSelectedItemPosition()+1,Integer.valueOf(binding.spYear.getSelectedItem().toString()));
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_Date));
                     // Toast.makeText(this, getString(R.string.invalid_Date), Toast.LENGTH_SHORT).show();
                     return false;
@@ -271,25 +273,25 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
                     binding.spYear.getSelectedItemPosition(),
                     binding.spAnimalType.getSelectedItem().toString(),
                     binding.spAnimalType.getSelectedItemPosition(),
-                    binding.edtTagNo.getText().toString(),
-                    binding.edtAge.getText().toString(),
-                    binding.edtStartweight.getText().toString(),
-                    binding.edtStartmilkproduction.getText().toString(),
-                    binding.edtSupplimetnAmount.getText().toString(),
-                    binding.edtStartDate.getText().toString(),
-                    binding.edtAfterStart90.getText().toString(),
-                    binding.edtWeight1.getText().toString(),
-                    binding.spCoatshining1.getText().toString(),
-                    binding.spHeatfrequency1.getText().toString(),
-                    binding.spMilkproduciton1.getText().toString(),
-                    binding.edtWeight2.getText().toString(),
-                    binding.spCoatshining2.getText().toString(),
-                    binding.spHeatfrequency2.getText().toString(),
-                    binding.spMilkproduciton2.getText().toString(),
-                    binding.edtWeight3.getText().toString(),
-                    binding.spCoatshining3.getText().toString(),
-                    binding.spHeatfrequency3.getText().toString(),
-                    binding.spMilkproduciton3.getText().toString()
+                    binding.edtTagNo.getText().toString().trim(),
+                    binding.edtAge.getText().toString().trim(),
+                    binding.edtStartweight.getText().toString().trim(),
+                    binding.edtStartmilkproduction.getText().toString().trim(),
+                    binding.edtSupplimetnAmount.getText().toString().trim(),
+                    binding.edtStartDate.getText().toString().trim(),
+                    binding.edtAfterStart90.getText().toString().trim(),
+                    binding.edtWeight1.getText().toString().trim(),
+                    binding.spCoatshining1.getText().toString().trim(),
+                    binding.spHeatfrequency1.getText().toString().trim(),
+                    binding.spMilkproduciton1.getText().toString().trim(),
+                    binding.edtWeight2.getText().toString().trim(),
+                    binding.spCoatshining2.getText().toString().trim(),
+                    binding.spHeatfrequency2.getText().toString().trim(),
+                    binding.spMilkproduciton2.getText().toString().trim(),
+                    binding.edtWeight3.getText().toString().trim(),
+                    binding.spCoatshining3.getText().toString().trim(),
+                    binding.spHeatfrequency3.getText().toString().trim(),
+                    binding.spMilkproduciton3.getText().toString().trim()
             );
             detail.save();
 
@@ -425,10 +427,10 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
                 jsonObject.addProperty("weight_start", detail.getStart_weight());
                 jsonObject.addProperty("milk_production_start", detail.getStart_milk_producion());
                 jsonObject.addProperty("feed_supliment_amount", detail.getStart_amount_feedsuppliment());
-                jsonObject.addProperty("feed_suppliment_start_date", detail.getStart_date());
-                jsonObject.addProperty("date_after_90_days", detail.getDate_90day());
+                jsonObject.addProperty("feed_suppliment_start_date", mDatePickerDialog.changeFormate(detail.getStart_date()));
+                jsonObject.addProperty("date_after_90_days", mDatePickerDialog.changeFormate(detail.getDate_90day()));
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm());
+                jsonObject.addProperty("mm", detail.getMm_id()+1);
                 jsonObject.addProperty("yy", detail.getYy());
 
                 JsonArray jsonArray1 = new JsonArray();
@@ -544,7 +546,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
@@ -564,13 +566,24 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         if (position == 0 || position == 2) {
             binding.layoutMilkproducion3.setVisibility(View.GONE);
             binding.layoutMilkproducion1.setVisibility(View.GONE);
+
             binding.layoutMilkproducion2.setVisibility(View.GONE);
+            binding.tvmilkproduction.setVisibility(View.GONE);
+            binding.edtStartmilkproduction.setVisibility(View.GONE);
+            binding.layoutHeatfreauency1.setVisibility(View.GONE);
+            binding.layoutHeatfreauency2.setVisibility(View.GONE);
+            binding.layoutHeatfreauency.setVisibility(View.GONE);
 
         }
         if (position == 1) {
             binding.layoutMilkproducion3.setVisibility(View.VISIBLE);
             binding.layoutMilkproducion1.setVisibility(View.VISIBLE);
             binding.layoutMilkproducion2.setVisibility(View.VISIBLE);
+            binding.tvmilkproduction.setVisibility(View.VISIBLE);
+            binding.edtStartmilkproduction.setVisibility(View.VISIBLE);
+            binding.layoutHeatfreauency1.setVisibility(View.VISIBLE);
+            binding.layoutHeatfreauency2.setVisibility(View.VISIBLE);
+            binding.layoutHeatfreauency.setVisibility(View.VISIBLE);
         }
     }
 
@@ -586,6 +599,9 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
             binding.layoutMilkproducion3.setVisibility(View.GONE);
             binding.layoutMilkproducion1.setVisibility(View.GONE);
             binding.layoutMilkproducion2.setVisibility(View.GONE);
+            binding.layoutHeatfreauency1.setVisibility(View.GONE);
+            binding.layoutHeatfreauency2.setVisibility(View.GONE);
+            binding.layoutHeatfreauency.setVisibility(View.GONE);
 
         }
         if (position == 1) {
@@ -597,28 +613,11 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
     private void setDataInSpinner() {
 
+        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
+
         effect_list.add(getString(R.string.increase));
         effect_list.add(getString(R.string.dicrease));
         effect_list.add(getString(R.string.not_change));
-
-
-        List <Integer> year = new ArrayList <>();
-        for (int i = 2015; i < mDatePickerDialog.getYear(); i++) {
-            year.add(i);
-        }
-        ArrayAdapter <Integer> adapter = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, year);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spYear.setAdapter(adapter);
-
-        List <Integer> month = new ArrayList <>();
-        for (int i = 1; i <= 12; i++) {
-            month.add(i);
-        }
-        ArrayAdapter <Integer> adaptermonth = new ArrayAdapter <Integer>(this,
-                R.layout.spinner_item, month);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spMonth.setAdapter(adaptermonth);
 
         List <String> animal = new ArrayList <>();
         animal.add(getString(R.string.bakra));
@@ -628,27 +627,6 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
                 R.layout.spinner_item, animal);
         adapter_animal.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spAnimalType.setAdapter(adapter_animal);
-
-        List <String> effect = new ArrayList <>();
-        effect.add("");
-        effect.add(getString(R.string.increase));
-        effect.add(getString(R.string.dicrease));
-        effect.add(getString(R.string.not_change));
-
-
-        ArrayAdapter <String> adapter_effect = new ArrayAdapter <String>(this,
-                R.layout.spinner_item, effect);
-        adapter_effect.setDropDownViewResource(R.layout.spinner_dropdown_item);
-
-        //  binding.spCoatshining1.setAdapter(adapter_effect);
-//        binding.spCoatshining2.setAdapter(adapter_effect);
-////        binding.spCoatshining3.setAdapter(adapter_effect);
-//        binding.spMilkproduciton1.setAdapter(adapter_effect);
-//        binding.spMilkproduciton2.setAdapter(adapter_effect);
-//        binding.spMilkproduciton3.setAdapter(adapter_effect);
-//        binding.spHeatfrequency1.setAdapter(adapter_effect);
-//        binding.spHeatfrequency2.setAdapter(adapter_effect);
-//        binding.spHeatfrequency3.setAdapter(adapter_effect);
 
     }
 
@@ -662,7 +640,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
     public void SuccessfullSave(FormSubmitResponse successResult) {
         //Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
-        Dialogs.ShowCustomDialog(getContext(),successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
 
         record_count = 1;
         recordNo = 1;
@@ -692,12 +670,19 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
+        binding.receiptDate.setVisibility(View.VISIBLE);
 
-       DisbleView();
+        DisbleView();
 
 
         if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 1) {
             binding.spAnimalType.setSelection(0);
+            binding.tvmilkproduction.setVisibility(View.GONE);
+            binding.edtStartmilkproduction.setVisibility(View.GONE);
+            binding.layoutHeatfreauency1.setVisibility(View.GONE);
+            binding.layoutHeatfreauency2.setVisibility(View.GONE);
+            binding.layoutHeatfreauency.setVisibility(View.GONE);
+
         }
         if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 2) {
             binding.spMilkproduciton1.setVisibility(View.VISIBLE);
@@ -707,22 +692,64 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         }
         if (Integer.valueOf(successResult.getData().getAnimaltypeId()) == 3) {
             binding.spAnimalType.setSelection(2);
+            binding.tvmilkproduction.setVisibility(View.GONE);
+            binding.edtStartmilkproduction.setVisibility(View.GONE);
+            binding.layoutHeatfreauency1.setVisibility(View.GONE);
+            binding.layoutHeatfreauency2.setVisibility(View.GONE);
+            binding.layoutHeatfreauency.setVisibility(View.GONE);
         }
 
 
-        String weight = successResult.getData().getEffetedWeight();
-        String coat_Shining = successResult.getData().getCoatShining();
+        binding.edtWeight1.setText(String.valueOf(successResult.getData().getEffetedWeight().get(0)));
+        binding.edtWeight2.setText(String.valueOf(successResult.getData().getEffetedWeight().get(1)));
+        binding.edtWeight3.setText(String.valueOf(successResult.getData().getEffetedWeight().get(2)));
+
+        binding.spCoatshining1.setText(String.valueOf(successResult.getData().getCoatShining().get(0)));
+        binding.spCoatshining2.setText(String.valueOf(successResult.getData().getCoatShining().get(1)));
+        binding.spCoatshining3.setText(String.valueOf(successResult.getData().getCoatShining().get(2)));
+
+        binding.spHeatfrequency1.setText(String.valueOf(successResult.getData().getHeatFrquency().get(0)));
+        binding.spHeatfrequency2.setText(String.valueOf(successResult.getData().getHeatFrquency().get(1)));
+        binding.spHeatfrequency3.setText(String.valueOf(successResult.getData().getHeatFrquency().get(2)));
+
+        binding.spMilkproduciton1.setText(String.valueOf(successResult.getData().getMilkProduction().get(0)));
+        binding.spMilkproduciton2.setText(String.valueOf(successResult.getData().getMilkProduction().get(1)));
+        binding.spMilkproduciton3.setText(String.valueOf(successResult.getData().getMilkProduction().get(2)));
+
+        /*String coat_Shining = successResult.getData().getCoatShining();
         String milk_production = successResult.getData().getMilkProduction();
-        String heay_friquendy = successResult.getData().getHeatFrquency();
+        String heay_friquendy = successResult.getData().getHeatFrquency();*/
 
 
-        // String weight1[] = weight.split(",");
+        /*com.tekzee.racp.utils.Log.view(tag, weight);
+        com.tekzee.racp.utils.Log.view(tag, coat_Shining);
+        com.tekzee.racp.utils.Log.view(tag, milk_production);
+        com.tekzee.racp.utils.Log.view(tag, heay_friquendy);
+
+        String weight1[] = {"alsdgj","","kasdhg"};*/
+/*
+        List<String> mlist = new ArrayList <>();
+        mlist.add("");
+        mlist.add("");
+        mlist.add("45");*/
 
 
-        //Log.e(tag, weight+"****"+weight1[0]);
-       /* binding.edtWeight1.setText(String.valueOf(weight1[0]));
-        binding.edtWeight2.setText(String.valueOf(weight1[1]));*/
-        //binding.edtWeight3.setText(String.valueOf(weight1[2]));
+        //String weight1[] = weight.split(",");
+
+       /* if (!weight1[0].isEmpty()){
+            Log.e(tag,weight1[0]);
+            binding.edtWeight1.setText(weight1[0]);
+        }
+        if (!weight1[1].isEmpty()){
+            Log.e(tag,weight1[1]);
+            binding.edtWeight2.setText(weight1[1]);
+
+        }
+        if (!weight1[2].isEmpty()) {
+            Log.e(tag, weight1[2]);
+            binding.edtWeight3.setText(weight1[2]);
+
+        }*/
 
 
         binding.edtTagNo.setText(String.valueOf(Integer.valueOf(successResult.getData().getTagNo())));
@@ -731,10 +758,11 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         binding.edtStartweight.setText(String.valueOf(successResult.getData().getWeightStart()));
 
         Log.e(tag, successResult.getData().getTagNo().toString());
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(successResult.getData().getDateReceipt()));
         binding.edtStartmilkproduction.setText(String.valueOf(successResult.getData().getMilkProductionStart()));
         binding.edtSupplimetnAmount.setText(String.valueOf(successResult.getData().getFeedSuplimentAmount()));
-        binding.edtStartDate.setText(String.valueOf(successResult.getData().getFeedSupplimentStartDate()));
-        binding.edtAfterStart90.setText(String.valueOf(successResult.getData().getDateAfter90Days()));
+        binding.edtStartDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getFeedSupplimentStartDate())));
+        binding.edtAfterStart90.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateAfter90Days())));
 
     }
 
@@ -801,6 +829,7 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         binding.spMilkproduciton3.setText("");
         EnableView();
     }
+
     private void DisbleView() {
         binding.edtTagNo.setEnabled(false);
         binding.edtAge.setEnabled(false);
@@ -828,7 +857,8 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
         binding.spYear.setEnabled(false);
 
     }
-    private void EnableView(){
+
+    private void EnableView() {
         binding.edtTagNo.setEnabled(true);
         binding.edtAge.setEnabled(true);
         binding.edtStartweight.setEnabled(true);
@@ -865,6 +895,6 @@ public class FeedSuppliment extends MvpActivity <FeedSupplimentPresenter> implem
 
     @Override
     public void onOkClickListner() {
-this.finish();
+        this.finish();
     }
 }

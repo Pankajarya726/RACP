@@ -173,6 +173,18 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/receipt_date"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:gravity="center_vertical"
+                        android:text="@string/animal_type"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:visibility="gone" />
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
@@ -250,17 +262,18 @@
                         android:layout_height="35dp"
                         android:inputType="numberDecimal"
                         android:textColor="@color/black"
-
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
                     <TextView
+                        android:id="@+id/tvmilkproduction"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
                         android:text="@string/milk_produciton"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:visibility="gone"/>
 
                     <EditText
                         android:id="@+id/edt_startmilkproduction"
@@ -268,7 +281,7 @@
                         android:layout_height="35dp"
                         android:inputType="numberDecimal"
                         android:textColor="@color/black"
-
+                        android:visibility="gone"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />

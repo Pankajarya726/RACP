@@ -48,7 +48,7 @@ public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
                 @Override
                 public void onFailure(CommonResult commonResult) {
 
-                    mvpView.onNoInternetConnectivity(new CommonResult(false,mvpView.getContext().getString(R.string.mtg_group_not_found)));
+                    mvpView.onNoInternetConnectivity(new CommonResult(false,commonResult.getMessage()));
                 }
 
                 @Override

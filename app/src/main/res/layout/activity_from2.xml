@@ -205,6 +205,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:inputType="number"
                         android:paddingHorizontal="10dp" />
@@ -225,6 +226,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
+                        android:textColor="@color/black"
+
                         android:background="@drawable/edit_theme_black"
                         android:inputType="number"
                         android:maxLength="3"
@@ -250,6 +253,8 @@
                         android:background="@drawable/edit_theme_black"
                         android:gravity="center_vertical"
                         android:inputType="numberDecimal"
+                        android:textColor="@color/black"
+
                         android:paddingHorizontal="10dp" />
 
                     <TextView
@@ -294,6 +299,8 @@
                         android:inputType="textMultiLine"
                         android:background="@drawable/edit_theme_black"
                         android:gravity="start"
+                        android:textColor="@color/black"
+
                         android:padding="10dp" />
                 </LinearLayout>
 

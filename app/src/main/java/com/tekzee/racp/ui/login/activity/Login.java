@@ -111,12 +111,12 @@ public class Login extends MvpActivity <LoginPresenter> implements LoginView, Vi
         switch (v.getId()) {
 
             case R.id.img_next:
-                if (binding.edtMobileNumber.getText().toString().isEmpty()) {
+                if (binding.edtMobileNumber.getText().toString().trim().isEmpty()) {
 
                     Dialogs.showColorDialog(getContext(), getString(R.string.number));
 //                    SnackbarUtils.snackBarBottom(binding.edtMobileNumber,getString(R.string.enter_number));
                     // binding.edtMobileNumber.setError(getString(R.string.enter_number));
-                } else if (binding.edtMobileNumber.getText().toString().length() < 10) {
+                } else if (binding.edtMobileNumber.getText().toString().trim().length() < 10) {
                     binding.edtMobileNumber.setError(getResources().getString(R.string.invlid_number));
                 } else {
 
@@ -130,16 +130,16 @@ public class Login extends MvpActivity <LoginPresenter> implements LoginView, Vi
 
             case R.id.bt_submit:
 
-                if (binding.edtMobileNumber.getText().toString().isEmpty()) {
+                if (binding.edtMobileNumber.getText().toString().trim().isEmpty()) {
                     Dialogs.showColorDialog(getContext(), getString(R.string.number));
 
-                } else if (binding.edtMobileNumber.getText().toString().length() < 10) {
+                } else if (binding.edtMobileNumber.getText().toString().trim().length() < 10) {
                     binding.edtMobileNumber.setError(getResources().getString(R.string.invlid_number));
 
-                } else if (binding.edtOtp.getText().toString().isEmpty()) {
+                } else if (binding.edtOtp.getText().toString().trim().isEmpty()) {
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_otp));
 
-                } else if (binding.edtOtp.getText().toString().length() < 4 ) {
+                } else if (binding.edtOtp.getText().toString().trim().length() < 4 ) {
                     Dialogs.showColorDialog(getContext(), getString(R.string.invalid_otp));
 
 
