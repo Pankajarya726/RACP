@@ -28,13 +28,16 @@
         <activity android:name=".ui.Form.milk_info_bakari.MilkInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"></activity>
-        <activity android:name=".ui.dashboardform.DashformActivity" />
+        <activity android:name=".ui.dashboardform.DashformActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".ui.formdata.FormDataActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden"/>
 
         <activity
             android:name=".ui.formselection.ListFormActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
@@ -195,15 +198,17 @@
                 tools:replace="android:resource" />
         </provider>
         <!-- Image Picker activity -->
-        <activity android:name=".ui.ImagePickerActivity" />
-
+        <activity android:name=".ui.ImagePickerActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden"/>
 
 
         <!-- uCrop cropping activity -->
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+        android:windowSoftInputMode="stateHidden" />
     </application>
 
 </manifest>

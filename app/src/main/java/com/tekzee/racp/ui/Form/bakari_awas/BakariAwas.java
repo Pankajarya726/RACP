@@ -309,6 +309,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
             latitude = String.valueOf(mLocation.getLatitude());
             longitude = String.valueOf(mLocation.getLongitude());
 
+          //  Blob blob = new javax.sql.rowset.serial.SerialBlob(imageBytes);
 
             mvpPresenter.uploadDocument(imageBytes);
 
@@ -355,7 +356,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
     }
 
     private void SpinnerData() {
-        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
+        CalenderUtils.loadMonths(getContext(), binding.spMonth, binding.spYear);
     }
 
     @Override
@@ -417,7 +418,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
     @Override
     public void onSuccessFullSave(FormSubmitResponse successResult) {
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
         //finish();
 
     }
@@ -435,7 +436,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         binding.tvSave.setVisibility(View.GONE);
 
 
-        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")) {
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
         binding.receiptDate.setVisibility(View.VISIBLE);
@@ -529,10 +530,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
 
                         imageBytes = Utility.getBytes(imageInputStream);
                         // mvpPresenter.uploadDocument(imageBytes);
-
                     }
-
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

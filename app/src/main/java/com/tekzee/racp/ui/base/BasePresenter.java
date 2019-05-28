@@ -2,7 +2,6 @@ package com.tekzee.racp.ui.base;
 
 import com.tekzee.racp.api.ApiClient;
 import com.tekzee.racp.api.ApiStore;
-import com.tekzee.racp.ui.Form.beema_detail.BeemaDetailView;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -11,16 +10,17 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class BasePresenter <V> {
+public class BasePresenter<V> {
 
     public V mvpView;
-   protected ApiStore apiStores;
+    protected ApiStore apiStores;
     private CompositeDisposable mcompositeDisposable;
 
     public void attachView(V mvpView) {
         this.mvpView = mvpView;
         apiStores = ApiClient.retrofit().create(ApiStore.class);
     }
+
     public void detachView() {
         this.mvpView = null;
         onUnsubscribe();
@@ -67,7 +67,6 @@ public class BasePresenter <V> {
                 });
 
     }
-
 
 
 }

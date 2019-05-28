@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 
 import com.google.gson.JsonArray;
@@ -414,6 +415,16 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
     }
 
     private void SpinnerData() {
+
+
+        List <String> animal = new ArrayList <>();
+        animal.add(getString(R.string.bakra));
+        animal.add(getString(R.string.bakari));
+        ArrayAdapter <String> adapter_animal = new ArrayAdapter <String>(this,
+                R.layout.spinner_item, animal);
+        adapter_animal.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spAnimalType.setAdapter(adapter_animal);
+
         CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
     }
 

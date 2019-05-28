@@ -15,7 +15,6 @@
     <string name="record2">रिकॉर्ड : </string>
     <string name="report">रिपोर्ट</string>
     <string name="tag_no"> टैग नंबर</string>
-
     <string name="physical_date">भौतिक सत्यापन दिनांक </string>
     <string name="date">दिनांक :  </string>
     <string name="immunization"> टीकाकरण </string>
@@ -149,7 +148,7 @@
 
     <!--titles of Activity or fragment
    -->
-    <string name="form_1">R.A.C.P.के अंतर्गत वितरित बकरो का विवरण</string>
+    <string name="form_1">R.A.C.P. के अंतर्गत वितरित बकरो का विवरण</string>
     <string name="form_2">R.A.C.P. अंतर्गत बकरा विवरण के लाभार्थी M. T. G. सदस्यों के पास उपलब्ध बकरियों का विवरण</string>
     <string name="form_3">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को वितरित बकरी का विवरण</string>
     <string name="form_4">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी के बीमा का विवरण </string>
