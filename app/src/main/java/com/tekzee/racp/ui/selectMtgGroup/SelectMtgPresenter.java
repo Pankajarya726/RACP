@@ -23,6 +23,20 @@ public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
     }
 
     public void getMtgGroup(int id) {
+
+      /*  List <MtgGroup> mtgGroupList = new ArrayList <>();
+        mtgGroupList = MtgGroup.listAll(MtgGroup.class);
+
+        if (mtgGroupList.size()>0) {
+            mvpView.onGetMtgGroup(mtgGroupList);
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.identification_type_not_available)));
+        }
+*/
+
+
+
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...",false);
         // mvpView.hideSoftKeyboard();
@@ -58,8 +72,7 @@ public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
             });
         }
     }
-
-    public void getMtgMember(final Integer mtggroupId) {
+  public void getMtgMember(final Integer mtggroupId) {
         mvpView.hideSoftKeyboard();
        // mvpView.showProgressDialog("Please wait...",false);
         // mvpView.hideSoftKeyboard();
@@ -96,4 +109,5 @@ public class SelectMtgPresenter extends BasePresenter<SelectMtgView> {
             });
         }
     }
+
 }

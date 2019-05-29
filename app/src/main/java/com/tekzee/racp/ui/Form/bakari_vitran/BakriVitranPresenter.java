@@ -1,15 +1,29 @@
 package com.tekzee.racp.ui.Form.bakari_vitran;
 
+import android.app.Dialog;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.View;
+import android.view.Window;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
 import com.tekzee.racp.ui.Form.bakari_vitran.model.RetrivedDataResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
+import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
+import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
 
 import org.json.JSONException;
+
+import java.util.ArrayList;
 
 public class BakriVitranPresenter extends BasePresenter<BakariVitranView> {
     public BakriVitranPresenter(BakriVitranActivity bakriVitranActivity) {
@@ -87,6 +101,90 @@ public class BakriVitranPresenter extends BasePresenter<BakariVitranView> {
                 }
             });
         }
+    }
+
+    public void getBenifeciery_type() {
+
+        ArrayList<GramPanchayat> arrayList = new ArrayList <>();
+        arrayList.add(new GramPanchayat(3,"विधवा"));
+        arrayList.add(new GramPanchayat(4,"विकलांग"));
+
+        openSelector(arrayList, "type", mvpView.getContext().getString(R.string.select_pashu_palak_unit));
+    }
+
+    private void openSelector(ArrayList <GramPanchayat> arrayList, final String type ,final String title) {
+        if (arrayList.size() > 0) {
+
+            final Dialog dialog = new Dialog(mvpView.getContext());
+            try {
+                dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setContentView(R.layout.popup_select_grampanchayat);
+                dialog.getWindow().setLayout(-1, -2);
+                dialog.getWindow().setLayout(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+                dialog.setCancelable(false);
+
+                RecyclerView rv_country = dialog.findViewById(R.id.rv_grampanchayat);
+
+                rv_country.setLayoutManager(new LinearLayoutManager(dialog.getContext()));
+                final CountryAdapter adapter = new CountryAdapter(arrayList, new CountryAdapter.RowSelect() {
+                    @Override
+                    public void onSelect(GramPanchayat model) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                        mvpView.onGramPanchayatSelected(model, type);
+
+
+                    }
+                });
+                mvpView.hideSoftKeyboard();
+                rv_country.setAdapter(adapter);
+                TextView et_country_name = dialog.findViewById(R.id.et_gram_panchayat);
+                et_country_name.setText(title);
+
+                et_country_name.addTextChangedListener(new TextWatcher() {
+                    @Override
+                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence s, int start, int before, int count) {
+                        adapter.getFilter().filter(s.toString());
+                    }
+
+                    @Override
+                    public void afterTextChanged(Editable s) {
+
+                    }
+                });
+
+
+                dialog.findViewById(R.id.iv_cancel).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                    }
+                });
+                dialog.findViewById(R.id.iv_close).setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mvpView.hideSoftKeyboard();
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            // mvpView.showInPopup(mvpView.getContext().getResources().getString(R.string.gram_panchayat));
+        }
+
     }
 
 }

@@ -27,7 +27,6 @@ import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.constant.GlideModuleConstant;
 import com.tekzee.racp.sqlite.SqliteDB;
 import com.tekzee.racp.ui.addMGTgroup.AddMtgActivity;
-import com.tekzee.racp.ui.add_animal_owner.AddOwnerActivity;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.dashboard.DashboardFragment;
@@ -186,18 +185,29 @@ public class HomeActivity extends MvpActivity <homePresenter>
                 break;
             case 1:
                 Log.e(TAG, "" + position);
-                startActivity(new Intent(HomeActivity.this, AddOwnerActivity.class));
+               // startActivity(new Intent(HomeActivity.this, AddOwnerActivity.class));
+                startActivity(new Intent(HomeActivity.this, SelectMtgActivity.class));
                 drawer.closeDrawers();
                 break;
 
             case 2:
-                startActivity(new Intent(HomeActivity.this, SelectMtgActivity.class));
-                drawer.closeDrawers();
-                break;
-            case 3:
                 Intent intent = new Intent(HomeActivity.this, SelectMtgActivity.class);
                 intent.putExtra("filled_form", 1);
                 startActivity(intent);
+
+
+                //startActivity(new Intent(HomeActivity.this, SelectMtgActivity.class));
+                drawer.closeDrawers();
+                break;
+            case 3:
+               /* Intent intent = new Intent(HomeActivity.this, SelectMtgActivity.class);
+                intent.putExtra("filled_form", 1);
+                startActivity(intent);*/
+
+                startActivity(new Intent(HomeActivity.this, Login.class));
+                Utility.removepreference(getContext());
+                finish();
+
                 drawer.closeDrawers();
                 break;
             case 4:

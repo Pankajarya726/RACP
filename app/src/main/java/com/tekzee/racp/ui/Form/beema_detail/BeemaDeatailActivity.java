@@ -72,15 +72,16 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
         binding.checkNo.setOnClickListener(this);
         binding.edtDateDeath.setOnClickListener(this);
         binding.checkYes.setOnClickListener(this);
-        binding.radioClaim.check(R.id.radio_yes);
+        binding.radioClaim.check(R.id.radio_pending);
+        binding.checkNo.setChecked(true);
 
-        if (binding.checkYes.isChecked()) {
+        /*if (binding.checkYes.isChecked()) {
             binding.edtDateDeath.setVisibility(View.VISIBLE);
             binding.tvDeath.setVisibility(View.VISIBLE);
         } else {
             binding.edtDateDeath.setVisibility(View.GONE);
             binding.tvDeath.setVisibility(View.GONE);
-        }
+        }*/
     }
 
     private void getFormRecordData() {
@@ -117,13 +118,11 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                         binding.checkNo.setChecked(false);
                     }
                     binding.checkYes.setChecked(true);
-                    binding.edtDateDeath.setVisibility(View.VISIBLE);
-                    binding.tvDeath.setVisibility(View.VISIBLE);
+                   binding.layoutDeath.setVisibility(View.VISIBLE);
 
                 } else {
                     binding.checkYes.setChecked(false);
-                    binding.edtDateDeath.setVisibility(View.GONE);
-                    binding.tvDeath.setVisibility(View.GONE);
+                    binding.layoutDeath.setVisibility(View.GONE);
                 }
                 break;
 
@@ -135,12 +134,10 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
                         binding.checkYes.setChecked(false);
                     }
                     binding.checkNo.setChecked(true);
-                    binding.edtDateDeath.setVisibility(View.GONE);
-                    binding.tvDeath.setVisibility(View.GONE);
+                    binding.layoutDeath.setVisibility(View.GONE);
                 } else {
                     binding.checkNo.setChecked(false);
-                    binding.edtDateDeath.setVisibility(View.VISIBLE);
-                    binding.tvDeath.setVisibility(View.VISIBLE);
+                    binding.layoutDeath.setVisibility(View.GONE);
                 }
                 break;
 
@@ -418,8 +415,10 @@ public class BeemaDeatailActivity extends MvpActivity <BeemaDetailPresenter> imp
 
 
         List <String> animal = new ArrayList <>();
-        animal.add(getString(R.string.bakra));
-        animal.add(getString(R.string.bakari));
+        animal.add(getString(R.string.racp_bakra));
+        animal.add(getString(R.string.racp_bakari));
+        animal.add(getString(R.string.self_bakra));
+        animal.add(getString(R.string.self_bakri));
         ArrayAdapter <String> adapter_animal = new ArrayAdapter <String>(this,
                 R.layout.spinner_item, animal);
         adapter_animal.setDropDownViewResource(R.layout.spinner_dropdown_item);

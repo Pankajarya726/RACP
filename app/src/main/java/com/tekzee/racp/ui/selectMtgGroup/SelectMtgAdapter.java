@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.tekzee.racp.R;
-import com.tekzee.racp.ui.home.NavigationAdapter;
 import com.tekzee.racp.ui.selectMtgGroup.model.Data;
 
 import java.util.ArrayList;
@@ -19,7 +18,9 @@ public class SelectMtgAdapter extends RecyclerView.Adapter<SelectMtgAdapter.MyVi
 
     private SelectMtgView mtgView;
     private Context context;
-    private List<Data> mgtgroup;
+   private List<Data> mgtgroup;
+
+ //   private List<MtgGroup> mgtgroup;
     private View mSelectedView;
     private int mSelectedPosition;
 
@@ -67,6 +68,7 @@ public class SelectMtgAdapter extends RecyclerView.Adapter<SelectMtgAdapter.MyVi
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
         Data data = mgtgroup.get(i);
+        //MtgGroup data = mgtgroup.get(i);
         myViewHolder.textView.setText(data.getMtggroupName());
 
 

@@ -2,6 +2,7 @@ package com.tekzee.racp.ui.selectMtgGroup;
 
 import android.content.Context;
 
+import com.tekzee.racp.sqlite.tables.MtgGroup;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.selectMtgGroup.model.Data;
@@ -20,4 +21,6 @@ public interface SelectMtgView extends BaseView {
 
 
     void onSuccess(GetMtgResponse successResult);
+
+    void onGetMtgGroup(List<MtgGroup> mtgGroupList);
 }

@@ -8,17 +8,15 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
-import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.AddMtgGroupBinding;
+import com.tekzee.racp.sqlite.tables.formtable.FormMtgGroup;
 import com.tekzee.racp.ui.addMGTgroup.model.AddMtgResponse;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.home.HomeActivity;
 import com.tekzee.racp.utils.Dialogs;
-import com.tekzee.racp.utils.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,13 +142,23 @@ public class AddMtgActivity extends MvpActivity <AddMtgPresenter> implements Add
             Dialogs.showColorDialog(getContext(), getString(R.string.select_village));
         } else {
 
-            JsonObject jsonObject = new JsonObject();
+
+            FormMtgGroup formMtgGroup = new FormMtgGroup(binding.edtMtgname.getText().toString().trim(),
+                    binding.gramPanchayat.getText().toString().trim(),
+                    String.valueOf(gram_panchayat_id),
+                    binding.gram.getText().toString().trim(),
+                    String.valueOf(gram_id));
+            if (formMtgGroup.save()>0){
+                Dialogs.ShowCustomDialog(getContext(), getString(R.string.mtg_successfull_added), this,"  ");
+            }
+
+         /*   JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("mtgName", getName());
             jsonObject.addProperty("gramPanchayatId", getGramPachayatId());
             jsonObject.addProperty("gramId", GramId());
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
             mvpPresenter.addMtgGroup(jsonObject);
-        }
+       */ }
     }
 
     @Override

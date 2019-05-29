@@ -15,6 +15,22 @@ public class MgtPersonPresenter extends BasePresenter <MgtPersonView> {
     }
 
     public void getMtgPerson(int id) {
+
+      /*  List <LlwMTGMember> llwMTGMemberList = new ArrayList <>();
+
+        LlwMTGMember.executeQuery("VACUUM");
+        llwMTGMemberList = LlwMTGMember.findWithQuery(LlwMTGMember.class, "Select * from LLW_MTGMEMBER where MTGGROUP_ID = ?", String.valueOf(id));
+        // llwGramList =LlwGram.listAll(LlwGram.class);
+        if (llwMTGMemberList.size()>0) {
+
+            mvpView.onGetMtgMember(llwMTGMemberList);
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.gram_not_available)));
+        }
+*/
+
+
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();

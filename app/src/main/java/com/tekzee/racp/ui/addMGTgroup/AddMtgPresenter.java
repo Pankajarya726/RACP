@@ -5,7 +5,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
@@ -14,19 +13,16 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.constant.Constant;
+import com.tekzee.racp.sqlite.tables.LlwGram;
+import com.tekzee.racp.sqlite.tables.LlwGrampanchayat;
 import com.tekzee.racp.ui.addMGTgroup.model.AddMtgResponse;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
-import com.tekzee.racp.utils.Utility;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddMtgPresenter extends BasePresenter <AddMtgView> {
@@ -74,7 +70,31 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
 
 
     public void getGram(int id) {
-        mvpView.hideSoftKeyboard();
+
+        List <LlwGram> llwGramList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+        LlwGram.executeQuery("VACUUM");
+       llwGramList = LlwGram.findWithQuery(LlwGram.class, "Select * from LLW_GRAM where GRAMPANCHAYAT_ID = ?", String.valueOf(id));
+       // llwGramList =LlwGram.listAll(LlwGram.class);
+        if (llwGramList.size()>0) {
+
+
+            for (int index = 0; index < llwGramList.size(); index++) {
+
+                LlwGram llwGram = llwGramList.get(index);
+
+                arrayList.add(new GramPanchayat(llwGram.getGramId(),
+                        llwGram.getGramName()));
+            }
+            openSelector(arrayList, "Gram", mvpView.getContext().getString(R.string.select_village));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.gram_not_available)));
+        }
+
+
+
+      /*  mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
@@ -123,11 +143,35 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                     mvpView.hideProgressDialog();
                 }
             });
-        }
+        }*/
     }
 
     public void getGramPanchayat() {
-        mvpView.hideSoftKeyboard();
+
+
+        List <LlwGrampanchayat> llwGrampanchayatList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        llwGrampanchayatList = LlwGrampanchayat.listAll(LlwGrampanchayat.class);
+        if (llwGrampanchayatList.size()>0) {
+
+
+            for (int index = 0; index < llwGrampanchayatList.size(); index++) {
+
+                LlwGrampanchayat llwGrampanchayat = llwGrampanchayatList.get(index);
+
+                arrayList.add(new GramPanchayat(llwGrampanchayat.getGrampanchayatId(),
+                        llwGrampanchayat.getGrampanchayatName()));
+            }
+            openSelector(arrayList, "Gram_panchayat", mvpView.getContext().getString(R.string.select_gramPanchayat));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.gramPanchayat_not_available)));
+        }
+
+
+
+      /*  mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
@@ -177,7 +221,7 @@ public class AddMtgPresenter extends BasePresenter <AddMtgView> {
                 }
             });
         }
-    }
+*/    }
 
     private void openSelector(ArrayList <GramPanchayat> arrayList, final String type, final  String title) {
         if (arrayList.size() > 0) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -20,7 +21,6 @@ import com.tekzee.racp.ui.Form.weighting_machine.model.RetrivedWeightingMachineR
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
-import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -778,7 +778,35 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
 
     private void setDataInSpinner() {
 
-        CalenderUtils.loadMonths(getContext(), binding.spMonth, binding.spYear);
+        List <String> months = new ArrayList <>();
+        months.add("जनवरी (01)");
+        months.add("फरवरी (02)");
+        months.add("मार्च (03)");
+        months.add("अप्रैल (04)");
+        months.add("मई (05)");
+        months.add("जून (06)");
+        months.add("जुलाई (07)");
+        months.add("अगस्त (08)");
+        months.add("सितम्बर (09)");
+        months.add("अक्टूबर (10)");
+        months.add("नवम्बर (11)");
+        months.add("दिसंबर (12)");
+
+        ArrayAdapter <String> MonthAdapter = new ArrayAdapter <String>(getContext(), R.layout.spinner_item, months);
+        MonthAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spMonth.setAdapter(MonthAdapter);
+
+
+        List <Integer> year = new ArrayList <>();
+        for (int i = 2017; i <= mDatePickerDialog.getYear(); i++) {
+            year.add(i);
+        }
+        ArrayAdapter <Integer> adapter2 = new ArrayAdapter <Integer>(getContext(),
+                R.layout.spinner_item, year);
+        adapter2.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        binding.spYear.setAdapter(adapter2);
+
+        //CalenderUtils.loadMonths(getContext(), binding.spMonth, binding.spYear);
     }
 
     @Override

@@ -524,6 +524,10 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
                         Glide.with(getContext()).load(uri).into(binding.ivBakriawas);
                         try {
                             imageInputStream = getContentResolver().openInputStream(uri);
+
+                            Log.view(TAG,"uri = = "+uri);
+                            Log.view(TAG,"imageInputStream = = "+imageInputStream);
+
                         } catch (Exception e) {
                             e.printStackTrace();
                         }

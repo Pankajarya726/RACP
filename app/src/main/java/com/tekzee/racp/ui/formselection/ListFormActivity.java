@@ -11,10 +11,7 @@ import android.view.MenuItem;
 
 import com.tekzee.racp.R;
 import com.tekzee.racp.databinding.ActivityListFormBinding;
-import com.tekzee.racp.ui.Form.adoption.Adoption;
 import com.tekzee.racp.ui.Form.ajola.AjolaActivity;
-import com.tekzee.racp.ui.Form.bachne_yogya_bakara_bakari.ForSale;
-import com.tekzee.racp.ui.Form.bakara_rotation.RotationActivity;
 import com.tekzee.racp.ui.Form.bakari_awas.BakariAwas;
 import com.tekzee.racp.ui.Form.bakari_vitran.BakriVitranActivity;
 import com.tekzee.racp.ui.Form.beema_detail.BeemaDeatailActivity;
@@ -23,9 +20,6 @@ import com.tekzee.racp.ui.Form.dana_pani_bartan.DanaPaniBartan;
 import com.tekzee.racp.ui.Form.feed_suppliment.FeedSuppliment;
 import com.tekzee.racp.ui.Form.form_2.Form2Activity;
 import com.tekzee.racp.ui.Form.kutti_machine.KuttiMachine;
-import com.tekzee.racp.ui.Form.mtg_meeting.MtgMeeting;
-import com.tekzee.racp.ui.Form.mtg_prasikshan.MtgTraining;
-import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.PahsuChikitsha;
 import com.tekzee.racp.ui.Form.vipran_talika.VipranTableActivity;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.FormActivity;
 import com.tekzee.racp.ui.Form.weighting_machine.WeightMachine;
@@ -126,19 +120,15 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
         binding.recyclerFormlist.setHasFixedSize(true);
         binding.recyclerFormlist.setAdapter(mAdapter);
         mAdapter.setmCallBack(this);
-
-
     }
-
-
 
     @Override
     public void onItemSelected(int adapterPosition, List <FormData> formData) {
         FormData formData1 = formData.get(adapterPosition);
         int id = formData1.getId();
-        switch (id-1){
+        switch (id){
 
-            case 0:
+            case 1:
 
                 if (value==1){
                     Intent i1 = new Intent(ListFormActivity.this, FormDataActivity.class);
@@ -152,7 +142,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 1:
+            case 2:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -162,7 +152,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
                 }
                 break;
 
-            case 2:
+            case 3:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -173,7 +163,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 3:
+            case 4:
 
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
@@ -185,7 +175,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 4:
+            case 5:
 
 
                 if (value==1){
@@ -198,7 +188,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 5:
+            case 6:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -210,7 +200,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 6:
+            case 7:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -222,7 +212,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 7:
+            case 8:
 
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
@@ -234,7 +224,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 8:
+            case 9:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -245,7 +235,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 9:
+            case 10:
 
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
@@ -257,7 +247,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 10:
+            case 11:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -268,7 +258,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 11:
+            case 12:
                 if (value==1){
                     Intent i2 = new Intent(ListFormActivity.this, FormDataActivity.class);
                     i2.putExtra("form_id",id);
@@ -279,7 +269,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
                 break;
 
-            case 12:
+         /*   case 12:
                 startActivity(new Intent(ListFormActivity.this, ForSale.class));
                 break;
 
@@ -300,7 +290,7 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
 
             case 17:
                 startActivity(new Intent(ListFormActivity.this, RotationActivity.class));
-                break;
+                break;*/
 
 
         }

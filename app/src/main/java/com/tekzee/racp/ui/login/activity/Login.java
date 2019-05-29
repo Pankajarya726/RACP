@@ -90,14 +90,13 @@ public class Login extends MvpActivity <LoginPresenter> implements LoginView, Vi
 //        Dialogs.showColorDialog(getContext(), response.getMessage());
 
        Utility.setSharedPreferenceBoolean(getContext(), Constant.isVerifyOtp, true);
-      /*  Utility.setIntegerSharedPreference(getContext(), Constant.USER_ID, response.getData().getUserId());
+        Utility.setIntegerSharedPreference(getContext(), Constant.USER_ID, response.getData().getUserId());
         Utility.setSharedPreference(getContext(), Constant.UserName, response.getData().getUserName());
         Utility.setSharedPreference(getContext(), Constant.UserRole, response.getData().getRoleName());
         Utility.setIntegerSharedPreference(getContext(), Constant.RoleId, response.getData().getRoleId());
         Utility.setSharedPreference(getContext(), Constant.UserEmail, response.getData().getEmail());
         Utility.setSharedPreference(getContext(), Constant.Mobile, response.getData().getMobile());
         Utility.setSharedPreference(getContext(), Constant.image, response.getData().getProfileImage());
-*/
         Log.e(TAG, String.valueOf(Utility.getSharedPreferencesBoolean(getContext(), Constant.isVerifyOtp)));
         startActivity(new Intent(Login.this, HomeActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK));
         finish();

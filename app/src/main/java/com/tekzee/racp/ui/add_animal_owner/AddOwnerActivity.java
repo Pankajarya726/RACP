@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.AddPashupalakBinding;
+import com.tekzee.racp.sqlite.tables.formtable.Pashupalak;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
@@ -189,7 +189,31 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
 
         } */ else {
 
-            JsonObject jsonObject = new JsonObject();
+
+            Pashupalak pashupalak = new Pashupalak(binding.edtFormerName.getText().toString().trim(),
+                    binding.edtFatherName.getText().toString().trim(),
+                    binding.edtAddress.getText().toString().trim(),
+                    binding.edtMoNumber.getText().toString().trim(),
+                    binding.edtIdentificationtype.getText().toString().trim(),
+                    identification_type_id,
+                    binding.edtIdentificationNo.getText().toString().trim(),
+                    binding.edtFarmertype.getText().toString().trim(),
+                    former_type_id,
+                    binding.pashupalakUnit.getText().toString().trim(),
+                    category_id,
+                    binding.edtPashupalakCtg.getText().toString().trim(),
+                    cast_category_id,
+                    binding.mtggroup.getText().toString().trim(),
+                    mtgGroup_id);
+
+            if (pashupalak.save()>0){
+                Dialogs.ShowCustomDialog(getContext(),getString(R.string.pashupalak_added_successfully),this,"  ");
+            }
+
+
+
+
+         /*   JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("pashuPalakName", binding.edtFormerName.getText().toString());
             jsonObject.addProperty("fatherHusbandName", binding.edtFatherName.getText().toString());
             jsonObject.addProperty("pashuPalakAddress", binding.edtAddress.getText().toString());
@@ -209,7 +233,7 @@ public class AddOwnerActivity extends MvpActivity <AddOwnerPresenter> implements
             jsonObject.addProperty("mtgGroup", mtgGroup_id);
             jsonObject.addProperty("userId", Utility.getIngerSharedPreferences(AddOwnerActivity.this, Constant.USER_ID));
 
-            mvpPresenter.addPashuPalak(jsonObject);
+            mvpPresenter.addPashuPalak(jsonObject);*/
 
         }
 

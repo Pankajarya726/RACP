@@ -14,6 +14,11 @@ import android.widget.TextView;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
+import com.tekzee.racp.sqlite.tables.Castcategory;
+import com.tekzee.racp.sqlite.tables.Farmertype;
+import com.tekzee.racp.sqlite.tables.Identificationtype;
+import com.tekzee.racp.sqlite.tables.MtgGroup;
+import com.tekzee.racp.sqlite.tables.PashuPalakCategory;
 import com.tekzee.racp.ui.addMGTgroup.CountryAdapter;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
@@ -25,6 +30,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
     public AddOwnerPresenter(AddOwnerActivity add_ownerActivity) {
@@ -139,7 +145,32 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
     }
 
     public void getPashuPalakCategory() {
-        mvpView.hideSoftKeyboard();
+
+
+        List <PashuPalakCategory> pashuPalakCategoryList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        pashuPalakCategoryList = PashuPalakCategory.listAll(PashuPalakCategory.class);
+        if (pashuPalakCategoryList.size()>0) {
+
+
+            for (int index = 0; index < pashuPalakCategoryList.size(); index++) {
+
+                PashuPalakCategory pashuPalakCategory = pashuPalakCategoryList.get(index);
+
+                arrayList.add(new GramPanchayat(pashuPalakCategory.getPashuPalakCategoryID(),
+                        pashuPalakCategory.getPashuPalakCategoryName()));
+            }
+            openSelector(arrayList, "PashuPalakCategory", mvpView.getContext().getString(R.string.select_pashu_palak_unit));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.category_not_available)));
+        }
+
+
+
+
+       /* mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
         if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
@@ -187,14 +218,38 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                 public void onFinish() {
                     mvpView.hideProgressDialog();
                 }
-            });
-        }
+            });*/
+        //}
 
 
     }
 
     public void getMtgGroup(int user_id) {
-        mvpView.hideSoftKeyboard();
+
+
+        List <MtgGroup> mtgGroupList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        mtgGroupList = MtgGroup.listAll(MtgGroup.class);
+        if (mtgGroupList.size()>0) {
+
+
+            for (int index = 0; index < mtgGroupList.size(); index++) {
+
+                MtgGroup mtgGroup = mtgGroupList.get(index);
+
+                arrayList.add(new GramPanchayat(mtgGroup.getMtggroupId(),
+                        mtgGroup.getMtggroupName()));
+            }
+            openSelector(arrayList, "MtgGroup", mvpView.getContext().getString(R.string.selcet_mtg_group));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.mtg_group_not_available)));
+        }
+
+
+
+       /* mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
 
 
@@ -245,11 +300,38 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                     mvpView.hideProgressDialog();
                 }
             });
-        }
+        }*/
     }
 
     public void getIdentificationType() {
-        mvpView.hideSoftKeyboard();
+
+        List <Identificationtype> identificationtypeList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        identificationtypeList = Identificationtype.listAll(Identificationtype.class);
+        if (identificationtypeList.size()>0) {
+
+
+            for (int index = 0; index < identificationtypeList.size(); index++) {
+
+                Identificationtype identificationtype = identificationtypeList.get(index);
+
+                arrayList.add(new GramPanchayat(identificationtype.getIdentificationtypeId(),
+                        identificationtype.getIdentificationtypeName()));
+            }
+            openSelector(arrayList, "identificationtype", mvpView.getContext().getString(R.string.select_identification_type));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.identification_type_not_available)));
+        }
+
+
+
+
+
+
+
+       /* mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
 
         // mvpView.hideSoftKeyboard();
@@ -299,11 +381,38 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                     mvpView.hideProgressDialog();
                 }
             });
-        }
+        }*/
     }
 
     public void getCastCategory() {
-        mvpView.hideSoftKeyboard();
+
+        List <Castcategory> castcategoryList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        castcategoryList = Castcategory.listAll(Castcategory.class);
+        if (castcategoryList.size()>0) {
+
+
+            for (int index = 0; index < castcategoryList.size(); index++) {
+
+                Castcategory castcategory = castcategoryList.get(index);
+
+                arrayList.add(new GramPanchayat(castcategory.getCastCategoryId(),
+                        castcategory.getCastCategoryName()));
+            }
+            openSelector(arrayList, "castCategory", mvpView.getContext().getString(R.string.select_farmer_category));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.castcategory_not_available)));
+        }
+
+
+
+
+
+
+
+      /*  mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
 
         // mvpView.hideSoftKeyboard();
@@ -353,11 +462,33 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                     mvpView.hideProgressDialog();
                 }
             });
-        }
+        }*/
     }
 
     public void getFarmerType() {
-        mvpView.hideSoftKeyboard();
+
+
+        List <Farmertype> farmertypeList = new ArrayList <>();
+        ArrayList <GramPanchayat> arrayList = new ArrayList <>();
+
+        farmertypeList = Farmertype.listAll(Farmertype.class);
+        if (farmertypeList.size()>0) {
+
+
+            for (int index = 0; index < farmertypeList.size(); index++) {
+
+                Farmertype farmertype = farmertypeList.get(index);
+
+                arrayList.add(new GramPanchayat(farmertype.getFarmertypeId(),
+                        farmertype.getFarmertypeName()));
+            }
+            openSelector(arrayList, "farmertype", mvpView.getContext().getString(R.string.select_farmer_type));
+
+        }else {
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getString(R.string.farmer_type_not_available)));
+        }
+
+        /*mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
 
         // mvpView.hideSoftKeyboard();
@@ -407,7 +538,7 @@ public class AddOwnerPresenter extends BasePresenter <AddOwnerView> {
                     mvpView.hideProgressDialog();
                 }
             });
-        }
+        }*/
     }
 
     public void getVidhanSabhaKshetra(int id) {

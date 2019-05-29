@@ -150,7 +150,7 @@
    -->
     <string name="form_1">R.A.C.P. के अंतर्गत वितरित बकरो का विवरण</string>
     <string name="form_2">R.A.C.P. अंतर्गत बकरा विवरण के लाभार्थी M. T. G. सदस्यों के पास उपलब्ध बकरियों का विवरण</string>
-    <string name="form_3">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को वितरित बकरी का विवरण</string>
+    <string name="form_3">R.A.C.P. के अंतर्गत विधवा महिला / विकलांग  को वितरित बकरी का विवरण</string>
     <string name="form_4">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी के बीमा का विवरण </string>
     <string name="form_5">विपणन तालिका (M.T.G. सदस्यों के अतिरिक्त बकरी पालको हेतु) </string>
     <string name="form_6">भार तोलने की मशीन</string>
@@ -196,7 +196,7 @@
     <string name="enter_physical_proof_date">भौतिक सत्यापन दिनांक चुनें</string>
     <string name="enter_dateppr">पी पी आर दिनांक चुनें</string>
     <string name="beema_detail">पॉलिसी विवरण</string>
-    <string name="policy_no">पॉलिसी नंबर</string>
+    <string name="policy_no">बीमा पॉलिसी नंबर</string>
     <string name="pashu_palak_unit">पशुपालक श्रेणी</string>
     <string name="select_animal_category">पशु श्रेणी चुनें</string>
     <string name="vidhansabha">विधानसभा क्षेत्र</string>
@@ -331,7 +331,7 @@
     <string name="enter_date_trainging">प्रशिक्षण दिनांक चुनें</string>
     <string name="ajola_is_avail_or_not">अजोला प्राप्त हुआ है या नहीं ?</string>
     <string name="goat_house_availornot">बकरी आवास प्राप्त हुआ या नहीं ?</string>
-    <string name="bakari_availornot">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को बकरिया प्राप्त हुई या नहीं ?</string>
+    <string name="bakari_availornot">R.A.C.P. के अंतर्गत विधवा महिला / विकलांग को बकरिया प्राप्त हुई या नहीं ?</string>
     <string name="milkkit_availornot">क्लीन मिल्क किट प्राप्त  हुई या नहीं ?</string>
     <string name="dana_pani_bartan_availornot">दाना पानी बर्तन प्राप्त  हुआ या नहीं ?</string>
     <string name="feed_suppliment_availornot">फीड सप्लीमेंट प्राप्त  हुआ या नहीं ?</string>
@@ -340,7 +340,7 @@
     <string name="mtg_group_not_found">एमटीजी ग्रुप नहीं मिला</string>
     <string name="bakare_availornot">R.A.C.P. के अंतर्गत वितरित बकरे प्राप्त हुए या नहीं ?</string>
     <string name="bakariya_availornot">R.A.C.P. के अंतर्गत बकरा विवरण के लाभार्थी M.T.G. सदस्यों को बकरिया प्राप्त हुई या नहीं ?</string>
-    <string name="beema_availornot">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>
+    <string name="beema_availornot">बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>
     <string name="search_form">प्रपत्र खोजें</string>
     <string name="alert">सतर्क</string>
     <string name="invlid_number">मोबाइल नंबर गलत है</string>
@@ -358,6 +358,28 @@
     <string name="november">नवम्बर</string>
     <string name="disamber">दिसंबर</string>
     <string name="enter_mtg_member_name">उपस्थित सदस्यों के नाम रिक्त नहीं हो सकते</string>
+    <string name="category_not_available">पशुपालक श्रेणी उपलब्ध नहीं है !</string>
+    <string name="identification_type_not_available">पहचान प्रकार उपलब्ध नहीं है !</string>
+    <string name="farmer_type_not_available">पशुपालक प्रकार उपलब्ध नहीं है !</string>
+    <string name="mtg_group_not_available">एमटीजी ग्रुप उपलब्ध नहीं है !</string>
+    <string name="pashupalak_added_successfully">पशुपालक को सफलतापूर्वक जोड़ा गया</string>
+    <string name="gramPanchayat_not_available">ग्राम पंचायत उपलब्ध नहीं है !</string>
+    <string name="gram_not_available">ग्राम उपलब्ध नहीं है !</string>
+    <string name="mtg_successfull_added">एमटीजी को सफलतापूर्वक जोड़ा गया</string>
+    <string name="krami_nashak">कृमि नाशक</string>
+    <string name="krami_nashak_lgvayaya_nhi">कृमी नाशक लगवाया है या नहीं ?</string>
+    <string name="date_criminahsak">कृमी नाशक लगवाने की दिनांक</string>
+    <string name="select_criminashak_date">कृमी नाशक लगवाने की दिनांक चुनें</string>
+    <string name="select_labharthee_shreni">लाभार्थी की श्रेणी चुनें</string>
+    <string name="select_bakari_image">भौतिक सत्यापन की दिनांक चुनें</string>
+    <string name="racp_bakra">R.A.C.P. का बकरा</string>
+    <string name="racp_bakari">R.A.C.P. की बकरी</string>
+    <string name="castcategory_not_available">केटेगरी उपलब्ध नहीं है !</string>
+    <string name="benifeciery_type">लाभार्थी की श्रेणी</string>
+
+    <string name="self_bakra">स्वयं का बकरा</string>
+    <string name="self_bakri">स्वयं की बकरी</string>
+    <string name="policy_company_name">बीमा कंपनी का नाम </string>
 
 
 </resources>

@@ -16,6 +16,7 @@ import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.ActivitySelectMgtPersonBinding;
 import com.tekzee.racp.sqlite.SqliteDB;
+import com.tekzee.racp.sqlite.tables.LlwMTGMember;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formselection.ListFormActivity;
@@ -61,6 +62,8 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
         // TODO Auto-generated method stub
         this.finish();
     }
+
+
     private void setUpRecyclerView() {
 
         binding.recyclerMgtperson.setHasFixedSize(true);
@@ -167,6 +170,13 @@ public class SelectMgtPerson extends MvpActivity <MgtPersonPresenter> implements
         Log.e(tag, "size is " + mtgperson.size());
 
         setUpRecyclerView();
+
+    }
+
+    @Override
+    public void onGetMtgMember(List <LlwMTGMember> llwMTGMemberList) {
+
+        //setUpRecyclerView(llwMTGMemberList);
 
     }
 }

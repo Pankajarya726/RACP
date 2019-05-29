@@ -28,6 +28,7 @@ import com.tekzee.racp.ui.formdata.model.FormDataResponse;
 import com.tekzee.racp.ui.formselection.model.GetAllFormResponse;
 import com.tekzee.racp.ui.home.model.SideMenuResponse;
 import com.tekzee.racp.ui.login.model.RequestOtpResponse;
+import com.tekzee.racp.ui.login.model.VerifyOtpResponse;
 import com.tekzee.racp.ui.selectMtgGroup.model.GetMtgResponse;
 import com.tekzee.racp.ui.selectMtgPreson.model.GetMtgMemberResponse;
 
@@ -49,14 +50,14 @@ public interface ApiStore {
     @POST("login")
     Observable <RequestOtpResponse> requestOtp(@Body JsonObject input);
 
-
-    @POST("verifyOTP")
-    Observable <JsonObject> verifyOtp(@Body JsonObject jsonObject);
 /*
 
     @POST("verifyOTP")
-    Observable <VerifyOtpResponse> verifyOtp(@Body JsonObject jsonObject);
+    Observable <JsonObject> verifyOtp(@Body JsonObject jsonObject);
 */
+
+    @POST("verifyOTP")
+    Observable <VerifyOtpResponse> verifyOtp(@Body JsonObject jsonObject);
 
     @POST("getSideMenuData")
     Observable <SideMenuResponse> getSideMenuData(@Body JsonObject jsonObject);

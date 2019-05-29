@@ -15,6 +15,7 @@ import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.ActivitySelectMgtBinding;
 import com.tekzee.racp.sqlite.SqliteDB;
+import com.tekzee.racp.sqlite.tables.MtgGroup;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.selectMtgGroup.model.Data;
@@ -45,12 +46,11 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
 
-        value = getIntent().getIntExtra("filled_form",0);
+        value = getIntent().getIntExtra("filled_form", 0);
 
 
-
-        Utility.setIntegerSharedPreference(getContext(),Constant.mtg_member_id,0);
-        Utility.setIntegerSharedPreference(getContext(),Constant.mtg_group_id,0);
+        Utility.setIntegerSharedPreference(getContext(), Constant.mtg_member_id, 0);
+        Utility.setIntegerSharedPreference(getContext(), Constant.mtg_group_id, 0);
 
         Log.e("tag", "id" + Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
         mvpPresenter.getMtgGroup(Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
@@ -74,7 +74,6 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
     }
 
 
-
     private void filter(String text) {
         ArrayList <Data> filteredList = new ArrayList <>();
 
@@ -96,6 +95,7 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     protected SelectMtgPresenter createPresenter() {
         return new SelectMtgPresenter(this);
@@ -108,7 +108,7 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
 
         Intent i = new Intent(SelectMtgActivity.this, SelectMgtPerson.class);
         i.putExtra("MtgGroupId", data.getMtggroupId());
-        i.putExtra("filled_form",value);
+        i.putExtra("filled_form", value);
         startActivity(i);
 
         //  startActivity(new Intent(SelectMtgActivity.this, SelectMtgActivity.class));
@@ -120,6 +120,11 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
         this.finish();
     }
 
+    /*@Override
+    public void onItemSelected(int position, List <MtgGroup> mgtgroup) {
+
+    }
+*/
     @Override
     public Context getContext() {
         return this;
@@ -155,18 +160,22 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
         sqliteDB.clearMtgMember();
         mtggroup.addAll(successResult.getData());
 
+        Log.e(tag, "Size is " + mtggroup.size());
 
-
-
-        Log.e(tag,"Size is "+mtggroup.size());
-
-        for (int i=0; i<mtggroup.size();i++){
+        for (int i = 0; i < mtggroup.size(); i++) {
             Data data = mtggroup.get(i);
-            sqliteDB.addMtgGroup(data.getMtggroupId(),data.getMtggroupName());
+            sqliteDB.addMtgGroup(data.getMtggroupId(), data.getMtggroupName());
             mvpPresenter.getMtgMember(data.getMtggroupId());
 
         }
         setUpRecyclerView();
+    }
+
+    @Override
+    public void onGetMtgGroup(List <MtgGroup> mtgGroupList) {
+        //  setUpRecyclerView(mtgGroupList);
+
+
     }
 
 
@@ -179,7 +188,14 @@ public class SelectMtgActivity extends MvpActivity <SelectMtgPresenter> implemen
         binding.recyclerMtggroup.setAdapter(mtgAdapter);
     }
 
+        /*private void setUpRecyclerView () {
 
+            binding.recyclerMtggroup.setHasFixedSize(true);
+            layoutManager = new LinearLayoutManager(this);
+            binding.recyclerMtggroup.setLayoutManager(layoutManager);
+            mtgAdapter = new SelectMtgAdapter(this, mtggroup, this);
+            binding.recyclerMtggroup.setAdapter(mtgAdapter);
+        }
 
-
+*/
 }

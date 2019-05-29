@@ -43,20 +43,20 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/date"
+                    android:layout_alignParentTop="true"
                     android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/tv_date"
-                    android:layout_alignParentTop="true"
+                    android:text="@string/date"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
 
                 <TextView
                     android:id="@+id/tv_date"
-                    android:layout_marginLeft="5dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="5dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
 
@@ -66,131 +66,132 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
-                    android:layout_marginBottom="15dp"
                     android:padding="20dp">
 
                     <TextView
-                        android:text="@string/date_receipt"
-
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:textColor="@color/black"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"  />
+
+                        android:layout_height="match_parent"
+                        android:text="@string/date_receipt"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
                     <LinearLayout
                         android:id="@+id/receipt_layout1"
-                        android:orientation="horizontal"
-                        android:weightSum="3"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
                         <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
                             android:text="@string/day"
-                            android:textSize="@dimen/tv_size_medium_tab"
                             android:textColor="@color/black"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"  />
-                        <TextView
-                            android:text="@string/month"
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"  />
-                        <TextView
-                            android:text="@string/year"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
-                            android:textSize="@dimen/tv_size_medium_tab"
-                            android:textColor="@color/black"
-                            android:layout_weight="1"
-                            android:layout_marginLeft="10dp"
+                        <TextView
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"  />
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/month"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="0dp"
+
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:text="@string/year"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/receipt_layout2"
 
-                        android:orientation="horizontal"
-                        android:weightSum="3"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp">
+                        android:layout_height="35dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
                         <EditText
                             android:id="@+id/day"
+                            android:layout_width="0dp"
+                            android:layout_height="35dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black"
                             android:inputType="number"
-                            android:textSize="@dimen/tv_size_medium_tab"
                             android:maxLength="2"
                             android:paddingHorizontal="10dp"
                             android:textColor="@color/black"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="35dp"
-                            android:background="@drawable/edit_theme_black"/>
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
                         <LinearLayout
-                            android:layout_weight="1"
                             android:layout_width="0dp"
-                            android:layout_marginLeft="10dp"
-                            android:background="@drawable/edit_theme_black"
                             android:layout_height="35dp"
-                            >
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black">
+
                             <Spinner
                                 android:id="@+id/sp_month"
-                                android:text="@string/date_receipt"
-                                android:textSize="@dimen/tv_size_medium_tab"
-                                android:gravity="center"
-                                android:paddingHorizontal="10dp"
-                                android:textColor="@color/black"
-                                android:backgroundTint="@color/colorPrimary"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                />
+                                android:backgroundTint="@color/colorPrimary"
+                                android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/date_receipt"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab" />
                         </LinearLayout>
 
 
                         <LinearLayout
-                            android:layout_marginLeft="10dp"
-                            android:layout_weight="1"
                             android:layout_width="0dp"
                             android:layout_height="35dp"
-                            android:background="@drawable/edit_theme_black"
-                            >
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/edit_theme_black">
 
                             <Spinner
                                 android:id="@+id/sp_year"
-                                android:text="@string/date_receipt"
-                                android:textSize="@dimen/tv_size_medium_tab"
-                                android:gravity="center"
-                                android:paddingHorizontal="10dp"
-                                android:textColor="@color/black"
-                                android:backgroundTint="@color/colorPrimary"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
-                                />
+                                android:backgroundTint="@color/colorPrimary"
+                                android:gravity="center"
+                                android:paddingHorizontal="10dp"
+                                android:text="@string/date_receipt"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/tv_size_medium_tab" />
                         </LinearLayout>
                     </LinearLayout>
+
                     <TextView
                         android:id="@+id/receipt_date"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:visibility="gone"
-                        android:textColor="@color/black"
-                        android:gravity="center_vertical"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:inputType="number"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:gravity="center_vertical"
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:visibility="gone" />
 
                     <TextView
-                        android:layout_marginTop="15dp"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
                         android:text="@string/animal_type"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
@@ -226,13 +227,32 @@
 
                     <EditText
                         android:id="@+id/edt_tagNo"
-                        android:inputType="number"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="number"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/policy_company_name"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <EditText
+                        android:id="@+id/edt_company_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:digits="@string/digits"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
+
 
                     <TextView
                         android:layout_width="match_parent"
@@ -246,11 +266,11 @@
                         android:id="@+id/edt_policy_no"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:textColor="@color/black"
-                        android:digits="@string/digits"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:digits="@string/digits"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -262,9 +282,9 @@
                         android:textSize="@dimen/tv_size_medium_tab" />
 
                     <RelativeLayout
-                        android:layout_marginTop="10dp"
                         android:layout_width="match_parent"
-                        android:layout_height="35dp">
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp">
 
                         <View
                             android:id="@+id/view"
@@ -325,14 +345,13 @@
                     </RelativeLayout>
 
 
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/death_condition"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/tv_size_medium_tab" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/death_condition"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
 
 
                     <LinearLayout
@@ -348,94 +367,103 @@
                             android:layout_height="match_parent"
                             android:layout_marginRight="40dp"
                             android:layout_weight="1"
-                            android:text="@string/yes"
-                            android:paddingHorizontal="10dp" />
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/yes" />
 
                         <CheckBox
                             android:id="@+id/check_no"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="@string/no"
-                            android:paddingHorizontal="10dp" />
+                            android:paddingHorizontal="10dp"
+                            android:text="@string/no" />
                     </LinearLayout>
 
-                    <TextView
-                        android:id="@+id/tv_death"
+                    <LinearLayout
+                        android:id="@+id/layout_death"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/date_death"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
 
-                    <TextView
-                        android:id="@+id/edt_date_death"
-                        android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:gravity="center_vertical"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:textColor="@color/black"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp"
-                        android:drawableRight="@drawable/calendar"/>
+                        <TextView
+                            android:id="@+id/tv_death"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/date_death"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="15dp"
-                        android:text="@string/claim"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
+                        <TextView
+                            android:id="@+id/edt_date_death"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/calendar"
+                            android:gravity="center_vertical"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
-                   <LinearLayout
-                       android:id="@+id/layout_radio_group"
-                       android:layout_width="match_parent"
-                       android:layout_height="35dp"
-                       android:orientation="horizontal"
-                       >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/claim"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
-                       <RadioGroup
-                           android:id="@+id/radio_claim"
-                           android:weightSum="3"
-                           android:layout_width="match_parent"
-                           android:layout_height="match_parent"
-                           android:orientation="horizontal">
+                        <LinearLayout
+                            android:id="@+id/layout_radio_group"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:orientation="horizontal">
 
-                           <RadioButton
-                               android:id="@+id/radio_yes"
-                               android:layout_weight="1"
-                               android:layout_width="0dp"
-                               android:text="@string/yes"
-                               android:layout_height="match_parent" />
-                           <RadioButton
-                               android:id="@+id/radio_no"
-                               android:layout_weight="1"
-                               android:layout_width="0dp"
-                               android:text="@string/no"
-                               android:layout_height="match_parent" />
+                            <RadioGroup
+                                android:id="@+id/radio_claim"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="horizontal"
+                                android:weightSum="3">
 
-                           <RadioButton
-                               android:id="@+id/radio_pending"
-                               android:layout_width="0dp"
-                               android:layout_height="21dp"
-                               android:layout_weight="1"
-                               android:text="@string/panding" />
+                                <RadioButton
+                                    android:id="@+id/radio_yes"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="@string/yes" />
 
-                       </RadioGroup>
+                                <RadioButton
+                                    android:id="@+id/radio_no"
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="1"
+                                    android:text="@string/no" />
+
+                                <RadioButton
+                                    android:id="@+id/radio_pending"
+                                    android:layout_width="0dp"
+                                    android:layout_height="21dp"
+                                    android:layout_weight="1"
+                                    android:text="@string/panding" />
+
+                            </RadioGroup>
 
 
-                   </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
+
 
                     <TextView
                         android:id="@+id/claincondition"
-                        android:visibility="gone"
-                        android:textSize="@dimen/tv_size_medium_tab"
-                        android:textColor="@color/black"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/panding" />
+                        android:text="@string/panding"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:visibility="gone" />
                 </LinearLayout>
 
 
@@ -445,12 +473,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentRight="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableRight="@drawable/_next"
                     android:padding="10dp"
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableRight="@drawable/_next"
                     android:visibility="gone" />
 
                 <TextView
@@ -459,12 +487,12 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentLeft="true"
+                    android:layout_marginBottom="15dp"
+                    android:drawableLeft="@drawable/_privious"
                     android:padding="10dp"
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:layout_marginBottom="15dp"
-                    android:drawableLeft="@drawable/_privious"
                     android:visibility="gone" />
 
 

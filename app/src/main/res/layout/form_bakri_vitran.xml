@@ -187,7 +187,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="@string/tag_no"
+                        android:text="@string/tag_no_bakari"
                         android:layout_marginTop="10dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
@@ -207,20 +207,24 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
-                        android:text="@string/beema_detail"
+                        android:text="@string/benifeciery_type"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
-                    <EditText
-                        android:id="@+id/edt_beema_vivran"
+                    <TextView
+                        android:id="@+id/sp_benifeciery_type"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
+                        android:drawableRight="@drawable/spinner"
                         android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:textSize="@dimen/tv_size_medium_tab"
                         android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
                         android:paddingHorizontal="10dp" />
 
                     <TextView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="15dp"
@@ -229,6 +233,7 @@
                         android:textSize="@dimen/tv_size_medium_tab" />
 
                     <EditText
+                        android:visibility="gone"
                         android:id="@+id/edt_policy_no"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
@@ -277,6 +282,95 @@
                         android:paddingHorizontal="10dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
+
+
+
+                  <!--  <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/physical_date"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+-->
+                    <ImageView
+                        android:id="@+id/iv_bakari"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:src="@android:drawable/ic_menu_camera"/>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/krami_nashak_lgvayaya_nhi"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+                    <LinearLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_below="@+id/tv_phy_proof"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+
+                        <CheckBox
+                            android:id="@+id/check_yes"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/yes"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+
+                        <CheckBox
+                            android:id="@+id/check_no"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/no"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+
+                    </LinearLayout>
+
+
+                   <LinearLayout
+                       android:id="@+id/layout_criminashak"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:visibility="gone">
+
+                       <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/date_criminahsak"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+
+                    <TextView
+                        android:id="@+id/edt_date_crim_nashak"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:drawableRight="@drawable/calendar"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab" />
+                   </LinearLayout>
+
+
 
 
                     <TextView

@@ -2,6 +2,7 @@ package com.tekzee.racp.ui.selectMtgPreson;
 
 import android.content.Context;
 
+import com.tekzee.racp.sqlite.tables.LlwMTGMember;
 import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.selectMtgPreson.model.Datum;
@@ -17,4 +18,6 @@ public interface MgtPersonView extends BaseView {
     void onNoInternetConnectivity(CommonResult commonResult);
 
     void onSuccess(GetMtgMemberResponse successResult);
+
+    void onGetMtgMember(List<LlwMTGMember> llwMTGMemberList);
 }

@@ -3,37 +3,11 @@ package com.tekzee.racp.ui.login;
 import com.google.gson.JsonObject;
 import com.tekzee.racp.R;
 import com.tekzee.racp.api.ApiCallback;
-import com.tekzee.racp.constant.Constant;
-import com.tekzee.racp.sqlite.tables.AnimalCategory;
-import com.tekzee.racp.sqlite.tables.AnimalType;
-import com.tekzee.racp.sqlite.tables.Castcategory;
-import com.tekzee.racp.sqlite.tables.District;
-import com.tekzee.racp.sqlite.tables.Farmertype;
-import com.tekzee.racp.sqlite.tables.Formtype;
-import com.tekzee.racp.sqlite.tables.Gram;
-import com.tekzee.racp.sqlite.tables.Grampanchayat;
-import com.tekzee.racp.sqlite.tables.Homemenu;
-import com.tekzee.racp.sqlite.tables.Identificationtype;
-import com.tekzee.racp.sqlite.tables.LlwGram;
-import com.tekzee.racp.sqlite.tables.LlwGrampanchayat;
-import com.tekzee.racp.sqlite.tables.LlwMTGMember;
-import com.tekzee.racp.sqlite.tables.MtgGroup;
-import com.tekzee.racp.sqlite.tables.Nasla;
-import com.tekzee.racp.sqlite.tables.PashuPalakCategory;
-import com.tekzee.racp.sqlite.tables.Sidemenu;
-import com.tekzee.racp.sqlite.tables.Tahsil;
-import com.tekzee.racp.sqlite.tables.Vidhanasabha;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.login.model.RequestOtpResponse;
 import com.tekzee.racp.ui.login.model.VerifyOtpResponse;
-import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.NetworkUtils;
-import com.tekzee.racp.utils.Utility;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginPresenter extends BasePresenter <LoginView> {
 
@@ -77,40 +51,39 @@ public class LoginPresenter extends BasePresenter <LoginView> {
 
     }
 
-
-//    public void verifyOtp(JsonObject jsonObject) {
-//        mvpView.hideSoftKeyboard();
-//        mvpView.showProgressDialog("Please wait...", false);
-//        // mvpView.hideSoftKeyboard();
-//        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
-//            mvpView.hideProgressDialog();
-//            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
-//        } else {
-//            addSubscription(apiStores.verifyOtp(jsonObject), new ApiCallback <VerifyOtpResponse>() {
-//                @Override
-//                public void onSuccess(VerifyOtpResponse successResult) {
-//                    if (successResult.isSuccess()) {
-//                        mvpView.onVerifyOtpSuccess(successResult);
-//                    } else {
-//                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(CommonResult commonResult) {
-//                    mvpView.onNoInternetConnectivity(commonResult);
-//                }
-//
-//                @Override
-//                public void onFinish() {
-//                    mvpView.hideProgressDialog();
-//                }
-//            });
-//        }
-//
-//    }
-
     public void verifyOtp(JsonObject jsonObject) {
+        mvpView.hideSoftKeyboard();
+        mvpView.showProgressDialog("Please wait...", false);
+        // mvpView.hideSoftKeyboard();
+        if (!NetworkUtils.isNetworkConnected(mvpView.getContext())) {
+            mvpView.hideProgressDialog();
+            mvpView.onNoInternetConnectivity(new CommonResult(false, mvpView.getContext().getResources().getString(R.string.no_internet)));
+        } else {
+            addSubscription(apiStores.verifyOtp(jsonObject), new ApiCallback <VerifyOtpResponse>() {
+                @Override
+                public void onSuccess(VerifyOtpResponse successResult) {
+                    if (successResult.isSuccess()) {
+                        mvpView.onVerifyOtpSuccess(successResult);
+                    } else {
+                        mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
+                    }
+                }
+
+                @Override
+                public void onFailure(CommonResult commonResult) {
+                    mvpView.onNoInternetConnectivity(commonResult);
+                }
+
+                @Override
+                public void onFinish() {
+                    mvpView.hideProgressDialog();
+                }
+            });
+        }
+
+    }
+
+    /*public void verifyOtp(JsonObject jsonObject) {
         mvpView.hideSoftKeyboard();
         mvpView.showProgressDialog("Please wait...", false);
         // mvpView.hideSoftKeyboard();
@@ -391,12 +364,12 @@ public class LoginPresenter extends BasePresenter <LoginView> {
                         e.printStackTrace();
                     }
 
-                   /* if (successResult.isSuccess()) {
+                   *//* if (successResult.isSuccess()) {
                         mvpView.onVerifyOtpSuccess(successResult);
 
                     } else {
                         mvpView.onNoInternetConnectivity(new CommonResult(false, successResult.getMessage()));
-                    }*/
+                    }*//*
                 }
 
                 @Override
@@ -411,7 +384,7 @@ public class LoginPresenter extends BasePresenter <LoginView> {
             });
         }
 
-    }
+    }*/
 
 
 }
