@@ -103,7 +103,7 @@ public class SplashActivity extends MvpActivity <SplashPresenter> implements Spl
       /*  Log.e(TAG, result.getMessage());
         ColorDialog dialog = new ColorDialog(getContext());
         dialog.setCancelable(false);
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setTitle(getResources().getString(R.string.app_name));
         dialog.setContentText(result.getMessage());
         dialog.setContentTextColor("#FFFFFF");

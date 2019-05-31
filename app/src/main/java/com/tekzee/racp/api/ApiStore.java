@@ -18,8 +18,8 @@ import com.tekzee.racp.ui.Form.mtg_meeting.model.RetrivedMtgMeetingResponse;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.model.RetrivedMtgTrainingResponse;
 import com.tekzee.racp.ui.Form.pashu_chiktsak_shivir.model.RetrivedPashuChikithsResponse;
 import com.tekzee.racp.ui.Form.vipran_talika.model.RetrivedVipranTalikaResponse;
-import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormRecordDataResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
+import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.ResponseDataRetrived;
 import com.tekzee.racp.ui.Form.weighting_machine.model.RetrivedWeightingMachineResponse;
 import com.tekzee.racp.ui.addMGTgroup.model.AddMtgResponse;
 import com.tekzee.racp.ui.add_animal_owner.AddPashuPalakResponse;
@@ -122,8 +122,8 @@ public interface ApiStore {
     Observable <FormDataResponse> getAllFormRecordList(@Body JsonObject input);
 
 
-    @POST("getFormRecordData")
-    Observable <FormRecordDataResponse> getFormRecordData(@Body JsonObject jsonObject);
+    @POST("getFormRecordData1")
+    Observable <ResponseDataRetrived> getFormRecordData1(@Body JsonObject jsonObject);
 
     @POST("addDetailsGoatsDistributedWidowDisabledWomen")
     Observable <FormSubmitResponse> addDetailsGoatsDistributedWidowDisabledWomen(@Body JsonObject jsonObject);
@@ -228,7 +228,7 @@ public interface ApiStore {
     @POST("getFormRecordData")
     Observable <RetrivedDataResponse> getForm2Data(@Body JsonObject jsonObject);
 
-    @POST("getFormRecordData")
+    @POST("getFormRecordData1")
     Observable <com.tekzee.racp.ui.Form.bakari_vitran.model.RetrivedDataResponse> getBakriVitranData(@Body JsonObject jsonObject);
 
     @POST("getFormRecordData")
@@ -268,7 +268,7 @@ public interface ApiStore {
     Observable <RetrivedAdoptionResponse> getAdopitonData(@Body JsonObject jsonObject);
 
 
-     @POST("getFormRecordData")
+    @POST("getFormRecordData")
     Observable <RetrivedBakraRotationResponse> getBakraRotationData(@Body JsonObject jsonObject);
 
 
@@ -290,23 +290,34 @@ public interface ApiStore {
 
     @Multipart
     @POST("addGoatHouse")
-    Observable<FormSubmitResponse> uploadImage(@Part MultipartBody.Part formData,
-                                       @Part("user_id") RequestBody user_id,
-                                       @Part("form_id") RequestBody form_id,
-                                       @Part("mtg_member_id") RequestBody mtg_member_id,
-                                       @Part("mtg_group_id") RequestBody mtg_group_id,
-                                       @Part("status_receipt") RequestBody status_receipt,
-                                       @Part("physical_proof") RequestBody physical_proof,
-                                       @Part("usability") RequestBody usability,
-                                       @Part("note") RequestBody note,
-                                       @Part("date_creation_goat_house") RequestBody date_creation_goat_house,
-                                       @Part("dd") RequestBody dd,
-                                       @Part("mm") RequestBody mm,
-                                       @Part("yy") RequestBody yy,
-                                       @Part("img_lat") RequestBody img_lat,
-                                       @Part("img_long") RequestBody img_long);
+    Observable <FormSubmitResponse> uploadImage(@Part MultipartBody.Part formData,
+                                                @Part("user_id") RequestBody user_id,
+                                                @Part("form_id") RequestBody form_id,
+                                                @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                @Part("status_receipt") RequestBody status_receipt,
+                                                @Part("physical_proof") RequestBody physical_proof,
+                                                @Part("usability") RequestBody usability,
+                                                @Part("note") RequestBody note,
+                                                @Part("date_creation_goat_house") RequestBody date_creation_goat_house,
+                                                @Part("dd") RequestBody dd,
+                                                @Part("mm") RequestBody mm,
+                                                @Part("yy") RequestBody yy,
+                                                @Part("img_lat") RequestBody img_lat,
+                                                @Part("img_long") RequestBody img_long);
 
 
+    @Multipart
+    @POST("addDetailsGoatsDistributedWidowDisabledWomen1")
+    Observable <FormSubmitResponse> addDetailsGoatsDistributedWidowDisabledWomen1(@Part MultipartBody.Part formData,
+                                                                                  @Part("user_id") RequestBody user_id,
+                                                                                  @Part("form_id") RequestBody form_id,
+                                                                                  @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                                                  @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                                                  @Part("status_receipt") RequestBody status_receipt,
+                                                                                  @Part("data") RequestBody data,
+                                                                                  @Part("img_lat") RequestBody img_lat,
+                                                                                  @Part("img_long") RequestBody img_long);
 
 
     @POST("addGoatMilkInformation")
@@ -319,4 +330,42 @@ public interface ApiStore {
     @POST("getAllFiledForm")
     Observable <GetAllFormResponse> getAllFormtype1(@Body JsonObject jsonObject);
 
+
+    @GET("getTagNo/{userId}/{typeId}")
+    Observable <JsonObject> getTagNo(@Path("userId") Integer id,
+                                     @Path("typeId") Integer i);
+
+
+    @Multipart
+    @POST("addDetailsGoatsDistributedInsurance1")
+    Observable <FormSubmitResponse> addDetailsGoatsDistributedInsurance1(@Part MultipartBody.Part formData,
+                                                                         @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                                         @Part("user_id") RequestBody user_id,
+                                                                         @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                                         @Part("form_id") RequestBody form_id,
+                                                                         @Part("status_receipt") RequestBody status_receipt,
+                                                                         @Part("data") RequestBody data,
+                                                                         @Part("img_lat") RequestBody img_lat,
+                                                                         @Part("img_long") RequestBody img_long);
+
+    @Multipart
+    @POST("addDetailsGoatsDistributeds1")
+    Observable <FormSubmitResponse> addDetailsGoatsDistributeds1(@Part MultipartBody.Part formData,
+                                                                         @Part("status_receipt") RequestBody status_receipt,
+                                                                         @Part("user_id") RequestBody user_id,
+                                                                         @Part("form_id") RequestBody form_id,
+                                                                         @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                                         @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                                         @Part("bakra_data") RequestBody bakra_data,
+                                                                         @Part("bakri_data") RequestBody bakri_data,
+                                                                         @Part("img_lat") RequestBody img_lat,
+                                                                         @Part("img_long") RequestBody img_long);
+
+
+
+
+    //Observable addDetailsGoatsDistributeds1(MultipartBody.Part formData, RequestBody status_receipt, RequestBody user_id, RequestBody form_id, RequestBody mtg_member_id, RequestBody mtg_group_id, RequestBody img_lat, RequestBody img_long);
+
+
+    // Observable addDetailsGoatsDistributedInsurance1(MultipartBody.Part formData, RequestBody mtg_group_id, RequestBody user_id, RequestBody mtg_member_id, RequestBody form_id, RequestBody status_receipt, RequestBody data, RequestBody img_lat, RequestBody img_long);
 }

@@ -4,68 +4,45 @@ import com.orm.SugarRecord;
 
 public class BeemaDetail extends SugarRecord {
 
-    String dd;
-    String mm;
-    String yy;
-    String animalType;
+
+
+    String animal_type;
     int animal_id;
-    String  tagNo;
+    String tagno;
+    String receipt_date;
+    String company_name;
     String policy_no;
-    String dateFrom;
-    String dateTo;
-    String deathCondition;
+    String date_from;
+    String date_to;
+    String date_conditoin;
     String death_date;
     String claim_condition;
+
+
 
     public BeemaDetail() {
     }
 
-
-    public BeemaDetail(String dd, String mm, String yy, String animalType, int animal_id, String tagNo, String policy_no, String dateFrom, String dateTo, String deathCondition, String death_date, String claim_condition) {
-        this.dd = dd;
-        this.mm = mm;
-        this.yy = yy;
-        this.animalType = animalType;
+    public BeemaDetail(String animal_type, int animal_id, String tagno, String receipt_date, String company_name, String policy_no, String date_from, String date_to, String date_conditoin, String death_date, String claim_condition) {
+        this.animal_type = animal_type;
         this.animal_id = animal_id;
-        this.tagNo = tagNo;
+        this.tagno = tagno;
+        this.receipt_date = receipt_date;
+        this.company_name = company_name;
         this.policy_no = policy_no;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
-        this.deathCondition = deathCondition;
+        this.date_from = date_from;
+        this.date_to = date_to;
+        this.date_conditoin = date_conditoin;
         this.death_date = death_date;
         this.claim_condition = claim_condition;
     }
 
-    public String getDd() {
-        return dd;
+    public String getAnimal_type() {
+        return animal_type;
     }
 
-    public void setDd(String dd) {
-        this.dd = dd;
-    }
-
-    public String getMm() {
-        return mm;
-    }
-
-    public void setMm(String mm) {
-        this.mm = mm;
-    }
-
-    public String getYy() {
-        return yy;
-    }
-
-    public void setYy(String yy) {
-        this.yy = yy;
-    }
-
-    public String getAnimalType() {
-        return animalType;
-    }
-
-    public void setAnimalType(String animalType) {
-        this.animalType = animalType;
+    public void setAnimal_type(String animal_type) {
+        this.animal_type = animal_type;
     }
 
     public int getAnimal_id() {
@@ -76,12 +53,28 @@ public class BeemaDetail extends SugarRecord {
         this.animal_id = animal_id;
     }
 
-    public String getTagNo() {
-        return tagNo;
+    public String getReceipt_date() {
+        return receipt_date;
     }
 
-    public void setTagNo(String tagNo) {
-        this.tagNo = tagNo;
+    public void setReceipt_date(String receipt_date) {
+        this.receipt_date = receipt_date;
+    }
+
+    public String getTagno() {
+        return tagno;
+    }
+
+    public void setTagno(String tagno) {
+        this.tagno = tagno;
+    }
+
+    public String getCompany_name() {
+        return company_name;
+    }
+
+    public void setCompany_name(String company_name) {
+        this.company_name = company_name;
     }
 
     public String getPolicy_no() {
@@ -92,28 +85,28 @@ public class BeemaDetail extends SugarRecord {
         this.policy_no = policy_no;
     }
 
-    public String getDateFrom() {
-        return dateFrom;
+    public String getDate_to() {
+        return date_to;
     }
 
-    public void setDateFrom(String dateFrom) {
-        this.dateFrom = dateFrom;
+    public void setDate_to(String date_to) {
+        this.date_to = date_to;
     }
 
-    public String getDateTo() {
-        return dateTo;
+    public String getDate_from() {
+        return date_from;
     }
 
-    public void setDateTo(String dateTo) {
-        this.dateTo = dateTo;
+    public void setDate_from(String date_from) {
+        this.date_from = date_from;
     }
 
-    public String getDeathCondition() {
-        return deathCondition;
+    public String getDate_conditoin() {
+        return date_conditoin;
     }
 
-    public void setDeathCondition(String deathCondition) {
-        this.deathCondition = deathCondition;
+    public void setDate_conditoin(String date_conditoin) {
+        this.date_conditoin = date_conditoin;
     }
 
     public String getDeath_date() {

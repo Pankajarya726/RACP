@@ -461,7 +461,7 @@ public class MilkInfoActivity extends MvpActivity <MilkInfoPresenter> implements
         /*ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form19));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.is_mtg_member_or_not);
 
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {

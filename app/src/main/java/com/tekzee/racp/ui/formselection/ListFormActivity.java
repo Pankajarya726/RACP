@@ -158,7 +158,11 @@ public class ListFormActivity extends MvpActivity<ListFormPresenter> implements 
                     i2.putExtra("form_id",id);
                     startActivity(i2);
                 }else {
-                    startActivity(new Intent(ListFormActivity.this, BakriVitranActivity.class));
+
+                    Intent i2 = new Intent(ListFormActivity.this, BakriVitranActivity.class);
+                    i2.putExtra("form_id",id);
+                    startActivity(i2);
+                   // startActivity(new Intent(ListFormActivity.this, BakriVitranActivity.class));
                 }
 
                 break;

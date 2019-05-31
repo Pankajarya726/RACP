@@ -1,6 +1,6 @@
 package com.tekzee.racp.ui.Form.adoption;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.tekzee.racp.ui.Form.adoption.model.RetrivedAdoptionResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
@@ -10,7 +10,7 @@ import com.tekzee.racp.ui.base.model.CommonResult;
 
 public interface AdoptionView extends BaseView {
 
-    Context getContext();
+    Activity getContext();
 
     void onNoInternetConnectivity(CommonResult commonResult);
 

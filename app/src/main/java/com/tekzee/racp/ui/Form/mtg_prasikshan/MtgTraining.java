@@ -1,46 +1,62 @@
 package com.tekzee.racp.ui.Form.mtg_prasikshan;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
+import android.provider.Settings;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.FormMtgPrasikshanBinding;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.model.DataMtgTraingin;
 import com.tekzee.racp.ui.Form.mtg_prasikshan.model.RetrivedMtgTrainingResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
+import com.tekzee.racp.ui.ImagePickerActivity;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.ui.formdata.FormDataActivity;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements MtgTrainginVeiw, View.OnClickListener,Dialogs.okClickListner {
-    private static String tag = MtgTraining.class.getSimpleName();
+public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements MtgTrainginVeiw, View.OnClickListener, Dialogs.okClickListner {
+    private static String TAG = MtgTraining.class.getSimpleName();
+
 
     private FormMtgPrasikshanBinding binding;
     private int recordNo = 1;
     private int record_count = 1;
     private int form_id;
     private int mtg_id;
+    private InputStream imageInputStream = null;
+    private byte[] imageBytes;
     private int table_id;
     private List <DataMtgTraingin> detailList = new ArrayList <>();
 
@@ -73,6 +89,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         binding.tvAddRecord.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
         binding.edtMtgname.setOnClickListener(this);
+        binding.ivTraining.setOnClickListener(this);
 
     }
 
@@ -81,7 +98,6 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         JsonObject jsonObject = new JsonObject();
         jsonObject.addProperty("table_id", table_id);
         jsonObject.addProperty("form_id", 15);
-
         mvpPresenter.getFormRecordData(jsonObject);
     }
 
@@ -139,6 +155,108 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
                 }
                 break;
 
+            case R.id.iv_training:
+                Dexter.withActivity(getContext())
+                        .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                if (report.areAllPermissionsGranted()) {
+
+                                    Intent intent = new Intent(getContext(), ImagePickerActivity.class);
+                                    intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+                                    // setting aspect ratio
+                                    intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+                                    // setting maximum bitmap width and height
+                                    intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+                                    startActivityForResult(intent, Constant.IMAGE_REQUEST);
+                                }
+
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    showSettingsDialog();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List <PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
+
+
+                break;
+
+        }
+    }
+
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings();
+            }
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constant.IMAGE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    if (uri != null) {
+//                        String fileLocation = Utility.getFileName(getAppContext(), uri);
+//                        Log.view(TAG,"fileLocation: "+fileLocation);
+//                        geoTag(uri.toString(), mLocation.getLatitude(), mLocation.getLongitude());
+
+                        Glide.with(getContext()).load(uri).into(binding.ivTraining);
+
+                        try {
+                            imageInputStream = getContentResolver().openInputStream(uri);
+
+                            com.tekzee.racp.utils.Log.view(TAG, "uri = = " + uri);
+                            com.tekzee.racp.utils.Log.view(TAG, "imageInputStream = = " + imageInputStream);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        imageBytes = Utility.getBytes(imageInputStream);
+                        // mvpPresenter.uploadDocument(imageBytes);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -160,7 +278,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
             return false;
         } else {
 
-            Log.e(tag, "mtg_id" + mtg_id);
+            com.tekzee.racp.utils.Log.view(TAG, "mtg_id" + mtg_id);
 
 
             DataMtgTraingin details = new DataMtgTraingin(
@@ -208,12 +326,12 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
         binding.txtno.setText(String.valueOf(record_count));
 
-        Log.e(tag, String.valueOf(DataMtgTraingin.count(DataMtgTraingin.class)));
+        Log.view(TAG, String.valueOf(DataMtgTraingin.count(DataMtgTraingin.class)));
 
         detailList.clear();
         detailList = DataMtgTraingin.listAll(DataMtgTraingin.class);
-        Log.e(tag, String.valueOf(detailList.size()));
-        Log.e(tag, String.valueOf(record_count));
+        com.tekzee.racp.utils.Log.view(TAG, String.valueOf(detailList.size()));
+        com.tekzee.racp.utils.Log.view(TAG, String.valueOf(record_count));
 
 
         DataMtgTraingin detail = detailList.get(record_count - 1);
@@ -271,7 +389,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
             detailList.clear();
             detailList = DataMtgTraingin.listAll(DataMtgTraingin.class);
-            Log.e(tag, "size is" + detailList.size());
+            com.tekzee.racp.utils.Log.view(TAG, "size is" + detailList.size());
             JsonArray jsonArray = new JsonArray();
 
             for (int i = 0; i < recordNo - 1; i++) {
@@ -295,7 +413,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
 
             json.add("data", jsonArray);
-            Log.e(tag, "data is" + json.toString());
+            com.tekzee.racp.utils.Log.view(TAG, "data is" + json.toString());
 
 
             mvpPresenter.saveForm(json);
@@ -305,13 +423,13 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
 
 
     @Override
-    public Context getContext() {
+    public Activity getContext() {
         return this;
     }
 
     @Override
     public void onNoInternetConnectivity(CommonResult message) {
-        Dialogs.showColorDialog(getContext(),message.getMessage());
+        Dialogs.showColorDialog(getContext(), message.getMessage());
 
     }
 
@@ -325,7 +443,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
 
 //        Toast.makeText(getContext(), successResult.getMessage(), Toast.LENGTH_SHORT).show();
 
@@ -353,7 +471,7 @@ public class MtgTraining extends MvpActivity <MtgTrainingPresenter> implements M
         binding.edtTrainingdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getTrainingDate())));
         binding.edtCount.setText(String.valueOf(successResult.getData().getTraineeNumber()));
         binding.edtPlace.setText(String.valueOf(successResult.getData().getTrainingPlace()));
-        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")) {
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
         binding.edtMtgname.setText(String.valueOf(successResult.getData().getMtggroupName()));

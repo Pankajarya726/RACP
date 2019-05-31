@@ -11,6 +11,8 @@ import com.tekzee.racp.ui.base.BaseView;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.Dialogs;
 
+import org.json.JSONException;
+
 import java.util.List;
 
 public interface BakariVitranView extends BaseView , Dialogs.okClickListner {
@@ -24,7 +26,10 @@ public interface BakariVitranView extends BaseView , Dialogs.okClickListner {
 
     void onDateSelected(int adapterPosition, List<Immunization> immunizations, TextView tv_date);
 
-    void onSuccessfullyRetrived(RetrivedDataResponse successResult);
+    void onSuccessfullyRetrived(RetrivedDataResponse successResult) throws JSONException;
 
     void onGramPanchayatSelected(GramPanchayat model, String type);
+
+    String getLatitude();
+    String getLongitude();
 }

@@ -21,6 +21,7 @@ import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.BasePresenter;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.NetworkUtils;
+import com.tekzee.racp.utils.PopUpUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -454,5 +455,21 @@ public class AdoptionPresenter extends BasePresenter<AdoptionView> {
                 }
             });
         }
+    }
+
+    public void getActvitys() {
+
+        ArrayList<GramPanchayat> arrayList = new ArrayList <>();
+        arrayList.add(new GramPanchayat(1,mvpView.getContext().getResources().getString(R.string.form_10)));
+        arrayList.add(new GramPanchayat(1,mvpView.getContext().getResources().getString(R.string.pass_on_gift)));
+        arrayList.add(new GramPanchayat(1,mvpView.getContext().getResources().getString(R.string.form_7)));
+        arrayList.add(new GramPanchayat(1,mvpView.getContext().getResources().getString(R.string.form_12)));
+
+        PopUpUtils.openSelector(mvpView.getContext(), arrayList, "activity", mvpView.getContext().getString(R.string.select_activity), new PopUpUtils.OnSelected() {
+            @Override
+            public void onGramPanchayatSelected(GramPanchayat model, String type) {
+                mvpView.onGramPanchayatSelected(model,type);
+            }
+        });
     }
 }

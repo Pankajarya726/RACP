@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -18,10 +17,12 @@ import com.tekzee.racp.ui.Form.ajola.model.Datum;
 import com.tekzee.racp.ui.Form.ajola.model.GetAnimalTypeResponse;
 import com.tekzee.racp.ui.Form.ajola.model.RetrivedAjolaResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
+import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.PopUpUtils;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -34,11 +35,13 @@ import java.util.List;
 public class AjolaActivity extends MvpActivity <AjolaPresenter> implements AjolaView, View.OnClickListener, Dialogs.okClickListner {
     private static String tag = AjolaActivity.class.getSimpleName();
     List <Datum> animal = new ArrayList <>();
+
     private FormAjolaBinding binding;
     private List <DataAjola> detailList = new ArrayList <>();
     private int recordNo = 1;
     private int record_count = 1;
     private int table_id;
+    private int animal_type_id = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,10 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         binding.tvAddRecord.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
         binding.layoutFaitpercent.setVisibility(View.GONE);
+        binding.checkYes.setChecked(true);
+        binding.layoutFaitpercent.setVisibility(View.VISIBLE);
+        binding.spPalce.setOnClickListener(this);
+        binding.spType.setOnClickListener(this);
     }
 
     @Override
@@ -96,6 +103,11 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+
+            case R.id.sp_type:
+                mvpPresenter.getAnimalType();
+                break;
 
             case R.id.tv_addRecord:
                 addRecordinSqlite();
@@ -168,6 +180,22 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
                     binding.checkNo.setChecked(false);
                 }
                 break;
+
+            case R.id.sp_palce:
+                ArrayList<GramPanchayat> arrayList = new ArrayList <>();
+                arrayList.add(new GramPanchayat(1,getString(R.string.milk_socity)));
+                arrayList.add(new GramPanchayat(2,getString(R.string.other)));
+                PopUpUtils.openSelector(getContext(), arrayList, "place", getString(R.string.select_place), new PopUpUtils.OnSelected() {
+                    @Override
+                    public void onGramPanchayatSelected(GramPanchayat model, String type) {
+                        if (type.equalsIgnoreCase("place")){
+                            binding.spPalce.setText(model.getGrampanchayatName());
+                        }
+                    }
+                });
+
+                break;
+
         }
 
     }
@@ -239,8 +267,8 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
                     binding.spYear.getSelectedItemPosition(),
                     proof,
                     binding.checkProofYes.isChecked(),
-                    binding.spType.getSelectedItem().toString(),
-                    binding.spType.getSelectedItemPosition(),
+                    binding.spType.getText().toString(),
+                    animal_type_id,
                     binding.edtProductionAverage.getText().toString(),
                     binding.edtAmountMilkBefore.getText().toString(),
                     binding.edtAmountMilkAfter.getText().toString(),
@@ -311,7 +339,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
             binding.day.setText(detail.getDd());
             binding.spMonth.setSelection(detail.getMm_id());
             binding.spYear.setSelection(detail.getYy_id());
-            binding.spType.setSelection(detail.getAnimal_id());
+            binding.spType.setText(detail.getAnimal_type());
             binding.edtProductionAverage.setText(detail.getAverage_milk_production());
             binding.edtAmountMilkBefore.setText(detail.getMilk_amount_before());
             binding.edtAmountMilkAfter.setText(detail.getMilk_amount_after());
@@ -374,7 +402,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         binding.day.setText(detail.getDd());
         binding.spMonth.setSelection(detail.getMm_id());
         binding.spYear.setSelection(detail.getYy_id());
-        binding.spType.setSelection(detail.getAnimal_id());
+        binding.spType.setText(detail.getAnimal_type());
         binding.edtProductionAverage.setText(detail.getAverage_milk_production());
         binding.edtAmountMilkBefore.setText(detail.getMilk_amount_before());
         binding.edtAmountMilkAfter.setText(detail.getMilk_amount_after());
@@ -449,7 +477,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
     public void ClearVeiw() {
         binding.spMonth.setSelection(0);
         binding.spYear.setSelection(0);
-        binding.spType.setSelection(0);
+        binding.spType.setText("");
         binding.checkProofYes.setChecked(false);
         binding.checkProofNo.setChecked(false);
         binding.checkYes.setChecked(false);
@@ -497,7 +525,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
     private void SpinnerData() {
 
-        mvpPresenter.getAnimalType();
+
 
 
         CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
@@ -534,7 +562,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
        /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_10));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override
@@ -602,18 +630,27 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
 
         animal.addAll(successResult.getData());
 
+        ArrayList<GramPanchayat> arrayList = new ArrayList <>();
+
+        for(int i=0;i<animal.size();i++){
+            Datum datum = animal.get(i);
+            arrayList.add(new GramPanchayat(datum.getAnimaltypeId(),datum.getAnimaltypeName()));
+        }
+
+        PopUpUtils.openSelector(getContext(), arrayList, "animal_type", getString(R.string.select_animal_type), new PopUpUtils.OnSelected() {
+            @Override
+            public void onGramPanchayatSelected(GramPanchayat model, String type) {
+                if (type.equalsIgnoreCase("animal_type")){
+                    binding.spType.setText(model.getGrampanchayatName());
+                    animal_type_id = model.getGrampanchayatId();
+                }
+            }
+        });
+
+
+
         Log.e(tag, "" + animal.size());
 
-        List <String> type = new ArrayList <>();
-        for (int i = 0; i < animal.size(); i++) {
-            Datum datum = animal.get(i);
-            type.add(datum.getAnimaltypeName());
-
-        }
-        ArrayAdapter <String> adapter = new ArrayAdapter <String>(this,
-                R.layout.spinner_item, type);
-        adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
-        binding.spType.setAdapter(adapter);
 
     }
 
@@ -626,7 +663,7 @@ public class AjolaActivity extends MvpActivity <AjolaPresenter> implements Ajola
         DisableView();
 
 
-        binding.layoutAnimelType.setVisibility(View.GONE);
+      //  binding.layoutAnimelType.setVisibility(View.GONE);
         binding.animal.setVisibility(View.VISIBLE);
         binding.receiptDate.setVisibility(View.VISIBLE);
 

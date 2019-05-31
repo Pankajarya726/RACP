@@ -46,9 +46,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
+                    android:layout_marginRight="5dp"
                     android:layout_toLeftOf="@+id/tv_date"
                     android:text="@string/date"
-                    android:layout_marginRight="5dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/login_title_size" />
 
@@ -85,15 +85,30 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
-                    <EditText
-                        android:id="@+id/edt_tagNo"
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="35dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/edit_theme_black"
-                        android:inputType="number"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/black" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/edt_tagNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black" />
+
+
+                        <ImageView
+                            android:id="@+id/iv_tagno"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/arrow" />
+                    </RelativeLayout>
 
 
                     <TextView

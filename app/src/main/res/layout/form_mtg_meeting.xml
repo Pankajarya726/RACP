@@ -136,6 +136,16 @@
                         android:paddingHorizontal="10dp" />
 
 
+                    <ImageView
+                        android:id="@+id/iv_meeting"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="20dp"
+                        android:src="@drawable/ic_menu_camera"/>
+                    
+
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

@@ -241,7 +241,6 @@
                             android:layout_marginTop="15dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
-
                             android:text="@string/address"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -260,6 +259,8 @@
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
 
+
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
@@ -267,7 +268,31 @@
                             android:layout_marginTop="20dp"
                             android:layout_toLeftOf="@+id/mview"
                             android:gravity="center_vertical"
+                            android:text="@string/count_dodharu_bakari"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
+                        <EditText
+                            android:id="@+id/edt_bakari_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_address"
+                            android:layout_marginTop="20dp"
+                            android:layout_toRightOf="@+id/mview"
+                            android:background="@drawable/edit_theme_black"
+                            android:gravity="center_vertical"
+                            android:inputType="number"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/edt_bakari_count"
+                            android:layout_marginTop="20dp"
+                            android:layout_toLeftOf="@+id/mview"
+                            android:gravity="center_vertical"
                             android:text="@string/totle_milk_production"
                             android:textColor="@color/black"
                             android:textSize="@dimen/tv_size_medium_tab" />
@@ -276,7 +301,7 @@
                             android:id="@+id/edt_totle_amount"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:layout_below="@+id/edt_address"
+                            android:layout_below="@+id/edt_bakari_count"
                             android:layout_marginTop="20dp"
                             android:inputType="numberDecimal"
                             android:layout_toRightOf="@+id/mview"

@@ -2,10 +2,9 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ScrollView
-        android:scrollbarThumbVertical="@null"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       >
+        android:scrollbarThumbVertical="@null">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -21,13 +20,13 @@
 
                 <TextView
                     android:id="@+id/tv_recordNo"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="@string/record2"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/tv_size_medium_tab" />
 
 
@@ -35,11 +34,11 @@
                     android:id="@+id/tv_No"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
                     android:layout_toRightOf="@+id/tv_recordNo"
                     android:text="1"
-                    android:layout_alignParentTop="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/tv_size_medium_tab" />.
 
@@ -47,25 +46,25 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
                     android:layout_toLeftOf="@+id/tv_date"
                     android:text="@string/date"
-                    android:layout_alignParentTop="true"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/tv_size_medium_tab"/>
+                    android:textSize="@dimen/tv_size_medium_tab" />
 
 
                 <TextView
                     android:id="@+id/tv_date"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="5dp"
-                    android:layout_alignParentRight="true"
                     android:text="1"
-                    android:layout_alignParentTop="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/tv_size_medium_tab" />
 
@@ -74,13 +73,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_recordNo"
+                    android:layout_marginBottom="15dp"
                     android:background="@drawable/edit_theme"
                     android:orientation="vertical"
                     android:paddingLeft="20dp"
                     android:paddingTop="15dp"
                     android:paddingRight="20dp"
-                    android:paddingBottom="20dp"
-                    android:layout_marginBottom="15dp">
+                    android:paddingBottom="20dp">
 
 
                     <TextView
@@ -187,16 +186,16 @@
 
                     <TextView
                         android:id="@+id/receipt_date"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="15dp"
+                        android:background="@drawable/edit_theme_black"
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
                         android:text="@string/animal_type"
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab"
-                        android:gravity="center_vertical"
-                        android:paddingHorizontal="10dp"
-                        android:background="@drawable/edit_theme_black"/>
+                        android:visibility="gone" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -206,33 +205,28 @@
                         android:textColor="@color/black"
                         android:textSize="@dimen/tv_size_medium_tab" />
 
-                    <LinearLayout
-                        android:id="@+id/layout_animel_type"
+                    <TextView
+                        android:id="@+id/sp_type"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp">
+                        android:drawableRight="@drawable/spinner"
+                        android:paddingHorizontal="10dp" />
 
-                        <Spinner
-                            android:id="@+id/sp_type"
-                            android:layout_width="match_parent"
-                            android:layout_height="35dp"
-                            android:backgroundTint="@color/colorPrimary" />
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/animal"
-                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginTop="15dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/physical_proof"
-                        android:paddingHorizontal="10dp"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:textSize="@dimen/tv_size_medium_tab" />
+                        android:gravity="center_vertical"
+                        android:paddingHorizontal="10dp"
+                        android:text="@string/physical_proof"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/tv_size_medium_tab"
+                        android:visibility="gone" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -284,12 +278,12 @@
                     <EditText
                         android:id="@+id/edt_production_average"
                         android:layout_width="match_parent"
-                        android:inputType="numberDecimal"
                         android:layout_height="35dp"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -307,12 +301,12 @@
                         android:id="@+id/edt_amountMilk_before"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="numberDecimal"
                         android:layout_below="@+id/amount_milk"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -329,12 +323,12 @@
                         android:id="@+id/edt_amountMilk_after"
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
-                        android:inputType="numberDecimal"
                         android:layout_below="@+id/amountMilk"
                         android:layout_marginTop="10dp"
-                        android:textColor="@color/black"
                         android:background="@drawable/edit_theme_black"
-                        android:paddingHorizontal="10dp" />
+                        android:inputType="numberDecimal"
+                        android:paddingHorizontal="10dp"
+                        android:textColor="@color/black" />
 
 
                     <TextView
@@ -377,9 +371,30 @@
 
                     <LinearLayout
                         android:id="@+id/layout_faitpercent"
-                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:text="@string/place_to_check_faitpercent"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
+
+                        <TextView
+                            android:id="@+id/sp_palce"
+                            android:layout_width="match_parent"
+                            android:layout_height="35dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/edit_theme_black"
+                            android:drawableRight="@drawable/spinner"
+                            android:gravity="center_vertical"
+                            android:inputType="numberDecimal"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/tv_size_medium_tab" />
 
                         <TextView
                             android:id="@+id/fait_percent"
@@ -395,11 +410,11 @@
                             android:id="@+id/edt_fait_before"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:inputType="numberDecimal"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/black"
                             android:background="@drawable/edit_theme_black"
-                            android:paddingHorizontal="10dp" />
+                            android:inputType="numberDecimal"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black" />
 
 
                         <TextView
@@ -416,12 +431,12 @@
                             android:id="@+id/edt_fait_after"
                             android:layout_width="match_parent"
                             android:layout_height="35dp"
-                            android:inputType="numberDecimal"
                             android:layout_below="@+id/faitPercent"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/black"
                             android:background="@drawable/edit_theme_black"
-                            android:paddingHorizontal="10dp" />
+                            android:inputType="numberDecimal"
+                            android:paddingHorizontal="10dp"
+                            android:textColor="@color/black" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -429,32 +444,32 @@
 
                 <TextView
                     android:id="@+id/next"
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentRight="true"
-                    android:padding="10dp"
+                    android:drawableRight="@drawable/_next"
+                    android:gravity="center"
 
+                    android:padding="10dp"
                     android:text="@string/next"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone"
-                    android:drawableRight="@drawable/_next"/>
+                    android:visibility="gone" />
 
                 <TextView
                     android:id="@+id/privious"
-                    android:gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/linear_layout"
                     android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/_privious"
+                    android:gravity="center"
                     android:padding="10dp"
                     android:text="@string/previous"
                     android:textColor="@color/colorPrimary"
                     android:textSize="20dp"
-                    android:visibility="gone"
-                    android:drawableLeft="@drawable/_privious"/>
+                    android:visibility="gone" />
 
 
                 <LinearLayout
@@ -470,7 +485,8 @@
                     android:background="@drawable/button_theme"
                     android:backgroundTint="@android:color/black"
                     android:gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <ImageView
                         android:layout_width="20dp"

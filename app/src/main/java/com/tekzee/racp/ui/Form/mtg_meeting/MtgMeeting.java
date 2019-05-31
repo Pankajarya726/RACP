@@ -1,10 +1,15 @@
 package com.tekzee.racp.ui.Form.mtg_meeting;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,8 +19,14 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.FormMtgMeetingBinding;
@@ -24,6 +35,7 @@ import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMember;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.MtgMemberResponse;
 import com.tekzee.racp.ui.Form.mtg_meeting.model.RetrivedMtgMeetingResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
+import com.tekzee.racp.ui.ImagePickerActivity;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
@@ -34,6 +46,7 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 
 import org.json.JSONException;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +54,9 @@ import java.util.List;
 public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgMeetingView, View.OnClickListener, Dialogs.okClickListner {
 
     private static String tag = MtgMeeting.class.getSimpleName();
+    private static String TAG = MtgMeeting.class.getSimpleName();
+
+
     int form_id;
     int table_id;
     private FormMtgMeetingBinding binding;
@@ -49,6 +65,8 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
     private List <MtgMember> mtgMembers = new ArrayList <>();
     private int record_count = 1;
     private int mtg_id;
+    private InputStream imageInputStream = null;
+    private byte[] imageBytes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +93,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         binding.edtMeetingdate.setOnClickListener(this);
         binding.edtMtgname.setOnClickListener(this);
         binding.edtNameMembers.setOnClickListener(this);
-
+        binding.ivMeeting.setOnClickListener(this);
         binding.tvSave.setOnClickListener(this);
 
 
@@ -126,7 +144,111 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
                 }
                 break;
 
+            case R.id.iv_meeting:
+                Dexter.withActivity(getContext())
+                        .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                if (report.areAllPermissionsGranted()) {
 
+                                    Intent intent = new Intent(getContext(), ImagePickerActivity.class);
+                                    intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+                                    // setting aspect ratio
+                                    intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+                                    // setting maximum bitmap width and height
+                                    intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+                                    startActivityForResult(intent, Constant.IMAGE_REQUEST);
+                                }
+
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    showSettingsDialog();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List <PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
+
+
+                break;
+
+
+        }
+    }
+
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings();
+            }
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constant.IMAGE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    if (uri != null) {
+//                        String fileLocation = Utility.getFileName(getAppContext(), uri);
+//                        Log.view(TAG,"fileLocation: "+fileLocation);
+//                        geoTag(uri.toString(), mLocation.getLatitude(), mLocation.getLongitude());
+
+                        Glide.with(getContext()).load(uri).into(binding.ivMeeting);
+
+                        try {
+                            imageInputStream = getContentResolver().openInputStream(uri);
+
+                            com.tekzee.racp.utils.Log.view(TAG,"uri = = "+uri);
+                            com.tekzee.racp.utils.Log.view(TAG,"imageInputStream = = "+imageInputStream);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        imageBytes = Utility.getBytes(imageInputStream);
+                        // mvpPresenter.uploadDocument(imageBytes);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
@@ -140,7 +262,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
         } else if (binding.edtMtgname.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.selcet_mtg_group));
 
-        }else if (binding.edtNameMembers.getText().toString().trim().isEmpty()) {
+        } else if (binding.edtNameMembers.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_mtg_member_name));
 
         } else {
@@ -190,7 +312,7 @@ public class MtgMeeting extends MvpActivity <MtgMeetingPreseter> implements MtgM
     }
 
     @Override
-    public Context getContext() {
+    public Activity getContext() {
         return this;
     }
 

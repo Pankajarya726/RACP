@@ -626,7 +626,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_7));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override

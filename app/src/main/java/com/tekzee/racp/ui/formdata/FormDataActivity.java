@@ -246,6 +246,7 @@ public class FormDataActivity extends MvpActivity <FormDataPresenter> implements
     public void onItemSelected(int adapterPosition, List <Datum> formData) {
 
         Datum datum = datumList.get(adapterPosition);
+
         switch (form_id) {
 
             case 1:

@@ -28,7 +28,7 @@ public class Dialogs {
     public static void showcolorDialog(Context context, String msg) {
         ColorDialog dialog = new ColorDialog(context);
         dialog.setCancelable(false);
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(msg);
         dialog.setPositiveListener(R.string.ok, new ColorDialog.OnPositiveListener() {
             @Override

@@ -152,7 +152,8 @@
     <string name="form_1">R.A.C.P.के अंतर्गत वितरित बकरो का विवरण</string>
     <string name="form_2">R.A.C.P. अंतर्गत बकरा विवरण के लाभार्थी M. T. G. सदस्यों के पास उपलब्ध बकरियों का विवरण</string>
     <string name="form_3">R.A.C.P. के अंतर्गत विधवा / विकलांग महिला को वितरित बकरी का विवरण</string>
-    <string name="form_4">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी के बीमा का विवरण </string>
+    <string name="form_4">बकरा / बकरी के बीमा का विवरण </string>
+    <!--<string name="form_4">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी के बीमा का विवरण </string>-->
     <string name="form_5">विपणन तालिका (M.T.G. सदस्यों के अतिरिक्त बकरी पालको हेतु) </string>
     <string name="form_6">भार तोलने की मशीन</string>
     <string name="form_7">क्लीन मिल्क किट</string>
@@ -381,6 +382,28 @@
     <string name="self_bakra">स्वयं का बकरा</string>
     <string name="self_bakri">स्वयं की बकरी</string>
     <string name="policy_company_name">बीमा कंपनी का नाम </string>
+    <string name="count_dodharu_bakari">दुधारू बकरियों की संख्या</string>
+    <string name="pass_on_gift">पास आॅन गिफ्ट</string>
+    <string name="select_activity">गतिविधि चुनें</string>
+    <string name="bakari_count_havig_pashupalak">पशुपालक के पास उपलब्ध बकरियों की संख्या</string>
+    <string name="select_phisical_proof_image">भौतिक सत्यापन की फोटो चुनें</string>
+    <string name="minimum_four_detail_mendentery">चार बकरियों का विवरण अनिवार्य है</string>
+    <string name="invalid_tag_no">एक टैग नंबर दोबारा नहीं डाला जा सकता !</string>
+    <string name="should_have_atleast_ten_goats">पशुपालक के पास न्यूनतम 10 बकरिया होना चाहिए</string>
+    <string name="select_tag_no">टैग नंबर चुनें</string>
+    <string name="enter_company_name">बीमा कंपनी का नाम भरें</string>
+    <string name="enter_age_bakari">बकरी की उम्र भरें</string>
+    <string name="enter_weight_bakari">बकरी भार दर्ज करें</string>
+    <string name="select_nasl_bakari">बकरी की नस्ल चुनें</string>
+    <string name="enter_age_bakara">बकरे की उम्र दर्ज करें</string>
+    <string name="enter_weight_bakara">बकरे का भार  दर्ज करें</string>
+    <string name="enter_bakari_count">पशुपालक के पास उपलब्ध बकरियों के संख्या दर्ज करें</string>
+    <string name="fill_detail_of_all_goats">कृपया सभी बकरियों का विवरण भरें</string>
+    <string name="place_to_check_faitpercent">फैट प्रतिशत कहाँ पर चेक करवाया</string>
+    <string name="milk_socity">दुग्ध समिति</string>
+    <string name="other">अन्य</string>
+    <string name="select_place">जगह चुनें</string>
+    <string name="do_physical_verification">भौतिक सत्यापन करें</string>
 
 
 </resources>

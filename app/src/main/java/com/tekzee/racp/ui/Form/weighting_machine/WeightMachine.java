@@ -885,7 +885,7 @@ public class WeightMachine extends MvpActivity <WeightingMachinePresenter> imple
         dialog.setCancelable(false);
 
         dialog.setTitle(getResources().getString(R.string.form_6));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setColor("#ff6500");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {

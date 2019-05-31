@@ -500,7 +500,7 @@ public class VipranTableActivity extends MvpActivity <VipranPresenter> implement
        /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_5));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.is_mtg_member_or_not);
 
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {

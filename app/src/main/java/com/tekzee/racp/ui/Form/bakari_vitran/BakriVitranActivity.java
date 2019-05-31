@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -29,10 +30,11 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
-import com.tekzee.racp.constant.GlideModuleConstant;
+import com.tekzee.racp.constant.GlideApp;
 import com.tekzee.racp.databinding.FormBakriVitranBinding;
 import com.tekzee.racp.sqlite.SqliteDB;
 import com.tekzee.racp.ui.Form.bakari_vitran.model.BakriData;
+import com.tekzee.racp.ui.Form.bakari_vitran.model.Datum;
 import com.tekzee.racp.ui.Form.bakari_vitran.model.RetrivedDataResponse;
 import com.tekzee.racp.ui.Form.bakari_vitran.model.TeekaData;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
@@ -43,6 +45,7 @@ import com.tekzee.racp.ui.base.MvpMapActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
+import com.tekzee.racp.utils.PhotoFullPopupWindow;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
 
@@ -67,6 +70,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     List <BakriData> bakriDataList = new ArrayList <>();
     boolean isOkayClicked = true;
     com.tekzee.racp.ui.Form.bakari_vitran.TeekaAdapter teekaAdapter;
+    String[] tagno;
     private InputStream imageInputStream = null;
     private String image_path = "";
     private int benifeciery_id = 0;
@@ -75,6 +79,10 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     private int recordNo = 1;
     private int record_count = 1;
     private int table_id;
+    private int criminashak = 0;
+    private int nasl_id = 0;
+    private int form_id = 0;
+    private Location mLocation;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,6 +95,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
 
 
         table_id = getIntent().getIntExtra("table_id", 0);
+        form_id = getIntent().getIntExtra("form_id", 0);
         if (table_id != 0) {
             getFormRecordData();
         } else {
@@ -118,14 +127,21 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         binding.checkYes.setOnClickListener(this);
         binding.edtDateCrimNashak.setOnClickListener(this);
         binding.ivBakari.setOnClickListener(this);
+        binding.spNasl.setOnClickListener(this);
+        binding.physicalVerification.setOnClickListener(this);
 
     }
 
     private void getFormRecordData() {
 
         JsonObject jsonObject = new JsonObject();
-        jsonObject.addProperty("table_id", table_id);
+        jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
         jsonObject.addProperty("form_id", 3);
+        jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
+        jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
+
+
+        jsonObject.addProperty("table_id", table_id);
 
         mvpPresenter.getFormRecordData(jsonObject);
     }
@@ -162,11 +178,13 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                         binding.checkNo.setChecked(false);
                     }
                     binding.checkYes.setChecked(true);
+                    criminashak = 1;
                     binding.layoutCriminashak.setVisibility(View.VISIBLE);
 
                 } else {
                     binding.checkYes.setChecked(false);
                     binding.layoutCriminashak.setVisibility(View.GONE);
+                    criminashak = 0;
                 }
                 break;
 
@@ -178,9 +196,11 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                     }
                     binding.checkNo.setChecked(true);
                     binding.layoutCriminashak.setVisibility(View.GONE);
+                    criminashak = 0;
                 } else {
                     binding.checkNo.setChecked(false);
                     binding.layoutCriminashak.setVisibility(View.GONE);
+                    criminashak = 0;
                 }
                 break;
 
@@ -197,8 +217,17 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                 mDatePickerDialog.getdate(BakriVitranActivity.this, binding.edtDateCrimNashak);
                 break;
 
+            case R.id.sp_nasl:
+                mvpPresenter.getNasl();
+                break;
+
             case R.id.tv_addRecord:
-                addRecordinSqlite();
+                if (recordNo > 3) {
+
+                } else {
+                    addRecordinSqlite();
+                }
+
                 break;
             case R.id.privious:
                 try {
@@ -221,10 +250,15 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                 break;
 
             case R.id.tv_save:
-                try {
-                    submitRecord();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+
+                if (recordNo < 4) {
+                    Dialogs.showColorDialog(getContext(), getString(R.string.minimum_four_detail_mendentery));
+                } else {
+                    try {
+                        submitRecord();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
                 break;
 
@@ -330,7 +364,6 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         }
     }
 
-
     private void loadList(String format, String name) {
         immunizations.add(new Immunization(name, format));
         Immunization immunization = new Immunization(name, format);
@@ -353,15 +386,27 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     }
 
     private boolean addRecordinSqlite() {
+
         if (binding.edtTagNo.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_tagno));
             return false;
         } else if (binding.edtAveragProduction.getText().toString().isEmpty()) {
-
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_average_milk_production));
             return false;
         } else if (binding.edtProofdate.getText().toString().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.enter_physical_proof_date));
+            return false;
+
+        } else if (binding.edtAge.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_age));
+            return false;
+
+        } else if (binding.edtWeight.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_weight));
+            return false;
+
+        } else if (binding.spNasl.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_nasl));
             return false;
 
         } else if (binding.spBenifecieryType.getText().toString().trim().isEmpty()) {
@@ -370,11 +415,27 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         } else if (binding.checkYes.isChecked() && binding.edtDateCrimNashak.getText().toString().trim().isEmpty()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.select_criminashak_date));
             return false;
-        }else if (imageBytes==null){
-            Dialogs.showColorDialog(getContext(),getString(R.string.select_bakari_image));
+        } else if (imageBytes == null) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_phisical_proof_image));
             return false;
-        }
-        else {
+        } else {
+
+
+            if (tagno == null || tagno.length == 0) {
+                tagno = new String[4];
+
+                tagno[0] = binding.edtTagNo.getText().toString().trim();
+            } else {
+                for (int i = 0; i < tagno.length; i++) {
+                    if (binding.edtTagNo.getText().toString().trim().equalsIgnoreCase(tagno[i])) {
+                        Dialogs.showColorDialog(getContext(), getString(R.string.invalid_tag_no));
+                        return false;
+                    }
+                }
+
+                tagno[recordNo - 1] = binding.edtTagNo.getText().toString().trim();
+            }
+
 
             String day;
             if (binding.day.getText().toString().isEmpty()) {
@@ -424,15 +485,21 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                     binding.spYear.getSelectedItem().toString(),
                     binding.spMonth.getSelectedItemPosition(),
                     binding.spYear.getSelectedItemPosition(),
-                    binding.edtTagNo.getText().toString(),
                     binding.spBenifecieryType.getText().toString(),
+                    benifeciery_id,
+                    binding.edtTagNo.getText().toString(),
+                    binding.edtAge.getText().toString(),
+                    binding.edtWeight.getText().toString(),
+                    binding.spNasl.getText().toString(),
+                    nasl_id,
                     binding.edtAveragProduction.getText().toString(),
-                    binding.edtProofdate.getText().toString(),
-                    image_path,
                     binding.checkYes.isChecked(),
+                    criminashak,
                     binding.edtDateCrimNashak.getText().toString(),
-                    binding.edtNote.getText().toString()
-                    );
+                    binding.edtProofdate.getText().toString(),
+                    binding.edtNote.getText().toString());
+
+
             data.save();
 
             Log.e(tag, "record count = " + BakriData.count(BakriData.class));
@@ -452,10 +519,12 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     private void next() throws JSONException {
         binding.privious.setVisibility(View.VISIBLE);
         record_count = record_count + 1;
-        if (record_count == recordNo) {
+        if (record_count == 4) {
             binding.next.setVisibility(View.GONE);
-            binding.tvAddRecord.setVisibility(View.VISIBLE);
-            binding.tvSave.setVisibility(View.VISIBLE);
+            if (table_id == 0) {
+                binding.tvAddRecord.setVisibility(View.VISIBLE);
+                binding.tvSave.setVisibility(View.VISIBLE);
+            }
         }
         binding.txtno.setText(String.valueOf(record_count));
 
@@ -476,21 +545,17 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
             binding.spYear.setSelection(bakriData.getYy_id());
             binding.edtTagNo.setText(bakriData.getTag_no());
             binding.spBenifecieryType.setText(bakriData.getCategory());
-           // binding.edtPolicyNo.setText(bakriData.getPolicy_no());
+            // binding.edtPolicyNo.setText(bakriData.getPolicy_no());
             binding.edtAveragProduction.setText(bakriData.getAverage());
             binding.edtProofdate.setText(bakriData.getPhucal_proof_date());
             binding.edtNote.setText(bakriData.getNote());
-            if (bakriData.isCriminashak()){
+            if (bakriData.isCriminashak()) {
                 binding.checkYes.setChecked(true);
                 binding.layoutCriminashak.setVisibility(View.VISIBLE);
                 binding.edtDateCrimNashak.setText(bakriData.getCriminashak_date());
 
             }
-            GlideModuleConstant.setImage(binding.ivBakari,getContext(),bakriData.getImage_path());
-
-
-
-
+            //  GlideModuleConstant.setImage(binding.ivBakari, getContext(), bakriData.getImage_path());
 
 
             String data = teekaData.getData();
@@ -551,21 +616,22 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         binding.spYear.setSelection(bakriData.getYy_id());
         binding.edtTagNo.setText(bakriData.getTag_no());
         binding.spBenifecieryType.setText(bakriData.getCategory());
+        binding.edtAge.setText(bakriData.getAge());
+        binding.edtWeight.setText(bakriData.getWeight());
+        binding.spNasl.setText(bakriData.getNasl());
+
+
         // binding.edtPolicyNo.setText(bakriData.getPolicy_no());
         binding.edtAveragProduction.setText(bakriData.getAverage());
         binding.edtProofdate.setText(bakriData.getPhucal_proof_date());
         binding.edtNote.setText(bakriData.getNote());
-        if (bakriData.isCriminashak()){
+        if (bakriData.isCriminashak()) {
             binding.checkYes.setChecked(true);
             binding.layoutCriminashak.setVisibility(View.VISIBLE);
             binding.edtDateCrimNashak.setText(bakriData.getCriminashak_date());
 
         }
-        GlideModuleConstant.setImage(binding.ivBakari,getContext(),bakriData.getImage_path());
-
-
-
-
+        //GlideModuleConstant.setImage(binding.ivBakari, getContext(), bakriData.getImage_path());
 
 
         String data = teekaData.getData();
@@ -598,14 +664,23 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                 TeekaData data1 = dataList.get(i);
 
                 JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("tag_no", data.getTag_no());
 //                jsonObject.addProperty("beema_detail", data.getBeema_detail());
 //                jsonObject.addProperty("policy_no", data.getPolicy_no());
 //                jsonObject.addProperty("physical_proof_date", mDatePickerDialog.changeFormate(data.getPhucal_proof_date()));
+
+
+                jsonObject.addProperty("tag_no", data.getTag_no());
+                jsonObject.addProperty("weight", data.getWeight());
+                jsonObject.addProperty("age", data.getAge());
+                jsonObject.addProperty("nasl", data.getNasl_id());
+                jsonObject.addProperty("pp_category_id", data.getCategory_id());
+                jsonObject.addProperty("deworming_status", data.getNashak());
+                jsonObject.addProperty("deworming_date", mDatePickerDialog.changeFormate(data.getCriminashak_date()));
+                jsonObject.addProperty("physical_proof_date", mDatePickerDialog.changeFormate(data.getPhucal_proof_date()));
                 jsonObject.addProperty("average_milk_production", data.getAverage());
                 jsonObject.addProperty("note", data.getNote());
                 jsonObject.addProperty("dd", data.getDd());
-                jsonObject.addProperty("mm", data.getMm());
+                jsonObject.addProperty("mm", data.getMm_id() + 1);
                 jsonObject.addProperty("yy", data.getYy());
 
                 JsonArray marray = new JsonArray();
@@ -623,7 +698,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                 jsonObject.add("teekakaran", marray);
                 jsonArray.add(jsonObject);
             }
-
+/*
             JsonObject jsonObject = new JsonObject();
             jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
             jsonObject.addProperty("form_id", 3);
@@ -631,8 +706,11 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
             jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
             jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
             jsonObject.add("data", jsonArray);
-            Log.e(tag, "final json = " + jsonObject.toString());
-            mvpPresenter.saveForm(jsonObject);
+            Log.e(tag, "final json = " + jsonObject.toString());*/
+            // mvpPresenter.saveForm(jsonObject);
+
+
+            mvpPresenter.saveForm(imageBytes, form_id, 1, jsonArray);
         }
 
     }
@@ -655,7 +733,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         dialog.setCancelable(false);
 
         dialog.setTitle(getResources().getString(R.string.form_3));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override
@@ -677,7 +755,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
 
     @Override
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
         Calendar c = Calendar.getInstance();
         c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month);
@@ -696,7 +774,12 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.showColorDialog(getContext(), commonResult.getMessage());
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+            }
+        }, "  ");
 
     }
 
@@ -735,47 +818,161 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     }
 
     @Override
-    public void onSuccessfullyRetrived(RetrivedDataResponse successResult) {
+    public void onSuccessfullyRetrived(RetrivedDataResponse successResult) throws JSONException {
 
-        binding.receiptDate.setVisibility(View.VISIBLE);
 
+        Log.e(TAG, successResult.getMessage());
+        Log.e(TAG, "" + successResult.getData().size());
+
+
+        for (int i = 0; i < successResult.getData().size(); i++) {
+
+            Datum datum = successResult.getData().get(i);
+
+            //  String[] date = datum.getDateReceipt().split("-");
+
+            BakriData bakriData = new BakriData("",
+                    "",
+                    "",
+                    0,
+                    0,
+                    datum.getPpcategoryName(),
+                    0,
+                    datum.getTagNo(),
+                    String.valueOf(datum.getAge()),
+                    String.valueOf(datum.getWeight()),
+                    datum.getNaslName(),
+                    datum.getNasl(),
+                    String.valueOf(datum.getAverageMilkProduction()),
+                    true,
+                    1,
+                    "02-12-2019",
+                    datum.getDatePhysicalProof(),
+                    datum.getNote());
+
+            bakriData.save();
+
+            String ppr = datum.getDatePpr();
+            String et = datum.getDateEt();
+            String fmd = datum.getDateFmd();
+            String hs = datum.getDateHs();
+
+
+            JsonArray jsonArray = new JsonArray();
+
+
+            String[] date = ppr.split(",");
+            for (int j = 0; j < date.length; j++) {
+                if (!date[j].isEmpty() && date[j] != null && !date[j].equalsIgnoreCase("null")) {
+                    JsonObject object = new JsonObject();
+                    object.addProperty("teeka_type", "PPR");
+                    object.addProperty("teeka_date", mDatePickerDialog.changeFormate(date[j]));
+                    jsonArray.add(object);
+
+                    //immunizations.add(new Immunization(getString(R.string.ppr), mDatePickerDialog.changeFormate(date[i])));
+                }
+
+            }
+
+
+            String[] date1 = et.split(",");
+            for (int j = 0; j < date1.length; j++) {
+                if (!date1[j].isEmpty() && date1[j] != null && !date1[j].equalsIgnoreCase("null")) {
+                    JsonObject object = new JsonObject();
+                    object.addProperty("teeka_type", "ET");
+                    object.addProperty("teeka_date", mDatePickerDialog.changeFormate(date1[j]));
+                    jsonArray.add(object);
+
+
+                    //immunizations.add(new Immunization(getString(R.string.et), mDatePickerDialog.changeFormate(date1[i])));
+                }
+            }
+
+
+            String[] date2 = fmd.split(",");
+            for (int j = 0; j < date2.length; j++) {
+                if (!date2[j].isEmpty() && date2[j] != null && !date2[j].equalsIgnoreCase("null")) {
+                    JsonObject object = new JsonObject();
+                    object.addProperty("teeka_type", "FMD");
+                    object.addProperty("teeka_date", mDatePickerDialog.changeFormate(date2[j]));
+                    jsonArray.add(object);
+                    //immunizations.add(new Immunization(getString(R.string.fmd), mDatePickerDialog.changeFormate(date2[i])));
+                }
+            }
+
+
+            String[] date3 = hs.split(",");
+            for (int j = 0; j < date3.length; j++) {
+                if (!date3[j].isEmpty() && date3[j] != null && !date3[j].equalsIgnoreCase("null")) {
+                    JsonObject object = new JsonObject();
+                    object.addProperty("teeka_type", "HS");
+                    object.addProperty("teeka_date", mDatePickerDialog.changeFormate(date3[j]));
+                    jsonArray.add(object);
+                    //immunizations.add(new Immunization(getString(R.string.hs), mDatePickerDialog.changeFormate(date3[i])));
+                }
+            }
+
+            TeekaData teekaData = new TeekaData(jsonArray.toString());
+            teekaData.save();
+
+        }
+
+        //setupRecyclerView();
+        binding.next.setVisibility(View.VISIBLE);
+
+
+        binding.tvSave.setVisibility(View.GONE);
+        binding.tvAddRecord.setVisibility(View.GONE);
+        binding.physicalVerification.setVisibility(View.VISIBLE);
+       /* binding.receiptDate.setVisibility(View.VISIBLE);
         binding.edtTagNo.setEnabled(false);
         binding.edtNote.setEnabled(false);
         binding.spBenifecieryType.setEnabled(false);
         binding.edtPolicyNo.setEnabled(false);
         binding.edtProofdate.setClickable(false);
         binding.edtAveragProduction.setEnabled(false);
-
         binding.receiptLayout1.setVisibility(View.GONE);
         binding.receiptLayout2.setVisibility(View.GONE);
         binding.tvAddRecord.setVisibility(View.GONE);
-        binding.tvSave.setVisibility(View.GONE);
+
         binding.immunization.setVisibility(View.GONE);
-        binding.recyclerImmunization.setClickable(false);
+        binding.recyclerImmunization.setClickable(false);*/
+
+        Log.v(TAG, "" + successResult.getData().get(0).getImageUpload());
+
+        GlideApp.with(getContext())
+                .load(successResult.getData().get(0).getImageUpload())
+                .placeholder(R.drawable.bakari_awas)
+                .error(R.drawable.bakari_awas)
+                .into(binding.ivBakari);
+
+        binding.ivBakari.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Code to show image in full screen:
+                new PhotoFullPopupWindow(getContext(), R.layout.popup_photo_full, view, successResult.getData().get(0).getImageUpload(), null);
+
+            }
+        });
 
 
-        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")) {
-            binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
+        if (!String.valueOf(successResult.getData().get(0)).equalsIgnoreCase("null")) {
+            binding.edtNote.setText(String.valueOf(successResult.getData().get(0).getNote()));
         }
-        binding.edtTagNo.setText(String.valueOf(successResult.getData().getTagNo()));
-        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDateReceipt())));
+        binding.edtTagNo.setText(String.valueOf(successResult.getData().get(0).getTagNo()));
+        binding.receiptDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().get(0).getDateReceipt())));
+        binding.spBenifecieryType.setText(String.valueOf(successResult.getData().get(0).getPpcategoryName()));
+        binding.edtAge.setText(String.valueOf(successResult.getData().get(0).getAge()));
+        binding.edtWeight.setText(String.valueOf(successResult.getData().get(0).getWeight()));
+        binding.spNasl.setText(String.valueOf(successResult.getData().get(0).getNaslName()));
+        binding.edtProofdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().get(0).getDatePhysicalProof())));
+        binding.edtAveragProduction.setText(String.valueOf(successResult.getData().get(0).getAverageMilkProduction()));
 
 
-        binding.spBenifecieryType.setText(String.valueOf(successResult.getData().getBeemaDetail()));
-
-
-        binding.edtPolicyNo.setText(String.valueOf(successResult.getData().getPolicyNo()));
-
-        binding.edtProofdate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getDatePhysicalProof())));
-
-
-        binding.edtAveragProduction.setText(String.valueOf(successResult.getData().getAverageMilkProduction()));
-
-
-        String ppr = successResult.getData().getDatePpr();
-        String et = successResult.getData().getDateEt();
-        String fmd = successResult.getData().getDateFmd();
-        String hs = successResult.getData().getDateHs();
+        String ppr = successResult.getData().get(0).getDatePpr();
+        String et = successResult.getData().get(0).getDateEt();
+        String fmd = successResult.getData().get(0).getDateFmd();
+        String hs = successResult.getData().get(0).getDateHs();
 
         String[] date = ppr.split(",");
         for (int i = 0; i < date.length; i++) {
@@ -805,17 +1002,30 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
             }
         }
         setupRecyclerView();
-
     }
 
     @Override
     public void onGramPanchayatSelected(GramPanchayat model, String type) {
 
+        if (type.equalsIgnoreCase("nasla")) {
+            binding.spNasl.setText(model.getGrampanchayatName());
+            nasl_id = model.getGrampanchayatId();
+        }
         if (type.equalsIgnoreCase("type")) {
             binding.spBenifecieryType.setText(model.getGrampanchayatName());
             benifeciery_id = model.getGrampanchayatId();
         }
 
+    }
+
+    @Override
+    public String getLatitude() {
+        return String.valueOf(mLocation.getLatitude());
+    }
+
+    @Override
+    public String getLongitude() {
+        return String.valueOf(mLocation.getLatitude());
     }
 
     private void SpinnerData() {
@@ -835,21 +1045,40 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     }
 
     private void clearallField() {
+
+//        binding.day.setText("");
+//        binding.spBenifecieryType.setText("");
+//        binding.edtPolicyNo.setText("");
+        // binding.ivBakari.setImageResource(R.drawable.ic_camera);
+        //  binding.edtProofdate.setText("");
+        //        binding.spMonth.setSelection(0);
+//        binding.spYear.setSelection(0);
+//
+
+        binding.day.setEnabled(false);
+        binding.spBenifecieryType.setEnabled(false);
+//        binding.edtPolicyNo.setText("");
+        binding.ivBakari.setEnabled(false);
+        binding.edtProofdate.setEnabled(false);
+        binding.spMonth.setEnabled(false);
+        binding.spYear.setEnabled(false);
+
+
         binding.edtTagNo.setText("");
-        binding.day.setText("");
-        binding.spBenifecieryType.setText("");
-        binding.edtPolicyNo.setText("");
-        binding.ivBakari.setImageResource(R.drawable.ic_camera);
-        binding.edtProofdate.setText("");
         binding.edtAveragProduction.setText("");
         binding.edtNote.setText("");
+        binding.edtAge.setText("");
+        binding.edtWeight.setText("");
+        binding.spNasl.setText("");
         binding.checkYes.setChecked(false);
         binding.checkNo.setChecked(false);
+        nasl_id = 0;
+        criminashak = 0;
         binding.edtDateCrimNashak.setText("");
         binding.layoutCriminashak.setVisibility(View.GONE);
-        binding.spMonth.setSelection(0);
-        binding.spYear.setSelection(0);
         binding.teekaDate.setText("");
+
+
         EnableView();
 
     }
@@ -872,13 +1101,12 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     private void EnableView() {
         binding.edtTagNo.setEnabled(true);
         binding.edtNote.setEnabled(true);
-        binding.spBenifecieryType.setEnabled(true);
-        binding.edtPolicyNo.setEnabled(true);
-        binding.edtProofdate.setClickable(true);
+        // binding.spBenifecieryType.setEnabled(true);
+        // binding.edtPolicyNo.setEnabled(true);
+        //binding.edtProofdate.setClickable(true);
         binding.edtAveragProduction.setEnabled(true);
-        binding.spYear.setEnabled(true);
-        binding.spMonth.setEnabled(true);
-        binding.day.setEnabled(true);
+        // binding.spYear.setEnabled(true);
+//        binding.day.setEnabled(true);
         binding.checkYes.setEnabled(true);
         binding.checkNo.setEnabled(true);
         binding.edtDateCrimNashak.setEnabled(true);
@@ -887,6 +1115,10 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
     @Override
     public void onOkClickListner() {
         this.finish();
+    }
+
+    public void onMyLocationChanged(Location location) {
+        this.mLocation = location;
     }
 
 }

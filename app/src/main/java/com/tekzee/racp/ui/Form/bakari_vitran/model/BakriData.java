@@ -109,31 +109,44 @@ public class BakriData extends SugarRecord {
     String yy;
     int mm_id;
     int yy_id;
-    String tag_no;
     String category;
+    int category_id;
+    String tag_no;
+    String age;
+    String weight;
+    String nasl;
+    int nasl_id;
+
     String average;
-    String phucal_proof_date;
-    String image_path;
+
+
     boolean criminashak;
+    int nashak;
     String criminashak_date;
+    String phucal_proof_date;
     String note;
 
     public BakriData() {
     }
 
-    public BakriData(String dd, String mm, String yy, int mm_id, int yy_id, String tag_no, String category, String average, String phucal_proof_date, String image_path, boolean criminashak, String criminashak_date, String note) {
+    public BakriData(String dd, String mm, String yy, int mm_id, int yy_id, String category, int category_id, String tag_no, String age, String weight, String nasl, int nasl_id, String average, boolean criminashak, int nashak, String criminashak_date, String phucal_proof_date, String note) {
         this.dd = dd;
         this.mm = mm;
         this.yy = yy;
         this.mm_id = mm_id;
         this.yy_id = yy_id;
-        this.tag_no = tag_no;
         this.category = category;
+        this.category_id = category_id;
+        this.tag_no = tag_no;
+        this.age = age;
+        this.weight = weight;
+        this.nasl = nasl;
+        this.nasl_id = nasl_id;
         this.average = average;
-        this.phucal_proof_date = phucal_proof_date;
-        this.image_path = image_path;
         this.criminashak = criminashak;
+        this.nashak = nashak;
         this.criminashak_date = criminashak_date;
+        this.phucal_proof_date = phucal_proof_date;
         this.note = note;
     }
 
@@ -143,22 +156,6 @@ public class BakriData extends SugarRecord {
 
     public void setDd(String dd) {
         this.dd = dd;
-    }
-
-    public int getMm_id() {
-        return mm_id;
-    }
-
-    public void setMm_id(int mm_id) {
-        this.mm_id = mm_id;
-    }
-
-    public int getYy_id() {
-        return yy_id;
-    }
-
-    public void setYy_id(int yy_id) {
-        this.yy_id = yy_id;
     }
 
     public String getMm() {
@@ -177,12 +174,20 @@ public class BakriData extends SugarRecord {
         this.yy = yy;
     }
 
-    public String getTag_no() {
-        return tag_no;
+    public int getMm_id() {
+        return mm_id;
     }
 
-    public void setTag_no(String tag_no) {
-        this.tag_no = tag_no;
+    public void setMm_id(int mm_id) {
+        this.mm_id = mm_id;
+    }
+
+    public int getYy_id() {
+        return yy_id;
+    }
+
+    public void setYy_id(int yy_id) {
+        this.yy_id = yy_id;
     }
 
     public String getCategory() {
@@ -193,28 +198,60 @@ public class BakriData extends SugarRecord {
         this.category = category;
     }
 
+    public int getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(int category_id) {
+        this.category_id = category_id;
+    }
+
+    public String getTag_no() {
+        return tag_no;
+    }
+
+    public void setTag_no(String tag_no) {
+        this.tag_no = tag_no;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getWeight() {
+        return weight;
+    }
+
+    public void setWeight(String weight) {
+        this.weight = weight;
+    }
+
+    public String getNasl() {
+        return nasl;
+    }
+
+    public void setNasl(String nasl) {
+        this.nasl = nasl;
+    }
+
+    public int getNasl_id() {
+        return nasl_id;
+    }
+
+    public void setNasl_id(int nasl_id) {
+        this.nasl_id = nasl_id;
+    }
+
     public String getAverage() {
         return average;
     }
 
     public void setAverage(String average) {
         this.average = average;
-    }
-
-    public String getPhucal_proof_date() {
-        return phucal_proof_date;
-    }
-
-    public void setPhucal_proof_date(String phucal_proof_date) {
-        this.phucal_proof_date = phucal_proof_date;
-    }
-
-    public String getImage_path() {
-        return image_path;
-    }
-
-    public void setImage_path(String image_path) {
-        this.image_path = image_path;
     }
 
     public boolean isCriminashak() {
@@ -225,12 +262,28 @@ public class BakriData extends SugarRecord {
         this.criminashak = criminashak;
     }
 
+    public int getNashak() {
+        return nashak;
+    }
+
+    public void setNashak(int nashak) {
+        this.nashak = nashak;
+    }
+
     public String getCriminashak_date() {
         return criminashak_date;
     }
 
     public void setCriminashak_date(String criminashak_date) {
         this.criminashak_date = criminashak_date;
+    }
+
+    public String getPhucal_proof_date() {
+        return phucal_proof_date;
+    }
+
+    public void setPhucal_proof_date(String phucal_proof_date) {
+        this.phucal_proof_date = phucal_proof_date;
     }
 
     public String getNote() {

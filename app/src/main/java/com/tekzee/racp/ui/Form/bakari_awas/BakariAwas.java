@@ -335,7 +335,7 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
        /* ColorDialog dialog = new ColorDialog(this);
         dialog.setCancelable(false);
         dialog.setTitle(getResources().getString(R.string.form_12));
-        dialog.setColor("#FF6500");
+        dialog.setColor("#5eabbb");
         dialog.setContentText(R.string.availornot);
         dialog.setPositiveListener(getText(R.string.yes), new ColorDialog.OnPositiveListener() {
             @Override
@@ -506,6 +506,8 @@ public class BakariAwas extends MvpMapActivity <BakariAwasPresenter> implements 
         intent.setData(uri);
         startActivityForResult(intent, 101);
     }
+
+
 
 
     @Override
