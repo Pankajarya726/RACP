@@ -45,6 +45,7 @@ import com.tekzee.racp.ui.ImagePickerActivity;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpMapActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.ui.physicalVerification.VerificationActivity;
 import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.KeyboardUtils;
@@ -136,6 +137,7 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
         binding.spnaslbakari.setOnClickListener(this);
         binding.addBakari.setOnClickListener(this);
         binding.count.setText(String.valueOf(count));
+        binding.btPhysicalVerification.setOnClickListener(this);
     }
 
     private void getFormRecordData() {
@@ -143,10 +145,10 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
         JsonObject jsonObject = new JsonObject();
 
 
-        jsonObject.addProperty("user_id",Utility.getIngerSharedPreferences(getContext(),Constant.USER_ID));
-        jsonObject.addProperty("form_id",1);
-        jsonObject.addProperty("mtg_member_id",Utility.getIngerSharedPreferences(getContext(),Constant.mtg_member_id));
-        jsonObject.addProperty("mtg_group_id",Utility.getIngerSharedPreferences(getContext(),Constant.mtg_group_id));
+        jsonObject.addProperty("user_id", Utility.getIngerSharedPreferences(getContext(), Constant.USER_ID));
+        jsonObject.addProperty("form_id", 1);
+        jsonObject.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_member_id));
+        jsonObject.addProperty("mtg_group_id", Utility.getIngerSharedPreferences(getContext(), Constant.mtg_group_id));
 //        jsonObject.addProperty("table_id", table_id);
 //        jsonObject.addProperty("form_id", 1);
 
@@ -328,6 +330,12 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
 
                 break;
 
+            case R.id.bt_physical_verification:
+                Intent intent = new Intent(FormActivity.this, VerificationActivity.class);
+                intent.putExtra("form_id", 1);
+                startActivity(intent);
+                break;
+
 
         }
 
@@ -429,16 +437,17 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
 
         record_count = record_count + 1;
         binding.count.setText(String.valueOf(record_count));
-        if (record_count == recordNo || record_count==bakari_count) {
+        if (record_count == recordNo || record_count == bakari_count) {
             binding.next.setVisibility(View.GONE);
-            if (record_count!=bakari_count){
-            binding.addBakari.setVisibility(View.VISIBLE);
+            if (record_count != bakari_count) {
+                binding.addBakari.setVisibility(View.VISIBLE);
+                binding.etAvarage.setText("");
+                binding.etAge.setText("");
+                binding.etTagNo.setText("");
+                binding.etWeight.setText("");
+                binding.spnaslbakari.setText("");
             }
-            binding.etAvarage.setText("");
-            binding.etAge.setText("");
-            binding.etTagNo.setText("");
-            binding.etWeight.setText("");
-            binding.spnaslbakari.setText("");
+
             bakari_nasl_id = 0;
         } else {
 
@@ -631,12 +640,12 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
 
             JsonArray marray = new JsonArray();
 
-            Log.e(TAG,""+bakariDataModelList.size());
+            Log.e(TAG, "" + bakariDataModelList.size());
 
             for (int i = 0; i < bakariDataModelList.size(); i++) {
 
                 BakariDataModel dataModel = bakariDataModelList.get(i);
-                Log.e(TAG,""+dataModel.getTag_no()+"\t"+dataModel.getWeight()+"\t"+dataModel.getAge());
+                Log.e(TAG, "" + dataModel.getTag_no() + "\t" + dataModel.getWeight() + "\t" + dataModel.getAge());
                 JsonObject jsonObject = new JsonObject();
                 jsonObject.addProperty("tag_no", dataModel.getTag_no());
                 jsonObject.addProperty("weight", dataModel.getWeight());
@@ -894,25 +903,18 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
         binding.tvPhyProof.setClickable(false);
         binding.receiptLayout3.setClickable(false);
 
-        binding.edtTagNo.setText(String.valueOf(successResult.getData().getBakraData().getTagNo()));
-       /* binding.edtAgeBakra.setText(String.valueOf(successResult.getData().getBakraData().getTagNo()));
-        binding.edtTagNo.setText(String.valueOf(successResult.getData().getBakraData().getTagNo()));
-*/
-       binding.tvPhyProof.setText(mDatePickerDialog.changeFormate(successResult.getData().getBakraData().getDatePhysicalProof()));
 
-        binding.receiptLayout1.setVisibility(View.GONE);
-        binding.receiptLayout2.setVisibility(View.GONE);
-        binding.receiptLayout3.setVisibility(View.VISIBLE);
-        binding.receiptLayout3.setText(mDatePickerDialog.changeFormate(successResult.getData().getBakraData().getDateReceipt()));
-        binding.immunization.setVisibility(View.GONE);
-        binding.tvAddRecord.setVisibility(View.GONE);
-        binding.tvSave.setVisibility(View.GONE);
-        binding.spTeeka.setVisibility(View.GONE);
-        binding.teekaDate.setVisibility(View.GONE);
-        binding.addmore.setVisibility(View.GONE);
+        binding.etTagNo.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriTagNo()));
+        binding.etWeight.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriWeight()));
+        binding.etAge.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriAge()));
+        binding.etAvarage.setText(String.valueOf(successResult.getData().getBakriData().get(0).getAverageMilkProduction()));
+        binding.spnaslbakari.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriNasl()));
+        binding.edtTagNo.setText(String.valueOf(successResult.getData().getBakraData().getTagNo()));
+        binding.edtAgeBakra.setText(String.valueOf(successResult.getData().getBakraData().getAge()));
+        binding.edtWeightBakra.setText(String.valueOf(successResult.getData().getBakraData().getWeight()));
 
-        binding.btPhysicalVerification.setVisibility(View.VISIBLE);
-        binding.recyclerImmunization.setEnabled(false);
+        binding.tvPhyProof.setText(mDatePickerDialog.changeFormate(successResult.getData().getBakraData().getDatePhysicalProof()));
+        binding.spNaslBakara.setText(successResult.getData().getBakraData().getNaslaName());
         GlideApp.with(getContext())
                 .load(successResult.getData().getPhysicalProofData().getImageUpload())
                 .placeholder(R.drawable.bakari_awas)
@@ -927,6 +929,21 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
 
             }
         });
+
+
+        binding.receiptLayout1.setVisibility(View.GONE);
+        binding.receiptLayout2.setVisibility(View.GONE);
+        binding.receiptLayout3.setVisibility(View.VISIBLE);
+        binding.receiptLayout3.setText(mDatePickerDialog.changeFormate(successResult.getData().getBakraData().getDateReceipt()));
+        binding.immunization.setVisibility(View.GONE);
+        binding.tvAddRecord.setVisibility(View.GONE);
+        binding.tvSave.setVisibility(View.GONE);
+        binding.spTeeka.setVisibility(View.GONE);
+        binding.teekaDate.setVisibility(View.GONE);
+        binding.addmore.setVisibility(View.GONE);
+
+        binding.btPhysicalVerification.setVisibility(View.VISIBLE);
+        binding.recyclerImmunization.setEnabled(false);
 
 
         String ppr = successResult.getData().getBakraData().getDatePpr();
@@ -965,15 +982,15 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
         setupRecyclerView();
 
 
-        for (int i = 0; i<successResult.getData().getBakriData().size(); i++){
+        for (int i = 0; i < successResult.getData().getBakriData().size(); i++) {
 
             BakriDatum data = successResult.getData().getBakriData().get(i);
 
             bakariDataModelList.add(new BakariDataModel(String.valueOf(data.getBakriTagNo()),
-                   String.valueOf(data.getBakriAge()),
+                    String.valueOf(data.getBakriAge()),
                     String.valueOf(data.getBakriWeight()),
                     String.valueOf(data.getAverageMilkProduction()),
-                    String.valueOf(data.getBakriNasl()),1));
+                    String.valueOf(data.getBakriNasl()), 1));
 
             BakariDataModel bakariDataModel = new BakariDataModel(String.valueOf(data.getBakriTagNo()),
                     String.valueOf(data.getBakriAge()),
@@ -987,19 +1004,12 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
 
         binding.linearLayoutBakariDetail.setVisibility(View.VISIBLE);
 
-        binding.etTagNo.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriTagNo()));
-        binding.etWeight.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriWeight()));
-        binding.etAge.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriAge()));
-        binding.etAvarage.setText(String.valueOf(successResult.getData().getBakriData().get(0).getAverageMilkProduction()));
-        binding.spnaslbakari.setText(String.valueOf(successResult.getData().getBakriData().get(0).getBakriNasl()));
 
         binding.addBakari.setVisibility(View.GONE);
         binding.next.setVisibility(View.VISIBLE);
         bakari_count = successResult.getData().getBakriData().size();
 
         binding.edtBakariCount.setText(String.valueOf(bakari_count));
-
-
 
 
     }

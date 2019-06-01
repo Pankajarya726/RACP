@@ -6,10 +6,10 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.bumptech.glide.Glide;
@@ -21,7 +21,11 @@ import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.ActivityVerificationBinding;
+import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
 import com.tekzee.racp.ui.ImagePickerActivity;
+import com.tekzee.racp.ui.base.MvpMapActivity;
+import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.Log;
 import com.tekzee.racp.utils.Utility;
 import com.tekzee.racp.utils.mDatePickerDialog;
@@ -29,30 +33,44 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 import java.io.InputStream;
 import java.util.List;
 
-public class VerificationActivity extends AppCompatActivity implements View.OnClickListener {
+public class VerificationActivity extends MvpMapActivity <VerificationPresenter> implements View.OnClickListener, VerificationView {
 
     private static final String TAG = VerificationActivity.class.getSimpleName();
     private ActivityVerificationBinding binding;
 
     private byte[] imageBytes;
-    private InputStream imageInputStream  = null;
+    private InputStream imageInputStream = null;
+    private int form_id;
+    private Location mLocation;
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding= DataBindingUtil.setContentView(this,R.layout.activity_verification);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_verification);
+
+        getSupportActionBar().setTitle(R.string.physical_verification);
+
+
+        form_id = getIntent().getIntExtra("form_id", 0);
 
         binding.checkNo.setOnClickListener(this);
         binding.checkYes.setOnClickListener(this);
         binding.tvPhyProof.setOnClickListener(this);
         binding.imgVerification.setOnClickListener(this);
+        binding.tvSave.setOnClickListener(this);
+
 
     }
 
     @Override
+    protected VerificationPresenter createPresenter() {
+        return new VerificationPresenter(this);
+    }
+
+    @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.check_yes:
                 if (binding.checkYes.isChecked()) {
                     if (binding.checkNo.isChecked()) {
@@ -84,7 +102,7 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
 
 
             case R.id.tv_phy_proof:
-                mDatePickerDialog.getdate(this,binding.tvPhyProof);
+                mDatePickerDialog.getdate(this, binding.tvPhyProof);
                 break;
 
 
@@ -122,12 +140,79 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                         }).check();
                 break;
 
+            case R.id.tv_save:
+                subimt();
+                break;
+
         }
     }
 
+    private void subimt() {
+        if (!binding.checkYes.isChecked() && !binding.checkNo.isChecked()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.is_physical_verification));
+            return;
+        } else if (binding.checkYes.isChecked() && binding.tvPhyProof.getText().toString().trim().isEmpty()) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.enter_physical_proof_date));
+            return;
+        } else if (imageBytes == null) {
+            Dialogs.showColorDialog(getContext(), getString(R.string.select_phisical_proof_image));
+            return;
+        } else {
 
-    private Activity getContext() {
-        return  this;
+
+            mvpPresenter.verifyFrom(imageBytes);
+
+
+        }
+
+    }
+
+    @Override
+    public Activity getContext() {
+        return this;
+    }
+
+    @Override
+    public String getProofDate() {
+        return binding.tvPhyProof.getText().toString().trim();
+    }
+
+    @Override
+    public String getNote() {
+        return binding.edtNote.getText().toString().trim();
+    }
+
+    @Override
+    public String getFormId() {
+        return String.valueOf(form_id);
+    }
+
+    @Override
+    public String getLatidude() {
+        return String.valueOf(mLocation.getLatitude());
+    }
+
+    @Override
+    public String getLongitude() {
+        return String.valueOf(mLocation.getLongitude());
+    }
+
+    @Override
+    public void onSuccessFullSave(FormSubmitResponse successResult) {
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), new Dialogs.okClickListner() {
+            @Override
+            public void onOkClickListner() {
+                finish();
+
+            }
+        }, "  ");
+
+    }
+
+    @Override
+    public void onNoInternetConnectivity(CommonResult commonResult) {
+        Dialogs.showColorDialog(getContext(),commonResult.getMessage());
+
     }
 
 
@@ -162,8 +247,6 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
     }
 
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -181,8 +264,8 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
                         try {
                             imageInputStream = getContentResolver().openInputStream(uri);
 
-                            Log.view(TAG,"uri = = "+uri);
-                            Log.view(TAG,"imageInputStream = = "+imageInputStream);
+                            Log.view(TAG, "uri = = " + uri);
+                            Log.view(TAG, "imageInputStream = = " + imageInputStream);
 
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -198,4 +281,16 @@ public class VerificationActivity extends AppCompatActivity implements View.OnCl
         }
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        super.onLocationChanged(location);
+        this.mLocation = location;
+    }
+
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }

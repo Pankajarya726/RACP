@@ -914,6 +914,7 @@
                 android:layout_marginBottom="50dp"
                 android:background="@drawable/button_theme"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/do_physical_verification"
                 android:textColor="@android:color/white" />
 

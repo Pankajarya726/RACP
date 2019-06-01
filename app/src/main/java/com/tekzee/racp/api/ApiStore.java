@@ -376,8 +376,18 @@ public interface ApiStore {
                                                       @Part("note") RequestBody note,
                                                       @Part("physical_proof_date") RequestBody physical_proof_date);
 
+    @Multipart
+    @POST("physicalObservation")
+    Observable <FormSubmitResponse> physicalObservation(@Part MultipartBody.Part formData,
+                                                        @Part("user_id") RequestBody user_id,
+                                                        @Part("form_id") RequestBody form_id,
+                                                        @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                        @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                        @Part("date_physical_proof") RequestBody date_physical_proof,
+                                                        @Part("img_lat") RequestBody img_lat,
+                                                        @Part("img_long") RequestBody img_long,
+                                                        @Part("note") RequestBody note);
 
 
-
-
+   // Observable physicalObservation(MultipartBody.Part formData, RequestBody user_id, RequestBody form_id, RequestBody mtg_member_id, RequestBody mtg_group_id, RequestBody date_physical_proof, RequestBody img_lat, RequestBody img_long);
 }

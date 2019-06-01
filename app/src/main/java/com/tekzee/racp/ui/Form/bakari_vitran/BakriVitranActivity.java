@@ -43,6 +43,7 @@ import com.tekzee.racp.ui.ImagePickerActivity;
 import com.tekzee.racp.ui.addMGTgroup.model.GramPanchayat;
 import com.tekzee.racp.ui.base.MvpMapActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
+import com.tekzee.racp.ui.physicalVerification.VerificationActivity;
 import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
 import com.tekzee.racp.utils.PhotoFullPopupWindow;
@@ -91,6 +92,7 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
         getSupportActionBar().setTitle(R.string.form_3);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.back);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // sqliteDB.clearBakariDetail();
 
 
@@ -294,6 +296,13 @@ public class BakriVitranActivity extends MvpMapActivity <BakriVitranPresenter> i
                             }
                         }).check();
 
+                break;
+
+
+            case R.id.physical_verification:
+                Intent intent = new Intent(BakriVitranActivity.this, VerificationActivity.class);
+                intent.putExtra("form_id",3);
+                startActivity(intent);
                 break;
         }
 
