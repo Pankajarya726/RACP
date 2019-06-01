@@ -70,7 +70,6 @@
     <string name="mtg_group">एमटीजी ग्रुप</string>
 
 
-
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_home">HomeActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -305,7 +304,8 @@
     <!-- <string name="dialog_permission_title">Grant Permissions</string>
       <string name="dialog_permission_message">This app needs permission to use this feature. You can grant them in app settings</string>
       <string name="go_to_settings">GOTO SETTINGS</string>
-    -->  <string name="mtg_member">एमटीजी सदस्य</string>
+    -->
+    <string name="mtg_member">एमटीजी सदस्य</string>
     <string name="totle_milk_production">कुल दुग्ध उत्पादन (लीटर में)</string>
     <string name="upbhog_amount">उपभोग मात्रा प्रतिदिन (लीटर में)</string>
     <string name="avail_amount_for_sale">विक्रय हेतु उपलब्ध मात्र (लीटर में)</string>
@@ -343,7 +343,7 @@
     <string name="bakare_availornot">R.A.C.P. के अंतर्गत वितरित बकरे प्राप्त हुए या नहीं ?</string>
     <string name="bakariya_availornot">R.A.C.P. के अंतर्गत बकरा विवरण के लाभार्थी M.T.G. सदस्यों को बकरिया प्राप्त हुई या नहीं ?</string>
     <string name="beema_availornot">बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>
-   <!-- <string name="beema_availornot">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>-->
+    <!-- <string name="beema_availornot">R.A.C.P. के अंतर्गत वितरित बकरा / बकरी का बीमा प्राप्त हुआ या नहीं ?</string>-->
     <string name="search_form">प्रपत्र खोजें</string>
     <string name="alert">सतर्क</string>
     <string name="invlid_number">मोबाइल नंबर गलत है</string>
@@ -404,6 +404,8 @@
     <string name="other">अन्य</string>
     <string name="select_place">जगह चुनें</string>
     <string name="do_physical_verification">भौतिक सत्यापन करें</string>
+    <string name="is_physical_verification">भौतिक सत्यापन हुआ या नहीं?</string>
+    <string name="physicle_proof_image">भौतिक सत्यापन की फोटो</string>
 
 
 </resources>

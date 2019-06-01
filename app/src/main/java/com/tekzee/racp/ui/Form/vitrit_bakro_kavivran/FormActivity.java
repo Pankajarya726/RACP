@@ -910,6 +910,8 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
         binding.spTeeka.setVisibility(View.GONE);
         binding.teekaDate.setVisibility(View.GONE);
         binding.addmore.setVisibility(View.GONE);
+
+        binding.btPhysicalVerification.setVisibility(View.VISIBLE);
         binding.recyclerImmunization.setEnabled(false);
         GlideApp.with(getContext())
                 .load(successResult.getData().getPhysicalProofData().getImageUpload())
@@ -971,15 +973,14 @@ public class FormActivity extends MvpMapActivity <FormPresenter> implements Form
                    String.valueOf(data.getBakriAge()),
                     String.valueOf(data.getBakriWeight()),
                     String.valueOf(data.getAverageMilkProduction()),
-                    String.valueOf(data.getBakriNasl()),
-                    data.getBakriNasl()));
+                    String.valueOf(data.getBakriNasl()),1));
 
             BakariDataModel bakariDataModel = new BakariDataModel(String.valueOf(data.getBakriTagNo()),
                     String.valueOf(data.getBakriAge()),
                     String.valueOf(data.getBakriWeight()),
                     String.valueOf(data.getAverageMilkProduction()),
                     String.valueOf(data.getBakriNasl()),
-                    data.getBakriNasl());
+                    0);
             bakariDataModel.save();
 
         }

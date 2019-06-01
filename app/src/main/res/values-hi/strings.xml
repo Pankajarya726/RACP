@@ -403,6 +403,8 @@
     <string name="other">अन्य</string>
     <string name="select_place">जगह चुनें</string>
     <string name="do_physical_verification">भौतिक सत्यापन करें</string>
+    <string name="is_physical_verification">भौतिक सत्यापन हुआ या नहीं?</string>
+    <string name="physicle_proof_image">भौतिक सत्यापन की फोटो</string>
 
 
 </resources>

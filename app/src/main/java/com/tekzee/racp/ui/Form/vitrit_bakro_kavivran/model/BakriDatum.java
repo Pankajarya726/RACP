@@ -19,7 +19,7 @@ private Integer bakriAge;
 private Integer averageMilkProduction;
 @SerializedName("bakri_nasl")
 @Expose
-private Integer bakriNasl;
+private String bakriNasl;
 
 /**
 * No args constructor for use in serialization
@@ -36,7 +36,7 @@ public BakriDatum() {
 * @param averageMilkProduction
 * @param bakriWeight
 */
-public BakriDatum(Integer bakriTagNo, Integer bakriWeight, Integer bakriAge, Integer averageMilkProduction, Integer bakriNasl) {
+public BakriDatum(Integer bakriTagNo, Integer bakriWeight, Integer bakriAge, Integer averageMilkProduction, String bakriNasl) {
 super();
 this.bakriTagNo = bakriTagNo;
 this.bakriWeight = bakriWeight;
@@ -77,11 +77,11 @@ public void setAverageMilkProduction(Integer averageMilkProduction) {
 this.averageMilkProduction = averageMilkProduction;
 }
 
-public Integer getBakriNasl() {
+public String getBakriNasl() {
 return bakriNasl;
 }
 
-public void setBakriNasl(Integer bakriNasl) {
+public void setBakriNasl(String bakriNasl) {
 this.bakriNasl = bakriNasl;
 }
 

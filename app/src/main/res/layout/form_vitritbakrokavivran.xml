@@ -902,6 +902,21 @@
                 android:text="@string/save"
                 android:textColor="@android:color/white" />
 
+
+            <Button
+                android:id="@+id/bt_physical_verification"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/linear_layout"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="50dp"
+                android:background="@drawable/button_theme"
+                android:gravity="center"
+                android:text="@string/do_physical_verification"
+                android:textColor="@android:color/white" />
+
         </RelativeLayout>
 
     </ScrollView>

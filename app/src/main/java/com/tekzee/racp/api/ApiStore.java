@@ -351,21 +351,33 @@ public interface ApiStore {
     @Multipart
     @POST("addDetailsGoatsDistributeds1")
     Observable <FormSubmitResponse> addDetailsGoatsDistributeds1(@Part MultipartBody.Part formData,
-                                                                         @Part("status_receipt") RequestBody status_receipt,
-                                                                         @Part("user_id") RequestBody user_id,
-                                                                         @Part("form_id") RequestBody form_id,
-                                                                         @Part("mtg_member_id") RequestBody mtg_member_id,
-                                                                         @Part("mtg_group_id") RequestBody mtg_group_id,
-                                                                         @Part("bakra_data") RequestBody bakra_data,
-                                                                         @Part("bakri_data") RequestBody bakri_data,
-                                                                         @Part("img_lat") RequestBody img_lat,
-                                                                         @Part("img_long") RequestBody img_long);
+                                                                 @Part("status_receipt") RequestBody status_receipt,
+                                                                 @Part("user_id") RequestBody user_id,
+                                                                 @Part("form_id") RequestBody form_id,
+                                                                 @Part("mtg_member_id") RequestBody mtg_member_id,
+                                                                 @Part("mtg_group_id") RequestBody mtg_group_id,
+                                                                 @Part("bakra_data") RequestBody bakra_data,
+                                                                 @Part("bakri_data") RequestBody bakri_data,
+                                                                 @Part("img_lat") RequestBody img_lat,
+                                                                 @Part("img_long") RequestBody img_long);
+
+
+    @Multipart
+    @POST("addCleanMilkKeet1")
+    Observable <FormSubmitResponse> addCleanMilkKeet1(@Part MultipartBody.Part formData,
+                                                      @Part("user_id") RequestBody userId,
+                                                      @Part("mtg_group_id") RequestBody mtgGroupId,
+                                                      @Part("mtg_member_id") RequestBody mtgMemberId,
+                                                      @Part("status_receipt") RequestBody statusReceipt,
+                                                      @Part("form_id") RequestBody formId,
+                                                      @Part("data") RequestBody data,
+                                                      @Part("img_lat") RequestBody img_lat,
+                                                      @Part("img_long") RequestBody img_long,
+                                                      @Part("note") RequestBody note,
+                                                      @Part("physical_proof_date") RequestBody physical_proof_date);
 
 
 
 
-    //Observable addDetailsGoatsDistributeds1(MultipartBody.Part formData, RequestBody status_receipt, RequestBody user_id, RequestBody form_id, RequestBody mtg_member_id, RequestBody mtg_group_id, RequestBody img_lat, RequestBody img_long);
 
-
-    // Observable addDetailsGoatsDistributedInsurance1(MultipartBody.Part formData, RequestBody mtg_group_id, RequestBody user_id, RequestBody mtg_member_id, RequestBody form_id, RequestBody status_receipt, RequestBody data, RequestBody img_lat, RequestBody img_long);
 }

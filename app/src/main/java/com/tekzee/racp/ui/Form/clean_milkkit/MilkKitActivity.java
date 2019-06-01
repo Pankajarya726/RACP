@@ -1,14 +1,26 @@
 package com.tekzee.racp.ui.Form.clean_milkkit;
 
-import android.content.Context;
+import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.gson.JsonArray;
+import com.bumptech.glide.Glide;
 import com.google.gson.JsonObject;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.tekzee.racp.R;
 import com.tekzee.racp.constant.Constant;
 import com.tekzee.racp.databinding.FormMilkKitBinding;
@@ -16,7 +28,8 @@ import com.tekzee.racp.ui.Form.beema_detail.model.BeemaDetail;
 import com.tekzee.racp.ui.Form.clean_milkkit.model.DataCleanMilkKit;
 import com.tekzee.racp.ui.Form.clean_milkkit.model.RetrivedMilkKitResponse;
 import com.tekzee.racp.ui.Form.vitrit_bakro_kavivran.model.FormSubmitResponse;
-import com.tekzee.racp.ui.base.MvpActivity;
+import com.tekzee.racp.ui.ImagePickerActivity;
+import com.tekzee.racp.ui.base.MvpMapActivity;
 import com.tekzee.racp.ui.base.model.CommonResult;
 import com.tekzee.racp.utils.CalenderUtils;
 import com.tekzee.racp.utils.Dialogs;
@@ -26,19 +39,24 @@ import com.tekzee.racp.utils.mDatePickerDialog;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements MilkKitView, View.OnClickListener ,Dialogs.okClickListner{
-    private static String tag = MilkKitActivity.class.getSimpleName();
+public class MilkKitActivity extends MvpMapActivity <MilkKitPresenter> implements MilkKitView, View.OnClickListener, Dialogs.okClickListner {
+    private static String TAG = MilkKitActivity.class.getSimpleName();
     int record_count = 1;
     int recordNo = 1;
     private FormMilkKitBinding binding;
     private int table_id;
+    private byte[] imageBytes;
+    private InputStream imageInputStream = null;
     private List <DataCleanMilkKit> detailList = new ArrayList <>();
+    private Location mLocation;
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.form_milk_kit);
 
@@ -74,6 +92,8 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         binding.tvSave.setOnClickListener(this);
         binding.next.setOnClickListener(this);
         binding.privious.setOnClickListener(this);
+        binding.imgMilkkit.setOnClickListener(this);
+        binding.edtPhyProof.setOnClickListener(this);
 
     }
 
@@ -90,17 +110,17 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
             case R.id.privious:
                 privious();
-                Log.e(tag, "privious is" + detailList.size());
+                Log.e(TAG, "privious is" + detailList.size());
                 break;
 
             case R.id.next:
                 next();
-                Log.e(tag, "next is" + detailList.size());
+                Log.e(TAG, "next is" + detailList.size());
                 break;
 
             case R.id.tv_addRecord:
                 addRecordinSqlite();
-                Log.e(tag, "tv_addRecord is" + detailList.size());
+                Log.e(TAG, "tv_addRecord is" + detailList.size());
                 break;
 
             case R.id.tv_save:
@@ -203,12 +223,118 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                 break;
 
 
+            case R.id.edt_phy_proof:
+                mDatePickerDialog.getdate(getContext(),binding.edtPhyProof);
+                break;
+
+
             case R.id.edt_test_date:
                 mDatePickerDialog.getdate(this, binding.edtTestDate);
+                break;
+
+
+            case R.id.img_milkkit:
+                Dexter.withActivity(getContext())
+                        .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                if (report.areAllPermissionsGranted()) {
+
+                                    Intent intent = new Intent(getContext(), ImagePickerActivity.class);
+                                    intent.putExtra(ImagePickerActivity.INTENT_IMAGE_PICKER_OPTION, ImagePickerActivity.REQUEST_IMAGE_CAPTURE);
+                                    // setting aspect ratio
+                                    intent.putExtra(ImagePickerActivity.INTENT_LOCK_ASPECT_RATIO, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+                                    intent.putExtra(ImagePickerActivity.INTENT_ASPECT_RATIO_Y, 1);
+                                    // setting maximum bitmap width and height
+                                    intent.putExtra(ImagePickerActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+                                    intent.putExtra(ImagePickerActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+                                    startActivityForResult(intent, Constant.IMAGE_REQUEST);
+                                }
+
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    showSettingsDialog();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List <PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).check();
                 break;
         }
 
     }
+
+
+    private void showSettingsDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle(getString(R.string.dialog_permission_title));
+        builder.setMessage(getString(R.string.dialog_permission_message));
+        builder.setPositiveButton(getString(R.string.go_to_settings), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+                openSettings();
+            }
+        });
+        builder.setNegativeButton(getString(android.R.string.cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        builder.show();
+
+    }
+
+
+    // navigating user to app settings
+    private void openSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+        intent.setData(uri);
+        startActivityForResult(intent, 101);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Constant.IMAGE_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+                try {
+                    if (uri != null) {
+//                        String fileLocation = Utility.getFileName(getAppContext(), uri);
+//                        Log.view(TAG,"fileLocation: "+fileLocation);
+//                        geoTag(uri.toString(), mLocation.getLatitude(), mLocation.getLongitude());
+
+                        Glide.with(getContext()).load(uri).into(binding.imgMilkkit);
+                        try {
+                            imageInputStream = getContentResolver().openInputStream(uri);
+
+                            com.tekzee.racp.utils.Log.view(TAG, "uri = = " + uri);
+                            com.tekzee.racp.utils.Log.view(TAG, "imageInputStream = = " + imageInputStream);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        imageBytes = Utility.getBytes(imageInputStream);
+                        // mvpPresenter.uploadDocument(imageBytes);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 
     private void next() {
         binding.privious.setVisibility(View.VISIBLE);
@@ -238,11 +364,11 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
             }
 
             if (detail.isUse()) {
-                Log.e(tag, "true" + detail.isUse());
+                Log.e(TAG, "true" + detail.isUse());
                 binding.checkUseYes.setChecked(true);
                 binding.checkUseNo.setChecked(false);
             } else {
-                Log.e(tag, "false" + detail.isUse());
+                Log.e(TAG, "false" + detail.isUse());
                 binding.checkUseNo.setChecked(true);
                 binding.checkUseYes.setChecked(false);
 
@@ -290,7 +416,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         if (record_count == 1) {
             binding.privious.setVisibility(View.GONE);
         }
-        Log.e(tag, String.valueOf(BeemaDetail.count(BeemaDetail.class)));
+        Log.e(TAG, String.valueOf(BeemaDetail.count(BeemaDetail.class)));
 
         // BeemaDetail beemaDetail =   BeemaDetail.findById(BeemaDetail.class,record_count);
 
@@ -300,8 +426,8 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
         list = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
 
-        Log.e(tag, String.valueOf(list.size()));
-        Log.e(tag, String.valueOf(record_count));
+        Log.e(TAG, String.valueOf(list.size()));
+        Log.e(TAG, String.valueOf(record_count));
 
         DataCleanMilkKit detail = list.get(record_count - 1);
 
@@ -314,11 +440,11 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         }
 
         if (detail.isUse()) {
-            Log.e(tag, "true" + detail.isUse());
+            Log.e(TAG, "true" + detail.isUse());
             binding.checkUseYes.setChecked(true);
             binding.checkUseNo.setChecked(false);
         } else {
-            Log.e(tag, "false" + detail.isUse());
+            Log.e(TAG, "false" + detail.isUse());
             binding.checkUseNo.setChecked(true);
             binding.checkUseYes.setChecked(false);
 
@@ -360,7 +486,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     private Boolean addRecordinSqlite() {
 
-        Log.e(tag, "size is" + detailList.size());
+        Log.e(TAG, "size is" + detailList.size());
 
         if (!binding.checkProofYes.isChecked() && !binding.checkProofNo.isChecked()) {
             Dialogs.showColorDialog(getContext(), getString(R.string.physical_proof));
@@ -445,14 +571,14 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                     binding.edtNote.getText().toString());
             details.save();
 
-            Log.e(tag, "recoud count" + DataCleanMilkKit.count(DataCleanMilkKit.class));
+            Log.e(TAG, "recoud count" + DataCleanMilkKit.count(DataCleanMilkKit.class));
 
-            recordNo = recordNo + 1;
-            binding.txtno.setText(String.valueOf(recordNo));
+           // recordNo = recordNo + 1;
+            //binding.txtno.setText(String.valueOf(recordNo));
 
-            ClearView();
-            binding.privious.setVisibility(View.VISIBLE);
-            record_count++;
+          //  ClearView();
+           // binding.privious.setVisibility(View.VISIBLE);
+           // record_count++;
             return true;
 
         }
@@ -465,9 +591,38 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
         if (success) {
 
-            detailList.clear();
+            if (imageBytes==null){
+                Dialogs.showColorDialog(getContext(),getString(R.string.select_image));
+                return;
+            }else if (binding.edtBeforeuse.getText().toString().trim().isEmpty()){
+                Dialogs.showColorDialog(getContext(),getString(R.string.enter_physical_proof_date));
+                return;
+            }
+
+
+            JsonObject jsonObject = new JsonObject();
             detailList = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
-            Log.e(tag, "size is" + detailList.size());
+            DataCleanMilkKit detail = detailList.get(0);
+
+            jsonObject.addProperty("physical_proof", detail.getPhy_proof());
+            jsonObject.addProperty("usability", detail.getUsability());
+            jsonObject.addProperty("reagent_availability", detail.getAvailable());
+            jsonObject.addProperty("test_date", mDatePickerDialog.changeFormate(detail.getTest_date()));
+            jsonObject.addProperty("thanela_rog_result", detail.getMresult());
+            jsonObject.addProperty("before_use_clean_milk_keet", detail.getBefore_use());
+            jsonObject.addProperty("after_use_clean_milk_keet", detail.getAfter_use());
+            jsonObject.addProperty("llw_visiting_date", mDatePickerDialog.changeFormate(detail.getVisiting_date()));
+            jsonObject.addProperty("note", detail.getNote());
+            jsonObject.addProperty("dd", detail.getDd());
+            jsonObject.addProperty("mm", detail.getMm_id() + 1);
+            jsonObject.addProperty("yy", detail.getYy());
+
+            mvpPresenter.saveForm(imageBytes,jsonObject);
+
+
+           /* detailList.clear();
+            detailList = DataCleanMilkKit.listAll(DataCleanMilkKit.class);
+            Log.e(TAG, "size is" + detailList.size());
             JsonArray jsonArray = new JsonArray();
 
             for (int i = 0; i < detailList.size(); i++) {
@@ -485,7 +640,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
                 jsonObject.addProperty("llw_visiting_date", mDatePickerDialog.changeFormate(detail.getVisiting_date()));
                 jsonObject.addProperty("note", detail.getNote());
                 jsonObject.addProperty("dd", detail.getDd());
-                jsonObject.addProperty("mm", detail.getMm_id()+1);
+                jsonObject.addProperty("mm", detail.getMm_id() + 1);
                 jsonObject.addProperty("yy", detail.getYy());
                 jsonArray.add(jsonObject);
 
@@ -497,11 +652,11 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
             json.addProperty("mtg_member_id", Utility.getIngerSharedPreferences(this, Constant.mtg_member_id));
             json.addProperty("status_receipt", 1);
             json.addProperty("form_id", 7);
+*/
 
-
-            mvpPresenter.saveForm(json);
-            json.add("data", jsonArray);
-            Log.e(tag, "data is" + json.toString());
+//            mvpPresenter.saveForm(json);
+//            json.add("data", jsonArray);
+//            Log.e(TAG, "data is" + json.toString());
         }
     }
 
@@ -514,6 +669,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onBackPressed() {
         // TODO Auto-generated method stub
@@ -521,14 +677,14 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
     }
 
     @Override
-    public Context getContext() {
+    public Activity getContext() {
         return this;
     }
 
     @Override
     public void SuccessfullSave(FormSubmitResponse successResult) {
 
-        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(),this,"  ");
+        Dialogs.ShowCustomDialog(getContext(), successResult.getMessage(), this, "  ");
 
         DataCleanMilkKit.deleteAll(DataCleanMilkKit.class);
 
@@ -544,7 +700,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     @Override
     public void onNoInternetConnectivity(CommonResult commonResult) {
-        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(),this);
+        Dialogs.ShowCustomDialog(getContext(), commonResult.getMessage(), this);
 
     }
 
@@ -565,7 +721,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
         binding.edtTestDate.setText(mDatePickerDialog.changeFormate(String.valueOf(successResult.getData().getTestDate())));
         binding.edtAfteruser.setText(String.valueOf(successResult.getData().getAfterUseCleanMilkKeet()));
         binding.edtBeforeuse.setText(String.valueOf(successResult.getData().getBeforeUseCleanMilkKeet()));
-        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")){
+        if (!String.valueOf(successResult.getData().getNote()).equalsIgnoreCase("null")) {
             binding.edtNote.setText(String.valueOf(successResult.getData().getNote()));
         }
 
@@ -592,9 +748,28 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     }
 
+    @Override
+    public String getProofDate() {
+        return binding.edtPhyProof.getText().toString().trim();
+    }
+
+    @Override
+    public String getLatitude() {
+        return String.valueOf(mLocation.getLatitude());
+    }
+
+    @Override
+    public String getLongitude() {
+        return String.valueOf(mLocation.getLongitude());
+    }
+
+    @Override
+    public String getNote() {
+        return binding.edtNote.getText().toString().trim();
+    }
+
 
     private void ShowDialog() {
-
 
 
         Dialogs.ShowSelectionDialog(getContext(), getString(R.string.milkkit_availornot), new Dialogs.DialogClickListner() {
@@ -658,7 +833,7 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     private void SpinnerData() {
 
-        CalenderUtils.loadMonths(getContext(),binding.spMonth,binding.spYear);
+        CalenderUtils.loadMonths(getContext(), binding.spMonth, binding.spYear);
     }
 
     private void getFormRecordData() {
@@ -730,6 +905,10 @@ public class MilkKitActivity extends MvpActivity <MilkKitPresenter> implements M
 
     @Override
     public void onOkClickListner() {
-this.finish();
+        this.finish();
+    }
+
+    public void onMyLocationChanged(Location location) {
+        this.mLocation = location;
     }
 }
